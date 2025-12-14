@@ -17,12 +17,13 @@
                     <x-application-logo class="h-8 w-8 text-gray-800" />
                     <span class="font-semibold text-gray-800">QuantumBit Admin</span>
                 </a>
-                <div class="hidden md:flex items-center gap-4 text-sm text-gray-700">
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-700">
                     <a class="hover:underline" href="{{ route('admin.users.index') }}">Users</a>
                     <a class="hover:underline" href="{{ route('admin.deposits.index') }}">Deposits</a>
                     <a class="hover:underline" href="{{ route('admin.withdrawals.index') }}">Withdrawals</a>
                     <a class="hover:underline" href="{{ route('admin.investments.index') }}">Investments</a>
                     <a class="hover:underline" href="{{ route('admin.settings.index') }}">Settings</a>
+                    <a class="hover:underline" href="{{ route('admin.roi_rates.edit') }}">ROI Rates</a>
                 </div>
             </div>
 
