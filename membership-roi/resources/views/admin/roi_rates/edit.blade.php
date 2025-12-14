@@ -5,15 +5,15 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+    <div class="page-section">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
+                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
                     {{ session('status') }}
                 </div>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="surface">
                 <div class="p-6 text-gray-900">
                     <div class="mb-4">
                         <div class="text-sm text-gray-600">Set the ROI rate (percent) for a date. Allowed range: <span class="font-medium">0.5%</span> to <span class="font-medium">0.8%</span>.</div>
@@ -55,7 +55,7 @@
 
                     <div class="mt-6 text-sm text-gray-600">
                         Tip: after setting rates, run the accrual job with:
-                        <div class="mt-2 font-mono text-xs bg-gray-50 border rounded p-2 overflow-x-auto">php artisan roi:accrue --date={{ $date->toDateString() }}</div>
+                        <div class="mt-2 font-mono text-xs surface-muted p-2 overflow-x-auto">php artisan roi:accrue --date={{ $date->toDateString() }}</div>
                     </div>
                 </div>
             </div>

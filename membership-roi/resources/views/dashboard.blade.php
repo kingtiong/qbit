@@ -21,15 +21,15 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="page-section">
+        <div class="page-container">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
+                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
                     {{ session('status') }}
                 </div>
             @endif
 
-            <div class="mb-6 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mb-6 surface overflow-hidden">
                 <div class="p-6 text-white bg-gradient-to-r from-gray-900 via-emerald-900 to-gray-900">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
@@ -61,21 +61,21 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-5">
                         <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
                         <div class="mt-2 text-sm text-gray-600">Used to buy Quantum Machines.</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-5">
                         <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                         <div class="mt-2 text-sm text-gray-600">Daily QOS + network + node rewards.</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-5">
                         <div class="text-sm text-gray-600">Machines</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">{{ (int) ($summary['active_count'] ?? 0) }} active</div>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="flex flex-wrap items-end justify-between gap-2 mb-4">
                             <div>
@@ -100,7 +100,7 @@
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
-                                    <tr class="text-left border-b">
+                                    <tr class="text-left border-b border-slate-900/5">
                                         <th class="py-2 pr-4">Machine</th>
                                         <th class="py-2 pr-4">Capital</th>
                                         <th class="py-2 pr-4">Status</th>
@@ -111,7 +111,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($investments as $inv)
-                                        <tr class="border-b">
+                                        <tr class="border-b border-slate-900/5">
                                             <td class="py-3 pr-4">
                                                 <div class="font-medium">{{ $inv->package?->label ?? ('QPU #'.$inv->investment_package_id) }}</div>
                                                 <div class="text-xs text-gray-600">
@@ -132,8 +132,8 @@
                                                     $pct = $max > 0 ? min(100, round(($earned / $max) * 100, 2)) : 0;
                                                 @endphp
                                                 <div class="text-xs text-gray-600">{{ $pct }}%</div>
-                                                <div class="w-32 bg-gray-100 rounded h-2 mt-1">
-                                                    <div class="bg-emerald-600 h-2 rounded" style="width: {{ $pct }}%"></div>
+                                                <div class="w-32 bg-slate-900/5 rounded-full h-2 mt-1">
+                                                    <div class="bg-emerald-600 h-2 rounded-full" style="width: {{ $pct }}%"></div>
                                                 </div>
                                             </td>
                                             <td class="py-3 pr-4">{{ $inv->currency }} {{ number_format((float) ($inv->max_return_amount ?? 0), 2) }}</td>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="flex flex-wrap items-end justify-between gap-2 mb-4">
                             <div>
@@ -164,7 +164,7 @@
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
-                                    <tr class="text-left border-b">
+                                    <tr class="text-left border-b border-slate-900/5">
                                         <th class="py-2 pr-4">Date</th>
                                         <th class="py-2 pr-4">Wallet</th>
                                         <th class="py-2 pr-4">Type</th>
@@ -173,7 +173,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($recentTransactions as $t)
-                                        <tr class="border-b">
+                                        <tr class="border-b border-slate-900/5">
                                             <td class="py-3 pr-4">{{ $t->occurred_on->toDateString() }}</td>
                                             <td class="py-3 pr-4">
                                                 @php $wt = $t->wallet?->type; @endphp
@@ -195,7 +195,7 @@
                             </table>
                         </div>
 
-                        <div class="mt-6 p-4 rounded border bg-gray-50">
+                        <div class="mt-6 p-4 surface-muted">
                             <div class="font-medium text-gray-900">How Quantum Trading works</div>
                             <ul class="mt-2 text-sm text-gray-700 space-y-1">
                                 <li><span class="font-medium">1)</span> Deposit USDT (BEP20) → credited to your <span class="font-medium">Registered Wallet</span>.</li>

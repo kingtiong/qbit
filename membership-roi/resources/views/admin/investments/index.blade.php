@@ -3,13 +3,13 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin: Investments</h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="page-section">
+        <div class="page-container">
+            <div class="surface">
                 <div class="p-6 text-gray-900 overflow-x-auto">
                     <table class="min-w-full text-sm">
                         <thead>
-                            <tr class="text-left border-b">
+                            <tr class="text-left border-b border-slate-900/5">
                                 <th class="py-2 pr-4">ID</th>
                                 <th class="py-2 pr-4">User</th>
                                 <th class="py-2 pr-4">Package</th>
@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                             @foreach ($investments as $i)
-                                <tr class="border-b">
+                                <tr class="border-b border-slate-900/5">
                                     <td class="py-2 pr-4">{{ $i->id }}</td>
                                     <td class="py-2 pr-4">{{ $i->user?->email }}</td>
                                     <td class="py-2 pr-4">{{ $i->package?->label }}</td>

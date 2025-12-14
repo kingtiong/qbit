@@ -8,25 +8,25 @@
                 </div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                <a href="{{ route('wallet.index') }}" class="btn-dark normal-case text-sm">
                     Deposit
                 </a>
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-200 rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-200">
+                <a href="{{ route('dashboard') }}" class="btn-neutral normal-case text-sm">
                     Dashboard
                 </a>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="page-section">
+        <div class="page-container">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
+                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
                     {{ session('status') }}
                 </div>
             @endif
 
-            <div class="mb-6 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mb-6 surface overflow-hidden">
                 <div class="p-6 text-white bg-gradient-to-r from-gray-900 via-emerald-900 to-gray-900">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
@@ -67,7 +67,7 @@
                         $maxReturn = (float) ($package->amount ?? 0) * (float) ($package->max_return_multiplier ?? 0);
                         $canBuy = (float) $registeredWallet->balance >= (float) $package->amount;
                     @endphp
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-100">
+                    <div class="surface">
                         <div class="p-6">
                             <div class="flex items-start justify-between gap-4">
                                 <div>
@@ -86,11 +86,11 @@
                             </div>
 
                             <div class="mt-4 grid grid-cols-2 gap-3">
-                                <div class="p-3 rounded border bg-gray-50">
+                                <div class="p-3 surface-muted">
                                     <div class="text-xs text-gray-600 uppercase tracking-wider">Daily QOS</div>
                                     <div class="mt-1 font-semibold text-gray-900">{{ $package->currency }} {{ number_format((float) ($package->daily_qos_amount ?? 0), 2) }}</div>
                                 </div>
-                                <div class="p-3 rounded border bg-gray-50">
+                                <div class="p-3 surface-muted">
                                     <div class="text-xs text-gray-600 uppercase tracking-wider">Max Return</div>
                                     <div class="mt-1 font-semibold text-gray-900">
                                         {{ number_format((float) ($package->max_return_multiplier ?? 0), 2) }}x
@@ -129,7 +129,7 @@
                 @endforelse
             </div>
 
-            <div class="mt-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mt-8 surface">
                 <div class="p-6">
                     <div class="text-lg font-medium text-gray-900">Leader Node (QBP)</div>
                     <div class="mt-1 text-sm text-gray-600">

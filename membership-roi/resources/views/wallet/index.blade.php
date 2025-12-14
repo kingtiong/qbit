@@ -5,24 +5,24 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="page-section">
+        <div class="page-container">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-gray-50 border border-gray-200 text-gray-800 rounded">
+                <div class="mb-4 p-4 surface-muted text-gray-800">
                     {{ session('status') }}
                 </div>
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="p-4 rounded border bg-gray-50">
+                            <div class="p-4 surface-muted">
                                 <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
                                 <div class="mt-1 text-xs text-gray-600">Used to buy Quantum Machines.</div>
                             </div>
-                            <div class="p-4 rounded border bg-gray-50">
+                            <div class="p-4 surface-muted">
                                 <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                                 <div class="mt-1 text-xs text-gray-600">Daily QOS + sponsor + network + node rewards.</div>
@@ -33,7 +33,7 @@
                             <div class="text-lg font-medium mb-2">Deposit (USDT BEP20)</div>
 
                             @if ($activeSession)
-                                <div class="p-3 bg-green-50 border border-green-200 rounded">
+                                <div class="p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10">
                                     <div class="text-sm text-green-800">Deposit address (valid until {{ $activeSession->reserved_until->toDateTimeString() }})</div>
                                     <div class="mt-1 font-mono text-sm">{{ $activeSession->depositAddress->address }}</div>
                                 </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-2">Withdrawal</div>
                         <div class="mb-3 text-sm text-gray-600">
@@ -81,7 +81,7 @@
 
                             <div>
                                 <x-input-label for="fee_type" :value="__('Withdrawal fee option')" />
-                                <select id="fee_type" name="fee_type" class="mt-1 block w-full border-gray-300 rounded">
+                                <select id="fee_type" name="fee_type" class="mt-1 select">
                                     <option value="qos_15">Deduct QOS 15%</option>
                                     <option value="qbit_10">Deduct QBIT 10%</option>
                                 </select>
@@ -95,13 +95,13 @@
             </div>
 
             <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-3">Recent deposits</div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
-                                    <tr class="text-left border-b">
+                                    <tr class="text-left border-b border-slate-900/5">
                                         <th class="py-2 pr-4">Time</th>
                                         <th class="py-2 pr-4">Amount</th>
                                         <th class="py-2 pr-4">Status</th>
@@ -110,7 +110,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($recentDeposits as $d)
-                                        <tr class="border-b">
+                                        <tr class="border-b border-slate-900/5">
                                             <td class="py-2 pr-4">{{ $d->created_at }}</td>
                                             <td class="py-2 pr-4">{{ number_format((float) $d->amount, 2) }}</td>
                                             <td class="py-2 pr-4">{{ $d->status }}</td>
@@ -125,13 +125,13 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-3">Withdrawals</div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
-                                    <tr class="text-left border-b">
+                                    <tr class="text-left border-b border-slate-900/5">
                                         <th class="py-2 pr-4">Time</th>
                                         <th class="py-2 pr-4">Amount</th>
                                         <th class="py-2 pr-4">Net</th>
@@ -140,7 +140,7 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($withdrawals as $w)
-                                        <tr class="border-b">
+                                        <tr class="border-b border-slate-900/5">
                                             <td class="py-2 pr-4">{{ $w->requested_at }}</td>
                                             <td class="py-2 pr-4">{{ number_format((float) $w->amount, 2) }}</td>
                                             <td class="py-2 pr-4">{{ number_format((float) $w->net_amount, 2) }}</td>

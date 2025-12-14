@@ -9,8 +9,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
-    <nav class="bg-white border-b border-gray-100">
+<div class="page-wrap">
+    <nav class="topbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2">
@@ -31,15 +31,15 @@
                 <span class="text-gray-600">{{ auth('admin')->user()?->email }}</span>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
-                    <button class="px-3 py-1 rounded bg-gray-900 text-white">Logout</button>
+                    <button class="btn-dark px-3 py-1">Logout</button>
                 </form>
             </div>
         </div>
     </nav>
 
     @isset($header)
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <header class="border-b border-slate-900/5 bg-white/40 backdrop-blur-xl">
+            <div class="page-container py-7">
                 {{ $header }}
             </div>
         </header>

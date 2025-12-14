@@ -7,8 +7,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="bg-white shadow rounded p-8 w-full max-w-md">
+<body class="min-h-screen flex items-center justify-center">
+    <div class="surface-solid p-8 w-full max-w-md">
         <div class="flex items-center gap-3 mb-6">
             <x-application-logo class="w-12 h-12 text-gray-800" />
             <div>
@@ -18,14 +18,14 @@
         </div>
 
         @if (session('status'))
-            <div class="mb-4 p-3 bg-gray-50 border rounded text-sm text-gray-700">
+            <div class="mb-4 p-3 surface-muted text-sm text-gray-700">
                 {{ session('status') }}
             </div>
         @endif
 
         <div class="flex gap-3">
-            <a href="{{ route('login') }}" class="px-4 py-2 bg-gray-900 text-white rounded text-sm">Member Login</a>
-            <a href="{{ route('admin.login') }}" class="px-4 py-2 bg-gray-100 text-gray-900 rounded text-sm">Admin Login</a>
+            <a href="{{ route('login') }}" class="btn-dark normal-case text-sm">Member Login</a>
+            <a href="{{ route('admin.login') }}" class="btn-neutral normal-case text-sm">Admin Login</a>
         </div>
 
         <div class="mt-6 text-sm text-gray-600">

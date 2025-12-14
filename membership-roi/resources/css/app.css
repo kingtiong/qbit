@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply text-slate-900 bg-gradient-to-b from-slate-50 via-white to-emerald-50;
+    }
+
+    ::selection {
+        @apply bg-emerald-200 text-slate-900;
+    }
+}
+
+@layer components {
+    /* Layout */
+    .page-wrap {
+        @apply min-h-screen;
+    }
+    .page-container {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    .page-section {
+        @apply py-10;
+    }
+
+    /* Surfaces (replace “boxed” borders) */
+    .surface {
+        @apply bg-white/70 backdrop-blur-xl ring-1 ring-slate-900/5 shadow-sm rounded-2xl;
+    }
+    .surface-solid {
+        @apply bg-white ring-1 ring-slate-900/5 shadow-sm rounded-2xl;
+    }
+    .surface-muted {
+        @apply bg-slate-50/70 ring-1 ring-slate-900/5 rounded-2xl;
+    }
+
+    /* Top navigation */
+    .topbar {
+        @apply sticky top-0 z-30 border-b border-slate-900/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60;
+    }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-widest transition;
+    }
+    .btn-primary {
+        @apply btn text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-neutral {
+        @apply btn text-slate-900 bg-white/60 ring-1 ring-slate-900/10 hover:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-dark {
+        @apply btn text-white bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-danger {
+        @apply btn text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    /* Form controls */
+    .input {
+        @apply block w-full rounded-xl bg-white/60 ring-1 ring-inset ring-slate-900/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500 placeholder:text-slate-400;
+    }
+    .select {
+        @apply block w-full rounded-xl bg-white/60 ring-1 ring-inset ring-slate-900/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500;
+    }
+}
