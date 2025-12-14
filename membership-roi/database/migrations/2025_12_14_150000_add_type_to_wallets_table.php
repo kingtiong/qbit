@@ -20,9 +20,20 @@ return new class extends Migration
             ->whereNull('type')
             ->update(['type' => 'registered']);
 
-        // Replace unique(user_id) with unique(user_id, type)
+        // Replace unique(user_id) with unique(user_id, type).
+        //
+        // NOTE: In MySQL, a foreign key column must be indexed. Our `wallets.user_id`
+        // foreign key may be using the existing unique index (`wallets_user_id_unique`),
+        // so we must drop/recreate the FK (or provide a replacement index) before dropping it.
         Schema::table('wallets', function (Blueprint $table) {
-            // Best-effort: on fresh installs this exists; on older installs it should too.
+            try {
+                $table->dropForeign(['user_id']);
+            } catch (\Throwable $e) {
+                // ignore (constraint name may differ or already dropped)
+            }
+        });
+
+        Schema::table('wallets', function (Blueprint $table) {
             try {
                 $table->dropUnique(['user_id']);
             } catch (\Throwable $e) {
@@ -33,6 +44,20 @@ return new class extends Migration
                 $table->unique(['user_id', 'type']);
             } catch (\Throwable $e) {
                 // ignore
+            }
+        });
+
+        Schema::table('wallets', function (Blueprint $table) {
+            try {
+                $table->foreignId('user_id')->constrained()->cascadeOnDelete()->change();
+            } catch (\Throwable $e) {
+                // ignore (some DBs don't support change() for FK; fall back below)
+            }
+
+            try {
+                $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            } catch (\Throwable $e) {
+                // ignore (already exists)
             }
         });
 
@@ -71,6 +96,12 @@ return new class extends Migration
 
         Schema::table('wallets', function (Blueprint $table) {
             try {
+                $table->dropForeign(['user_id']);
+            } catch (\Throwable $e) {
+                // ignore
+            }
+
+            try {
                 $table->dropUnique(['user_id', 'type']);
             } catch (\Throwable $e) {
                 // ignore
@@ -88,6 +119,12 @@ return new class extends Migration
                 } catch (\Throwable $e) {
                     // ignore
                 }
+            }
+
+            try {
+                $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            } catch (\Throwable $e) {
+                // ignore
             }
         });
     }
