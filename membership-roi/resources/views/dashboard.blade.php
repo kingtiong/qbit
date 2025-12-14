@@ -67,29 +67,29 @@
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <div class="text-lg font-medium mb-4">{{ __('Recent ROI earnings') }}</div>
+                        <div class="text-lg font-medium mb-4">{{ __('Recent earnings / transactions') }}</div>
 
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
                                     <tr class="text-left border-b">
                                         <th class="py-2 pr-4">Date</th>
-                                        <th class="py-2 pr-4">Rate</th>
+                                        <th class="py-2 pr-4">Type</th>
                                         <th class="py-2 pr-4">Amount</th>
-                                        <th class="py-2 pr-4">Investment</th>
+                                        <th class="py-2 pr-4">Meta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($recentEarnings as $e)
+                                    @forelse ($recentTransactions as $t)
                                         <tr class="border-b">
-                                            <td class="py-3 pr-4">{{ $e->date->toDateString() }}</td>
-                                            <td class="py-3 pr-4">{{ bcmul((string) $e->rate, '100', 2) }}%</td>
-                                            <td class="py-3 pr-4">USD {{ number_format((float) $e->amount, 2) }}</td>
-                                            <td class="py-3 pr-4">#{{ $e->investment_id }}</td>
+                                            <td class="py-3 pr-4">{{ $t->occurred_on->toDateString() }}</td>
+                                            <td class="py-3 pr-4">{{ $t->type }}</td>
+                                            <td class="py-3 pr-4">{{ number_format((float) $t->amount, 2) }}</td>
+                                            <td class="py-3 pr-4 text-gray-600">{{ is_array($t->meta) ? json_encode($t->meta) : '' }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="py-3 text-gray-600" colspan="4">No ROI earnings yet.</td>
+                                            <td class="py-3 text-gray-600" colspan="4">No transactions yet.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

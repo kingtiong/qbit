@@ -8,4 +8,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+// Legacy ROI rate accrual (older module)
 Schedule::command('roi:accrue')->dailyAt('00:10');
+Schedule::command('qos:distribute')->dailyAt('00:10')->timezone(\App\Services\BusinessTime::TZ);
+Schedule::command('partnership:distribute')->dailyAt('00:20')->timezone(\App\Services\BusinessTime::TZ);

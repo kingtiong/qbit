@@ -12,12 +12,60 @@ class InvestmentPackageSeeder extends Seeder
      */
     public function run(): void
     {
-        $amounts = [100, 500, 1000, 5000, 10000, 30000];
+        $packages = [
+            [
+                'code' => 'QPU-NANO',
+                'label' => 'QPU - NANO',
+                'currency' => 'USDT',
+                'amount' => 100,
+                'daily_qos_amount' => 0.30,
+                'max_return_multiplier' => 1.50,
+            ],
+            [
+                'code' => 'QPU-MICRO',
+                'label' => 'QPU - MICRO',
+                'currency' => 'USDT',
+                'amount' => 1000,
+                'daily_qos_amount' => 5.00,
+                'max_return_multiplier' => 2.00,
+            ],
+            [
+                'code' => 'QPU-CORE',
+                'label' => 'QPU - CORE',
+                'currency' => 'USDT',
+                'amount' => 5000,
+                'daily_qos_amount' => 30.00,
+                'max_return_multiplier' => 3.00,
+            ],
+            [
+                'code' => 'QPU-FUSION',
+                'label' => 'QPU - FUSION',
+                'currency' => 'USDT',
+                'amount' => 10000,
+                'daily_qos_amount' => 70.00,
+                'max_return_multiplier' => 3.00,
+            ],
+            [
+                'code' => 'QPU-X',
+                'label' => 'QPU - X',
+                'currency' => 'USDT',
+                'amount' => 50000,
+                'daily_qos_amount' => 400.00,
+                'max_return_multiplier' => 3.50,
+            ],
+        ];
 
-        foreach ($amounts as $amount) {
+        foreach ($packages as $p) {
             InvestmentPackage::updateOrCreate(
-                ['currency' => 'USD', 'amount' => $amount],
-                ['label' => "Package {$amount}", 'is_active' => true],
+                ['code' => $p['code']],
+                [
+                    'label' => $p['label'],
+                    'currency' => $p['currency'],
+                    'amount' => $p['amount'],
+                    'daily_qos_amount' => $p['daily_qos_amount'],
+                    'max_return_multiplier' => $p['max_return_multiplier'],
+                    'is_active' => true,
+                ],
             );
         }
     }

@@ -17,14 +17,19 @@ class Investment extends Model
         'status',
         'started_on',
         'last_accrued_on',
+        'capped_on',
+        'capped_reason',
         'total_earned',
+        'max_return_amount',
     ];
 
     protected $casts = [
         'started_on' => 'date',
         'last_accrued_on' => 'date',
+        'capped_on' => 'date',
         'amount' => 'decimal:2',
         'total_earned' => 'decimal:2',
+        'max_return_amount' => 'decimal:2',
     ];
 
     public function user(): BelongsTo
