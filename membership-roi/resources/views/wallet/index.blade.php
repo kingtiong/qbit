@@ -16,8 +16,18 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <div class="text-sm text-gray-600">Available balance</div>
-                        <div class="text-2xl font-semibold">USDT {{ number_format((float) $wallet->balance, 2) }}</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded border bg-gray-50">
+                                <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
+                                <div class="text-2xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
+                                <div class="mt-1 text-xs text-gray-600">Used to buy Quantum Machines.</div>
+                            </div>
+                            <div class="p-4 rounded border bg-gray-50">
+                                <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
+                                <div class="text-2xl font-semibold">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
+                                <div class="mt-1 text-xs text-gray-600">Daily QOS + sponsor + network + node rewards.</div>
+                            </div>
+                        </div>
 
                         <div class="mt-4">
                             <div class="text-lg font-medium mb-2">Deposit (USDT BEP20)</div>
@@ -46,6 +56,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-2">Withdrawal</div>
+                        <div class="mb-3 text-sm text-gray-600">
+                            Withdrawals are taken from your <span class="font-medium">Commission Wallet</span>.
+                        </div>
 
                         <form method="POST" action="{{ route('wallet.payout.update') }}" class="mb-4">
                             @csrf

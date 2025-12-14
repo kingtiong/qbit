@@ -156,7 +156,8 @@ class DepositsPollBep20Usdt extends Command
                         'raw' => $tx,
                     ]);
 
-                    $wallet = Wallet::firstOrCreate(['user_id' => $session->user_id], ['balance' => 0]);
+                    // All deposits credit into the Registered Wallet.
+                    $wallet = Wallet::forUser($session->user_id, Wallet::TYPE_REGISTERED);
                     $txRow = WalletTransaction::create([
                         'wallet_id' => $wallet->id,
                         'type' => 'deposit_credit',

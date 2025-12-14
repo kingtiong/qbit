@@ -63,9 +63,19 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'sponsor_id');
     }
 
-    public function wallet(): HasOne
+    public function wallets(): HasMany
     {
-        return $this->hasOne(Wallet::class);
+        return $this->hasMany(Wallet::class);
+    }
+
+    public function registeredWallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class)->where('type', Wallet::TYPE_REGISTERED);
+    }
+
+    public function commissionWallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class)->where('type', Wallet::TYPE_COMMISSION);
     }
 
     public function investments(): HasMany

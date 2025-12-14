@@ -37,7 +37,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         User::created(function (User $user): void {
-            Wallet::firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+            Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
+            Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
         });
     }
 }

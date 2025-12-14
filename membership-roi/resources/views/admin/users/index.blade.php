@@ -15,7 +15,8 @@
                                 <th class="py-2 pr-4">Email</th>
                                 <th class="py-2 pr-4">Invite</th>
                                 <th class="py-2 pr-4">Sponsor</th>
-                                <th class="py-2 pr-4">Wallet</th>
+                                <th class="py-2 pr-4">Registered</th>
+                                <th class="py-2 pr-4">Commission</th>
                                 <th class="py-2 pr-4">Admin</th>
                             </tr>
                         </thead>
@@ -27,7 +28,8 @@
                                     <td class="py-2 pr-4">{{ $u->email }}</td>
                                     <td class="py-2 pr-4 font-mono text-xs">{{ $u->invite_code }}</td>
                                     <td class="py-2 pr-4">{{ $u->sponsor_id ?? '—' }}</td>
-                                    <td class="py-2 pr-4">{{ number_format((float) ($u->wallet?->balance ?? 0), 2) }}</td>
+                                    <td class="py-2 pr-4">{{ number_format((float) ($u->registeredWallet?->balance ?? 0), 2) }}</td>
+                                    <td class="py-2 pr-4">{{ number_format((float) ($u->commissionWallet?->balance ?? 0), 2) }}</td>
                                     <td class="py-2 pr-4">{{ $u->is_admin ? 'yes' : 'no' }}</td>
                                 </tr>
                             @endforeach

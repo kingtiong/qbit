@@ -20,7 +20,8 @@ class WalletController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $wallet = Wallet::firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+        $registeredWallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
+        $commissionWallet = Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
 
         $activeSession = DepositSession::query()
             ->where('user_id', $user->id)
@@ -43,7 +44,8 @@ class WalletController extends Controller
             ->get();
 
         return view('wallet.index', [
-            'wallet' => $wallet,
+            'registeredWallet' => $registeredWallet,
+            'commissionWallet' => $commissionWallet,
             'activeSession' => $activeSession,
             'recentDeposits' => $recentDeposits,
             'withdrawals' => $withdrawals,
@@ -122,7 +124,8 @@ class WalletController extends Controller
         ]);
 
         $user = Auth::user();
-        $wallet = Wallet::firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+        // Withdrawals come from the Commission Wallet.
+        $wallet = Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
 
         $amount = number_format((float) $validated['amount'], 2, '.', '');
         $feePct = $validated['fee_type'] === 'qos_15' ? '0.15' : '0.10';

@@ -82,7 +82,8 @@ final class EarningAllocator
                 return '0.00';
             }
 
-            $wallet = Wallet::firstOrCreate(['user_id' => $userId], ['balance' => 0]);
+            // All earnings/commissions credit into the Commission Wallet.
+            $wallet = Wallet::forUser($userId, Wallet::TYPE_COMMISSION);
             $tx = WalletTransaction::create([
                 'wallet_id' => $wallet->id,
                 'type' => $txType ?? $source,
@@ -165,7 +166,8 @@ final class EarningAllocator
                 return '0.00';
             }
 
-            $wallet = Wallet::firstOrCreate(['user_id' => $inv->user_id], ['balance' => 0]);
+            // Daily QOS is treated as an earning (commission wallet).
+            $wallet = Wallet::forUser($inv->user_id, Wallet::TYPE_COMMISSION);
             $tx = WalletTransaction::create([
                 'wallet_id' => $wallet->id,
                 'type' => 'qos_daily',

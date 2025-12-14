@@ -11,7 +11,7 @@ class UsersController extends Controller
     public function index(): View
     {
         $users = User::query()
-            ->with('wallet')
+            ->with(['registeredWallet', 'commissionWallet'])
             ->orderByDesc('id')
             ->paginate(50);
 

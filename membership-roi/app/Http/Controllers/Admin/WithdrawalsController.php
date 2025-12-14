@@ -54,7 +54,7 @@ class WithdrawalsController extends Controller
 
         DB::transaction(function () use ($withdrawal, $request): void {
             // Refund the reserved amount back to wallet.
-            $wallet = Wallet::firstOrCreate(['user_id' => $withdrawal->user_id], ['balance' => 0]);
+            $wallet = Wallet::forUser($withdrawal->user_id, Wallet::TYPE_COMMISSION);
 
             $refundTx = WalletTransaction::create([
                 'wallet_id' => $wallet->id,

@@ -8,14 +8,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wallet extends Model
 {
+    public const TYPE_REGISTERED = 'registered';
+    public const TYPE_COMMISSION = 'commission';
+
     protected $fillable = [
         'user_id',
+        'type',
         'balance',
     ];
 
     protected $casts = [
         'balance' => 'decimal:2',
     ];
+
+    public static function forUser(int $userId, string $type): self
+    {
+        return self::firstOrCreate(
+            ['user_id' => $userId, 'type' => $type],
+            ['balance' => 0]
+        );
+    }
 
     public function user(): BelongsTo
     {

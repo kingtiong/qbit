@@ -20,7 +20,8 @@ class InvestmentController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $wallet = Wallet::firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+        $registeredWallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
+        $commissionWallet = Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
 
         $investments = Investment::query()
             ->where('user_id', $user->id)
@@ -28,16 +29,45 @@ class InvestmentController extends Controller
             ->orderByDesc('id')
             ->get();
 
-        $recentTransactions = $wallet->transactions()
+        $walletIds = array_values(array_filter([$registeredWallet->id ?? null, $commissionWallet->id ?? null]));
+        $recentTransactions = WalletTransaction::query()
+            ->with('wallet')
+            ->whereIn('wallet_id', $walletIds)
             ->orderByDesc('occurred_on')
             ->orderByDesc('id')
             ->limit(20)
             ->get();
 
+        $totalInvested = '0.00';
+        $totalEarned = '0.00';
+        $totalMaxReturn = '0.00';
+        $activeCount = 0;
+        foreach ($investments as $inv) {
+            $totalInvested = bcadd($totalInvested, (string) ($inv->amount ?? '0.00'), 2);
+            $totalEarned = bcadd($totalEarned, (string) ($inv->total_earned ?? '0.00'), 2);
+            $totalMaxReturn = bcadd($totalMaxReturn, (string) ($inv->max_return_amount ?? '0.00'), 2);
+            if ($inv->status === 'active') {
+                $activeCount++;
+            }
+        }
+        $totalRemaining = bcsub($totalMaxReturn, $totalEarned, 2);
+        if (bccomp($totalRemaining, '0', 2) < 0) {
+            $totalRemaining = '0.00';
+        }
+
         return view('dashboard', [
-            'wallet' => $wallet,
+            'user' => $user,
+            'registeredWallet' => $registeredWallet,
+            'commissionWallet' => $commissionWallet,
             'investments' => $investments,
             'recentTransactions' => $recentTransactions,
+            'summary' => [
+                'active_count' => $activeCount,
+                'total_invested' => $totalInvested,
+                'total_earned' => $totalEarned,
+                'total_max_return' => $totalMaxReturn,
+                'total_remaining' => $totalRemaining,
+            ],
         ]);
     }
 
@@ -56,7 +86,8 @@ class InvestmentController extends Controller
             ->firstOrFail();
 
         DB::transaction(function () use ($user, $package): void {
-            $wallet = Wallet::firstOrCreate(['user_id' => $user->id], ['balance' => 0]);
+            // Purchases debit from the Registered Wallet (deposit funds).
+            $wallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
             $wallet->refresh();
 
             if (bccomp((string) $wallet->balance, (string) $package->amount, 2) < 0) {
