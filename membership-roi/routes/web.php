@@ -36,40 +36,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/wallet/withdraw', [WalletController::class, 'requestWithdrawal'])->name('wallet.withdraw.request');
 });
 
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware(['auth', 'verified', 'admin'])
-    ->group(function () {
-        Route::get('/roi-rates', [RoiRateController::class, 'edit'])->name('roi_rates.edit');
-        Route::post('/roi-rates', [RoiRateController::class, 'upsert'])->name('roi_rates.upsert');
-
-        Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-        Route::get('/deposits', [DepositsController::class, 'index'])->name('deposits.index');
-        Route::get('/withdrawals', [WithdrawalsController::class, 'index'])->name('withdrawals.index');
-        Route::post('/withdrawals/{withdrawal}/approve', [WithdrawalsController::class, 'approve'])->name('withdrawals.approve');
-        Route::post('/withdrawals/{withdrawal}/reject', [WithdrawalsController::class, 'reject'])->name('withdrawals.reject');
-        Route::post('/withdrawals/{withdrawal}/paid', [WithdrawalsController::class, 'markPaid'])->name('withdrawals.paid');
-        Route::get('/investments', [InvestmentsAdminController::class, 'index'])->name('investments.index');
-        Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
-        Route::post('/settings/deposit-addresses', [SettingsController::class, 'addDepositAddress'])->name('settings.deposit_addresses.add');
-        Route::post('/settings/deposit-addresses/{depositAddress}/toggle', [SettingsController::class, 'toggleDepositAddress'])->name('settings.deposit_addresses.toggle');
+// Admin area is fully separated under /quantumbitv9 with its own guard/session.
+Route::prefix('quantumbitv9')->group(function () {
+    Route::middleware('guest:admin')->group(function () {
+        Route::get('/login', [AdminAuthController::class, 'create'])->name('admin.login');
+        Route::post('/login', [AdminAuthController::class, 'store'])->name('admin.login.store');
     });
 
-// Admin login (requested URL)
-Route::prefix('quantumbitv9')
-    ->name('quantumbitv9.')
-    ->middleware('guest')
-    ->group(function () {
-        Route::get('/login', [AdminAuthController::class, 'create'])->name('login');
-        Route::post('/login', [AdminAuthController::class, 'store'])->name('login.store');
-    });
+    Route::middleware('auth:admin')->group(function () {
+        Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('admin.logout');
 
-Route::prefix('quantumbitv9')
-    ->name('quantumbitv9.')
-    ->middleware(['auth', 'admin'])
-    ->group(function () {
-        Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
+        Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
+        Route::get('/deposits', [DepositsController::class, 'index'])->name('admin.deposits.index');
+        Route::get('/withdrawals', [WithdrawalsController::class, 'index'])->name('admin.withdrawals.index');
+        Route::post('/withdrawals/{withdrawal}/approve', [WithdrawalsController::class, 'approve'])->name('admin.withdrawals.approve');
+        Route::post('/withdrawals/{withdrawal}/reject', [WithdrawalsController::class, 'reject'])->name('admin.withdrawals.reject');
+        Route::post('/withdrawals/{withdrawal}/paid', [WithdrawalsController::class, 'markPaid'])->name('admin.withdrawals.paid');
+        Route::get('/investments', [InvestmentsAdminController::class, 'index'])->name('admin.investments.index');
+        Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
+        Route::post('/settings/deposit-addresses', [SettingsController::class, 'addDepositAddress'])->name('admin.settings.deposit_addresses.add');
+        Route::post('/settings/deposit-addresses/{depositAddress}/toggle', [SettingsController::class, 'toggleDepositAddress'])->name('admin.settings.deposit_addresses.toggle');
+        Route::get('/roi-rates', [RoiRateController::class, 'edit'])->name('admin.roi_rates.edit');
+        Route::post('/roi-rates', [RoiRateController::class, 'upsert'])->name('admin.roi_rates.upsert');
     });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

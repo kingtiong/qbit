@@ -4,7 +4,7 @@
         <div class="text-sm text-gray-600">Sign in to manage QuantumBit.</div>
     </div>
 
-    <form method="POST" action="{{ route('quantumbitv9.login.store') }}">
+    <form method="POST" action="{{ route('admin.login.store') }}">
         @csrf
 
         <div>

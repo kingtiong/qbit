@@ -25,7 +25,7 @@
 
         <div class="flex gap-3">
             <a href="{{ route('login') }}" class="px-4 py-2 bg-gray-900 text-white rounded text-sm">Member Login</a>
-            <a href="{{ route('quantumbitv9.login') }}" class="px-4 py-2 bg-gray-100 text-gray-900 rounded text-sm">Admin Login</a>
+            <a href="{{ route('admin.login') }}" class="px-4 py-2 bg-gray-100 text-gray-900 rounded text-sm">Admin Login</a>
         </div>
 
         <div class="mt-6 text-sm text-gray-600">

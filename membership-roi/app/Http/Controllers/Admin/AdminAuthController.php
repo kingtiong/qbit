@@ -25,7 +25,7 @@ class AdminAuthController extends Controller
 
         $remember = (bool) $request->boolean('remember');
 
-        if (!Auth::attempt($credentials, $remember)) {
+        if (!Auth::guard('admin')->attempt($credentials, $remember)) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
@@ -33,9 +33,9 @@ class AdminAuthController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
         if (!$user || !$user->isAdmin()) {
-            Auth::logout();
+            Auth::guard('admin')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
@@ -44,15 +44,15 @@ class AdminAuthController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.roi_rates.edit');
+        return redirect()->route('admin.users.index');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('quantumbitv9.login');
+        return redirect()->route('admin.login');
     }
 }

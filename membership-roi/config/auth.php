@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Separate admin guard/session.
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
