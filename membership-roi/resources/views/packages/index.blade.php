@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 min-w-[260px]">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full sm:min-w-[260px] sm:max-w-sm">
                             <div class="p-4 rounded border border-white/20 bg-white/10">
                                 <div class="text-xs text-emerald-100 uppercase tracking-wider">Registered Wallet</div>
                                 <div class="mt-1 text-xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>

@@ -40,8 +40,8 @@
                                 and receive daily QOS earnings + network rewards into your <span class="font-medium">Commission Wallet</span>.
                             </div>
                             <div class="mt-4 text-sm text-emerald-100">
-                                Invitation link:
-                                <span class="ml-2 font-mono text-xs bg-white/10 px-2 py-1 rounded">{{ url('/invite/'.$user->invite_code) }}</span>
+                                <div class="sm:inline">Invitation link:</div>
+                                <span class="sm:ml-2 mt-2 sm:mt-0 inline-block font-mono text-xs bg-white/10 px-2 py-1 rounded break-all">{{ url('/invite/'.$user->invite_code) }}</span>
                             </div>
                         </div>
 
