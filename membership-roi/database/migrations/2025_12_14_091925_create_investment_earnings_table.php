@@ -22,7 +22,8 @@ return new class extends Migration
             $table->json('meta')->nullable();
             $table->timestamps();
 
-            $table->unique(['investment_id', 'date', 'source']);
+            // Allow multiple earnings per source per day (e.g. multiple sales, multiple pools).
+            $table->index(['investment_id', 'date', 'source']);
             $table->index(['user_id', 'date', 'source']);
         });
     }
