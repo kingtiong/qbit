@@ -8,8 +8,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased text-slate-900">
+<div class="min-h-screen bg-slate-50">
     <nav class="bg-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-4">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="flex items-center gap-3 text-sm">
-                <span class="text-gray-600">{{ auth('admin')->user()?->email }}</span>
+                <span class="text-stone-700">{{ auth('admin')->user()?->email }}</span>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button class="px-3 py-1 rounded bg-gray-900 text-white">Logout</button>

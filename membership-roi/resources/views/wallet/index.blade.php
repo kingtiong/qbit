@@ -18,14 +18,14 @@
                     <div class="p-6 text-gray-900">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="p-4 rounded border bg-gray-50">
-                                <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
+                                <div class="text-sm text-stone-700">Registered Wallet (Deposits)</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-gray-600">Used to buy Quantum Machines.</div>
+                                <div class="mt-1 text-xs text-stone-700">Used to buy Quantum Machines.</div>
                             </div>
                             <div class="p-4 rounded border bg-gray-50">
-                                <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
+                                <div class="text-sm text-stone-700">Commission Wallet (Earnings)</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-gray-600">Daily QOS + sponsor + network + node rewards.</div>
+                                <div class="mt-1 text-xs text-stone-700">Daily QOS + sponsor + network + node rewards.</div>
                             </div>
                         </div>
 
@@ -46,7 +46,7 @@
                                 </form>
                             @endif
 
-                            <div class="mt-2 text-xs text-gray-600">
+                            <div class="mt-2 text-xs text-stone-700">
                                 After you send USDT to the address, the system will auto-credit your balance when detected.
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-2">Withdrawal</div>
-                        <div class="mb-3 text-sm text-gray-600">
+                        <div class="mb-3 text-sm text-stone-700">
                             Withdrawals are taken from your <span class="font-medium">Commission Wallet</span>.
                         </div>
 
@@ -117,7 +117,7 @@
                                             <td class="py-2 pr-4 font-mono text-xs">{{ $d->tx_hash }}</td>
                                         </tr>
                                     @empty
-                                        <tr><td class="py-2 text-gray-600" colspan="4">No deposits yet.</td></tr>
+                                        <tr><td class="py-2 text-stone-700" colspan="4">No deposits yet.</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -147,7 +147,7 @@
                                             <td class="py-2 pr-4">{{ $w->status }}</td>
                                         </tr>
                                     @empty
-                                        <tr><td class="py-2 text-gray-600" colspan="4">No withdrawals yet.</td></tr>
+                                        <tr><td class="py-2 text-stone-700" colspan="4">No withdrawals yet.</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
