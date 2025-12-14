@@ -2,16 +2,16 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Quantum Machines (QPU)</h2>
-                <div class="text-sm text-stone-700">
+                <h2 class="font-semibold text-xl text-slate-100 leading-tight">Quantum Machines (QPU)</h2>
+                <div class="text-sm text-slate-300">
                     Choose a machine to automate your quantum trading strategy.
                 </div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-white/10 border border-white/10 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-white/15">
                     Deposit
                 </a>
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gray-100 border border-gray-200 rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-200">
+                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-white/5 border border-white/10 rounded-md font-semibold text-xs text-slate-100 uppercase tracking-widest hover:bg-white/10">
                     Dashboard
                 </a>
             </div>
@@ -21,7 +21,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('status'))
-                <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-800 rounded">
+                <div class="mb-4 p-4 bg-emerald-950 border border-emerald-800 text-emerald-100 rounded">
                     {{ session('status') }}
                 </div>
             @endif
@@ -67,43 +67,43 @@
                         $maxReturn = (float) ($package->amount ?? 0) * (float) ($package->max_return_multiplier ?? 0);
                         $canBuy = (float) $registeredWallet->balance >= (float) $package->amount;
                     @endphp
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-100">
+                    <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg border border-white/10">
                         <div class="p-6">
                             <div class="flex items-start justify-between gap-4">
                                 <div>
-                                    <div class="inline-flex items-center px-2 py-1 rounded text-xs border bg-emerald-50 border-emerald-200 text-emerald-800">
+                                    <div class="inline-flex items-center px-2 py-1 rounded text-xs border bg-emerald-950 border-emerald-800 text-emerald-100">
                                         {{ $package->code ?? 'QPU' }}
                                     </div>
-                                    <div class="mt-2 text-xl font-semibold text-gray-900">{{ $package->label }}</div>
+                                    <div class="mt-2 text-xl font-semibold text-slate-100">{{ $package->label }}</div>
                                     @if ($package->summary)
-                                        <div class="mt-1 text-sm text-stone-700">{{ $package->summary }}</div>
+                                        <div class="mt-1 text-sm text-slate-300">{{ $package->summary }}</div>
                                     @endif
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-xs text-stone-700 uppercase tracking-wider">Capital</div>
-                                    <div class="text-2xl font-semibold text-gray-900">{{ $package->currency }} {{ number_format((float) $package->amount, 2) }}</div>
+                                    <div class="text-xs text-slate-300 uppercase tracking-wider">Capital</div>
+                                    <div class="text-2xl font-semibold text-white">{{ $package->currency }} {{ number_format((float) $package->amount, 2) }}</div>
                                 </div>
                             </div>
 
                             <div class="mt-4 grid grid-cols-2 gap-3">
-                                <div class="p-3 rounded border bg-gray-50">
-                                    <div class="text-xs text-stone-700 uppercase tracking-wider">Daily QOS</div>
-                                    <div class="mt-1 font-semibold text-gray-900">{{ $package->currency }} {{ number_format((float) ($package->daily_qos_amount ?? 0), 2) }}</div>
+                                <div class="p-3 rounded border border-white/10 bg-gray-950">
+                                    <div class="text-xs text-slate-300 uppercase tracking-wider">Daily QOS</div>
+                                    <div class="mt-1 font-semibold text-white">{{ $package->currency }} {{ number_format((float) ($package->daily_qos_amount ?? 0), 2) }}</div>
                                 </div>
-                                <div class="p-3 rounded border bg-gray-50">
-                                    <div class="text-xs text-stone-700 uppercase tracking-wider">Max Return</div>
-                                    <div class="mt-1 font-semibold text-gray-900">
+                                <div class="p-3 rounded border border-white/10 bg-gray-950">
+                                    <div class="text-xs text-slate-300 uppercase tracking-wider">Max Return</div>
+                                    <div class="mt-1 font-semibold text-white">
                                         {{ number_format((float) ($package->max_return_multiplier ?? 0), 2) }}x
-                                        <span class="text-xs text-stone-700">({{ $package->currency }} {{ number_format($maxReturn, 2) }})</span>
+                                        <span class="text-xs text-slate-300">({{ $package->currency }} {{ number_format($maxReturn, 2) }})</span>
                                     </div>
                                 </div>
                             </div>
 
                             @if (is_array($package->benefits) && count($package->benefits))
-                                <ul class="mt-4 text-sm text-gray-700 space-y-1">
+                                <ul class="mt-4 text-sm text-slate-200 space-y-1">
                                     @foreach ($package->benefits as $b)
                                         <li class="flex gap-2">
-                                            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                                            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
                                             <span>{{ $b }}</span>
                                         </li>
                                     @endforeach
@@ -111,7 +111,7 @@
                             @endif
 
                             <div class="mt-5 flex items-center justify-between gap-3">
-                                <div class="text-xs text-stone-700">
+                                <div class="text-xs text-slate-300">
                                     Deducts from <span class="font-medium">Registered Wallet</span>.
                                 </div>
                                 <form method="POST" action="{{ route('investments.store') }}">
@@ -125,14 +125,14 @@
                         </div>
                     </div>
                 @empty
-                    <div class="text-sm text-stone-700">No packages configured.</div>
+                    <div class="text-sm text-slate-300">No packages configured.</div>
                 @endforelse
             </div>
 
-            <div class="mt-8 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mt-8 bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg border border-white/10">
                 <div class="p-6">
-                    <div class="text-lg font-medium text-gray-900">Leader Node (QBP)</div>
-                    <div class="mt-1 text-sm text-stone-700">
+                    <div class="text-lg font-medium text-slate-100">Leader Node (QBP)</div>
+                    <div class="mt-1 text-sm text-slate-300">
                         The Partnership Node is designed for leaders: buy a node position, market the ecosystem, earn network rewards, and share the global pool.
                         (Admin-managed in this MVP.)
                     </div>
