@@ -49,12 +49,7 @@ return new class extends Migration
 
         Schema::table('wallets', function (Blueprint $table) {
             try {
-                $table->foreignId('user_id')->constrained()->cascadeOnDelete()->change();
-            } catch (\Throwable $e) {
-                // ignore (some DBs don't support change() for FK; fall back below)
-            }
-
-            try {
+                // Re-add foreign key constraint (do NOT re-add the column).
                 $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             } catch (\Throwable $e) {
                 // ignore (already exists)
