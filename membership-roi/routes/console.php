@@ -12,3 +12,4 @@ Artisan::command('inspire', function () {
 Schedule::command('roi:accrue')->dailyAt('00:10');
 Schedule::command('qos:distribute')->dailyAt('00:10')->timezone(\App\Services\BusinessTime::TZ);
 Schedule::command('partnership:distribute')->dailyAt('00:20')->timezone(\App\Services\BusinessTime::TZ);
+Schedule::command('deposits:poll')->everyFiveMinutes();

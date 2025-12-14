@@ -9,6 +9,8 @@ class InvestmentPackage extends Model
 {
     protected $fillable = [
         'label',
+        'summary',
+        'benefits',
         'code',
         'currency',
         'amount',
@@ -21,6 +23,7 @@ class InvestmentPackage extends Model
         'amount' => 'decimal:2',
         'daily_qos_amount' => 'decimal:2',
         'max_return_multiplier' => 'decimal:2',
+        'benefits' => 'array',
         'is_active' => 'boolean',
     ];
 

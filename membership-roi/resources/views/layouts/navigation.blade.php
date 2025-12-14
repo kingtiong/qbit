@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                         {{ __('Packages') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                        {{ __('Wallet') }}
+                    </x-nav-link>
                     @if (Auth::user()?->is_admin)
                         <x-nav-link :href="route('admin.roi_rates.edit')" :active="request()->routeIs('admin.roi_rates.*')">
                             {{ __('Admin: ROI Rate') }}
@@ -80,6 +83,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                 {{ __('Packages') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                {{ __('Wallet') }}
             </x-responsive-nav-link>
             @if (Auth::user()?->is_admin)
                 <x-responsive-nav-link :href="route('admin.roi_rates.edit')" :active="request()->routeIs('admin.roi_rates.*')">

@@ -46,6 +46,7 @@
                                         <th class="py-2 pr-4">Amount</th>
                                         <th class="py-2 pr-4">Status</th>
                                         <th class="py-2 pr-4">Earned</th>
+                                        <th class="py-2 pr-4">Progress</th>
                                         <th class="py-2 pr-4">Last accrued</th>
                                     </tr>
                                 </thead>
@@ -56,11 +57,22 @@
                                             <td class="py-3 pr-4">{{ $inv->currency }} {{ number_format((float) $inv->amount, 2) }}</td>
                                             <td class="py-3 pr-4">{{ $inv->status }}</td>
                                             <td class="py-3 pr-4">{{ $inv->currency }} {{ number_format((float) $inv->total_earned, 2) }}</td>
+                                            <td class="py-3 pr-4">
+                                                @php
+                                                    $max = (float) ($inv->max_return_amount ?? 0);
+                                                    $earned = (float) ($inv->total_earned ?? 0);
+                                                    $pct = $max > 0 ? min(100, round(($earned / $max) * 100, 2)) : 0;
+                                                @endphp
+                                                <div class="text-xs text-gray-600">{{ $pct }}%</div>
+                                                <div class="w-32 bg-gray-100 rounded h-2 mt-1">
+                                                    <div class="bg-green-600 h-2 rounded" style="width: {{ $pct }}%\"></div>
+                                                </div>
+                                            </td>
                                             <td class="py-3 pr-4">{{ $inv->last_accrued_on?->toDateString() ?? '—' }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="py-3 text-gray-600" colspan="5">No investments yet.</td>
+                                            <td class="py-3 text-gray-600" colspan="6">No investments yet.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

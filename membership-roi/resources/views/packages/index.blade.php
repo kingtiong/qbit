@@ -43,6 +43,7 @@
                             <thead>
                                 <tr class="text-left border-b">
                                     <th class="py-2 pr-4">Package</th>
+                                    <th class="py-2 pr-4">Details</th>
                                     <th class="py-2 pr-4">Amount</th>
                                     <th class="py-2 pr-4">Status</th>
                                     <th class="py-2 pr-4"></th>
@@ -52,6 +53,18 @@
                                 @foreach ($packages as $package)
                                     <tr class="border-b">
                                         <td class="py-3 pr-4 font-medium">{{ $package->label }}</td>
+                                        <td class="py-3 pr-4 text-gray-700">
+                                            @if ($package->summary)
+                                                <div class="text-sm">{{ $package->summary }}</div>
+                                            @endif
+                                            @if (is_array($package->benefits))
+                                                <ul class="mt-1 text-xs text-gray-600 list-disc pl-4">
+                                                    @foreach ($package->benefits as $b)
+                                                        <li>{{ $b }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </td>
                                         <td class="py-3 pr-4">{{ $package->currency }} {{ number_format((float) $package->amount, 2) }}</td>
                                         <td class="py-3 pr-4">
                                             @if ($package->is_active)

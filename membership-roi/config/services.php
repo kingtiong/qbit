@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'bscscan' => [
+        'key' => env('BSCSCAN_API_KEY'),
+        'base' => env('BSCSCAN_API_BASE', 'https://api.bscscan.com/api'),
+        'usdt_contract' => env('USDT_BEP20_CONTRACT', '0x55d398326f99059fF775485246999027B3197955'),
+    ],
+
 ];
