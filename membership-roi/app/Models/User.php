@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'sponsor_id',
     ];
 
     /**
@@ -48,6 +49,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
             'rank' => 'string',
+            'is_root' => 'boolean',
         ];
     }
 

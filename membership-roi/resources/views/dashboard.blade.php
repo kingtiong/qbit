@@ -20,6 +20,10 @@
                         <div class="text-2xl font-semibold">
                             USD {{ number_format((float) $wallet->balance, 2) }}
                         </div>
+                        <div class="mt-2 text-sm text-gray-600">
+                            Your invitation link:
+                            <span class="font-mono">{{ url('/invite/'.auth()->user()->invite_code) }}</span>
+                        </div>
                     </div>
                     <div>
                         <a href="{{ route('packages.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">

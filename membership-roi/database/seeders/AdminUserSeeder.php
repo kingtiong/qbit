@@ -13,12 +13,24 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Change these credentials after first login.
         User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'root@iqbit.to'],
+            [
+                'name' => 'Root',
+                'password' => Hash::make('Root@Iqbit2025!'),
+                'is_admin' => true,
+                'is_root' => true,
+            ],
+        );
+
+        User::updateOrCreate(
+            ['email' => 'admin@iqbit.to'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('Admin@Iqbit2025!'),
                 'is_admin' => true,
+                'is_root' => false,
             ],
         );
     }

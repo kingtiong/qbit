@@ -19,7 +19,13 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $invite = strtoupper((string) request()->get('invite', request()->session()->get('invite_code')));
+        $inviter = User::query()->where('invite_code', $invite)->first();
+
+        return view('auth.register', [
+            'invite' => $invite,
+            'inviter' => $inviter,
+        ]);
     }
 
     /**
@@ -30,12 +36,16 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'invite' => ['required', 'string', 'exists:users,invite_code'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $inviter = User::query()->where('invite_code', strtoupper((string) $request->invite))->firstOrFail();
+
         $user = User::create([
+            'sponsor_id' => $inviter->id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

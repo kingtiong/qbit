@@ -2,11 +2,21 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <input type="hidden" name="invite" value="{{ old('invite', $invite ?? request('invite')) }}" />
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <div class="mt-4 text-sm text-gray-600">
+            Invitation code: <span class="font-semibold">{{ $invite ?? request('invite') }}</span>
+            @if (!empty($inviter))
+                <div>Invited by: <span class="font-semibold">{{ $inviter->name }}</span></div>
+            @endif
+            <x-input-error :messages="$errors->get('invite')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
