@@ -9,6 +9,26 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Drop FK on wallets.user_id if it exists (constraint name may differ per environment).
+        try {
+            $dbName = DB::getDatabaseName();
+            $rows = DB::select(
+                "SELECT CONSTRAINT_NAME
+                 FROM information_schema.KEY_COLUMN_USAGE
+                 WHERE TABLE_SCHEMA = ?
+                   AND TABLE_NAME = 'wallets'
+                   AND COLUMN_NAME = 'user_id'
+                   AND REFERENCED_TABLE_NAME IS NOT NULL",
+                [$dbName]
+            );
+            $constraint = $rows[0]->CONSTRAINT_NAME ?? null;
+            if (is_string($constraint) && $constraint !== '') {
+                DB::statement("ALTER TABLE `wallets` DROP FOREIGN KEY `{$constraint}`");
+            }
+        } catch (\Throwable $e) {
+            // ignore
+        }
+
         Schema::table('wallets', function (Blueprint $table) {
             if (!Schema::hasColumn('wallets', 'type')) {
                 $table->string('type')->default('registered')->after('user_id');
@@ -21,18 +41,6 @@ return new class extends Migration
             ->update(['type' => 'registered']);
 
         // Replace unique(user_id) with unique(user_id, type).
-        //
-        // NOTE: In MySQL, a foreign key column must be indexed. Our `wallets.user_id`
-        // foreign key may be using the existing unique index (`wallets_user_id_unique`),
-        // so we must drop/recreate the FK (or provide a replacement index) before dropping it.
-        Schema::table('wallets', function (Blueprint $table) {
-            try {
-                $table->dropForeign(['user_id']);
-            } catch (\Throwable $e) {
-                // ignore (constraint name may differ or already dropped)
-            }
-        });
-
         Schema::table('wallets', function (Blueprint $table) {
             try {
                 $table->dropUnique(['user_id']);
@@ -89,13 +97,27 @@ return new class extends Migration
             // ignore
         }
 
-        Schema::table('wallets', function (Blueprint $table) {
-            try {
-                $table->dropForeign(['user_id']);
-            } catch (\Throwable $e) {
-                // ignore
+        // Drop FK on wallets.user_id if it exists (constraint name may differ per environment).
+        try {
+            $dbName = DB::getDatabaseName();
+            $rows = DB::select(
+                "SELECT CONSTRAINT_NAME
+                 FROM information_schema.KEY_COLUMN_USAGE
+                 WHERE TABLE_SCHEMA = ?
+                   AND TABLE_NAME = 'wallets'
+                   AND COLUMN_NAME = 'user_id'
+                   AND REFERENCED_TABLE_NAME IS NOT NULL",
+                [$dbName]
+            );
+            $constraint = $rows[0]->CONSTRAINT_NAME ?? null;
+            if (is_string($constraint) && $constraint !== '') {
+                DB::statement("ALTER TABLE `wallets` DROP FOREIGN KEY `{$constraint}`");
             }
+        } catch (\Throwable $e) {
+            // ignore
+        }
 
+        Schema::table('wallets', function (Blueprint $table) {
             try {
                 $table->dropUnique(['user_id', 'type']);
             } catch (\Throwable $e) {
