@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('investment_packages', function (Blueprint $table) {
             $table->id();
             $table->string('label');
-            $table->string('currency', 3)->default('USD');
+            $table->string('currency', 10)->default('USDT');
             $table->decimal('amount', 14, 2);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

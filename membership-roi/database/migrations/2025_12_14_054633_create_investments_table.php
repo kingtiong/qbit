@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('investment_package_id')->constrained('investment_packages')->restrictOnDelete();
 
-            $table->string('currency', 3)->default('USD');
+            $table->string('currency', 10)->default('USDT');
             $table->decimal('amount', 14, 2);
 
             $table->string('status')->default('active'); // active|closed

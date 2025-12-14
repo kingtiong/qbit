@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedTinyInteger('level')->unique(); // 1..6
             $table->string('code')->unique(); // QBP1..QBP6
-            $table->string('currency', 3)->default('USDT');
+            $table->string('currency', 10)->default('USDT');
             $table->decimal('amount', 14, 2);
 
             // Percentage of sales paid in sponsor-group differential chain for holders of this level.

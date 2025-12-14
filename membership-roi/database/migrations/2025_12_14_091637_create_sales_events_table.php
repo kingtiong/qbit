@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sales_events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('currency', 3)->default('USDT');
+            $table->string('currency', 10)->default('USDT');
             $table->decimal('amount', 14, 2);
             $table->string('type')->default('investment_purchase'); // investment_purchase, etc.
             $table->date('occurred_on'); // in UTC+8 business date
