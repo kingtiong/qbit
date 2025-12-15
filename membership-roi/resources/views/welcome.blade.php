@@ -13,7 +13,7 @@
             <x-application-logo class="w-12 h-12 text-gray-800" />
             <div>
                 <div class="text-xl font-semibold">QuantumBit</div>
-                <div class="text-sm text-gray-600">Member & Admin access</div>
+                <div class="text-sm text-gray-600">{{ __('Member & Admin access') }}</div>
             </div>
         </div>
 
@@ -24,12 +24,12 @@
         @endif
 
         <div class="flex gap-3">
-            <a href="{{ route('login') }}" class="btn-dark normal-case text-sm">Member Login</a>
-            <a href="{{ route('admin.login') }}" class="btn-neutral normal-case text-sm">Admin Login</a>
+            <a href="{{ route('login') }}" class="btn-dark normal-case text-sm">{{ __('Member Login') }}</a>
+            <a href="{{ route('admin.login') }}" class="btn-neutral normal-case text-sm">{{ __('Admin Login') }}</a>
         </div>
 
         <div class="mt-6 text-sm text-gray-600">
-            Registration is invitation-only.
+            {{ __('Registration is invitation-only.') }}
         </div>
     </div>
 </body>

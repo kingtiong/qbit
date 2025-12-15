@@ -18,7 +18,7 @@
                             <div class="p-4 surface-muted">
                                 <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-gray-600">Used to buy Quantum Machines.</div>
+                        <div class="mt-1 text-xs text-gray-600">{{ __('Used to buy Quantum Machines.') }}</div>
                             </div>
                             <div class="p-4 surface-muted">
                                 <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <div class="text-lg font-medium mb-2">Deposit (USDT BEP20)</div>
+                            <div class="text-lg font-medium mb-2">{{ __('Deposit (USDT BEP20)') }}</div>
 
                             @if ($activeSession)
                                 <div
@@ -114,9 +114,9 @@
 
                 <div class="surface">
                     <div class="p-6 text-gray-900">
-                        <div class="text-lg font-medium mb-2">Withdrawal</div>
+                        <div class="text-lg font-medium mb-2">{{ __('Withdrawal') }}</div>
                         <div class="mb-3 text-sm text-gray-600">
-                            Withdrawals are taken from your <span class="font-medium">Commission Wallet</span>.
+                            {{ __('Withdrawals are taken from your Commission Wallet.') }}
                         </div>
 
                         <form method="POST" action="{{ route('wallet.payout.update') }}" class="mb-4">
@@ -156,7 +156,7 @@
     <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="surface">
                     <div class="p-6 text-gray-900">
-                        <div class="text-lg font-medium mb-3">Recent deposits</div>
+                        <div class="text-lg font-medium mb-3">{{ __('Recent deposits') }}</div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
@@ -186,7 +186,7 @@
 
                 <div class="surface">
                     <div class="p-6 text-gray-900">
-                        <div class="text-lg font-medium mb-3">Withdrawals</div>
+                        <div class="text-lg font-medium mb-3">{{ __('Withdrawals') }}</div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
