@@ -16,14 +16,14 @@
                     <div class="p-6 text-gray-900">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="p-4 surface-muted">
-                                <div class="text-sm text-gray-600">Registered Wallet (Deposits)</div>
+                                <div class="text-sm text-gray-600">{{ __('Registered Wallet (Deposits)') }}</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
                         <div class="mt-1 text-xs text-gray-600">{{ __('Used to buy Quantum Machines.') }}</div>
                             </div>
                             <div class="p-4 surface-muted">
-                                <div class="text-sm text-gray-600">Commission Wallet (Earnings)</div>
+                                <div class="text-sm text-gray-600">{{ __('Quant Wallet (Earnings)') }}</div>
                                 <div class="text-2xl font-semibold">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-gray-600">Daily QOS + sponsor + network + node rewards.</div>
+                                <div class="mt-1 text-xs text-gray-600">{{ __('Daily QOS + sponsor + network + node rewards.') }}</div>
                             </div>
                         </div>
 
@@ -58,8 +58,8 @@
                                     <div class="flex flex-wrap items-start justify-between gap-3">
                                         <div>
                                             <div class="text-sm text-slate-900">
-                                                Deposit address
-                                                <span class="text-slate-700">(valid for 30 minutes)</span>
+                                                {{ __('Deposit address') }}
+                                                <span class="text-slate-700">({{ __('valid for 30 minutes') }})</span>
                                             </div>
                                             <div class="mt-1 font-mono text-sm break-all">{{ $activeSession->depositAddress->address }}</div>
                                         </div>
@@ -69,7 +69,7 @@
                                             <div class="mt-1 flex items-center justify-between gap-3">
                                                 <div class="text-lg font-semibold tabular-nums" x-text="minutes() + ':' + seconds()"></div>
                                                 <div class="text-xs text-slate-700">
-                                                    Expires at {{ $activeSession->reserved_until->format('H:i:s') }}
+                                                    {{ __('Expires at') }} {{ $activeSession->reserved_until->format('H:i:s') }}
                                                 </div>
                                             </div>
                                             <div class="mt-2 h-2 rounded-full bg-white/70 ring-1 ring-slate-900/10 overflow-hidden">
@@ -116,7 +116,7 @@
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-2">{{ __('Withdrawal') }}</div>
                         <div class="mb-3 text-sm text-gray-600">
-                            {{ __('Withdrawals are taken from your Commission Wallet.') }}
+                            {{ __('Withdrawals are taken from your Quant Wallet.') }}
                         </div>
 
                         <form method="POST" action="{{ route('wallet.payout.update') }}" class="mb-4">
@@ -176,7 +176,7 @@
                                             <td class="py-2 pr-4 font-mono text-xs">{{ $d->tx_hash }}</td>
                                         </tr>
                                     @empty
-                                        <tr><td class="py-2 text-gray-600" colspan="4">No deposits yet.</td></tr>
+                                        <tr><td class="py-2 text-gray-600" colspan="4">{{ __('No deposits yet.') }}</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -206,7 +206,7 @@
                                             <td class="py-2 pr-4">{{ $w->status }}</td>
                                         </tr>
                                     @empty
-                                        <tr><td class="py-2 text-gray-600" colspan="4">No withdrawals yet.</td></tr>
+                                        <tr><td class="py-2 text-gray-600" colspan="4">{{ __('No withdrawals yet.') }}</td></tr>
                                     @endforelse
                                 </tbody>
                             </table>

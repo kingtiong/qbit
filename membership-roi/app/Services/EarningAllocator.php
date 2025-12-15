@@ -82,7 +82,7 @@ final class EarningAllocator
                 return '0.00';
             }
 
-            // All earnings/commissions credit into the Commission Wallet.
+            // All earnings/commissions credit into the Quant Wallet (commission wallet type).
             $wallet = Wallet::forUser($userId, Wallet::TYPE_COMMISSION);
             $tx = WalletTransaction::create([
                 'wallet_id' => $wallet->id,

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\InvestmentsAdminController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\WithdrawalsController;
+use App\Http\Controllers\Admin\WalletAdjustmentsController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\InvestmentPackageController;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +59,8 @@ Route::prefix('quantumbitv9')->group(function () {
         Route::post('/withdrawals/{withdrawal}/reject', [WithdrawalsController::class, 'reject'])->name('admin.withdrawals.reject');
         Route::post('/withdrawals/{withdrawal}/paid', [WithdrawalsController::class, 'markPaid'])->name('admin.withdrawals.paid');
         Route::get('/investments', [InvestmentsAdminController::class, 'index'])->name('admin.investments.index');
+        Route::get('/wallet-adjustments', [WalletAdjustmentsController::class, 'index'])->name('admin.wallet_adjustments.index');
+        Route::post('/wallet-adjustments', [WalletAdjustmentsController::class, 'store'])->name('admin.wallet_adjustments.store');
         Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
         Route::post('/settings/deposit-addresses', [SettingsController::class, 'addDepositAddress'])->name('admin.settings.deposit_addresses.add');
         Route::post('/settings/deposit-addresses/{depositAddress}/toggle', [SettingsController::class, 'toggleDepositAddress'])->name('admin.settings.deposit_addresses.toggle');

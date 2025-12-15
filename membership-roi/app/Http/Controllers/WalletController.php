@@ -124,7 +124,7 @@ class WalletController extends Controller
         ]);
 
         $user = Auth::user();
-        // Withdrawals come from the Commission Wallet.
+        // Withdrawals come from the Quant Wallet (commission wallet type).
         $wallet = Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
 
         $amount = number_format((float) $validated['amount'], 2, '.', '');

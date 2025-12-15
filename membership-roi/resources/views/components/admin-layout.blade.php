@@ -22,6 +22,7 @@
                     <a class="hover:underline" href="{{ route('admin.deposits.index') }}">Deposits</a>
                     <a class="hover:underline" href="{{ route('admin.withdrawals.index') }}">Withdrawals</a>
                     <a class="hover:underline" href="{{ route('admin.investments.index') }}">Investments</a>
+                    <a class="hover:underline" href="{{ route('admin.wallet_adjustments.index') }}">Wallet Adjust</a>
                     <a class="hover:underline" href="{{ route('admin.settings.index') }}">Settings</a>
                     <a class="hover:underline" href="{{ route('admin.roi_rates.edit') }}">ROI Rates</a>
                 </div>

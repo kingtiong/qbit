@@ -32,7 +32,7 @@
                             <div class="mt-1 text-2xl font-semibold text-slate-900">{{ __('Buy a Quantum Machine to start daily QOS') }}</div>
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 {{ __('Deposits are credited to your Registered Wallet.') }}
-                                {{ __('All earnings and commissions are credited to your Commission Wallet.') }}
+                                {{ __('All earnings and commissions are credited to your Quant Wallet.') }}
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
                                 <div class="mt-1 text-xs text-slate-600">{{ __('Used to buy machines') }}</div>
                             </div>
                             <div class="p-4 surface-solid">
-                                <div class="text-xs text-slate-600 uppercase tracking-wider">{{ __('Commission Wallet') }}</div>
+                                <div class="text-xs text-slate-600 uppercase tracking-wider">{{ __('Quant Wallet') }}</div>
                                 <div class="mt-1 text-xl font-semibold text-slate-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                                 <div class="mt-1 text-xs text-slate-600">{{ __('Daily QOS + network') }}</div>
                             </div>

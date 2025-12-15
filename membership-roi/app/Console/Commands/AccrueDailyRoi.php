@@ -75,7 +75,7 @@ class AccrueDailyRoi extends Command
                 }
 
                 DB::transaction(function () use ($investment, $rate, $nextAccrueOn, &$credited): void {
-                    // Treat ROI credits as earnings (commission wallet).
+                    // Treat ROI credits as earnings (Quant Wallet / commission wallet type).
                     $wallet = Wallet::forUser($investment->user_id, Wallet::TYPE_COMMISSION);
 
                     // Casted decimals can come out as strings; use bcmath for stable money math.

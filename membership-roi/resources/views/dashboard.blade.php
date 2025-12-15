@@ -34,7 +34,7 @@
                             <div class="text-sm text-slate-700">{{ __('Quantum Trading • Automated strategy execution') }}</div>
                             <div class="mt-1 text-2xl font-semibold text-slate-900">{{ __('Your machines trade your fund daily') }}</div>
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
-                                {{ __('Deposit into your Registered Wallet, buy a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Commission Wallet.') }}
+                                {{ __('Deposit into your Registered Wallet, buy a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Quant Wallet.') }}
                             </div>
                             <div class="mt-4 text-sm text-slate-700">
                                 <div class="sm:inline">{{ __('Invitation link') }}:</div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="surface">
                     <div class="p-5">
-                        <div class="text-sm text-gray-600">{{ __('Commission Wallet (Earnings)') }}</div>
+                        <div class="text-sm text-gray-600">{{ __('Quant Wallet (Earnings)') }}</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                         <div class="mt-2 text-sm text-gray-600">{{ __('Daily QOS + network + node rewards.') }}</div>
                     </div>
@@ -175,7 +175,7 @@
                                             <td class="py-3 pr-4">
                                                 @php $wt = $t->wallet?->type; @endphp
                                                 <span class="inline-flex items-center px-2 py-1 rounded text-xs border {{ $wt === 'commission' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-gray-50 border-gray-200 text-gray-800' }}">
-                                                    {{ $wt === 'commission' ? __('Commission') : __('Registered') }}
+                                                    {{ $wt === 'commission' ? __('Quant') : __('Registered') }}
                                                 </span>
                                             </td>
                                             <td class="py-3 pr-4">{{ $t->type }}</td>
@@ -197,7 +197,7 @@
                             <ul class="mt-2 text-sm text-gray-700 space-y-1">
                                 <li><span class="font-medium">1)</span> {{ __('Deposit USDT (BEP20) → credited to your Registered Wallet.') }}</li>
                                 <li><span class="font-medium">2)</span> {{ __('Buy a QPU Machine → your capital is allocated into the strategy engine.') }}</li>
-                                <li><span class="font-medium">3)</span> {{ __('Earn daily QOS → credited into your Commission Wallet (UTC+8 daily distribution).') }}</li>
+                                <li><span class="font-medium">3)</span> {{ __('Earn daily QOS → credited into your Quant Wallet (UTC+8 daily distribution).') }}</li>
                                 <li><span class="font-medium">4)</span> {{ __('Build a network → direct sponsor + rank bonus + leader node rewards (if eligible).') }}</li>
                             </ul>
                         </div>

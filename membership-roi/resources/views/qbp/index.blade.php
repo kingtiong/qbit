@@ -26,7 +26,7 @@
                 <div class="mt-1 text-xs text-gray-600">{{ __('Used for QPU purchases.') }}</div>
             </div>
             <div class="surface-muted p-4">
-                <div class="text-sm text-gray-600">{{ __('Commission Wallet') }}</div>
+                <div class="text-sm text-gray-600">{{ __('Quant Wallet') }}</div>
                 <div class="text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                 <div class="mt-1 text-xs text-gray-600">{{ __('Earnings and network rewards.') }}</div>
             </div>

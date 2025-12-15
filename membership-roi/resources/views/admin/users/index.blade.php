@@ -14,7 +14,7 @@
                         <th class="py-2 pr-4">Invite</th>
                         <th class="py-2 pr-4">Sponsor</th>
                         <th class="py-2 pr-4">Registered</th>
-                        <th class="py-2 pr-4">Commission</th>
+                        <th class="py-2 pr-4">Quant</th>
                         <th class="py-2 pr-4">Admin</th>
                     </tr>
                 </thead>
