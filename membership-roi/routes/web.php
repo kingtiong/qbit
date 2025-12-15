@@ -14,6 +14,8 @@ use App\Http\Controllers\QbpController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware('locale')->group(function () {
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -71,3 +73,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+});

@@ -65,7 +65,7 @@
                                         </div>
 
                                         <div class="min-w-[220px]">
-                                            <div class="text-xs text-slate-700">Time remaining</div>
+                                            <div class="text-xs text-slate-700">{{ __('Time remaining') }}</div>
                                             <div class="mt-1 flex items-center justify-between gap-3">
                                                 <div class="text-lg font-semibold tabular-nums" x-text="minutes() + ':' + seconds()"></div>
                                                 <div class="text-xs text-slate-700">
@@ -76,17 +76,17 @@
                                                 <div class="h-2 bg-emerald-600 rounded-full transition-[width] duration-500" :style="`width: ${pct()}%`"></div>
                                             </div>
                                             <div class="mt-2 text-xs text-amber-900" x-show="remaining <= 60" x-cloak>
-                                                Warning: less than 1 minute left. If it expires, request a new address.
+                                                {{ __('Warning: less than 1 minute left. If it expires, request a new address.') }}
                                             </div>
                                             <div class="mt-2 text-xs text-slate-700" x-show="remaining === 0" x-cloak>
-                                                This address has expired. Please request a new deposit address.
+                                                {{ __('This address has expired. Please request a new deposit address.') }}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="mt-3 text-sm text-slate-800">
-                                        Please send USDT (BEP20) to this address <span class="font-semibold">before the timer ends</span>.
-                                        Deposits sent after expiry may not be credited to your account.
+                                        {{ __('Please send USDT (BEP20) to this address before the timer ends.') }}
+                                        {{ __('Deposits sent after expiry may not be credited to your account.') }}
                                     </div>
                                 </div>
                             @else
@@ -100,11 +100,11 @@
 
                             <div class="mt-2 text-xs text-gray-600">
                                 <div class="surface-muted p-3 text-gray-700">
-                                    <div class="font-medium text-gray-900">Deposit rules (USDT BEP20)</div>
+                                    <div class="font-medium text-gray-900">{{ __('Deposit rules (USDT BEP20)') }}</div>
                                     <ul class="mt-1 space-y-1">
-                                        <li>- You must deposit within the <span class="font-medium">30-minute</span> window shown above.</li>
-                                        <li>- If it expires, request a <span class="font-medium">new deposit address</span>.</li>
-                                        <li>- The system credits your Registered Wallet automatically once the transfer is detected.</li>
+                                        <li>- {{ __('You must deposit within the 30-minute window shown above.') }}</li>
+                                        <li>- {{ __('If it expires, request a new deposit address.') }}</li>
+                                        <li>- {{ __('The system credits your Registered Wallet automatically once the transfer is detected.') }}</li>
                                     </ul>
                                 </div>
                             </div>

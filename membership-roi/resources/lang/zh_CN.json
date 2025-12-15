@@ -1,0 +1,19 @@
+{
+  "Dashboard": "仪表盘",
+  "Packages": "套餐",
+  "Wallet": "钱包",
+  "QBP": "QBP",
+  "Profile": "个人资料",
+  "Log Out": "退出登录",
+
+  "Time remaining": "剩余时间",
+  "Warning: less than 1 minute left. If it expires, request a new address.": "警告：剩余不足 1 分钟。到期后请重新申请新地址。",
+  "This address has expired. Please request a new deposit address.": "该地址已过期，请重新申请新的充值地址。",
+  "Please send USDT (BEP20) to this address before the timer ends.": "请在倒计时结束前将 USDT（BEP20）转入该地址。",
+  "Deposits sent after expiry may not be credited to your account.": "过期后转入的充值可能无法入账。",
+  "Deposit rules (USDT BEP20)": "充值规则（USDT BEP20）",
+  "You must deposit within the 30-minute window shown above.": "必须在上方显示的 30 分钟窗口内完成充值。",
+  "If it expires, request a new deposit address.": "若已过期，请重新申请新的充值地址。",
+  "The system credits your Registered Wallet automatically once the transfer is detected.": "系统检测到转账后会自动入账到 Registered Wallet。"
+}
+

@@ -29,6 +29,14 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <div class="mr-2 flex items-center gap-2">
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                            EN
+                        </a>
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'zh_CN' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                            中文
+                        </a>
+                    </div>
                     <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-xl text-gray-600 bg-white/50 hover:bg-white hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -63,6 +71,14 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
+                <div class="mr-2 flex items-center gap-2">
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                        EN
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'zh_CN' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                        中文
+                    </a>
+                </div>
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
