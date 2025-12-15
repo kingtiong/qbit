@@ -12,6 +12,12 @@
         </div>
     </x-slot>
 
+    @if (session('status'))
+        <div class="mb-4 p-4 surface-muted text-gray-800">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <div class="surface p-6 mb-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="surface-muted p-4">
@@ -61,6 +67,24 @@
 
                 <div class="mt-4 text-xs text-gray-600">
                     Global denom: <span class="font-medium">{{ (int) ($pkg->global_denom ?? 0) }}</span>
+                </div>
+
+                @php
+                    $alreadyOwned = in_array($pkg->id, $myActivePackageIds ?? [], true);
+                    $canBuy = (float) $registeredWallet->balance >= (float) $pkg->amount;
+                @endphp
+
+                <div class="mt-5 flex items-center justify-between gap-3">
+                    <div class="text-xs text-gray-600">
+                        Deducts from <span class="font-medium">Registered Wallet</span>.
+                    </div>
+
+                    <form method="POST" action="{{ route('qbp.purchase', $pkg) }}">
+                        @csrf
+                        <x-primary-button :disabled="$alreadyOwned || !$canBuy">
+                            {{ $alreadyOwned ? 'Owned' : ($canBuy ? 'Buy QBP' : 'Insufficient Funds') }}
+                        </x-primary-button>
+                    </form>
                 </div>
             </div>
         @empty

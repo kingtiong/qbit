@@ -30,6 +30,7 @@ Route::get('/dashboard', [InvestmentController::class, 'index'])
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
     Route::get('/qbp', [QbpController::class, 'index'])->name('qbp.index');
+    Route::post('/qbp/{partnershipPackage}/purchase', [QbpController::class, 'purchase'])->name('qbp.purchase');
     Route::post('/investments', [InvestmentController::class, 'store'])->name('investments.store');
 
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
