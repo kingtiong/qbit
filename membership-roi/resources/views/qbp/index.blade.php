@@ -72,6 +72,8 @@
                 @php
                     $alreadyOwned = in_array($pkg->id, $myActivePackageIds ?? [], true);
                     $canBuy = (float) $registeredWallet->balance >= (float) $pkg->amount;
+                    $hasAnyActive = !empty($myActivePackageIds);
+                    $blockedByOther = $hasAnyActive && !$alreadyOwned;
                 @endphp
 
                 <div class="mt-5 flex items-center justify-between gap-3">
@@ -81,8 +83,8 @@
 
                     <form method="POST" action="{{ route('qbp.purchase', $pkg) }}">
                         @csrf
-                        <x-primary-button :disabled="$alreadyOwned || !$canBuy">
-                            {{ $alreadyOwned ? __('Owned') : ($canBuy ? __('Buy QBP') : __('Insufficient Funds')) }}
+                        <x-primary-button :disabled="$alreadyOwned || $blockedByOther || !$canBuy">
+                            {{ $alreadyOwned ? __('Owned') : ($blockedByOther ? __('Already owned another QBP') : ($canBuy ? __('Buy QBP') : __('Insufficient Funds'))) }}
                         </x-primary-button>
                     </form>
                 </div>

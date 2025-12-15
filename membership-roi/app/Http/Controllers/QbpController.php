@@ -32,12 +32,19 @@ class QbpController extends Controller
             ->pluck('partnership_package_id')
             ->all();
 
+        $myActivePosition = PartnershipPosition::query()
+            ->where('user_id', $user->id)
+            ->where('status', 'active')
+            ->orderByDesc('id')
+            ->first();
+
         return view('qbp.index', [
             'user' => $user,
             'registeredWallet' => $registeredWallet,
             'commissionWallet' => $commissionWallet,
             'qbpPackages' => $qbpPackages,
             'myActivePackageIds' => $myActivePackageIds,
+            'myActivePosition' => $myActivePosition,
         ]);
     }
 
@@ -59,6 +66,17 @@ class QbpController extends Controller
                 $lockedWallet = Wallet::query()->whereKey($wallet->id)->lockForUpdate()->firstOrFail();
                 if (bccomp((string) $lockedWallet->balance, (string) $amount, 2) < 0) {
                     abort(422, 'Insufficient Registered Wallet balance.');
+                }
+
+                // Enforce: one active QBP per member (across all QBP levels).
+                $existingActive = PartnershipPosition::query()
+                    ->where('user_id', $user->id)
+                    ->where('status', 'active')
+                    ->lockForUpdate()
+                    ->first();
+
+                if ($existingActive && (int) $existingActive->partnership_package_id !== (int) $partnershipPackage->id) {
+                    abort(422, 'You already have an active QBP position.');
                 }
 
                 // Enforce holder limits

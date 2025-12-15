@@ -54,6 +54,16 @@ class PartnershipBuyPosition extends Command
 
         try {
             DB::transaction(function () use ($user, $pkg): void {
+            $alreadyHasAny = PartnershipPosition::query()
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->lockForUpdate()
+                ->exists();
+
+            if ($alreadyHasAny) {
+                throw new \RuntimeException('User already has an active QBP position.');
+            }
+
             $activeCount = PartnershipPosition::query()
                 ->where('partnership_package_id', $pkg->id)
                 ->where('status', 'active')
