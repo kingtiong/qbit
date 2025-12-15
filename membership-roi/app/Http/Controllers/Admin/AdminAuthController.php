@@ -36,7 +36,8 @@ class AdminAuthController extends Controller
         $user = Auth::guard('admin')->user();
         if (!$user || !$user->isAdmin()) {
             Auth::guard('admin')->logout();
-            $request->session()->invalidate();
+            // Do not invalidate the whole session (web guard may also be logged in).
+            $request->session()->regenerate();
             $request->session()->regenerateToken();
 
             throw ValidationException::withMessages([
@@ -50,7 +51,8 @@ class AdminAuthController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('admin')->logout();
-        $request->session()->invalidate();
+        // Do not invalidate the whole session (web guard may also be logged in).
+        $request->session()->regenerate();
         $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
