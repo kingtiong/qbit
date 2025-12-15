@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Use a dedicated session cookie for the admin area (/quantumbitv9/*)
+        // so admin + member sessions can coexist in the same browser.
+        $middleware->prepend(\App\Http\Middleware\SwitchSessionCookieForAdmin::class);
+
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'invite' => \App\Http\Middleware\RequireInvitationMiddleware::class,

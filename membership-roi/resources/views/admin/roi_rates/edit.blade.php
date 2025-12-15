@@ -1,64 +1,62 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Admin: Daily ROI Rate') }}
         </h2>
     </x-slot>
 
-    <div class="page-section">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            @if (session('status'))
-                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
-                    {{ session('status') }}
+    <div class="max-w-3xl mx-auto">
+        @if (session('status'))
+            <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <div class="surface">
+            <div class="p-6 text-gray-900">
+                <div class="mb-4">
+                    <div class="text-sm text-gray-600">Set the ROI rate (percent) for a date. Allowed range: <span class="font-medium">0.5%</span> to <span class="font-medium">0.8%</span>.</div>
                 </div>
-            @endif
 
-            <div class="surface">
-                <div class="p-6 text-gray-900">
-                    <div class="mb-4">
-                        <div class="text-sm text-gray-600">Set the ROI rate (percent) for a date. Allowed range: <span class="font-medium">0.5%</span> to <span class="font-medium">0.8%</span>.</div>
+                <form method="POST" action="{{ route('admin.roi_rates.upsert') }}" class="space-y-4">
+                    @csrf
+
+                    <div>
+                        <x-input-label for="date" :value="__('Date')" />
+                        <x-text-input id="date" name="date" type="date" class="mt-1 block w-full" :value="old('date', $date->toDateString())" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('date')" />
                     </div>
 
-                    <form method="POST" action="{{ route('admin.roi_rates.upsert') }}" class="space-y-4">
-                        @csrf
-
-                        <div>
-                            <x-input-label for="date" :value="__('Date')" />
-                            <x-text-input id="date" name="date" type="date" class="mt-1 block w-full" :value="old('date', $date->toDateString())" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('date')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="rate_percent" :value="__('Rate (%)')" />
-                            <x-text-input id="rate_percent" name="rate_percent" type="number" step="0.01" min="0.5" max="0.8" class="mt-1 block w-full" :value="old('rate_percent', $rate ? bcmul((string) $rate->rate, '100', 2) : '')" required />
-                            <x-input-error class="mt-2" :messages="$errors->get('rate_percent')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="note" :value="__('Note (optional)')" />
-                            <x-text-input id="note" name="note" type="text" class="mt-1 block w-full" :value="old('note', $rate?->note)" />
-                            <x-input-error class="mt-2" :messages="$errors->get('note')" />
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <x-primary-button>
-                                {{ __('Save') }}
-                            </x-primary-button>
-
-                            @if ($rate)
-                                <div class="text-sm text-gray-600">
-                                    Current stored: <span class="font-medium">{{ bcmul((string) $rate->rate, '100', 2) }}%</span>
-                                </div>
-                            @endif
-                        </div>
-                    </form>
-
-                    <div class="mt-6 text-sm text-gray-600">
-                        Tip: after setting rates, run the accrual job with:
-                        <div class="mt-2 font-mono text-xs surface-muted p-2 overflow-x-auto">php artisan roi:accrue --date={{ $date->toDateString() }}</div>
+                    <div>
+                        <x-input-label for="rate_percent" :value="__('Rate (%)')" />
+                        <x-text-input id="rate_percent" name="rate_percent" type="number" step="0.01" min="0.5" max="0.8" class="mt-1 block w-full" :value="old('rate_percent', $rate ? bcmul((string) $rate->rate, '100', 2) : '')" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('rate_percent')" />
                     </div>
+
+                    <div>
+                        <x-input-label for="note" :value="__('Note (optional)')" />
+                        <x-text-input id="note" name="note" type="text" class="mt-1 block w-full" :value="old('note', $rate?->note)" />
+                        <x-input-error class="mt-2" :messages="$errors->get('note')" />
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <x-primary-button>
+                            {{ __('Save') }}
+                        </x-primary-button>
+
+                        @if ($rate)
+                            <div class="text-sm text-gray-600">
+                                Current stored: <span class="font-medium">{{ bcmul((string) $rate->rate, '100', 2) }}%</span>
+                            </div>
+                        @endif
+                    </div>
+                </form>
+
+                <div class="mt-6 text-sm text-gray-600">
+                    Tip: after setting rates, run the accrual job with:
+                    <div class="mt-2 font-mono text-xs surface-muted p-2 overflow-x-auto">php artisan roi:accrue --date={{ $date->toDateString() }}</div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

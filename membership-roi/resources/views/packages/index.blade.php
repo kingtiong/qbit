@@ -129,10 +129,15 @@
 
             <div class="mt-8 surface">
                 <div class="p-6">
-                    <div class="text-lg font-medium text-gray-900">Leader Node (QBP)</div>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <div class="text-lg font-medium text-gray-900">Leader Node (QBP)</div>
                     <div class="mt-1 text-sm text-gray-600">
                         The Partnership Node is designed for leaders: buy a node position, market the ecosystem, earn network rewards, and share the global pool.
                         (Admin-managed in this MVP.)
+                    </div>
+                        </div>
+                        <a href="{{ route('qbp.index') }}" class="btn-neutral normal-case text-sm">Open QBP</a>
                     </div>
                 </div>
             </div>

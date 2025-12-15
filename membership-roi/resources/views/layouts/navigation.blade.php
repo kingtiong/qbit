@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                         {{ __('Packages') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*')">
+                        {{ __('QBP') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
                         {{ __('Wallet') }}
                     </x-nav-link>

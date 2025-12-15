@@ -3,16 +3,14 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin: Withdrawals</h2>
     </x-slot>
 
-    <div class="page-section">
-        <div class="page-container">
-            @if (session('status'))
-                <div class="mb-4 p-4 surface-muted text-gray-800">
-                    {{ session('status') }}
-                </div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 p-4 surface-muted text-gray-800">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="surface">
-                <div class="p-6 text-gray-900 overflow-x-auto">
+    <div class="surface">
+        <div class="p-6 text-gray-900 overflow-x-auto">
                     <table class="min-w-full text-sm">
                         <thead>
                             <tr class="text-left border-b border-slate-900/5">
@@ -66,8 +64,6 @@
                     </table>
 
                     <div class="mt-4">{{ $withdrawals->links() }}</div>
-                </div>
-            </div>
         </div>
     </div>
 </x-admin-layout>

@@ -3,16 +3,14 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin: Settings</h2>
     </x-slot>
 
-    <div class="page-section">
-        <div class="page-container">
-            @if (session('status'))
-                <div class="mb-4 p-4 surface-muted text-gray-800">
-                    {{ session('status') }}
-                </div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 p-4 surface-muted text-gray-800">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="surface">
-                <div class="p-6 text-gray-900">
+    <div class="surface">
+        <div class="p-6 text-gray-900">
                     <div class="text-lg font-medium mb-3">Deposit address pool (USDT BEP20)</div>
 
                     <form method="POST" action="{{ route('admin.settings.deposit_addresses.add') }}" class="flex gap-2 mb-4">
@@ -52,8 +50,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
         </div>
     </div>
 </x-admin-layout>

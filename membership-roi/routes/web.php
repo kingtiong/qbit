@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\WithdrawalsController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\InvestmentPackageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QbpController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::get('/dashboard', [InvestmentController::class, 'index'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
+    Route::get('/qbp', [QbpController::class, 'index'])->name('qbp.index');
     Route::post('/investments', [InvestmentController::class, 'store'])->name('investments.store');
 
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
