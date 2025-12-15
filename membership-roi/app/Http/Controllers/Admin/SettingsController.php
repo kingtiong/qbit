@@ -28,9 +28,11 @@ class SettingsController extends Controller
             'address' => ['required', 'string', 'regex:/^0x[a-fA-F0-9]{40}$/', 'unique:deposit_addresses,address'],
         ]);
 
+        $address = strtolower(trim((string) $validated['address']));
+
         DepositAddress::create([
             'chain' => 'bsc',
-            'address' => $validated['address'],
+            'address' => $address,
             'is_active' => true,
         ]);
 

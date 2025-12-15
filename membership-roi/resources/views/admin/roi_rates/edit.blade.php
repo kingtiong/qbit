@@ -15,7 +15,7 @@
         <div class="surface">
             <div class="p-6 text-gray-900">
                 <div class="mb-4">
-                    <div class="text-sm text-gray-600">Set the ROI rate (percent) for a date. Allowed range: <span class="font-medium">0.5%</span> to <span class="font-medium">0.8%</span>.</div>
+                    <div class="text-sm text-gray-600">Set the ROI rate (percent) for a date. Allowed range: <span class="font-medium">0.01%</span> to <span class="font-medium">1.00%</span>.</div>
                 </div>
 
                 <form method="POST" action="{{ route('admin.roi_rates.upsert') }}" class="space-y-4">
@@ -29,7 +29,7 @@
 
                     <div>
                         <x-input-label for="rate_percent" :value="__('Rate (%)')" />
-                        <x-text-input id="rate_percent" name="rate_percent" type="number" step="0.01" min="0.5" max="0.8" class="mt-1 block w-full" :value="old('rate_percent', $rate ? bcmul((string) $rate->rate, '100', 2) : '')" required />
+                        <x-text-input id="rate_percent" name="rate_percent" type="number" step="0.01" min="0.01" max="1.00" class="mt-1 block w-full" :value="old('rate_percent', $rate ? bcmul((string) $rate->rate, '100', 2) : '')" required />
                         <x-input-error class="mt-2" :messages="$errors->get('rate_percent')" />
                     </div>
 

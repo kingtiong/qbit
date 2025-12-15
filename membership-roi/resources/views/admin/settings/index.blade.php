@@ -15,7 +15,10 @@
 
                     <form method="POST" action="{{ route('admin.settings.deposit_addresses.add') }}" class="flex gap-2 mb-4">
                         @csrf
-                        <input name="address" placeholder="0x..." class="input px-3 py-2 w-full" />
+                        <div class="w-full">
+                            <input name="address" placeholder="0x..." value="{{ old('address') }}" class="input w-full" />
+                            <x-input-error class="mt-2" :messages="$errors->get('address')" />
+                        </div>
                         <button class="btn-dark px-4 py-2 normal-case">Add</button>
                     </form>
 
