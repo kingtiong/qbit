@@ -30,8 +30,8 @@ class RoiRateController extends Controller
     {
         $validated = $request->validate([
             'date' => ['required', 'date_format:Y-m-d'],
-            // Admin enters percent value between 0.5 and 0.8 (inclusive).
-            'rate_percent' => ['required', 'numeric', 'min:0.5', 'max:0.8'],
+            // Admin enters percent value between 0.01 and 1.00 (inclusive).
+            'rate_percent' => ['required', 'numeric', 'min:0.01', 'max:1.00'],
             'note' => ['nullable', 'string', 'max:255'],
         ]);
 
