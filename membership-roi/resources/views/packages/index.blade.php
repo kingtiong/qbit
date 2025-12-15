@@ -18,41 +18,39 @@
         </div>
     </x-slot>
 
-    <div class="page-section">
-        <div class="page-container">
-            @if (session('status'))
-                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
-                    {{ session('status') }}
-                </div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="mb-6 surface overflow-hidden">
-                <div class="p-6 text-white bg-gradient-to-r from-gray-900 via-emerald-900 to-gray-900">
+    <div class="mb-6 surface overflow-hidden">
+        <div class="p-6 bg-emerald-50">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                            <div class="text-sm text-emerald-100">Funding → Machine Purchase → Daily Rewards (UTC+8)</div>
-                            <div class="mt-1 text-2xl font-semibold">Buy a Quantum Machine to start daily QOS</div>
-                            <div class="mt-2 text-sm text-emerald-100 max-w-3xl">
+                            <div class="text-sm text-slate-700">Funding → Machine Purchase → Daily Rewards (UTC+8)</div>
+                            <div class="mt-1 text-2xl font-semibold text-slate-900">Buy a Quantum Machine to start daily QOS</div>
+                            <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 Deposits are credited to your <span class="font-medium">Registered Wallet</span>.
                                 All earnings and commissions are credited to your <span class="font-medium">Commission Wallet</span>.
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full sm:min-w-[260px] sm:max-w-sm">
-                            <div class="p-4 rounded border border-white/20 bg-white/10">
-                                <div class="text-xs text-emerald-100 uppercase tracking-wider">Registered Wallet</div>
-                                <div class="mt-1 text-xl font-semibold">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-emerald-100">Used to buy machines</div>
+                            <div class="p-4 surface-solid">
+                                <div class="text-xs text-slate-600 uppercase tracking-wider">Registered Wallet</div>
+                                <div class="mt-1 text-xl font-semibold text-slate-900">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
+                                <div class="mt-1 text-xs text-slate-600">Used to buy machines</div>
                             </div>
-                            <div class="p-4 rounded border border-white/20 bg-white/10">
-                                <div class="text-xs text-emerald-100 uppercase tracking-wider">Commission Wallet</div>
-                                <div class="mt-1 text-xl font-semibold">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-emerald-100">Daily QOS + network</div>
+                            <div class="p-4 surface-solid">
+                                <div class="text-xs text-slate-600 uppercase tracking-wider">Commission Wallet</div>
+                                <div class="mt-1 text-xl font-semibold text-slate-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
+                                <div class="mt-1 text-xs text-slate-600">Daily QOS + network</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-4 text-sm text-emerald-100">
+                    <div class="mt-4 text-sm text-slate-700">
                         Daily distribution: <span class="font-medium">UTC+8</span> (system schedule).
                         @if ($todayRate)
                             <span class="ml-2 opacity-80">Legacy ROI reference (admin-set): {{ bcmul((string) $todayRate->rate, '100', 2) }}% for {{ $today->toDateString() }}</span>
@@ -138,6 +136,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </x-app-layout>

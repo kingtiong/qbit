@@ -5,15 +5,13 @@
         </h2>
     </x-slot>
 
-    <div class="page-section">
-        <div class="page-container">
-            @if (session('status'))
-                <div class="mb-4 p-4 surface-muted text-gray-800">
-                    {{ session('status') }}
-                </div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 p-4 surface-muted text-gray-800">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -33,8 +31,8 @@
                             <div class="text-lg font-medium mb-2">Deposit (USDT BEP20)</div>
 
                             @if ($activeSession)
-                                <div class="p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10">
-                                    <div class="text-sm text-green-800">Deposit address (valid until {{ $activeSession->reserved_until->toDateTimeString() }})</div>
+                                <div class="p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10">
+                                    <div class="text-sm text-slate-900">Deposit address (valid until {{ $activeSession->reserved_until->toDateTimeString() }})</div>
                                     <div class="mt-1 font-mono text-sm">{{ $activeSession->depositAddress->address }}</div>
                                 </div>
                             @else
@@ -94,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-3">Recent deposits</div>
@@ -156,6 +154,5 @@
                 </div>
             </div>
 
-        </div>
     </div>
 </x-app-layout>

@@ -28,8 +28,10 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="page-section">
+                <div class="page-container">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
     </body>

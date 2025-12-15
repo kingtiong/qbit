@@ -21,38 +21,36 @@
         </div>
     </x-slot>
 
-    <div class="page-section">
-        <div class="page-container">
-            @if (session('status'))
-                <div class="mb-4 p-4 rounded-2xl bg-emerald-50/70 ring-1 ring-emerald-900/10 text-emerald-900">
-                    {{ session('status') }}
-                </div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="mb-6 surface overflow-hidden">
-                <div class="p-6 text-white bg-gradient-to-r from-gray-900 via-emerald-900 to-gray-900">
+    <div class="mb-6 surface overflow-hidden">
+        <div class="p-6 bg-emerald-50">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                            <div class="text-sm text-emerald-100">Quantum Trading • Automated strategy execution</div>
-                            <div class="mt-1 text-2xl font-semibold">Your machines trade your fund daily</div>
-                            <div class="mt-2 text-sm text-emerald-100 max-w-3xl">
+                            <div class="text-sm text-slate-700">Quantum Trading • Automated strategy execution</div>
+                            <div class="mt-1 text-2xl font-semibold text-slate-900">Your machines trade your fund daily</div>
+                            <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 Deposit into your <span class="font-medium">Registered Wallet</span>, buy a Quantum Machine (QPU),
                                 and receive daily QOS earnings + network rewards into your <span class="font-medium">Commission Wallet</span>.
                             </div>
-                            <div class="mt-4 text-sm text-emerald-100">
+                            <div class="mt-4 text-sm text-slate-700">
                                 <div class="sm:inline">Invitation link:</div>
-                                <span class="sm:ml-2 mt-2 sm:mt-0 inline-block font-mono text-xs bg-white/10 px-2 py-1 rounded break-all">{{ url('/invite/'.$user->invite_code) }}</span>
+                                <span class="sm:ml-2 mt-2 sm:mt-0 inline-block font-mono text-xs bg-white px-2 py-1 rounded ring-1 ring-slate-900/10 break-all">{{ url('/invite/'.$user->invite_code) }}</span>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap gap-2">
-                            <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-white/10 border border-white/20 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-white/20">
+                            <a href="{{ route('wallet.index') }}" class="btn-neutral normal-case text-sm">
                                 Deposit
                             </a>
-                            <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-white/10 border border-white/20 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-white/20">
+                            <a href="{{ route('wallet.index') }}" class="btn-neutral normal-case text-sm">
                                 Withdraw
                             </a>
-                            <a href="{{ route('packages.index') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-500">
+                            <a href="{{ route('packages.index') }}" class="btn-primary normal-case text-sm">
                                 Buy Machine
                             </a>
                         </div>
@@ -207,6 +205,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </x-app-layout>

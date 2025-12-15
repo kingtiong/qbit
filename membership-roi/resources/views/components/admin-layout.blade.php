@@ -45,8 +45,10 @@
         </header>
     @endisset
 
-    <main>
-        {{ $slot }}
+    <main class="page-section">
+        <div class="page-container">
+            {{ $slot }}
+        </div>
     </main>
 </div>
 </body>
