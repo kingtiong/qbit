@@ -16,7 +16,6 @@ class SwitchSessionCookieForAdmin
             $base = Str::slug((string) config('app.name', 'laravel'));
             config([
                 'session.cookie' => $base.'-admin-session',
-                'session.path' => '/quantumbitv9',
             ]);
         }
 
