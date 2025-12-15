@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\WithdrawalsController;
 use App\Http\Controllers\Admin\WalletAdjustmentsController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\InvestmentPackageController;
+use App\Http\Controllers\AutoTradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QbpController;
 use App\Http\Controllers\WalletController;
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
     Route::get('/qbp', [QbpController::class, 'index'])->name('qbp.index');
     Route::post('/qbp/{partnershipPackage}/purchase', [QbpController::class, 'purchase'])->name('qbp.purchase');
+    Route::get('/autotrade', [AutoTradeController::class, 'index'])->name('autotrade.index');
     Route::post('/investments', [InvestmentController::class, 'store'])->name('investments.store');
 
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
@@ -64,6 +66,7 @@ Route::prefix('quantumbitv9')->group(function () {
         Route::get('/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
         Route::post('/settings/deposit-addresses', [SettingsController::class, 'addDepositAddress'])->name('admin.settings.deposit_addresses.add');
         Route::post('/settings/deposit-addresses/{depositAddress}/toggle', [SettingsController::class, 'toggleDepositAddress'])->name('admin.settings.deposit_addresses.toggle');
+        Route::post('/settings/autotrade', [SettingsController::class, 'updateAutoTrade'])->name('admin.settings.autotrade.update');
         Route::get('/roi-rates', [RoiRateController::class, 'edit'])->name('admin.roi_rates.edit');
         Route::post('/roi-rates', [RoiRateController::class, 'upsert'])->name('admin.roi_rates.upsert');
     });

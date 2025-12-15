@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DepositAddress;
+use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,6 +20,8 @@ class SettingsController extends Controller
 
         return view('admin.settings.index', [
             'addresses' => $addresses,
+            'autoTradeFund' => (float) Setting::getValue('autotrade.fund_usdt', '1000'),
+            'autoTradeDailyPct' => (float) Setting::getValue('autotrade.daily_profit_pct', '1.5'),
         ]);
     }
 
@@ -43,5 +46,18 @@ class SettingsController extends Controller
     {
         $depositAddress->forceFill(['is_active' => !$depositAddress->is_active])->save();
         return back()->with('status', 'Deposit address updated.');
+    }
+
+    public function updateAutoTrade(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'fund_usdt' => ['required', 'numeric', 'min:0'],
+            'daily_profit_pct' => ['required', 'numeric', 'min:0', 'max:10'],
+        ]);
+
+        Setting::putValue('autotrade.fund_usdt', number_format((float) $validated['fund_usdt'], 2, '.', ''));
+        Setting::putValue('autotrade.daily_profit_pct', number_format((float) $validated['daily_profit_pct'], 2, '.', ''));
+
+        return back()->with('status', 'Auto trade settings saved.');
     }
 }
