@@ -31,9 +31,63 @@
                             <div class="text-lg font-medium mb-2">Deposit (USDT BEP20)</div>
 
                             @if ($activeSession)
-                                <div class="p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10">
-                                    <div class="text-sm text-slate-900">Deposit address (valid until {{ $activeSession->reserved_until->toDateTimeString() }})</div>
-                                    <div class="mt-1 font-mono text-sm">{{ $activeSession->depositAddress->address }}</div>
+                                <div
+                                    class="p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10"
+                                    x-data="{
+                                        expiresAt: @js($activeSession->reserved_until->timestamp),
+                                        total: 1800,
+                                        remaining: 0,
+                                        timer: null,
+                                        tick() {
+                                            const now = Math.floor(Date.now() / 1000);
+                                            this.remaining = Math.max(0, this.expiresAt - now);
+                                        },
+                                        start() {
+                                            this.tick();
+                                            this.timer = setInterval(() => this.tick(), 1000);
+                                        },
+                                        minutes() { return String(Math.floor(this.remaining / 60)).padStart(2, '0'); },
+                                        seconds() { return String(this.remaining % 60).padStart(2, '0'); },
+                                        pct() {
+                                            const used = this.total - this.remaining;
+                                            return Math.max(0, Math.min(100, Math.round((used / this.total) * 100)));
+                                        },
+                                    }"
+                                    x-init="start()"
+                                >
+                                    <div class="flex flex-wrap items-start justify-between gap-3">
+                                        <div>
+                                            <div class="text-sm text-slate-900">
+                                                Deposit address
+                                                <span class="text-slate-700">(valid for 30 minutes)</span>
+                                            </div>
+                                            <div class="mt-1 font-mono text-sm break-all">{{ $activeSession->depositAddress->address }}</div>
+                                        </div>
+
+                                        <div class="min-w-[220px]">
+                                            <div class="text-xs text-slate-700">Time remaining</div>
+                                            <div class="mt-1 flex items-center justify-between gap-3">
+                                                <div class="text-lg font-semibold tabular-nums" x-text="minutes() + ':' + seconds()"></div>
+                                                <div class="text-xs text-slate-700">
+                                                    Expires at {{ $activeSession->reserved_until->format('H:i:s') }}
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 h-2 rounded-full bg-white/70 ring-1 ring-slate-900/10 overflow-hidden">
+                                                <div class="h-2 bg-emerald-600 rounded-full transition-[width] duration-500" :style="`width: ${pct()}%`"></div>
+                                            </div>
+                                            <div class="mt-2 text-xs text-amber-900" x-show="remaining <= 60" x-cloak>
+                                                Warning: less than 1 minute left. If it expires, request a new address.
+                                            </div>
+                                            <div class="mt-2 text-xs text-slate-700" x-show="remaining === 0" x-cloak>
+                                                This address has expired. Please request a new deposit address.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 text-sm text-slate-800">
+                                        Please send USDT (BEP20) to this address <span class="font-semibold">before the timer ends</span>.
+                                        Deposits sent after expiry may not be credited to your account.
+                                    </div>
                                 </div>
                             @else
                                 <form method="POST" action="{{ route('wallet.deposit.request') }}">
@@ -45,7 +99,14 @@
                             @endif
 
                             <div class="mt-2 text-xs text-gray-600">
-                                After you send USDT to the address, the system will auto-credit your balance when detected.
+                                <div class="surface-muted p-3 text-gray-700">
+                                    <div class="font-medium text-gray-900">Deposit rules (USDT BEP20)</div>
+                                    <ul class="mt-1 space-y-1">
+                                        <li>- You must deposit within the <span class="font-medium">30-minute</span> window shown above.</li>
+                                        <li>- If it expires, request a <span class="font-medium">new deposit address</span>.</li>
+                                        <li>- The system credits your Registered Wallet automatically once the transfer is detected.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
