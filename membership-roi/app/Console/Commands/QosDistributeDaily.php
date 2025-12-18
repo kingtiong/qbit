@@ -93,27 +93,7 @@ class QosDistributeDaily extends Command
                 $safety++;
             }
 
-            // 1) Direct sponsor commission (based on sponsor rank; paid on downline QOS)
-            $directSponsor = $chain[0] ?? null;
-            if ($directSponsor) {
-                $pct = RankRules::directSponsorPercent((string) $directSponsor->rank);
-                $amt = bcmul($credited, $pct, 2);
-                $paid = EarningAllocator::creditToOldestInvestments(
-                    $directSponsor->id,
-                    $amt,
-                    'direct_sponsor',
-                    $date,
-                    [
-                        'downline_user_id' => $downline->id,
-                        'downline_qos' => $credited,
-                        'percent' => $pct,
-                        'date' => $date->toDateString(),
-                    ],
-                );
-                $directCredited = bcadd($directCredited, $paid, 2);
-            }
-
-            // 2) Ranking bonus differential up the chain (max 22%)
+            // 1) Ranking bonus differential up the chain (max 22%)
             $prevBonus = '0.00';
             $prevRank = (string) ($downline->rank ?? 'B');
             foreach ($chain as $idx => $upline) {

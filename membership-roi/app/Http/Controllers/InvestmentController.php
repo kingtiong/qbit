@@ -8,6 +8,8 @@ use App\Models\SalesEvent;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use App\Services\BusinessTime;
+use App\Services\EarningAllocator;
+use App\Services\RankRules;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -86,6 +88,7 @@ class InvestmentController extends Controller
             ->firstOrFail();
 
         DB::transaction(function () use ($user, $package): void {
+            $businessDate = BusinessTime::today();
             // Purchases debit from the Registered Wallet (deposit funds).
             $wallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
             $wallet->refresh();
@@ -94,7 +97,7 @@ class InvestmentController extends Controller
                 abort(422, 'Insufficient wallet balance. Please deposit first.');
             }
 
-            $startedOn = BusinessTime::today()->toDateString();
+            $startedOn = $businessDate->toDateString();
             $maxReturnAmount = bcmul((string) $package->amount, (string) ($package->max_return_multiplier ?? '0'), 2);
 
             $investment = Investment::create([
@@ -132,6 +135,30 @@ class InvestmentController extends Controller
                     'package_code' => $package->code,
                 ],
             ]);
+
+            // Direct sponsor commission is now based on the downline's investment amount (one-time on purchase).
+            $sponsor = $user->sponsor()->first();
+            if ($sponsor) {
+                $pct = RankRules::directSponsorPercent((string) ($sponsor->rank ?? 'B'));
+                if (bccomp($pct, '0', 5) > 0) {
+                    $amt = bcmul((string) $package->amount, $pct, 2);
+                    EarningAllocator::creditToOldestInvestments(
+                        $sponsor->id,
+                        $amt,
+                        'direct_sponsor',
+                        $businessDate,
+                        [
+                            'downline_user_id' => $user->id,
+                            'investment_id' => $investment->id,
+                            'investment_package_id' => $package->id,
+                            'package_code' => $package->code,
+                            'investment_amount' => (string) $package->amount,
+                            'percent' => $pct,
+                            'date' => $startedOn,
+                        ],
+                    );
+                }
+            }
         });
 
         return back()->with('status', 'Investment created.');
