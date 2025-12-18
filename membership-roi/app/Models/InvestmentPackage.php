@@ -17,6 +17,8 @@ class InvestmentPackage extends Model
         'daily_qos_amount',
         'max_return_multiplier',
         'is_active',
+        'total_units',
+        'sold_units',
     ];
 
     protected $casts = [
@@ -25,6 +27,8 @@ class InvestmentPackage extends Model
         'max_return_multiplier' => 'decimal:2',
         'benefits' => 'array',
         'is_active' => 'boolean',
+        'total_units' => 'integer',
+        'sold_units' => 'integer',
     ];
 
     public function investments(): HasMany

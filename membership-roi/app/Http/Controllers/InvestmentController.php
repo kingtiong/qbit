@@ -77,6 +77,7 @@ class InvestmentController extends Controller
     {
         $validated = $request->validate([
             'investment_package_id' => ['required', 'integer', 'exists:investment_packages,id'],
+            'wallet_type' => ['required', 'in:registered,commission'],
         ]);
 
         $user = Auth::user();
@@ -87,10 +88,35 @@ class InvestmentController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        DB::transaction(function () use ($user, $package): void {
+        DB::transaction(function () use ($user, $package, $validated): void {
             $businessDate = BusinessTime::today();
-            // Purchases debit from the Registered Wallet (deposit funds).
-            $wallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
+
+            // Enforce: max 10 active QPU per user at the beginning.
+            $activeCount = Investment::query()
+                ->where('user_id', $user->id)
+                ->where('status', 'active')
+                ->lockForUpdate()
+                ->count();
+            if ($activeCount >= 10) {
+                abort(422, 'You can only run up to 10 active QPU at a time.');
+            }
+
+            // Enforce package unit inventory (except admin purchase).
+            /** @var InvestmentPackage $pkgLocked */
+            $pkgLocked = InvestmentPackage::query()->whereKey($package->id)->lockForUpdate()->firstOrFail();
+            $isAdminPurchase = (bool) ($user->is_admin ?? false);
+            if (!$isAdminPurchase) {
+                $remaining = max(0, (int) ($pkgLocked->total_units ?? 0) - (int) ($pkgLocked->sold_units ?? 0));
+                if ($remaining <= 0) {
+                    abort(422, 'This QPU package is sold out.');
+                }
+            }
+
+            // Purchases can debit from Registered or Quant wallet.
+            $walletType = $validated['wallet_type'] === 'commission'
+                ? Wallet::TYPE_COMMISSION
+                : Wallet::TYPE_REGISTERED;
+            $wallet = Wallet::forUser($user->id, $walletType);
             $wallet->refresh();
 
             if (bccomp((string) $wallet->balance, (string) $package->amount, 2) < 0) {
@@ -118,6 +144,7 @@ class InvestmentController extends Controller
                     'investment_id' => $investment->id,
                     'investment_package_id' => $package->id,
                     'package_code' => $package->code,
+                    'wallet_type' => $walletType,
                 ],
                 'occurred_on' => $startedOn,
             ]);
@@ -133,8 +160,14 @@ class InvestmentController extends Controller
                     'investment_id' => $investment->id,
                     'investment_package_id' => $package->id,
                     'package_code' => $package->code,
+                    'wallet_type' => $walletType,
                 ],
             ]);
+
+            // Deduct 1 unit from package inventory (except admin purchase).
+            if (!$isAdminPurchase) {
+                $pkgLocked->increment('sold_units', 1);
+            }
 
             // Direct sponsor commission is now based on the downline's investment amount (one-time on purchase).
             $sponsor = $user->sponsor()->first();

@@ -63,10 +63,15 @@
                 @forelse ($packages as $package)
                     @php
                         $maxReturn = (float) ($package->amount ?? 0) * (float) ($package->max_return_multiplier ?? 0);
-                        $canBuy = (float) $registeredWallet->balance >= (float) $package->amount;
+                        $canBuyRegistered = (float) $registeredWallet->balance >= (float) $package->amount;
+                        $canBuyQuant = (float) $commissionWallet->balance >= (float) $package->amount;
+                        $canBuyAny = $canBuyRegistered || $canBuyQuant;
+                        $totalUnits = (int) ($package->total_units ?? 100);
+                        $soldUnits = (int) ($package->sold_units ?? 0);
+                        $remainingUnits = max(0, $totalUnits - $soldUnits);
                     @endphp
                     <div class="surface">
-                        <div class="p-6">
+                        <div class="p-6" x-data="{ open: false }">
                             <div class="flex items-start justify-between gap-4">
                                 <div>
                                     <div class="inline-flex items-center px-2 py-1 rounded text-xs border bg-emerald-50 border-emerald-200 text-emerald-800">
@@ -97,6 +102,13 @@
                                 </div>
                             </div>
 
+                            <div class="mt-3 flex items-center justify-between text-xs text-gray-600">
+                                <div>{{ __('Units') }}: <span class="font-semibold text-gray-900">{{ $remainingUnits }}</span> / {{ $totalUnits }}</div>
+                                @if ($remainingUnits <= 0)
+                                    <div class="font-semibold text-red-600">{{ __('Sold out') }}</div>
+                                @endif
+                            </div>
+
                             @if (is_array($package->benefits) && count($package->benefits))
                                 <ul class="mt-4 text-sm text-gray-700 space-y-1">
                                     @foreach ($package->benefits as $b)
@@ -110,15 +122,62 @@
 
                             <div class="mt-5 flex items-center justify-between gap-3">
                                 <div class="text-xs text-gray-600">
-                                    {{ __('Deducts from Registered Wallet.') }}
+                                    {{ __('Choose payment wallet') }}
                                 </div>
-                                <form method="POST" action="{{ route('investments.store') }}">
-                                    @csrf
-                                    <input type="hidden" name="investment_package_id" value="{{ $package->id }}" />
-                                    <x-primary-button :disabled="!$canBuy">
-                                        {{ $canBuy ? __('Buy Machine') : __('Insufficient Funds') }}
-                                    </x-primary-button>
-                                </form>
+                                <button
+                                    type="button"
+                                    class="btn-dark px-4 py-2 rounded-xl text-sm font-semibold disabled:opacity-50"
+                                    @click="open = true"
+                                    @disabled(!$canBuyAny || $remainingUnits <= 0)
+                                >
+                                    {{ $canBuyAny ? __('Join / Start') : __('Insufficient Funds') }}
+                                </button>
+                            </div>
+
+                            <!-- Payment modal -->
+                            <div
+                                x-show="open"
+                                x-cloak
+                                class="fixed inset-0 z-50 flex items-center justify-center p-4"
+                                aria-modal="true"
+                                role="dialog"
+                            >
+                                <div class="absolute inset-0 bg-slate-900/40" @click="open = false"></div>
+                                <div class="relative w-full max-w-lg surface p-6">
+                                    <div class="flex items-start justify-between gap-3">
+                                        <div>
+                                            <div class="text-lg font-semibold text-gray-900">{{ __('Choose payment wallet') }}</div>
+                                            <div class="text-sm text-gray-600">{{ $package->label }} • {{ $package->currency }} {{ number_format((float) $package->amount, 2) }}</div>
+                                        </div>
+                                        <button type="button" class="btn-neutral text-sm normal-case" @click="open = false">{{ __('Close') }}</button>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                                        <form method="POST" action="{{ route('investments.store') }}" class="surface-muted p-4">
+                                            @csrf
+                                            <input type="hidden" name="investment_package_id" value="{{ $package->id }}" />
+                                            <input type="hidden" name="wallet_type" value="registered" />
+                                            <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Registered Wallet') }}</div>
+                                            <div class="mt-1 text-lg font-semibold text-gray-900 tabular-nums">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
+                                            <div class="mt-2 text-xs text-gray-600">{{ __('Used to buy machines') }}</div>
+                                            <button type="submit" class="btn-dark w-full mt-3 normal-case text-sm" @disabled(!$canBuyRegistered)>{{ __('Pay with Registered') }}</button>
+                                        </form>
+
+                                        <form method="POST" action="{{ route('investments.store') }}" class="surface-muted p-4">
+                                            @csrf
+                                            <input type="hidden" name="investment_package_id" value="{{ $package->id }}" />
+                                            <input type="hidden" name="wallet_type" value="commission" />
+                                            <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Quant Wallet') }}</div>
+                                            <div class="mt-1 text-lg font-semibold text-gray-900 tabular-nums">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
+                                            <div class="mt-2 text-xs text-gray-600">{{ __('Daily QOS + network') }}</div>
+                                            <button type="submit" class="btn-dark w-full mt-3 normal-case text-sm" @disabled(!$canBuyQuant)>{{ __('Pay with Quant') }}</button>
+                                        </form>
+                                    </div>
+
+                                    <div class="mt-4 text-xs text-gray-600">
+                                        {{ __('Note') }}: {{ __('Max 10 active QPU per user. Units are limited and deducted in real time.') }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
