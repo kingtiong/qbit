@@ -118,6 +118,8 @@
   "Sell": "卖出",
   "Open": "开仓时间",
   "Close": "平仓时间",
+  "Buy time": "买入时间",
+  "Sell time": "卖出时间",
   "Side": "方向",
   "Entry": "开仓价",
   "Exit": "平仓价",

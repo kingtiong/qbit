@@ -268,8 +268,8 @@
                 <thead>
                     <tr class="text-left border-b border-slate-900/5">
                         <th class="py-2 pr-4">{{ __('Date') }}</th>
-                        <th class="py-2 pr-4">{{ __('Open') }}</th>
-                        <th class="py-2 pr-4">{{ __('Close') }}</th>
+                        <th class="py-2 pr-4">{{ __('Buy time') }}</th>
+                        <th class="py-2 pr-4">{{ __('Sell time') }}</th>
                         <th class="py-2 pr-4">{{ __('Pair') }}</th>
                         <th class="py-2 pr-4">{{ __('Side') }}</th>
                         <th class="py-2 pr-4">{{ __('Qty') }}</th>
@@ -292,8 +292,12 @@
                         @endphp
                         <tr class="border-b border-slate-900/5">
                             <td class="py-2 pr-4">{{ $t->trade_date?->toDateString() }}</td>
-                            <td class="py-2 pr-4 tabular-nums">{{ $t->opened_at?->format('H:i:s') ?? '-' }}</td>
-                            <td class="py-2 pr-4 tabular-nums">{{ $t->closed_at?->format('H:i:s') ?? '-' }}</td>
+                            <td class="py-2 pr-4 tabular-nums whitespace-nowrap">
+                                {{ $t->opened_at ? $t->opened_at->timezone($tz ?? config('app.timezone'))->format('Y-m-d H:i:s') : '-' }}
+                            </td>
+                            <td class="py-2 pr-4 tabular-nums whitespace-nowrap">
+                                {{ $t->closed_at ? $t->closed_at->timezone($tz ?? config('app.timezone'))->format('Y-m-d H:i:s') : '-' }}
+                            </td>
                             <td class="py-2 pr-4 font-medium">
                                 <div class="flex items-center gap-2">
                                     @php

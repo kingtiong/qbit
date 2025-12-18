@@ -103,6 +103,7 @@ class AutoTradeController extends Controller
             'todayPnl' => $todayPnl,
             'trades' => $trades,
             'today' => $today,
+            'tz' => BusinessTime::TZ,
             'analytics' => [
                 'total' => $total,
                 'wins' => $wins,
