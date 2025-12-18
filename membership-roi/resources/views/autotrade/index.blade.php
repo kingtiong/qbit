@@ -35,6 +35,23 @@
             </div>
         </div>
 
+        <div class="flex flex-wrap items-center gap-2 mt-4">
+            <div class="text-xs text-gray-600 uppercase tracking-wider mr-1">{{ __('Filter') }}</div>
+            @php $r = (int) ($range ?? 30); @endphp
+            <a href="{{ route('autotrade.index', ['range' => 30]) }}"
+               class="px-3 py-1 rounded-xl text-xs font-semibold {{ $r === 30 ? 'bg-slate-900 text-white' : 'bg-white ring-1 ring-slate-900/10 text-gray-700 hover:bg-slate-50' }}">
+                {{ __('30 days') }}
+            </a>
+            <a href="{{ route('autotrade.index', ['range' => 60]) }}"
+               class="px-3 py-1 rounded-xl text-xs font-semibold {{ $r === 60 ? 'bg-slate-900 text-white' : 'bg-white ring-1 ring-slate-900/10 text-gray-700 hover:bg-slate-50' }}">
+                {{ __('60 days') }}
+            </a>
+            <a href="{{ route('autotrade.index', ['range' => 90]) }}"
+               class="px-3 py-1 rounded-xl text-xs font-semibold {{ $r === 90 ? 'bg-slate-900 text-white' : 'bg-white ring-1 ring-slate-900/10 text-gray-700 hover:bg-slate-50' }}">
+                {{ __('90 days') }}
+            </a>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
             <div class="surface-muted p-4">
                 <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Win rate') }}</div>
@@ -71,7 +88,7 @@
         <div class="surface-muted p-4 mt-4">
             <div class="flex items-end justify-between gap-3">
                 <div>
-                    <div class="text-sm font-semibold text-gray-900">{{ __('P&L (last 30 days)') }}</div>
+                    <div class="text-sm font-semibold text-gray-900">{{ __('P&L (filtered)') }}</div>
                     <div class="text-xs text-gray-600">{{ __('Daily total P&L, simulated.') }}</div>
                 </div>
                 <div class="text-xs text-gray-600 tabular-nums">

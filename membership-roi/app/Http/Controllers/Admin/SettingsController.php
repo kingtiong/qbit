@@ -20,7 +20,7 @@ class SettingsController extends Controller
 
         return view('admin.settings.index', [
             'addresses' => $addresses,
-            'autoTradeFund' => (float) Setting::getValue('autotrade.fund_usdt', '1000'),
+            'autoTradeFund' => (float) Setting::getValue('autotrade.fund_usdt', '570000'),
             'autoTradeDailyPct' => (float) Setting::getValue('autotrade.daily_profit_pct', '1.5'),
         ]);
     }

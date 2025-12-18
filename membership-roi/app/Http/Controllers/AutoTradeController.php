@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Services\AutoTradeSimulator;
 use App\Services\BusinessTime;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -29,17 +30,31 @@ class AutoTradeController extends Controller
         ];
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
         $user = Auth::user();
         $today = BusinessTime::today();
 
-        $fund = (float) Setting::getValue('autotrade.fund_usdt', '1000');
+        $fund = (float) Setting::getValue('autotrade.fund_usdt', '570000');
         $targetPct = (float) Setting::getValue('autotrade.daily_profit_pct', '1.5');
         $fund = max(0, $fund);
         $targetPct = max(0, min(10, $targetPct));
 
         $symbols = $this->topSymbols();
+
+        $range = (int) $request->query('range', 30);
+        $range = in_array($range, [30, 60, 90], true) ? $range : 30;
+
+        // Backfill up to 90 days so users can view 3 months history.
+        // Only runs for this user; deterministic per day so it's stable.
+        if ($fund > 0) {
+            $start = $today->copy()->subDays(89);
+            for ($i = 0; $i < 90; $i++) {
+                $day = $start->copy()->addDays($i);
+                $nowForPastDay = $day->copy()->addDays(2); // ensures all scheduled trades are "closed"
+                AutoTradeSimulator::ensureTradesUpToNow($user->id, $day, $fund, $targetPct, $symbols, $nowForPastDay, 50);
+            }
+        }
 
         // Drip trades in over the day (1–10 minute random gaps). If the scheduler isn't running,
         // this will still "catch up" on page load.
@@ -47,12 +62,16 @@ class AutoTradeController extends Controller
             AutoTradeSimulator::ensureTradesUpToNow($user->id, $today, $fund, $targetPct, $symbols);
         }
 
+        $fromDate = $today->copy()->subDays($range - 1)->toDateString();
+        $limit = min(5000, max(300, $range * 25)); // 30d~750, 60d~1500, 90d~2250
+
         $trades = AutoTrade::query()
             ->where('user_id', $user->id)
+            ->whereDate('trade_date', '>=', $fromDate)
             ->orderByDesc('trade_date')
             ->orderByDesc('closed_at')
             ->orderBy('symbol')
-            ->limit(300)
+            ->limit($limit)
             ->get();
 
         $todayTrades = $trades->filter(fn ($t) => $t->trade_date?->toDateString() === $today->toDateString());
@@ -82,14 +101,14 @@ class AutoTradeController extends Controller
             $avgHoldMin = $cnt > 0 ? ($sumMin / $cnt) : 0.0;
         }
 
-        // Daily P&L series (last 30 days)
+        // Daily P&L series (filtered range)
         $byDate = $trades
             ->groupBy(fn ($t) => $t->trade_date?->toDateString())
             ->map(fn ($g) => (float) $g->sum('pnl'));
 
         $labels = [];
         $series = [];
-        for ($i = 29; $i >= 0; $i--) {
+        for ($i = ($range - 1); $i >= 0; $i--) {
             $d = $today->copy()->subDays($i)->toDateString();
             $labels[] = $d;
             $series[] = (float) ($byDate[$d] ?? 0.0);
@@ -104,6 +123,7 @@ class AutoTradeController extends Controller
             'trades' => $trades,
             'today' => $today,
             'tz' => BusinessTime::TZ,
+            'range' => $range,
             'analytics' => [
                 'total' => $total,
                 'wins' => $wins,

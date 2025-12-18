@@ -26,7 +26,7 @@ class AutoTradeTick extends Command
         $date = BusinessTime::dateFromOption($this->option('date'), defaultYesterday: false);
         $now = Carbon::now(BusinessTime::TZ)->startOfMinute();
 
-        $fund = (float) Setting::getValue('autotrade.fund_usdt', '1000');
+        $fund = (float) Setting::getValue('autotrade.fund_usdt', '570000');
         $targetPct = (float) Setting::getValue('autotrade.daily_profit_pct', '1.5');
         $fund = max(0, $fund);
         $targetPct = max(0, min(10, $targetPct));
