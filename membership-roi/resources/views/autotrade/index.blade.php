@@ -35,6 +35,132 @@
             </div>
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <div class="surface-muted p-4">
+                <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Win rate') }}</div>
+                <div class="mt-1 text-xl font-semibold text-gray-900 tabular-nums">
+                    {{ number_format((float) ($analytics['win_rate'] ?? 0), 2) }}%
+                </div>
+                <div class="mt-1 text-xs text-gray-600">
+                    {{ (int) ($analytics['wins'] ?? 0) }}W / {{ (int) ($analytics['losses'] ?? 0) }}L
+                </div>
+            </div>
+            <div class="surface-muted p-4">
+                <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Long / Short') }}</div>
+                <div class="mt-1 text-xl font-semibold text-gray-900 tabular-nums">
+                    {{ (int) ($analytics['longs'] ?? 0) }} / {{ (int) ($analytics['shorts'] ?? 0) }}
+                </div>
+                <div class="mt-1 text-xs text-gray-600">{{ __('Based on last trades') }}</div>
+            </div>
+            <div class="surface-muted p-4">
+                <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Avg hold') }}</div>
+                <div class="mt-1 text-xl font-semibold text-gray-900 tabular-nums">
+                    {{ number_format((float) ($analytics['avg_hold_min'] ?? 0), 1) }}m
+                </div>
+                <div class="mt-1 text-xs text-gray-600">{{ __('Average position duration') }}</div>
+            </div>
+            <div class="surface-muted p-4">
+                <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Trades') }}</div>
+                <div class="mt-1 text-xl font-semibold text-gray-900 tabular-nums">
+                    {{ (int) ($analytics['total'] ?? 0) }}
+                </div>
+                <div class="mt-1 text-xs text-gray-600">{{ __('Last 300 records') }}</div>
+            </div>
+        </div>
+
+        <div class="surface-muted p-4 mt-4">
+            <div class="flex items-end justify-between gap-3">
+                <div>
+                    <div class="text-sm font-semibold text-gray-900">{{ __('P&L (last 30 days)') }}</div>
+                    <div class="text-xs text-gray-600">{{ __('Daily total P&L, simulated.') }}</div>
+                </div>
+                <div class="text-xs text-gray-600 tabular-nums">
+                    {{ __('Best') }}:
+                    @php $best = $analytics['best'] ?? null; @endphp
+                    <span class="font-semibold text-emerald-700">{{ $best ? number_format((float) $best->pnl, 2) : '-' }}</span>
+                    <span class="text-gray-400">/</span>
+                    {{ __('Worst') }}:
+                    @php $worst = $analytics['worst'] ?? null; @endphp
+                    <span class="font-semibold text-red-700">{{ $worst ? number_format((float) $worst->pnl, 2) : '-' }}</span>
+                </div>
+            </div>
+
+            <div
+                class="mt-3"
+                x-data="{
+                    labels: @js($analytics['daily_labels'] ?? []),
+                    values: @js($analytics['daily_pnl'] ?? []),
+                    draw() {
+                        const canvas = this.$refs.c;
+                        if (!canvas) return;
+                        const ctx = canvas.getContext('2d');
+                        const w = canvas.width = canvas.clientWidth * (window.devicePixelRatio || 1);
+                        const h = canvas.height = 140 * (window.devicePixelRatio || 1);
+                        const dpr = (window.devicePixelRatio || 1);
+                        ctx.scale(dpr, dpr);
+
+                        const vals = this.values.map(v => Number(v || 0));
+                        const min = Math.min(...vals, 0);
+                        const max = Math.max(...vals, 0);
+                        const padX = 10, padY = 12;
+                        const innerW = canvas.clientWidth - padX * 2;
+                        const innerH = 140 - padY * 2;
+
+                        const xAt = (i) => padX + (innerW * (vals.length <= 1 ? 0 : (i / (vals.length - 1))));
+                        const yAt = (v) => {
+                            if (max === min) return padY + innerH / 2;
+                            return padY + (innerH * (1 - ((v - min) / (max - min))));
+                        };
+
+                        // background
+                        ctx.clearRect(0, 0, canvas.clientWidth, 140);
+                        ctx.lineWidth = 1;
+                        ctx.strokeStyle = 'rgba(15, 23, 42, 0.08)';
+                        for (let g = 0; g <= 4; g++) {
+                            const y = padY + innerH * (g / 4);
+                            ctx.beginPath();
+                            ctx.moveTo(padX, y);
+                            ctx.lineTo(padX + innerW, y);
+                            ctx.stroke();
+                        }
+
+                        // zero line
+                        const y0 = yAt(0);
+                        ctx.strokeStyle = 'rgba(15, 23, 42, 0.18)';
+                        ctx.beginPath();
+                        ctx.moveTo(padX, y0);
+                        ctx.lineTo(padX + innerW, y0);
+                        ctx.stroke();
+
+                        // line
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = 'rgba(16, 185, 129, 0.9)';
+                        ctx.beginPath();
+                        vals.forEach((v, i) => {
+                            const x = xAt(i);
+                            const y = yAt(v);
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        });
+                        ctx.stroke();
+
+                        // points
+                        ctx.fillStyle = 'rgba(16, 185, 129, 0.9)';
+                        vals.forEach((v, i) => {
+                            const x = xAt(i);
+                            const y = yAt(v);
+                            ctx.beginPath();
+                            ctx.arc(x, y, 2.2, 0, Math.PI * 2);
+                            ctx.fill();
+                        });
+                    }
+                }"
+                x-init="draw(); window.addEventListener('resize', () => draw())"
+            >
+                <canvas x-ref="c" class="w-full"></canvas>
+            </div>
+        </div>
+
         <div class="mt-4 text-sm text-gray-700">
             <span class="font-medium">{{ __('Note') }}:</span>
             {{ __('This is a simulated display for user experience only; it does not place real exchange orders.') }}
@@ -95,7 +221,15 @@
             <template x-for="s in symbols" :key="s">
                 <div class="surface-muted p-3">
                     <div class="flex items-center justify-between">
-                        <div class="font-semibold text-gray-900" x-text="s"></div>
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-7 h-7 rounded-full ring-1 ring-slate-900/10 flex items-center justify-center text-[10px] font-bold text-white"
+                                :style="`background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%), hsl(${(s.charCodeAt(0)*19 + s.charCodeAt(1)*7) % 360} 70% 45%)`"
+                            >
+                                <span x-text="s.slice(0,1)"></span>
+                            </div>
+                            <div class="font-semibold text-gray-900" x-text="s"></div>
+                        </div>
                         <div
                             class="text-xs"
                             :class="state[s].chg >= 0 ? 'text-emerald-700' : 'text-red-600'"
@@ -160,7 +294,23 @@
                             <td class="py-2 pr-4">{{ $t->trade_date?->toDateString() }}</td>
                             <td class="py-2 pr-4 tabular-nums">{{ $t->opened_at?->format('H:i:s') ?? '-' }}</td>
                             <td class="py-2 pr-4 tabular-nums">{{ $t->closed_at?->format('H:i:s') ?? '-' }}</td>
-                            <td class="py-2 pr-4 font-medium">{{ $pair }}</td>
+                            <td class="py-2 pr-4 font-medium">
+                                <div class="flex items-center gap-2">
+                                    @php
+                                        $sym = strtoupper((string) ($t->symbol ?? ''));
+                                        $h = sprintf('%u', crc32($sym));
+                                        $hue = ((int) $h) % 360;
+                                    @endphp
+                                    <div
+                                        class="w-7 h-7 rounded-full ring-1 ring-slate-900/10 flex items-center justify-center text-[10px] font-bold text-white"
+                                        style="background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%), hsl({{ $hue }} 70% 45%)"
+                                        title="{{ $sym }}"
+                                    >
+                                        {{ mb_substr($sym, 0, 1) }}
+                                    </div>
+                                    <div>{{ $pair }}</div>
+                                </div>
+                            </td>
                             <td class="py-2 pr-4">
                                 @if ($side === 'LONG')
                                     <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-600/20">LONG</span>
