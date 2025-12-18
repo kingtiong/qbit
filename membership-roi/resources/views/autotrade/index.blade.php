@@ -122,7 +122,7 @@
         <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
             <div>
                 <div class="text-lg font-medium text-gray-900">{{ __('Trade history') }}</div>
-                <div class="text-sm text-gray-600">{{ __('Shows simulated buy/sell prices and P&L per trade.') }}</div>
+                <div class="text-sm text-gray-600">{{ __('Shows simulated buy/sell time, long/short, and P&L per trade.') }}</div>
             </div>
             <div class="text-xs text-gray-600">
                 {{ __('Latest') }}: {{ $today->toDateString() }}
@@ -134,10 +134,16 @@
                 <thead>
                     <tr class="text-left border-b border-slate-900/5">
                         <th class="py-2 pr-4">{{ __('Date') }}</th>
+                        <th class="py-2 pr-4">{{ __('Open') }}</th>
+                        <th class="py-2 pr-4">{{ __('Close') }}</th>
                         <th class="py-2 pr-4">{{ __('Pair') }}</th>
+                        <th class="py-2 pr-4">{{ __('Side') }}</th>
                         <th class="py-2 pr-4">{{ __('Qty') }}</th>
-                        <th class="py-2 pr-4">{{ __('Buy') }}</th>
-                        <th class="py-2 pr-4">{{ __('Sell') }}</th>
+                        <th class="py-2 pr-4">{{ __('Entry') }}</th>
+                        <th class="py-2 pr-4">{{ __('Exit') }}</th>
+                        <th class="py-2 pr-4">{{ __('Risk') }}</th>
+                        <th class="py-2 pr-4">{{ __('Liquidity range') }}</th>
+                        <th class="py-2 pr-4">{{ __('Pool size') }}</th>
                         <th class="py-2 pr-4">{{ __('P&L') }}</th>
                         <th class="py-2 pr-4">{{ __('P&L %') }}</th>
                     </tr>
@@ -147,13 +153,52 @@
                         @php
                             $pair = ($t->symbol ?? '').'/'.($t->pair ?? 'USDT');
                             $pnl = (float) $t->pnl;
+                            $side = strtoupper((string) ($t->side ?? ''));
+                            $risk = strtoupper((string) ($t->risk_level ?? ''));
                         @endphp
                         <tr class="border-b border-slate-900/5">
                             <td class="py-2 pr-4">{{ $t->trade_date?->toDateString() }}</td>
+                            <td class="py-2 pr-4 tabular-nums">{{ $t->opened_at?->format('H:i:s') ?? '-' }}</td>
+                            <td class="py-2 pr-4 tabular-nums">{{ $t->closed_at?->format('H:i:s') ?? '-' }}</td>
                             <td class="py-2 pr-4 font-medium">{{ $pair }}</td>
+                            <td class="py-2 pr-4">
+                                @if ($side === 'LONG')
+                                    <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-600/20">LONG</span>
+                                @elseif ($side === 'SHORT')
+                                    <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-semibold text-red-700 ring-1 ring-inset ring-red-600/20">SHORT</span>
+                                @else
+                                    <span class="text-xs text-gray-500">-</span>
+                                @endif
+                            </td>
                             <td class="py-2 pr-4 tabular-nums">{{ number_format((float) $t->qty, 6) }}</td>
                             <td class="py-2 pr-4 tabular-nums">{{ number_format((float) $t->buy_price, 6) }}</td>
                             <td class="py-2 pr-4 tabular-nums">{{ number_format((float) $t->sell_price, 6) }}</td>
+                            <td class="py-2 pr-4">
+                                @if ($risk)
+                                    <span class="text-xs font-semibold {{ $risk === 'HIGH' ? 'text-red-700' : ($risk === 'MEDIUM' ? 'text-amber-700' : 'text-emerald-700') }}">
+                                        {{ $risk }}
+                                    </span>
+                                @else
+                                    <span class="text-xs text-gray-500">-</span>
+                                @endif
+                            </td>
+                            <td class="py-2 pr-4 tabular-nums">
+                                @if ($t->liquidity_range_low !== null && $t->liquidity_range_high !== null)
+                                    {{ number_format((float) $t->liquidity_range_low, 6) }} – {{ number_format((float) $t->liquidity_range_high, 6) }}
+                                    @if ($t->fee_tier_bps)
+                                        <span class="text-xs text-gray-500">({{ (int) $t->fee_tier_bps }} bps)</span>
+                                    @endif
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td class="py-2 pr-4 tabular-nums">
+                                @if ($t->pool_size_usd !== null)
+                                    ${{ number_format((float) $t->pool_size_usd, 0) }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="py-2 pr-4 font-semibold {{ $pnl < 0 ? 'text-red-600' : 'text-emerald-700' }}">
                                 {{ number_format($pnl, 2) }}
                             </td>
@@ -162,7 +207,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td class="py-2 text-gray-600" colspan="7">{{ __('No trades yet.') }}</td></tr>
+                        <tr><td class="py-2 text-gray-600" colspan="13">{{ __('No trades yet.') }}</td></tr>
                     @endforelse
                 </tbody>
             </table>
