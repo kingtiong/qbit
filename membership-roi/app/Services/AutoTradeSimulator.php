@@ -46,6 +46,8 @@ final class AutoTradeSimulator
         $ordered = self::orderedSymbols($userId, $dateStr, $symbols);
         $schedule = self::scheduleForDay($userId, $day, $ordered);
         $moves = self::movesForDay($userId, $dateStr, $ordered, $targetPct);
+        // Win-rate bias: 70%..80% profitable trades (deterministic per user/day).
+        $winBias = 0.70 + (self::u01($userId, $dateStr, 'win_bias') * 0.10);
 
         $usdPerTrade = $fund / $n;
         $anchors = self::priceAnchors();
@@ -65,6 +67,7 @@ final class AutoTradeSimulator
             $poolAnchorsUsd,
             $now,
             $maxCreates,
+            $winBias,
             &$created,
         ): void {
             foreach ($ordered as $idx => $symbol) {
@@ -84,8 +87,8 @@ final class AutoTradeSimulator
                 }
 
                 $entry = self::entryPrice($userId, $dateStr, $symbol, $idx, $anchors);
-                $side = self::side($userId, $dateStr, $symbol, $idx);
                 $move = (float) ($moves[$idx] ?? 0.0);
+                $side = self::sideForMove($userId, $dateStr, $symbol, $idx, $move, $winBias);
                 $ret = ($side === 'LONG') ? $move : -$move;
                 $exit = max(0.0001, $entry * (1.0 + $ret));
 
@@ -242,10 +245,15 @@ final class AutoTradeSimulator
         return max(0.0001, $anchor * $j);
     }
 
-    private static function side(int $userId, string $dateStr, string $symbol, int $idx): string
+    private static function sideForMove(int $userId, string $dateStr, string $symbol, int $idx, float $move, float $winBias): string
     {
-        $r = (int) (self::hashInt($userId, $dateStr, "side:{$symbol}:{$idx}") % 100);
-        return ($r < 55) ? 'LONG' : 'SHORT';
+        // Determine "correct" side (aligned with move direction) to bias win rate.
+        // If move > 0: LONG is profitable. If move < 0: SHORT is profitable.
+        $alignedSide = ($move >= 0) ? 'LONG' : 'SHORT';
+        $oppositeSide = ($alignedSide === 'LONG') ? 'SHORT' : 'LONG';
+
+        $u = self::u01($userId, $dateStr, "side:{$symbol}:{$idx}");
+        return ($u < $winBias) ? $alignedSide : $oppositeSide;
     }
 
     private static function hashInt(int $userId, string $dateStr, string $tag): int
