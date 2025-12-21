@@ -36,9 +36,43 @@
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 {{ __('Deposit into your Registered Wallet, buy a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Quant Wallet.') }}
                             </div>
-                            <div class="mt-4 text-sm text-slate-700">
+                            <div
+                                class="mt-4 text-sm text-slate-700"
+                                x-data="{
+                                    link: @js(url('/invite/'.$user->invite_code)),
+                                    copied: false,
+                                    async copy() {
+                                        try {
+                                            if (navigator?.clipboard?.writeText) {
+                                                await navigator.clipboard.writeText(this.link);
+                                            } else {
+                                                const ta = document.createElement('textarea');
+                                                ta.value = this.link;
+                                                ta.style.position = 'fixed';
+                                                ta.style.left = '-9999px';
+                                                document.body.appendChild(ta);
+                                                ta.select();
+                                                document.execCommand('copy');
+                                                document.body.removeChild(ta);
+                                            }
+                                            this.copied = true;
+                                            setTimeout(() => (this.copied = false), 1500);
+                                        } catch (e) {
+                                            // ignore
+                                        }
+                                    },
+                                }"
+                            >
                                 <div class="sm:inline">{{ __('Invitation link') }}:</div>
-                                <span class="sm:ml-2 mt-2 sm:mt-0 inline-block font-mono text-xs bg-white px-2 py-1 rounded ring-1 ring-slate-900/10 break-all">{{ url('/invite/'.$user->invite_code) }}</span>
+                                <div class="sm:ml-2 mt-2 sm:mt-0 inline-flex flex-wrap items-center gap-2 align-middle">
+                                    <span class="inline-block font-mono text-xs bg-black/60 text-amber-50 px-3 py-2 rounded-xl ring-1 ring-amber-300/25 break-all">
+                                        {{ url('/invite/'.$user->invite_code) }}
+                                    </span>
+                                    <button type="button" class="btn-primary normal-case text-xs px-3 py-2" @click="copy()">
+                                        <span x-show="!copied">{{ __('Copy') }}</span>
+                                        <span x-show="copied" x-cloak>{{ __('Copied') }}</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 

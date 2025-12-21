@@ -6,6 +6,7 @@ use App\Models\GbpPurchase;
 use App\Models\GbpTier;
 use App\Models\Wallet;
 use App\Services\BusinessTime;
+use App\Services\EarningAllocator;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -154,6 +155,41 @@ class GbpController extends Controller
                 }
 
                 $lockedWallet->decrement('balance', $totalDebit);
+
+                // Direct sponsor GBP commission (10%):
+                // Sponsor must have bought at least 1 GBP, otherwise commission is 0.
+                $sponsor = $user->sponsor()->first();
+                if ($sponsor) {
+                    $sponsorHasGbp = GbpPurchase::query()
+                        ->where('user_id', $sponsor->id)
+                        ->exists();
+
+                    if ($sponsorHasGbp) {
+                        // Integer-only commission: round to nearest whole USDT, then pay as X.00
+                        $commissionInt = (int) round($totalCostInt * 0.10);
+                        if ($commissionInt > 0) {
+                            $commissionAmount = number_format((float) $commissionInt, 2, '.', '');
+                            $date = BusinessTime::today();
+
+                            // Credits into sponsor's commission wallet, respecting investment caps.
+                            EarningAllocator::creditToOldestInvestments(
+                                $sponsor->id,
+                                $commissionAmount,
+                                'gbp_direct_commission',
+                                $date,
+                                [
+                                    'downline_user_id' => $user->id,
+                                    'downline_units' => $unitsRequested,
+                                    'downline_total_amount_int' => $totalCostInt,
+                                    'percent' => '0.10',
+                                    'registered_wallet_tx_id' => $tx->id,
+                                    'date' => $date->toDateString(),
+                                ],
+                                'gbp_direct_commission_credit',
+                            );
+                        }
+                    }
+                }
             });
         } catch (\Throwable $e) {
             $msg = $e->getMessage() ?: 'Unable to purchase GBP right now.';
