@@ -23,6 +23,9 @@ class GbpController extends Controller
 
         $tiers = GbpTier::query()
             ->where('is_active', true)
+            // Always compute sold from actual purchases (MySQL truth),
+            // so UI remains correct even if sold_units was ever reset.
+            ->withSum('purchases', 'units')
             ->orderBy('tier')
             ->get();
 

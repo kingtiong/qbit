@@ -67,7 +67,9 @@
                         @forelse ($tiers as $t)
                             @php
                                 $total = (int) ($t->total_units ?? 0);
-                                $sold = (int) ($t->sold_units ?? 0);
+                                // Prefer computed sold from actual gbp_purchases (withSum),
+                                // fallback to stored sold_units.
+                                $sold = (int) ($t->purchases_sum_units ?? $t->sold_units ?? 0);
                                 $rem = max(0, $total - $sold);
                             @endphp
                             <tr class="border-b border-slate-900/5">
