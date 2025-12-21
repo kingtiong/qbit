@@ -19,13 +19,13 @@
     </x-slot>
 
     @if (session('status'))
-        <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+        <div class="mb-4 p-4 rounded-2xl bg-amber-500/10 ring-1 ring-amber-300/20 text-amber-50">
             {{ session('status') }}
         </div>
     @endif
 
     <div class="mb-6 surface overflow-hidden">
-        <div class="p-6 bg-emerald-50">
+        <div class="p-6 bg-amber-500/10">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <div class="text-sm text-slate-700">{{ __('Funding → Machine Purchase → Daily Rewards (UTC+8)') }}</div>
@@ -74,7 +74,7 @@
                         <div class="p-6" x-data="{ open: false }">
                             <div class="flex items-start justify-between gap-4">
                                 <div>
-                                    <div class="inline-flex items-center px-2 py-1 rounded text-xs border bg-emerald-50 border-emerald-200 text-emerald-800">
+                                    <div class="inline-flex items-center px-2 py-1 rounded text-xs border bg-amber-500/10 border-amber-300/30 text-amber-200">
                                         {{ $package->code ?? 'QPU' }}
                                     </div>
                                     <div class="mt-2 text-xl font-semibold text-gray-900">{{ $package->label }}</div>
@@ -113,7 +113,7 @@
                                 <ul class="mt-4 text-sm text-gray-700 space-y-1">
                                     @foreach ($package->benefits as $b)
                                         <li class="flex gap-2">
-                                            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-amber-400"></span>
                                             <span>{{ $b }}</span>
                                         </li>
                                     @endforeach

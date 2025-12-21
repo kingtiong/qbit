@@ -43,7 +43,7 @@
                                         <td class="py-2 pr-4">
                                             <form method="POST" action="{{ route('admin.settings.deposit_addresses.toggle', $a) }}">
                                                 @csrf
-                                                <button class="px-3 py-1 rounded-xl text-xs font-semibold {{ $a->is_active ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white' }}">
+                                                <button class="px-3 py-1 rounded-xl text-xs font-semibold {{ $a->is_active ? 'bg-rose-600 text-white' : 'bg-amber-400 text-black' }}">
                                                     {{ $a->is_active ? 'Disable' : 'Enable' }}
                                                 </button>
                                             </form>

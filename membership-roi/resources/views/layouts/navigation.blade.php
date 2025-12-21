@@ -33,16 +33,16 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                     <div class="mr-2 flex items-center gap-2">
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                             EN
                         </a>
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'zh_CN' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'zh_CN' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                             中文
                         </a>
                     </div>
                     <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-xl text-gray-600 bg-white/50 hover:bg-white hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-xl text-amber-50/80 bg-white/5 hover:bg-white/10 hover:text-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -75,14 +75,14 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <div class="mr-2 flex items-center gap-2">
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'en' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                         EN
                     </a>
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-slate-900/10 hover:bg-slate-50 {{ app()->getLocale() === 'zh_CN' ? 'bg-slate-50 text-slate-900' : 'text-slate-600' }}">
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'zh_CN' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                         中文
                     </a>
                 </div>
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-amber-50/70 hover:text-amber-50 hover:bg-white/5 focus:outline-none focus:bg-white/10 focus:text-amber-50 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -115,8 +115,8 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-amber-50">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-amber-50/70">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
