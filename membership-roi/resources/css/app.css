@@ -8,11 +8,33 @@
     }
 
     body {
-        @apply text-slate-900 bg-white;
+        /* Dark theme: black background + white text */
+        @apply text-white bg-black;
     }
 
     ::selection {
-        @apply bg-emerald-200 text-slate-900;
+        /* Gold selection */
+        @apply bg-amber-300 text-black;
+    }
+
+    /* Force common template text colors to render light in dark theme */
+    .text-gray-900,
+    .text-gray-800,
+    .text-gray-700,
+    .text-gray-600,
+    .text-slate-900,
+    .text-slate-800,
+    .text-slate-700,
+    .text-slate-600 {
+        @apply text-white;
+    }
+    .text-gray-500,
+    .text-slate-500 {
+        @apply text-white/80;
+    }
+    .text-gray-400,
+    .text-slate-400 {
+        @apply text-white/70;
     }
 }
 
@@ -30,18 +52,18 @@
 
     /* Surfaces (replace “boxed” borders) */
     .surface {
-        @apply bg-white ring-1 ring-slate-900/5 shadow-sm rounded-2xl;
+        @apply bg-zinc-900 ring-1 ring-white/10 shadow-sm rounded-2xl;
     }
     .surface-solid {
-        @apply bg-white ring-1 ring-slate-900/5 shadow-sm rounded-2xl;
+        @apply bg-zinc-900 ring-1 ring-white/10 shadow-sm rounded-2xl;
     }
     .surface-muted {
-        @apply bg-white ring-1 ring-slate-900/5 rounded-2xl;
+        @apply bg-zinc-950 ring-1 ring-white/10 rounded-2xl;
     }
 
     /* Top navigation */
     .topbar {
-        @apply sticky top-0 z-30 border-b border-slate-900/5 bg-white;
+        @apply sticky top-0 z-30 border-b border-white/10 bg-black/80 backdrop-blur-xl;
     }
 
     /* Buttons */
@@ -49,13 +71,14 @@
         @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-widest transition;
     }
     .btn-primary {
-        @apply btn text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+        /* Gold accent */
+        @apply btn text-black bg-gradient-to-r from-amber-400 to-yellow-300 hover:from-amber-300 hover:to-yellow-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-neutral {
-        @apply btn text-slate-900 bg-white/60 ring-1 ring-slate-900/10 hover:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply btn text-white bg-white/5 ring-1 ring-white/15 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-dark {
-        @apply btn text-white bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+        @apply btn text-white bg-zinc-800 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed;
     }
     .btn-danger {
         @apply btn text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
@@ -63,9 +86,9 @@
 
     /* Form controls */
     .input {
-        @apply block w-full rounded-xl bg-white/60 px-3 py-2 text-sm ring-1 ring-inset ring-slate-900/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500 placeholder:text-slate-400;
+        @apply block w-full rounded-xl bg-white/5 px-3 py-2 text-sm text-white ring-1 ring-inset ring-white/15 focus:ring-2 focus:ring-inset focus:ring-amber-400 placeholder:text-white/60;
     }
     .select {
-        @apply block w-full rounded-xl bg-white/60 px-3 py-2 text-sm ring-1 ring-inset ring-slate-900/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500;
+        @apply block w-full rounded-xl bg-white/5 px-3 py-2 text-sm text-white ring-1 ring-inset ring-white/15 focus:ring-2 focus:ring-inset focus:ring-amber-400;
     }
 }
