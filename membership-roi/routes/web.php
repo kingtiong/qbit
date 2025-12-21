@@ -11,8 +11,8 @@ use App\Http\Controllers\Admin\WalletAdjustmentsController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\InvestmentPackageController;
 use App\Http\Controllers\AutoTradeController;
+use App\Http\Controllers\GbpController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\QbpController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +33,8 @@ Route::get('/dashboard', [InvestmentController::class, 'index'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
-    Route::get('/qbp', [QbpController::class, 'index'])->name('qbp.index');
-    Route::post('/qbp/{partnershipPackage}/purchase', [QbpController::class, 'purchase'])->name('qbp.purchase');
+    Route::get('/gbp', [GbpController::class, 'index'])->name('gbp.index');
+    Route::post('/gbp/purchase', [GbpController::class, 'purchase'])->name('gbp.purchase');
     Route::get('/autotrade', [AutoTradeController::class, 'index'])->name('autotrade.index');
     Route::post('/investments', [InvestmentController::class, 'store'])->name('investments.store');
 
