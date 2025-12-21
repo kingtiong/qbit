@@ -19,13 +19,13 @@
     </x-slot>
 
     @if (session('status'))
-        <div class="mb-4 p-4 rounded-2xl bg-amber-500/10 ring-1 ring-amber-300/20 text-amber-50">
+        <div class="mb-4 p-4 surface-gold">
             {{ session('status') }}
         </div>
     @endif
 
     <div class="mb-6 surface overflow-hidden">
-        <div class="p-6 bg-amber-500/10">
+        <div class="p-6 surface-gold">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <div class="text-sm text-slate-700">{{ __('Funding → Machine Purchase → Daily Rewards (UTC+8)') }}</div>

@@ -11,10 +11,10 @@
                 </div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                <a href="{{ route('wallet.index') }}" class="btn-dark normal-case text-sm">
                     {{ __('Wallet') }}
                 </a>
-                <a href="{{ route('packages.index') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-500">
+                <a href="{{ route('packages.index') }}" class="btn-primary normal-case text-sm">
                     {{ __('Buy Quantum Machine') }}
                 </a>
             </div>
@@ -22,13 +22,13 @@
     </x-slot>
 
     @if (session('status'))
-        <div class="mb-4 p-4 rounded-2xl bg-amber-500/10 ring-1 ring-amber-300/20 text-amber-50">
+        <div class="mb-4 p-4 surface-gold">
             {{ session('status') }}
         </div>
     @endif
 
     <div class="mb-6 surface overflow-hidden">
-        <div class="p-6 bg-amber-500/10">
+        <div class="p-6 surface-gold">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <div class="text-sm text-slate-700">{{ __('Quantum Trading • Automated strategy execution') }}</div>

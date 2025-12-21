@@ -13,7 +13,7 @@
     </x-slot>
 
     @if (session('status'))
-        <div class="mb-4 p-4 surface-muted text-gray-800">
+        <div class="mb-4 p-4 surface-gold">
             {{ session('status') }}
         </div>
     @endif
