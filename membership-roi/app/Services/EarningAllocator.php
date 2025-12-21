@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 final class EarningAllocator
 {
     /**
-     * Allocate an earning to a user's oldest active investments first.
+     * Allocate an earning to a user's oldest active investments (packages) first.
      *
      * Returns the credited amount (may be less than requested due to caps).
      */
@@ -33,7 +33,10 @@ final class EarningAllocator
             $investments = Investment::query()
                 ->where('user_id', $userId)
                 ->where('status', 'active')
-                ->orderBy('started_on')
+                // FIFO: deduct from the oldest purchased package first.
+                // We intentionally prefer created_at/id over started_on because started_on is a business date
+                // and can be backfilled/edited; payout ordering should follow purchase chronology.
+                ->orderBy('created_at')
                 ->orderBy('id')
                 ->lockForUpdate()
                 ->get();
