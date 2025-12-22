@@ -41,7 +41,7 @@ class GbpPurchaseTest extends TestCase
             'is_active' => true,
         ]);
 
-        $resp = $this->actingAs($user)->post(route('qbp.purchase'), [
+        $resp = $this->actingAs($user)->post(route('gbp.purchase'), [
             'units' => 3,
         ]);
 
@@ -112,7 +112,7 @@ class GbpPurchaseTest extends TestCase
         ]);
 
         // Case 1: sponsor has NOT bought GBP -> no commission
-        $this->actingAs($downline)->post(route('qbp.purchase'), ['units' => 1]);
+        $this->actingAs($downline)->post(route('gbp.purchase'), ['units' => 1]);
         $sponsorCommissionWallet = Wallet::forUser($sponsor->id, Wallet::TYPE_COMMISSION);
         $sponsorCommissionWallet->refresh();
         $this->assertSame('0.00', number_format((float) $sponsorCommissionWallet->balance, 2, '.', ''));
@@ -130,7 +130,7 @@ class GbpPurchaseTest extends TestCase
         ]);
 
         // Case 2: sponsor now qualifies -> commission paid
-        $this->actingAs($downline)->post(route('qbp.purchase'), ['units' => 1]);
+        $this->actingAs($downline)->post(route('gbp.purchase'), ['units' => 1]);
         $sponsorCommissionWallet->refresh();
         $this->assertSame('30.00', number_format((float) $sponsorCommissionWallet->balance, 2, '.', ''));
     }

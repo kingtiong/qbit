@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('QBP') }}</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('GBP') }}</h2>
                 <div class="text-sm text-gray-600">{{ __('25-tier allocation • FIFO purchase from Tier 1 upward') }}</div>
             </div>
             <div class="flex flex-wrap gap-2">
@@ -23,7 +23,7 @@
             <div class="surface-muted p-4">
                 <div class="text-sm text-gray-600">{{ __('Registered Wallet') }}</div>
                 <div class="text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                <div class="mt-1 text-xs text-gray-600">{{ __('QBP purchases deduct from Registered Wallet.') }}</div>
+                <div class="mt-1 text-xs text-gray-600">{{ __('GBP purchases deduct from Registered Wallet.') }}</div>
             </div>
             <div class="surface-muted p-4">
                 <div class="text-sm text-gray-600">{{ __('How pricing works') }}</div>
@@ -36,14 +36,14 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('qbp.purchase') }}" class="mt-5 flex flex-wrap items-end gap-3">
+        <form method="POST" action="{{ route('gbp.purchase') }}" class="mt-5 flex flex-wrap items-end gap-3">
             @csrf
             <div>
                 <x-input-label for="units" :value="__('Units to buy')" />
                 <x-text-input id="units" name="units" type="number" min="1" step="1" class="mt-1 block w-48" :value="old('units')" required />
                 <x-input-error class="mt-2" :messages="$errors->get('units')" />
             </div>
-            <x-primary-button>{{ __('Buy QBP') }}</x-primary-button>
+            <x-primary-button>{{ __('Buy GBP') }}</x-primary-button>
             <div class="text-xs text-gray-600">
                 {{ __('Your order will fill from the lowest available tier(s) automatically.') }}
             </div>
@@ -52,7 +52,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="surface p-6">
-            <div class="text-lg font-medium mb-3">{{ __('QBP Tiers') }}</div>
+            <div class="text-lg font-medium mb-3">{{ __('GBP Tiers') }}</div>
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm">
                     <thead>
@@ -79,7 +79,7 @@
                                 <td class="py-2 pr-4">{{ $total }}</td>
                             </tr>
                         @empty
-                            <tr><td class="py-3 text-gray-600" colspan="4">{{ __('No QBP tiers configured.') }}</td></tr>
+                            <tr><td class="py-3 text-gray-600" colspan="4">{{ __('No GBP tiers configured.') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -87,7 +87,7 @@
         </div>
 
         <div class="surface p-6">
-            <div class="text-lg font-medium mb-3">{{ __('My recent QBP purchases') }}</div>
+            <div class="text-lg font-medium mb-3">{{ __('My recent GBP purchases') }}</div>
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm">
                     <thead>

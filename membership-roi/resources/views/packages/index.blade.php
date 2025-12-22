@@ -190,12 +190,12 @@
                 <div class="p-6">
                     <div class="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <div class="text-lg font-medium text-gray-900">{{ __('QBP') }}</div>
+                            <div class="text-lg font-medium text-gray-900">{{ __('GBP') }}</div>
                             <div class="mt-1 text-sm text-gray-600">
-                                {{ __('Buy QBP units from Tier 1 upward. Price increases by tier; amounts are integer-only (no cents).') }}
+                                {{ __('Buy GBP units from Tier 1 upward. Price increases by tier; amounts are integer-only (no cents).') }}
                             </div>
                         </div>
-                        <a href="{{ route('qbp.index') }}" class="btn-neutral normal-case text-sm">{{ __('Open QBP') }}</a>
+                        <a href="{{ route('gbp.index') }}" class="btn-neutral normal-case text-sm">{{ __('Open GBP') }}</a>
                     </div>
                 </div>
             </div>
