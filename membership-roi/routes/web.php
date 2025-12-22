@@ -33,11 +33,11 @@ Route::get('/dashboard', [InvestmentController::class, 'index'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
-    // GBP (tiered sale). Keep /qbp as backward-compatible alias.
-    Route::get('/gbp', [GbpController::class, 'index'])->name('gbp.index');
-    Route::post('/gbp/purchase', [GbpController::class, 'purchase'])->name('gbp.purchase');
-    Route::get('/qbp', fn () => redirect()->route('gbp.index'))->name('qbp.index');
-    Route::post('/qbp/purchase', fn () => redirect()->route('gbp.purchase'))->name('qbp.purchase');
+    // QBP (tiered sale). Keep /gbp as backward-compatible alias.
+    Route::get('/qbp', [GbpController::class, 'index'])->name('qbp.index');
+    Route::post('/qbp/purchase', [GbpController::class, 'purchase'])->name('qbp.purchase');
+    Route::get('/gbp', fn () => redirect()->route('qbp.index'))->name('gbp.index');
+    Route::post('/gbp/purchase', fn () => redirect()->route('qbp.purchase'))->name('gbp.purchase');
     Route::get('/autotrade', [AutoTradeController::class, 'index'])->name('autotrade.index');
     Route::post('/investments', [InvestmentController::class, 'store'])->name('investments.store');
 
