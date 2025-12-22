@@ -10,37 +10,20 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
-                        {{ __('Packages') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
-                        {{ __('QBP') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
-                        {{ __('Auto Trade') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
-                        {{ __('Wallet') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <div class="mr-2 flex items-center gap-2">
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
-                            EN
-                        </a>
-                        <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'zh_CN' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
-                            中文
-                        </a>
-                    </div>
-                    <x-dropdown align="right" width="48">
+            <div class="flex items-center gap-2">
+                <div class="mr-1 flex items-center gap-2">
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
+                        EN
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'zh_CN' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
+                        中文
+                    </a>
+                </div>
+
+                <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-xl text-amber-50/80 bg-white/5 hover:bg-white/10 hover:text-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
@@ -73,16 +56,8 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <div class="mr-2 flex items-center gap-2">
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
-                        EN
-                    </a>
-                    <a href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'zh_CN' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
-                        中文
-                    </a>
-                </div>
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-amber-50/70 hover:text-amber-50 hover:bg-white/5 focus:outline-none focus:bg-white/10 focus:text-amber-50 transition duration-150 ease-in-out">
+            <div class="-me-2 flex items-center">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out" aria-label="Menu">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -92,9 +67,21 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+    <!-- Slide-down Menu (all screen sizes) -->
+    <div
+        x-show="open"
+        x-cloak
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        @click.outside="open = false"
+        class="border-t border-amber-300/15 bg-black/95 backdrop-blur-xl"
+    >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
@@ -110,16 +97,16 @@
             <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
                 {{ __('Wallet') }}
             </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-amber-50">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-amber-50/70">{{ Auth::user()->email }}</div>
             </div>
 
-            <div class="mt-3 space-y-1">
+            <div class="mt-4 pt-4 border-t border-white/10">
+                <div class="text-sm text-amber-50/80">
+                    <div class="font-medium text-amber-50">{{ Auth::user()->name }}</div>
+                    <div class="text-amber-50/60">{{ Auth::user()->email }}</div>
+                </div>
+            </div>
+
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
