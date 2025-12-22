@@ -21,6 +21,7 @@ class GbpController extends Controller
         $user = Auth::user();
         $registeredWallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
 
+        /** @var \Illuminate\Database\Eloquent\Collection<int, GbpTier> $tiers */
         $tiers = GbpTier::query()
             ->where('is_active', true)
             // Always compute sold from actual purchases (MySQL truth),
@@ -28,6 +29,50 @@ class GbpController extends Controller
             ->withSum('purchases', 'units')
             ->orderBy('tier')
             ->get();
+
+        $tierRows = [];
+        foreach ($tiers as $t) {
+            $total = (int) ($t->total_units ?? 0);
+            $sold = (int) ($t->purchases_sum_units ?? $t->sold_units ?? 0);
+            $remaining = max(0, $total - $sold);
+            $tierRows[] = [
+                'id' => (int) $t->id,
+                'tier' => (int) $t->tier,
+                'unit_price' => (int) $t->unit_price,
+                'total_units' => $total,
+                'sold_units' => $sold,
+                'remaining_units' => $remaining,
+            ];
+        }
+
+        $currentTier = null;
+        $nextTier = null;
+        $finalTier = null;
+        foreach ($tierRows as $idx => $row) {
+            if ($finalTier === null || $row['tier'] > $finalTier['tier']) {
+                $finalTier = $row;
+            }
+            if ($currentTier === null && $row['remaining_units'] > 0) {
+                $currentTier = $row;
+                $nextTier = $tierRows[$idx + 1] ?? null;
+            }
+        }
+        if ($currentTier === null) {
+            // Sold out: current becomes final (for display).
+            $currentTier = $finalTier;
+            $nextTier = null;
+        }
+
+        $displayTiers = [];
+        foreach ([$currentTier, $nextTier, $finalTier] as $row) {
+            if (!$row) {
+                continue;
+            }
+            $displayTiers[$row['tier']] = $row; // de-dupe by tier
+        }
+        ksort($displayTiers);
+
+        $currentUnitPrice = (int) (($currentTier['unit_price'] ?? 0) ?: ($finalTier['unit_price'] ?? 0));
 
         $myPurchases = GbpPurchase::query()
             ->where('user_id', $user->id)
@@ -38,7 +83,11 @@ class GbpController extends Controller
         return view('gbp.index', [
             'user' => $user,
             'registeredWallet' => $registeredWallet,
-            'tiers' => $tiers,
+            'tiers' => array_values($displayTiers),
+            'currentTier' => $currentTier,
+            'nextTier' => $nextTier,
+            'finalTier' => $finalTier,
+            'currentUnitPrice' => $currentUnitPrice,
             'myPurchases' => $myPurchases,
         ]);
     }

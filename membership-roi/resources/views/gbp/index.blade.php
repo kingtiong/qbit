@@ -52,7 +52,10 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="surface p-6">
-            <div class="text-lg font-medium mb-3">{{ __('QBP Tiers') }}</div>
+            <div class="text-lg font-medium mb-1">{{ __('QBP Tiers') }}</div>
+            <div class="text-sm text-gray-600 mb-3">
+                {{ __('Shown: current tier, next tier, and estimated final tier price.') }}
+            </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm">
                     <thead>
@@ -66,15 +69,33 @@
                     <tbody>
                         @forelse ($tiers as $t)
                             @php
-                                $total = (int) ($t->total_units ?? 0);
-                                // Prefer computed sold from actual gbp_purchases (withSum),
-                                // fallback to stored sold_units.
-                                $sold = (int) ($t->purchases_sum_units ?? $t->sold_units ?? 0);
-                                $rem = max(0, $total - $sold);
+                                $tierNum = (int) ($t['tier'] ?? 0);
+                                $price = (int) ($t['unit_price'] ?? 0);
+                                $total = (int) ($t['total_units'] ?? 0);
+                                $rem = (int) ($t['remaining_units'] ?? 0);
+                                $isFinal = isset($finalTier) && (int) ($finalTier['tier'] ?? 0) === $tierNum;
+                                $isCurrent = isset($currentTier) && (int) ($currentTier['tier'] ?? 0) === $tierNum;
+                                $isNext = isset($nextTier) && (int) ($nextTier['tier'] ?? 0) === $tierNum;
                             @endphp
                             <tr class="border-b border-slate-900/5">
-                                <td class="py-2 pr-4 font-medium">{{ (int) $t->tier }}</td>
-                                <td class="py-2 pr-4">USDT {{ number_format((float) $t->unit_price, 0) }}</td>
+                                <td class="py-2 pr-4 font-medium">
+                                    {{ $tierNum }}
+                                    @if ($isCurrent)
+                                        <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] border bg-amber-500/10 border-amber-300/30 text-amber-200">{{ __('Current') }}</span>
+                                    @elseif ($isNext)
+                                        <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] border bg-white/5 border-white/10 text-amber-50/80">{{ __('Next') }}</span>
+                                    @elseif ($isFinal)
+                                        <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[10px] border bg-white/5 border-white/10 text-amber-50/70">{{ __('Final') }}</span>
+                                    @endif
+                                </td>
+                                <td class="py-2 pr-4">
+                                    USDT {{ number_format((float) $price, 0) }}
+                                    @if ($isFinal)
+                                        <div class="mt-1 text-[11px] text-amber-50/70">
+                                            {{ __('This price is the estimated final price') }}
+                                        </div>
+                                    @endif
+                                </td>
                                 <td class="py-2 pr-4">{{ $rem }}</td>
                                 <td class="py-2 pr-4">{{ $total }}</td>
                             </tr>
@@ -88,6 +109,9 @@
 
         <div class="surface p-6">
             <div class="text-lg font-medium mb-3">{{ __('My recent QBP purchases') }}</div>
+            <div class="text-sm text-gray-600 mb-3">
+                {{ __('Current price') }}: <span class="font-semibold text-amber-50">USDT {{ number_format((float) ($currentUnitPrice ?? 0), 0) }}</span>
+            </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm">
                     <thead>
@@ -95,7 +119,8 @@
                             <th class="py-2 pr-4">{{ __('Time') }}</th>
                             <th class="py-2 pr-4">{{ __('Tier') }}</th>
                             <th class="py-2 pr-4">{{ __('Units') }}</th>
-                            <th class="py-2 pr-4">{{ __('Unit price') }}</th>
+                            <th class="py-2 pr-4">{{ __('Purchased price') }}</th>
+                            <th class="py-2 pr-4">{{ __('Current price') }}</th>
                             <th class="py-2 pr-4">{{ __('Total') }}</th>
                         </tr>
                     </thead>
@@ -106,10 +131,11 @@
                                 <td class="py-2 pr-4">{{ (int) ($p->tier?->tier ?? 0) }}</td>
                                 <td class="py-2 pr-4">{{ (int) $p->units }}</td>
                                 <td class="py-2 pr-4">USDT {{ number_format((float) $p->unit_price, 0) }}</td>
+                                <td class="py-2 pr-4">USDT {{ number_format((float) ($currentUnitPrice ?? 0), 0) }}</td>
                                 <td class="py-2 pr-4 font-medium">USDT {{ number_format((float) $p->total_amount, 0) }}</td>
                             </tr>
                         @empty
-                            <tr><td class="py-3 text-gray-600" colspan="5">{{ __('No purchases yet.') }}</td></tr>
+                            <tr><td class="py-3 text-gray-600" colspan="6">{{ __('No purchases yet.') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>
