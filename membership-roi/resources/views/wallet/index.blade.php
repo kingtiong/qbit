@@ -32,7 +32,7 @@
 
                             @if ($activeSession)
                                 <div
-                                    class="p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10"
+                                    class="p-4 rounded-2xl surface-gold"
                                     x-data="{
                                         expiresAt: @js($activeSession->reserved_until->timestamp),
                                         total: 1800,
@@ -73,9 +73,9 @@
                                                 </div>
                                             </div>
                                             <div class="mt-2 h-2 rounded-full bg-white/70 ring-1 ring-slate-900/10 overflow-hidden">
-                                                <div class="h-2 bg-emerald-600 rounded-full transition-[width] duration-500" :style="`width: ${pct()}%`"></div>
+                                                <div class="h-2 bg-amber-400 rounded-full transition-[width] duration-500" :style="`width: ${pct()}%`"></div>
                                             </div>
-                                            <div class="mt-2 text-xs text-amber-900" x-show="remaining <= 60" x-cloak>
+                                            <div class="mt-2 text-xs text-black/80" x-show="remaining <= 60" x-cloak>
                                                 {{ __('Warning: less than 1 minute left. If it expires, request a new address.') }}
                                             </div>
                                             <div class="mt-2 text-xs text-slate-700" x-show="remaining === 0" x-cloak>

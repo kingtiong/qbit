@@ -7,7 +7,7 @@
 
     <div class="max-w-3xl mx-auto">
         @if (session('status'))
-            <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+    <div class="mb-4 p-4 rounded-2xl bg-amber-500/10 ring-1 ring-amber-300/20 text-amber-50">
                 {{ session('status') }}
             </div>
         @endif

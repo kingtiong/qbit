@@ -11,10 +11,10 @@
                 </div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('wallet.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                <a href="{{ route('wallet.index') }}" class="btn-dark normal-case text-sm">
                     {{ __('Wallet') }}
                 </a>
-                <a href="{{ route('packages.index') }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-emerald-500">
+                <a href="{{ route('packages.index') }}" class="btn-primary normal-case text-sm">
                     {{ __('Buy Quantum Machine') }}
                 </a>
             </div>
@@ -22,13 +22,13 @@
     </x-slot>
 
     @if (session('status'))
-        <div class="mb-4 p-4 rounded-2xl bg-emerald-50 ring-1 ring-emerald-900/10 text-slate-900">
+        <div class="mb-4 p-4 surface-gold">
             {{ session('status') }}
         </div>
     @endif
 
     <div class="mb-6 surface overflow-hidden">
-        <div class="p-6 bg-emerald-50">
+        <div class="p-6 surface-gold">
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <div class="text-sm text-slate-700">{{ __('Quantum Trading • Automated strategy execution') }}</div>
@@ -36,9 +36,43 @@
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 {{ __('Deposit into your Registered Wallet, buy a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Quant Wallet.') }}
                             </div>
-                            <div class="mt-4 text-sm text-slate-700">
+                            <div
+                                class="mt-4 text-sm text-slate-700"
+                                x-data="{
+                                    link: @js(url('/invite/'.$user->invite_code)),
+                                    copied: false,
+                                    async copy() {
+                                        try {
+                                            if (navigator?.clipboard?.writeText) {
+                                                await navigator.clipboard.writeText(this.link);
+                                            } else {
+                                                const ta = document.createElement('textarea');
+                                                ta.value = this.link;
+                                                ta.style.position = 'fixed';
+                                                ta.style.left = '-9999px';
+                                                document.body.appendChild(ta);
+                                                ta.select();
+                                                document.execCommand('copy');
+                                                document.body.removeChild(ta);
+                                            }
+                                            this.copied = true;
+                                            setTimeout(() => (this.copied = false), 1500);
+                                        } catch (e) {
+                                            // ignore
+                                        }
+                                    },
+                                }"
+                            >
                                 <div class="sm:inline">{{ __('Invitation link') }}:</div>
-                                <span class="sm:ml-2 mt-2 sm:mt-0 inline-block font-mono text-xs bg-white px-2 py-1 rounded ring-1 ring-slate-900/10 break-all">{{ url('/invite/'.$user->invite_code) }}</span>
+                                <div class="sm:ml-2 mt-2 sm:mt-0 inline-flex flex-wrap items-center gap-2 align-middle">
+                                    <span class="inline-block font-mono text-xs bg-black/60 text-amber-50 px-3 py-2 rounded-xl ring-1 ring-amber-300/25 break-all">
+                                        {{ url('/invite/'.$user->invite_code) }}
+                                    </span>
+                                    <button type="button" class="btn-primary normal-case text-xs px-3 py-2" @click="copy()">
+                                        <span x-show="!copied">{{ __('Copy') }}</span>
+                                        <span x-show="copied" x-cloak>{{ __('Copied') }}</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -91,7 +125,7 @@
                                 <div class="text-lg font-medium">{{ __('My Quantum Machines') }}</div>
                                 <div class="text-sm text-gray-600">{{ __('Each machine has its own max return cap and progress.') }}</div>
                             </div>
-                            <a href="{{ route('packages.index') }}" class="text-sm font-medium text-emerald-700 hover:underline">{{ __('View Machines') }}</a>
+                            <a href="{{ route('packages.index') }}" class="text-sm font-medium text-amber-200 hover:underline">{{ __('View Machines') }}</a>
                         </div>
 
                         <div class="overflow-x-auto">
@@ -130,7 +164,7 @@
                                                 @endphp
                                                 <div class="text-xs text-gray-600">{{ $pct }}%</div>
                                                 <div class="w-32 bg-slate-900/5 rounded-full h-2 mt-1">
-                                                    <div class="bg-emerald-600 h-2 rounded-full" style="width: {{ $pct }}%"></div>
+                                                    <div class="bg-amber-400 h-2 rounded-full" style="width: {{ $pct }}%"></div>
                                                 </div>
                                             </td>
                                             <td class="py-3 pr-4">{{ $inv->currency }} {{ number_format((float) ($inv->max_return_amount ?? 0), 2) }}</td>
@@ -155,7 +189,7 @@
                                 <div class="text-lg font-medium">{{ __('Recent Activity') }}</div>
                                 <div class="text-sm text-gray-600">{{ __('Deposits, earnings, purchases, and withdrawals.') }}</div>
                             </div>
-                            <a href="{{ route('wallet.index') }}" class="text-sm font-medium text-emerald-700 hover:underline">{{ __('Open Wallet') }}</a>
+                            <a href="{{ route('wallet.index') }}" class="text-sm font-medium text-amber-200 hover:underline">{{ __('Open Wallet') }}</a>
                         </div>
 
                         <div class="overflow-x-auto">
@@ -174,12 +208,12 @@
                                             <td class="py-3 pr-4">{{ $t->occurred_on->toDateString() }}</td>
                                             <td class="py-3 pr-4">
                                                 @php $wt = $t->wallet?->type; @endphp
-                                                <span class="inline-flex items-center px-2 py-1 rounded text-xs border {{ $wt === 'commission' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-gray-50 border-gray-200 text-gray-800' }}">
+                                                <span class="inline-flex items-center px-2 py-1 rounded text-xs border {{ $wt === 'commission' ? 'bg-amber-500/10 border-amber-300/30 text-amber-200' : 'bg-white/5 border-white/10 text-amber-50/80' }}">
                                                     {{ $wt === 'commission' ? __('Quant') : __('Registered') }}
                                                 </span>
                                             </td>
                                             <td class="py-3 pr-4">{{ $t->type }}</td>
-                                            <td class="py-3 pr-4 font-medium {{ (float) $t->amount < 0 ? 'text-red-600' : 'text-emerald-700' }}">
+                                            <td class="py-3 pr-4 font-medium text-amber-50">
                                                 {{ number_format((float) $t->amount, 2) }}
                                             </td>
                                         </tr>

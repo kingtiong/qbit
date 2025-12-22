@@ -5,14 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'QBIT The Quantum Innovation') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @if (!app()->environment('testing'))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @endif
     </head>
     <body class="font-sans antialiased">
         <div class="page-wrap">
@@ -20,7 +22,7 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="border-b border-slate-900/5 bg-white/40 backdrop-blur-xl">
+                <header class="border-b border-white/10 bg-black/50 backdrop-blur-xl">
                     <div class="page-container py-7">
                         {{ $header }}
                     </div>
