@@ -19,20 +19,27 @@ final class GbpTierPlan
      */
     public static function generate(
         int $totalUnits = 31000,
-        int $tiers = 31,
+        int $tiers = 25,
         int $startPrice = 300,
         float $priceMultiplier = 1.2,
         float $unitMultiplier = 0.9,
+        ?int $firstTierUnits = 3340,
     ): array {
         if ($totalUnits <= 0 || $tiers <= 0) {
             return [];
         }
 
-        // Compute the base (tier1) units as a geometric series:
-        // base * (1 - r^n) / (1 - r) = totalUnits
         $r = $unitMultiplier;
-        $den = 1.0 - pow($r, $tiers);
-        $base = $den <= 0 ? ($totalUnits / $tiers) : ($totalUnits * (1.0 - $r) / $den);
+
+        // If first tier units are provided, keep that fixed and distribute rounding to hit totalUnits.
+        // Otherwise compute tier1 as geometric series.
+        if ($firstTierUnits !== null && $firstTierUnits > 0) {
+            $base = (float) $firstTierUnits;
+        } else {
+            // base * (1 - r^n) / (1 - r) = totalUnits
+            $den = 1.0 - pow($r, $tiers);
+            $base = $den <= 0 ? ($totalUnits / $tiers) : ($totalUnits * (1.0 - $r) / $den);
+        }
 
         // Raw units per tier (float), then convert to ints with "largest remainder" so sum is exact.
         $raw = [];
@@ -49,15 +56,31 @@ final class GbpTierPlan
             $sumFloors += $f;
         }
 
-        $remaining = $totalUnits - $sumFloors;
-        // Distribute remaining units to tiers with largest fractional parts (tie => earlier tier).
-        arsort($remainders);
-        foreach ($remainders as $tier => $_frac) {
-            if ($remaining <= 0) {
-                break;
+        $delta = $totalUnits - $sumFloors;
+        if ($delta > 0) {
+            // Add units to tiers with largest fractional parts (tie => earlier tier).
+            arsort($remainders);
+            foreach ($remainders as $tier => $_frac) {
+                if ($delta <= 0) {
+                    break;
+                }
+                $floors[(int) $tier] += 1;
+                $delta--;
             }
-            $floors[(int) $tier] += 1;
-            $remaining--;
+        } elseif ($delta < 0) {
+            // Remove units from tiers with smallest fractional parts (tie => later tier),
+            // without going below zero.
+            asort($remainders);
+            foreach ($remainders as $tier => $_frac) {
+                if ($delta >= 0) {
+                    break;
+                }
+                $idx = (int) $tier;
+                if (($floors[$idx] ?? 0) > 0) {
+                    $floors[$idx] -= 1;
+                    $delta++;
+                }
+            }
         }
 
         // Prices: integer progression where each tier is ~+20% vs previous.

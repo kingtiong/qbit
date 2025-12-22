@@ -7,11 +7,12 @@ use Tests\TestCase;
 
 class GbpTierPlanTest extends TestCase
 {
-    public function test_generates_31_tiers_summing_to_31000_units_with_integer_prices(): void
+    public function test_generates_25_tiers_summing_to_31000_units_with_integer_prices_and_tier1_3340(): void
     {
-        $plan = GbpTierPlan::generate(31000, 31, 300, 1.2, 0.9);
+        $plan = GbpTierPlan::generate(31000, 25, 300, 1.2, 0.9, 3340);
 
-        $this->assertCount(31, $plan);
+        $this->assertCount(25, $plan);
+        $this->assertSame(3340, $plan[0]['total_units']);
 
         $sum = 0;
         $prevPrice = null;

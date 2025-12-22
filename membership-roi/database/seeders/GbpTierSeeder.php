@@ -10,7 +10,8 @@ class GbpTierSeeder extends Seeder
 {
     public function run(): void
     {
-        $plan = GbpTierPlan::generate(31000, 31, 300, 1.2, 0.9);
+        // QBP plan (renamed in UI): 25 tiers, tier 1 = 3340 units.
+        $plan = GbpTierPlan::generate(31000, 25, 300, 1.2, 0.9, 3340);
 
         foreach ($plan as $row) {
             $tierNum = (int) $row['tier'];
@@ -42,6 +43,11 @@ class GbpTierSeeder extends Seeder
                 'is_active' => true,
             ])->save();
         }
+
+        // Deactivate any tiers above 25 (legacy from previous 31-tier plan).
+        GbpTier::query()
+            ->where('tier', '>', 25)
+            ->update(['is_active' => false]);
     }
 }
 

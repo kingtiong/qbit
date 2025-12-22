@@ -18,8 +18,8 @@
                     <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                         {{ __('Packages') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('gbp.index')" :active="request()->routeIs('gbp.*')">
-                        {{ __('GBP') }}
+                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
+                        {{ __('QBP') }}
                     </x-nav-link>
                     <x-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
                         {{ __('Auto Trade') }}
@@ -101,8 +101,8 @@
             <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                 {{ __('Packages') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('gbp.index')" :active="request()->routeIs('gbp.*')">
-                {{ __('GBP') }}
+            <x-responsive-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
+                {{ __('QBP') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
                 {{ __('Auto Trade') }}
