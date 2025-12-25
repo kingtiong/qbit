@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // QBP (tiered sale). Keep /gbp as backward-compatible alias.
     Route::get('/qbp', [GbpController::class, 'index'])->name('qbp.index');
     Route::post('/qbp/purchase', [GbpController::class, 'purchase'])->name('qbp.purchase');
+    Route::post('/qbp/founding-partner/purchase', [GbpController::class, 'purchaseFoundingPartner'])->name('qbp.founding.purchase');
     Route::get('/gbp', fn () => redirect()->route('qbp.index'))->name('gbp.index');
     Route::post('/gbp/purchase', fn () => redirect()->route('qbp.purchase'))->name('gbp.purchase');
     Route::get('/autotrade', [AutoTradeController::class, 'index'])->name('autotrade.index');

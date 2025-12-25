@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoundingPartnerPurchase;
 use App\Models\GbpPurchase;
 use App\Models\GbpTier;
+use App\Models\Setting;
 use App\Models\Wallet;
 use App\Services\BusinessTime;
 use App\Services\EarningAllocator;
@@ -16,19 +18,28 @@ use Illuminate\View\View;
 
 class GbpController extends Controller
 {
+    private const FOUNDING_PARTNER_CAP = 30;
+
     public function index(): View
     {
         $user = Auth::user();
         $registeredWallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
 
+        $foundingSold = (int) (Setting::getValue('qbp_founding_partner_sold', '0') ?: '0');
+        $qbpUnlocked = $foundingSold >= self::FOUNDING_PARTNER_CAP;
+        $myFounding = FoundingPartnerPurchase::query()->where('user_id', $user->id)->first();
+
         /** @var \Illuminate\Database\Eloquent\Collection<int, GbpTier> $tiers */
-        $tiers = GbpTier::query()
-            ->where('is_active', true)
-            // Always compute sold from actual purchases (MySQL truth),
-            // so UI remains correct even if sold_units was ever reset.
-            ->withSum('purchases', 'units')
-            ->orderBy('tier')
-            ->get();
+        $tiers = collect();
+        if ($qbpUnlocked) {
+            $tiers = GbpTier::query()
+                ->where('is_active', true)
+                // Always compute sold from actual purchases (MySQL truth),
+                // so UI remains correct even if sold_units was ever reset.
+                ->withSum('purchases', 'units')
+                ->orderBy('tier')
+                ->get();
+        }
 
         $tierRows = [];
         foreach ($tiers as $t) {
@@ -74,11 +85,14 @@ class GbpController extends Controller
 
         $currentUnitPrice = (int) (($currentTier['unit_price'] ?? 0) ?: ($finalTier['unit_price'] ?? 0));
 
-        $myPurchases = GbpPurchase::query()
-            ->where('user_id', $user->id)
-            ->orderByDesc('purchased_at')
-            ->limit(20)
-            ->get();
+        $myPurchases = collect();
+        if ($qbpUnlocked) {
+            $myPurchases = GbpPurchase::query()
+                ->where('user_id', $user->id)
+                ->orderByDesc('purchased_at')
+                ->limit(20)
+                ->get();
+        }
 
         return view('gbp.index', [
             'user' => $user,
@@ -89,11 +103,20 @@ class GbpController extends Controller
             'finalTier' => $finalTier,
             'currentUnitPrice' => $currentUnitPrice,
             'myPurchases' => $myPurchases,
+            'foundingCap' => self::FOUNDING_PARTNER_CAP,
+            'foundingSold' => $foundingSold,
+            'qbpUnlocked' => $qbpUnlocked,
+            'myFounding' => $myFounding,
         ]);
     }
 
     public function purchase(Request $request): RedirectResponse
     {
+        $foundingSold = (int) (Setting::getValue('qbp_founding_partner_sold', '0') ?: '0');
+        if ($foundingSold < self::FOUNDING_PARTNER_CAP) {
+            return back()->with('status', 'QBP is locked. Complete Founding Partners (30/30) first.');
+        }
+
         $validated = $request->validate([
             'units' => ['required', 'integer', 'min:1'],
         ]);
@@ -249,6 +272,85 @@ class GbpController extends Controller
         }
 
         return back()->with('status', 'GBP purchased successfully.');
+    }
+
+    public function purchaseFoundingPartner(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'package' => ['required', 'in:pro,pro_max'],
+        ]);
+
+        $user = Auth::user();
+        $package = (string) $validated['package'];
+        $amount = $package === FoundingPartnerPurchase::PACKAGE_PRO_MAX ? '10000.00' : '5000.00';
+
+        $wallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
+
+        try {
+            DB::transaction(function () use ($user, $wallet, $package, $amount): void {
+                // Lock the gate counter row so the 30-cap is enforced safely under concurrency.
+                $gate = Setting::query()
+                    ->where('key', 'qbp_founding_partner_sold')
+                    ->lockForUpdate()
+                    ->first();
+
+                if (!$gate) {
+                    $gate = Setting::create(['key' => 'qbp_founding_partner_sold', 'value' => '0']);
+                }
+
+                $sold = (int) ($gate->value ?? '0');
+                if ($sold >= self::FOUNDING_PARTNER_CAP) {
+                    abort(422, 'Founding Partners are sold out. QBP is now open.');
+                }
+
+                // Each user can only buy one (either Pro or Pro Max).
+                $already = FoundingPartnerPurchase::query()
+                    ->where('user_id', $user->id)
+                    ->exists();
+                if ($already) {
+                    abort(422, 'You have already purchased a Founding Partner slot.');
+                }
+
+                /** @var Wallet $lockedWallet */
+                $lockedWallet = Wallet::query()->whereKey($wallet->id)->lockForUpdate()->firstOrFail();
+
+                if (bccomp((string) $lockedWallet->balance, (string) $amount, 2) < 0) {
+                    abort(422, 'Insufficient Registered Wallet balance.');
+                }
+
+                $occurredOn = BusinessTime::today()->toDateString();
+                $purchasedAt = Carbon::now();
+
+                $tx = $lockedWallet->transactions()->create([
+                    'type' => 'founding_partner_purchase_debit',
+                    'amount' => bcmul($amount, '-1', 2),
+                    'meta' => [
+                        'package' => $package,
+                        'cap' => self::FOUNDING_PARTNER_CAP,
+                    ],
+                    'occurred_on' => $occurredOn,
+                ]);
+
+                FoundingPartnerPurchase::create([
+                    'user_id' => $user->id,
+                    'package' => $package,
+                    'amount' => $amount,
+                    'wallet_transaction_id' => $tx->id,
+                    'purchased_at' => $purchasedAt,
+                ]);
+
+                $lockedWallet->decrement('balance', $amount);
+
+                // Keep the gate counter in sync.
+                $gate->value = (string) ($sold + 1);
+                $gate->save();
+            });
+        } catch (\Throwable $e) {
+            $msg = $e->getMessage() ?: 'Unable to purchase Founding Partner right now.';
+            return back()->with('status', $msg);
+        }
+
+        return back()->with('status', 'Founding Partner purchased successfully.');
     }
 }
 

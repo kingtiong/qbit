@@ -36,16 +36,69 @@
             </div>
         </div>
 
+        <div class="mt-5 surface-muted p-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <div class="text-sm font-medium text-gray-800">{{ __('Founding Partners') }}</div>
+                    <div class="text-xs text-gray-600">
+                        {{ __('Only 30 members can buy. Each member can choose either Pro (USDT 5,000) or Pro Max (USDT 10,000). QBP opens after 30/30 is filled.') }}
+                    </div>
+                </div>
+                <div class="text-sm font-semibold text-gray-900">
+                    {{ (int) ($foundingSold ?? 0) }}/{{ (int) ($foundingCap ?? 30) }}
+                </div>
+            </div>
+
+            @php
+                $cap = (int) ($foundingCap ?? 30);
+                $sold = (int) ($foundingSold ?? 0);
+                $pct = $cap > 0 ? min(100, (int) floor(($sold / $cap) * 100)) : 0;
+            @endphp
+            <div class="mt-3 h-2 w-full bg-black/10 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400/70" style="width: {{ $pct }}%"></div>
+            </div>
+
+            @if (!empty($myFounding))
+                <div class="mt-3 text-sm text-gray-700">
+                    {{ __('You already purchased:') }}
+                    <span class="font-semibold">
+                        {{ $myFounding->package === 'pro_max' ? __('Founding Partner Pro Max (USDT 10,000)') : __('Founding Partner Pro (USDT 5,000)') }}
+                    </span>
+                </div>
+            @elseif (!($qbpUnlocked ?? false))
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <form method="POST" action="{{ route('qbp.founding.purchase') }}">
+                        @csrf
+                        <input type="hidden" name="package" value="pro" />
+                        <x-primary-button class="normal-case">{{ __('Buy Founding Partner Pro (USDT 5,000)') }}</x-primary-button>
+                    </form>
+                    <form method="POST" action="{{ route('qbp.founding.purchase') }}">
+                        @csrf
+                        <input type="hidden" name="package" value="pro_max" />
+                        <x-primary-button class="normal-case">{{ __('Buy Founding Partner Pro Max (USDT 10,000)') }}</x-primary-button>
+                    </form>
+                </div>
+            @else
+                <div class="mt-3 text-sm text-gray-700">
+                    {{ __('Founding Partners complete. QBP is now unlocked.') }}
+                </div>
+            @endif
+        </div>
+
         <form method="POST" action="{{ route('qbp.purchase') }}" class="mt-5 flex flex-wrap items-end gap-3">
             @csrf
             <div>
                 <x-input-label for="units" :value="__('Units to buy')" />
-                <x-text-input id="units" name="units" type="number" min="1" step="1" class="mt-1 block w-48" :value="old('units')" required />
+                <x-text-input id="units" name="units" type="number" min="1" step="1" class="mt-1 block w-48" :value="old('units')" required :disabled="!($qbpUnlocked ?? false)" />
                 <x-input-error class="mt-2" :messages="$errors->get('units')" />
             </div>
-            <x-primary-button>{{ __('Buy QBP') }}</x-primary-button>
+            <x-primary-button :disabled="!($qbpUnlocked ?? false)">{{ __('Buy QBP') }}</x-primary-button>
             <div class="text-xs text-gray-600">
-                {{ __('Your order will fill from the lowest available tier(s) automatically.') }}
+                @if (!($qbpUnlocked ?? false))
+                    {{ __('QBP is locked until Founding Partners reach 30/30.') }}
+                @else
+                    {{ __('Your order will fill from the lowest available tier(s) automatically.') }}
+                @endif
             </div>
         </form>
     </div>
@@ -100,7 +153,15 @@
                                 <td class="py-2 pr-4">{{ $total }}</td>
                             </tr>
                         @empty
-                            <tr><td class="py-3 text-gray-600" colspan="4">{{ __('No QBP tiers configured.') }}</td></tr>
+                            <tr>
+                                <td class="py-3 text-gray-600" colspan="4">
+                                    @if (!($qbpUnlocked ?? false))
+                                        {{ __('QBP tiers are locked until Founding Partners reach 30/30.') }}
+                                    @else
+                                        {{ __('No QBP tiers configured.') }}
+                                    @endif
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -135,7 +196,15 @@
                                 <td class="py-2 pr-4 font-medium">USDT {{ number_format((float) $p->total_amount, 0) }}</td>
                             </tr>
                         @empty
-                            <tr><td class="py-3 text-gray-600" colspan="6">{{ __('No purchases yet.') }}</td></tr>
+                            <tr>
+                                <td class="py-3 text-gray-600" colspan="6">
+                                    @if (!($qbpUnlocked ?? false))
+                                        {{ __('QBP is locked. No purchases available yet.') }}
+                                    @else
+                                        {{ __('No purchases yet.') }}
+                                    @endif
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
