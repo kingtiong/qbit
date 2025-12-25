@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('locale')->group(function () {
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return view('landing.qbit');
 });
 
 Route::get('/invite/{code}', function (string $code) {
@@ -36,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // QBP (tiered sale). Keep /gbp as backward-compatible alias.
     Route::get('/qbp', [GbpController::class, 'index'])->name('qbp.index');
     Route::post('/qbp/purchase', [GbpController::class, 'purchase'])->name('qbp.purchase');
+    Route::post('/qbp/founding-partner/purchase', [GbpController::class, 'purchaseFoundingPartner'])->name('qbp.founding.purchase');
     Route::get('/gbp', fn () => redirect()->route('qbp.index'))->name('gbp.index');
     Route::post('/gbp/purchase', fn () => redirect()->route('qbp.purchase'))->name('gbp.purchase');
     Route::get('/autotrade', [AutoTradeController::class, 'index'])->name('autotrade.index');
