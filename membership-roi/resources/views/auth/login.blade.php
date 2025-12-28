@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-4">
-        <div class="text-xl font-semibold">QuantumBit</div>
+        <div class="text-xl font-semibold">IQBIT</div>
         <div class="text-sm text-gray-600">Member login</div>
     </div>
 

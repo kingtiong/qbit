@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'QBIT The Quantum Innovation') }}</title>
+    <title>{{ config('app.name', 'IQBIT') }}</title>
+    <link rel="icon" href="/favicon.ico">
 
     @if (!app()->environment('testing'))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -14,7 +15,7 @@
         <div class="flex items-center gap-3 mb-6">
             <x-application-logo class="w-12 h-12 text-gray-800" />
             <div>
-                <div class="text-xl font-semibold">QuantumBit</div>
+                <div class="text-xl font-semibold">IQBIT</div>
                 <div class="text-sm text-gray-600">{{ __('Member & Admin access') }}</div>
             </div>
         </div>
