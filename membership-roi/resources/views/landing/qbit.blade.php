@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QBIT | Quantum Arbitrage System</title>
+    <title>IQBIT | Quantum Genesis</title>
+    <link rel="icon" href="/favicon.ico">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,18 +109,12 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full border border-gold bg-black flex items-center justify-center">
-                    <span class="font-serif text-gold font-bold text-xl">Q</span>
+                    <span class="font-serif text-gold font-bold text-xl">IQ</span>
                 </div>
-                <span class="font-sans font-bold text-xl tracking-widest text-gold-gradient">QBIT</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-mono text-[10px] tracking-widest text-textDim">
-                <a href="#vision" class="hover:text-gold transition">VISION</a>
-                <a href="#tech" class="hover:text-quantum transition">TECHNOLOGY</a>
-                <a href="#live" class="hover:text-nvidia transition">LIVE_DATA</a>
-                <a href="#ecosystem" class="hover:text-gold transition">ECOSYSTEM</a>
+                <span class="font-sans font-bold text-xl tracking-widest text-gold-gradient">IQBIT</span>
             </div>
             <a href="/login" class="px-5 py-2 border border-gold/40 text-gold text-xs font-mono hover:bg-gold hover:text-black transition duration-300">
-                CONNECT_WALLET
+                LOGIN
             </a>
         </div>
     </nav>
@@ -137,7 +132,7 @@
 
             <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">
                 QUANTUM<br>
-                <span class="text-gold-gradient">ARBITRAGE SYSTEM</span>
+                <span class="text-gold-gradient font-extrabold">GENESIS</span>
             </h1>
 
             <p class="font-sans text-textDim text-sm md:text-lg max-w-2xl mx-auto mb-12 font-light leading-relaxed">
@@ -147,7 +142,7 @@
 
             <div class="flex justify-center gap-6">
                 <a href="/register" class="px-8 py-4 bg-gold text-black font-bold font-sans text-sm hover:bg-white transition shadow-[0_0_20px_rgba(197,157,95,0.4)]">
-                    JOIN THE NETWORK
+                    BUILD YOUR WEALTH
                 </a>
                 <a href="/login" class="px-8 py-4 border border-white/20 text-white font-sans text-sm hover:border-quantum hover:text-quantum transition backdrop-blur-sm">
                     READ WHITEPAPER
@@ -161,7 +156,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20">
                 <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">The Engine</h2>
-                <p class="font-mono text-xs text-quantum">WHY QBIT IS UNBEATABLE</p>
+                <p class="font-mono text-xs text-quantum">WHY IQBIT IS UNBEATABLE</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -170,7 +165,7 @@
                     <div class="text-4xl mb-6">⚡</div>
                     <h3 class="font-sans text-xl font-bold text-white mb-2">Zero Latency</h3>
                     <p class="text-sm text-textDim leading-relaxed">
-                        Quantum simulation allows us to capture spreads <span class="text-quantum">before on-chain confirmation</span>. Traditional HFT is milliseconds; QBIT is nanoseconds.
+                        Quantum simulation allows us to capture spreads <span class="text-quantum">before on-chain confirmation</span>. Traditional HFT is milliseconds; IQBIT is nanoseconds.
                     </p>
                 </div>
 
@@ -199,7 +194,7 @@
     <section id="live" class="py-24 px-6 bg-black relative">
         <div class="max-w-5xl mx-auto">
              <div class="flex justify-between items-end mb-6">
-                <h2 class="font-serif text-2xl text-white">Live Arbitrage Feed</h2>
+                <h2 class="font-serif text-2xl text-white">Live Feed</h2>
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 bg-nvidia rounded-full animate-pulse"></span>
                     <span class="font-mono text-xs text-nvidia">SYSTEM ACTIVE</span>
@@ -304,8 +299,8 @@
                 <div class="absolute right-[-6px] md:right-[-7px] top-2 w-3 h-3 bg-bg border-2 border-gold rounded-full z-10 shadow-[0_0_10px_#C59D5F]"></div>
                 <div class="text-right pr-6 w-full">
                     <div class="font-mono text-gold text-xs mb-1">PHASE 1</div>
-                    <h3 class="font-sans text-xl text-white font-bold mb-2">Genesis Launch</h3>
-                    <p class="text-textDim text-sm">Recruitment of 30 Founding Partners. Core algorithm deployment.</p>
+                    <h3 class="font-sans text-xl text-white font-bold mb-2">GOVERNANCE LAYER ESTABLISHMENT</h3>
+                    <p class="text-textDim text-sm">Assembly of the Founding Partners. Definition of protocol direction and economic model.</p>
                 </div>
             </div>
 
@@ -313,8 +308,8 @@
                 <div class="absolute left-[-22px] md:left-[-7px] top-2 w-3 h-3 bg-bg border-2 border-quantum rounded-full z-10 shadow-[0_0_10px_#00F0FF]"></div>
                 <div class="text-left pl-6 w-full">
                     <div class="font-mono text-quantum text-xs mb-1">PHASE 2</div>
-                    <h3 class="font-sans text-xl text-white font-bold mb-2">Quantum Mainnet</h3>
-                    <p class="text-textDim text-sm">Full operation of 25-tier node system. Public API access opened.</p>
+                    <h3 class="font-sans text-xl text-white font-bold mb-2">WEALTH LAYER ACTIVATION</h3>
+                    <p class="text-textDim text-sm">Launch of the 25-Tier Genesis Node Network. Full operation of hashrate allocation system.</p>
                 </div>
             </div>
 
@@ -322,8 +317,8 @@
                 <div class="absolute right-[-6px] md:right-[-7px] top-2 w-3 h-3 bg-bg border-2 border-nvidia rounded-full z-10"></div>
                 <div class="text-right pr-6 w-full">
                     <div class="font-mono text-nvidia text-xs mb-1">PHASE 3</div>
-                    <h3 class="font-sans text-xl text-white font-bold mb-2">Global Liquidity DAO</h3>
-                    <p class="text-textDim text-sm">Decentralized governance transition. Multi-chain aggregation.</p>
+                    <h3 class="font-sans text-xl text-white font-bold mb-2">GLOBAL DAO &amp; ECOSYSTEM</h3>
+                    <p class="text-textDim text-sm">Transition to decentralized community governance. Integration of global liquidity providers.</p>
                 </div>
             </div>
         </div>
@@ -334,7 +329,7 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <div>
                 <h2 class="font-serif text-3xl text-white mb-4">Ready to dominate?</h2>
-                <p class="text-textDim text-sm mb-6">Join the QBIT network and start earning quantum yields today.</p>
+                <p class="text-textDim text-sm mb-6">Join the IQBIT network and start earning quantum yields today.</p>
                 <div class="flex gap-4">
                     <a href="#" class="text-gray-400 hover:text-white transition">Twitter / X</a>
                     <a href="#" class="text-gray-400 hover:text-white transition">Discord</a>
@@ -350,7 +345,7 @@
 
         <div class="text-center border-t border-white/5 pt-8">
             <p class="font-mono text-[10px] text-gray-600">
-                © 2025 QBIT QUANTUM SYSTEMS. ALL RIGHTS RESERVED.<br>
+                © 2025 IQBIT QUANTUM SYSTEMS. ALL RIGHTS RESERVED.<br>
                 RISK DISCLOSURE: CRYPTOCURRENCY TRADING INVOLVES SUBSTANTIAL RISK.
             </p>
         </div>

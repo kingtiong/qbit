@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'QBIT The Quantum Innovation'),
+    'name' => env('APP_NAME', 'IQBIT'),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="mb-4">
-        <div class="text-xl font-semibold">QuantumBit Admin</div>
-        <div class="text-sm text-gray-600">Sign in to manage QuantumBit.</div>
+        <div class="text-xl font-semibold">IQBIT Admin</div>
+        <div class="text-sm text-gray-600">Sign in to manage IQBIT.</div>
     </div>
 
     <form method="POST" action="{{ route('admin.login.store') }}">
