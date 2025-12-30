@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IQBIT | Quantum Genesis</title>
+    <title>QBIT | Quantum Genesis</title>
     @php
         $faviconCandidates = [
             'images/favicon.ico',
@@ -122,10 +122,14 @@
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-bg/90 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full border border-gold bg-black flex items-center justify-center">
-                    <span class="font-serif text-gold font-bold text-xl">IQ</span>
+                <div class="w-10 h-10 rounded-full border border-gold/60 bg-black flex items-center justify-center overflow-hidden">
+                    <img
+                        src="{{ asset('images/logo.png') }}"
+                        alt="QBIT Logo"
+                        class="w-full h-full object-contain"
+                    />
                 </div>
-                <span class="font-sans font-bold text-xl tracking-widest text-gold-gradient">IQBIT</span>
+                <span class="font-sans font-bold text-xl tracking-widest text-gold-gradient">QBIT</span>
             </div>
             <a href="/login" class="px-5 py-2 border border-gold/40 text-gold text-xs font-mono hover:bg-gold hover:text-black transition duration-300">
                 LOGIN
@@ -170,7 +174,32 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-20">
                 <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">The Engine</h2>
-                <p class="font-mono text-xs text-quantum">WHY IQBIT IS UNBEATABLE</p>
+                <p class="font-mono text-xs text-quantum">WHY QBIT IS UNBEATABLE</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-quantum/10 blur-[40px] opacity-60"></div>
+                    <img
+                        src="{{ asset('images/' . rawurlencode('website engine photo.png')) }}"
+                        alt="QBIT Engine"
+                        class="relative w-full rounded-2xl border border-white/10 shadow-2xl"
+                    />
+                </div>
+                <div class="relative">
+                    <div class="text-white/90 italic text-lg md:text-xl leading-relaxed">
+                        “At QBIT, we don't reinvent the wheel—we accelerate it.”
+                    </div>
+
+                    <div class="mt-6 text-textDim text-sm leading-relaxed space-y-4">
+                        <p>
+                            Our mission is unprecedented technological aggregation. QBIT’s unique distributed protocol successfully dismantles the 'isolated islands' of the quantum computing sector. By encapsulating the distinct advantages of IBM, Google, and NVIDIA into a unified API interface, we have built the underlying propulsion engine of the QBIT network.
+                        </p>
+                        <p>
+                            In the QBIT ecosystem, you benefit from the synergy of IBM’s reliability, Google’s velocity, and NVIDIA’s intelligence. This represents more than a simple stack; it is an exponential leap in computational evolution.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -179,7 +208,7 @@
                     <div class="text-4xl mb-6">⚡</div>
                     <h3 class="font-sans text-xl font-bold text-white mb-2">Zero Latency</h3>
                     <p class="text-sm text-textDim leading-relaxed">
-                        Quantum simulation allows us to capture spreads <span class="text-quantum">before on-chain confirmation</span>. Traditional HFT is milliseconds; IQBIT is nanoseconds.
+                        Quantum simulation allows us to capture spreads <span class="text-quantum">before on-chain confirmation</span>. Traditional HFT is milliseconds; QBIT is nanoseconds.
                     </p>
                 </div>
 
@@ -242,7 +271,7 @@
     <!-- 4. Ecosystem -->
     <section id="ecosystem" class="py-32 px-6 bg-bg relative overflow-hidden">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="font-serif text-4xl text-white mb-6">The Node Ecosystem</h2>
+            <h2 class="font-serif text-4xl text-white mb-6">(QBP) Quantum Business Partner Program</h2>
             <p class="text-textDim text-sm mb-16 max-w-xl mx-auto">
                 A hierarchical network designed for maximum liquidity capture.
                 Higher tiers receive exponentially higher hashrate allocation.
@@ -254,7 +283,10 @@
                     <div class="relative bg-gradient-to-b from-[#C59D5F] to-[#8E6E38] p-[1px] rounded-lg">
                         <div class="bg-black/80 backdrop-blur-xl p-6 rounded-lg text-center border border-gold/50 group-hover:border-gold transition cursor-pointer">
                             <div class="text-2xl mb-2">👑</div>
-                            <h3 class="font-serif text-gold font-bold tracking-widest text-sm">30 FOUNDING PARTNERS</h3>
+                            <h3 class="font-serif text-gold font-bold tracking-widest text-sm leading-tight">
+                                <div class="opacity-90">(Governance Layer)</div>
+                                <div>Founder Team</div>
+                            </h3>
                             <p class="font-mono text-[10px] text-white/80 mt-2">Governance Rights • Genesis Dividends</p>
                         </div>
                     </div>
@@ -265,6 +297,7 @@
                 <div class="relative group w-full md:w-[500px] z-20">
                     <div class="bg-gradient-to-b from-quantum to-transparent p-[1px] rounded-lg">
                         <div class="bg-black/80 backdrop-blur-xl p-5 rounded-lg text-center border border-quantum/30 group-hover:border-quantum transition cursor-pointer">
+                            <div class="font-mono text-[10px] text-white/70 mb-1">Wealth Consensus Layer</div>
                             <h3 class="font-sans text-quantum font-bold tracking-widest text-sm">25-TIER NODE NETWORK</h3>
                             <p class="font-mono text-[10px] text-textDim mt-2">Tier 1 (Entry) ➔ Tier 25 (Elite)</p>
                             <div class="mt-3 h-1 w-32 mx-auto bg-gray-800 rounded-full overflow-hidden">
@@ -343,7 +376,7 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <div>
                 <h2 class="font-serif text-3xl text-white mb-4">Ready to dominate?</h2>
-                <p class="text-textDim text-sm mb-6">Join the IQBIT network and start earning quantum yields today.</p>
+                <p class="text-textDim text-sm mb-6">Join the QBIT network and start earning quantum yields today.</p>
                 <div class="flex gap-4">
                     <a href="#" class="text-gray-400 hover:text-white transition">Twitter / X</a>
                     <a href="#" class="text-gray-400 hover:text-white transition">Discord</a>
@@ -359,7 +392,7 @@
 
         <div class="text-center border-t border-white/5 pt-8">
             <p class="font-mono text-[10px] text-gray-600">
-                © 2025 IQBIT QUANTUM SYSTEMS. ALL RIGHTS RESERVED.<br>
+                © 2025 QBIT QUANTUM SYSTEMS. ALL RIGHTS RESERVED.<br>
                 RISK DISCLOSURE: CRYPTOCURRENCY TRADING INVOLVES SUBSTANTIAL RISK.
             </p>
         </div>
