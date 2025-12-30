@@ -1,15 +1,35 @@
-<nav x-data="{ open: false }" class="topbar">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
+<nav class="topbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex flex-col gap-3">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('qbp.index') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('qbp.index') }}" class="inline-flex items-center">
+                        <x-application-logo class="block h-9 w-auto" />
                     </a>
                 </div>
 
+                <!-- Top Menu: 3 rows, left -> right -->
+                <div class="grid grid-cols-2 gap-2">
+                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
+                        {{ __('QBP') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
+                        {{ __('Network') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
+                        {{ __('Package (QPU)') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
+                        {{ __('Q-Flash (Auto Trade)') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                        {{ __('Wallet') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -53,77 +73,6 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out" aria-label="Menu">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide-down Menu (all screen sizes) -->
-    <div
-        x-show="open"
-        x-cloak
-        x-transition:enter="transition ease-out duration-150"
-        x-transition:enter-start="opacity-0 -translate-y-2"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-100"
-        x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        @click.outside="open = false"
-        class="border-t border-amber-300/15 bg-black/95 backdrop-blur-xl"
-    >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <x-responsive-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
-                {{ __('QBP') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
-                {{ __('Network') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
-                {{ __('Package (QPU)') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
-                {{ __('Q-Flash (Auto Trade)') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
-                {{ __('Wallet') }}
-            </x-responsive-nav-link>
-            </div>
-
-            <div class="mt-4 pt-4 border-t border-white/10">
-                <div class="text-sm text-amber-50/80">
-                    <div class="font-medium text-amber-50">{{ Auth::user()->name }}</div>
-                    <div class="text-amber-50/60">{{ Auth::user()->email }}</div>
-                </div>
-            </div>
-
-            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
             </div>
         </div>
     </div>
