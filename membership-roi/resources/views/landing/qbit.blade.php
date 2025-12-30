@@ -172,12 +172,12 @@
     <!-- 2. Technology -->
     <section id="tech" class="py-32 px-6 bg-bgCard relative border-t border-white/5">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20">
+            <div class="text-center mb-12">
                 <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">The Engine</h2>
                 <p class="font-mono text-xs text-quantum">WHY QBIT IS UNBEATABLE</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-10">
                 <div class="relative">
                     <div class="absolute inset-0 bg-quantum/10 blur-[40px] opacity-60"></div>
                     <img
@@ -191,7 +191,7 @@
                         “At QBIT, we don't reinvent the wheel—we accelerate it.”
                     </div>
 
-                    <div class="mt-6 text-textDim text-sm leading-relaxed space-y-4">
+                    <div class="mt-4 text-textDim text-sm leading-relaxed space-y-3">
                         <p>
                             Our mission is unprecedented technological aggregation. QBIT’s unique distributed protocol successfully dismantles the 'isolated islands' of the quantum computing sector. By encapsulating the distinct advantages of IBM, Google, and NVIDIA into a unified API interface, we have built the underlying propulsion engine of the QBIT network.
                         </p>
