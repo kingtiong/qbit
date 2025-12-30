@@ -6,7 +6,7 @@
                 <div class="text-sm text-gray-600">{{ __('25-tier allocation • FIFO purchase from Tier 1 upward') }}</div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('packages.index') }}" class="btn-neutral normal-case text-sm">{{ __('Packages') }}</a>
+                <a href="{{ route('packages.index') }}" class="btn-neutral normal-case text-sm">{{ __('Package (QPU)') }}</a>
                 <a href="{{ route('dashboard') }}" class="btn-neutral normal-case text-sm">{{ __('Dashboard') }}</a>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <div class="mt-1 text-xs text-gray-600">{{ __('QBP purchases deduct from Registered Wallet.') }}</div>
             </div>
             <div class="surface-muted p-4">
-                <div class="text-sm text-gray-600">{{ __('How pricing works') }}</div>
+                <div class="text-sm text-gray-600">{{ __('How Genesis Node network Pricing Work') }}</div>
                 <div class="mt-1 text-sm text-gray-700">
                     <div>- {{ __('Tier 1 price: 300 USDT / unit') }}</div>
                     <div>- {{ __('Price increases 20% each tier') }}</div>
@@ -37,11 +37,12 @@
         </div>
 
         <div class="mt-5 surface-muted p-4">
+            <div class="text-lg font-medium text-gray-900 mb-2">{{ __('Founder Benefit') }}</div>
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <div class="text-sm font-medium text-gray-800">{{ __('Founding Partners') }}</div>
+                    <div class="text-sm font-medium text-gray-800">{{ __('Founder Team') }}</div>
                     <div class="text-xs text-gray-600">
-                        {{ __('Only 30 members can buy. Each member can choose either Pro (USDT 5,000) or Pro Max (USDT 10,000). QBP opens after 30/30 is filled.') }}
+                        {{ __('Only 30 members can join. Each member can choose either Pro (USDT 5,000) or Pro Max (USDT 10,000). QBP opens after 30/30 is filled.') }}
                     </div>
                 </div>
                 <div class="text-sm font-semibold text-gray-900">
@@ -62,7 +63,7 @@
                 <div class="mt-3 text-sm text-gray-700">
                     {{ __('You already purchased:') }}
                     <span class="font-semibold">
-                        {{ $myFounding->package === 'pro_max' ? __('Founding Partner Pro Max (USDT 10,000)') : __('Founding Partner Pro (USDT 5,000)') }}
+                        {{ $myFounding->package === 'pro_max' ? __('Founder Pro Max (USDT 10,000)') : __('Founder Pro (USDT 5,000)') }}
                     </span>
                 </div>
             @elseif (!($qbpUnlocked ?? false))
@@ -70,32 +71,28 @@
                     <form method="POST" action="{{ route('qbp.founding.purchase') }}">
                         @csrf
                         <input type="hidden" name="package" value="pro" />
-                        <x-primary-button class="normal-case">{{ __('Buy Founding Partner Pro (USDT 5,000)') }}</x-primary-button>
+                        <x-primary-button class="normal-case">{{ __('Founder Pro (USDT 5,000)') }}</x-primary-button>
                     </form>
                     <form method="POST" action="{{ route('qbp.founding.purchase') }}">
                         @csrf
                         <input type="hidden" name="package" value="pro_max" />
-                        <x-primary-button class="normal-case">{{ __('Buy Founding Partner Pro Max (USDT 10,000)') }}</x-primary-button>
+                        <x-primary-button class="normal-case">{{ __('Founder Pro Max (USDT 10,000)') }}</x-primary-button>
                     </form>
                 </div>
             @else
                 <div class="mt-3 text-sm text-gray-700">
-                    {{ __('Founding Partners complete. QBP is now unlocked.') }}
+                    {{ __('Founder Team complete. QBP is now unlocked.') }}
                 </div>
             @endif
         </div>
 
         <form method="POST" action="{{ route('qbp.purchase') }}" class="mt-5 flex flex-wrap items-end gap-3">
             @csrf
-            <div>
-                <x-input-label for="units" :value="__('Units to buy')" />
-                <x-text-input id="units" name="units" type="number" min="1" step="1" class="mt-1 block w-48" :value="old('units')" required :disabled="!($qbpUnlocked ?? false)" />
-                <x-input-error class="mt-2" :messages="$errors->get('units')" />
-            </div>
-            <x-primary-button :disabled="!($qbpUnlocked ?? false)">{{ __('Buy QBP') }}</x-primary-button>
+            <input type="hidden" name="units" value="1" />
+            <x-primary-button :disabled="!($qbpUnlocked ?? false)">{{ __('Join QBP') }}</x-primary-button>
             <div class="text-xs text-gray-600">
                 @if (!($qbpUnlocked ?? false))
-                    {{ __('QBP is locked until Founding Partners reach 30/30.') }}
+                    {{ __('Founder team is locked until reach 30/30.') }}
                 @else
                     {{ __('Your order will fill from the lowest available tier(s) automatically.') }}
                 @endif
@@ -105,7 +102,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="surface p-6">
-            <div class="text-lg font-medium mb-1">{{ __('QBP Tiers') }}</div>
+            <div class="text-lg font-medium mb-1">{{ __('Genesis Node Network') }}</div>
             <div class="text-sm text-gray-600 mb-3">
                 {{ __('Shown: current tier, next tier, and estimated final tier price.') }}
             </div>
@@ -156,7 +153,7 @@
                             <tr>
                                 <td class="py-3 text-gray-600" colspan="4">
                                     @if (!($qbpUnlocked ?? false))
-                                        {{ __('QBP tiers are locked until Founding Partners reach 30/30.') }}
+                                        {{ __('Genesis node network is locked until Founder team reach 30/30.') }}
                                     @else
                                         {{ __('No QBP tiers configured.') }}
                                     @endif

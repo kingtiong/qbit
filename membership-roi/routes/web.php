@@ -12,6 +12,7 @@ use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\InvestmentPackageController;
 use App\Http\Controllers\AutoTradeController;
 use App\Http\Controllers\GbpController;
+use App\Http\Controllers\NetworkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::middleware('locale')->group(function () {
 
 Route::get('/', function () {
     if (auth()->check()) {
-        return redirect()->route('dashboard');
+        return redirect()->route('qbp.index');
     }
 
     return view('landing.qbit');
@@ -37,6 +38,7 @@ Route::get('/dashboard', [InvestmentController::class, 'index'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/packages', [InvestmentPackageController::class, 'index'])->name('packages.index');
+    Route::get('/network', [NetworkController::class, 'index'])->name('network.index');
     // QBP (tiered sale). Keep /gbp as backward-compatible alias.
     Route::get('/qbp', [GbpController::class, 'index'])->name('qbp.index');
     Route::post('/qbp/purchase', [GbpController::class, 'purchase'])->name('qbp.purchase');

@@ -300,7 +300,7 @@
                 <div class="text-right pr-6 w-full">
                     <div class="font-mono text-gold text-xs mb-1">PHASE 1</div>
                     <h3 class="font-sans text-xl text-white font-bold mb-2">GOVERNANCE LAYER ESTABLISHMENT</h3>
-                    <p class="text-textDim text-sm">Assembly of the Founding Partners. Definition of protocol direction and economic model.</p>
+                    <p class="text-textDim text-sm">Assembly of the Founder Team. Definition of protocol direction and economic model.</p>
                 </div>
             </div>
 

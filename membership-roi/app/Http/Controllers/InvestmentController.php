@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Investment;
 use App\Models\InvestmentPackage;
+use App\Models\GbpPurchase;
+use App\Models\GbpTier;
 use App\Models\SalesEvent;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
@@ -24,6 +26,29 @@ class InvestmentController extends Controller
         $user = Auth::user();
         $registeredWallet = Wallet::forUser($user->id, Wallet::TYPE_REGISTERED);
         $commissionWallet = Wallet::forUser($user->id, Wallet::TYPE_COMMISSION);
+
+        $xqbtUnits = (int) GbpPurchase::query()
+            ->where('user_id', $user->id)
+            ->sum('units');
+
+        $qbtUnitPrice = 0;
+        $tiers = GbpTier::query()
+            ->where('is_active', true)
+            ->withSum('purchases', 'units')
+            ->orderBy('tier')
+            ->get();
+        foreach ($tiers as $t) {
+            $total = (int) ($t->total_units ?? 0);
+            $sold = (int) ($t->purchases_sum_units ?? $t->sold_units ?? 0);
+            $remaining = max(0, $total - $sold);
+            if ($remaining > 0) {
+                $qbtUnitPrice = (int) ($t->unit_price ?? 0);
+                break;
+            }
+            // If sold out, keep walking; the last tier encountered becomes the fallback price.
+            $qbtUnitPrice = (int) ($t->unit_price ?? $qbtUnitPrice);
+        }
+        $qbtWalletValue = number_format((float) ($xqbtUnits * $qbtUnitPrice), 2, '.', '');
 
         $investments = Investment::query()
             ->where('user_id', $user->id)
@@ -61,6 +86,9 @@ class InvestmentController extends Controller
             'user' => $user,
             'registeredWallet' => $registeredWallet,
             'commissionWallet' => $commissionWallet,
+            'xqbtUnits' => $xqbtUnits,
+            'qbtUnitPrice' => $qbtUnitPrice,
+            'qbtWalletValue' => $qbtWalletValue,
             'investments' => $investments,
             'recentTransactions' => $recentTransactions,
             'summary' => [

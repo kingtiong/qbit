@@ -7,7 +7,7 @@
         font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
         font-size="52"
         font-weight="800"
-        letter-spacing="2"
+        letter-spacing="1"
         fill="currentColor"
-    >IQ</text>
+    >GN</text>
 </svg>

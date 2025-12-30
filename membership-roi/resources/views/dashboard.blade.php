@@ -15,7 +15,7 @@
                     {{ __('Wallet') }}
                 </a>
                 <a href="{{ route('packages.index') }}" class="btn-primary normal-case text-sm">
-                    {{ __('Buy Quantum Machine') }}
+                    {{ __('Activate Quantum Machine') }}
                 </a>
             </div>
         </div>
@@ -34,7 +34,7 @@
                             <div class="text-sm text-slate-700">{{ __('Quantum Trading • Automated strategy execution') }}</div>
                             <div class="mt-1 text-2xl font-semibold text-slate-900">{{ __('Your machines trade your fund daily') }}</div>
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
-                                {{ __('Deposit into your Registered Wallet, buy a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Quant Wallet.') }}
+                                {{ __('Deposit into your Registered Wallet, activate a Quantum Machine (QPU), and receive daily QOS earnings + network rewards into your Quant Wallet.') }}
                             </div>
                             <div
                                 class="mt-4 text-sm text-slate-700"
@@ -84,19 +84,19 @@
                                 {{ __('Withdraw') }}
                             </a>
                             <a href="{{ route('packages.index') }}" class="btn-primary normal-case text-sm">
-                                {{ __('Buy Machine') }}
+                                {{ __('Activate Machine') }}
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
                 <div class="surface">
                     <div class="p-5">
                         <div class="text-sm text-gray-600">{{ __('Registered Wallet (Deposits)') }}</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                        <div class="mt-2 text-sm text-gray-600">{{ __('Used to buy Quantum Machines.') }}</div>
+                        <div class="mt-2 text-sm text-gray-600">{{ __('Used to activate Quantum Machines.') }}</div>
                     </div>
                 </div>
                 <div class="surface">
@@ -104,6 +104,20 @@
                         <div class="text-sm text-gray-600">{{ __('Quant Wallet (Earnings)') }}</div>
                         <div class="mt-1 text-2xl font-semibold text-gray-900">USDT {{ number_format((float) $commissionWallet->balance, 2) }}</div>
                         <div class="mt-2 text-sm text-gray-600">{{ __('Daily QOS + network + node rewards.') }}</div>
+                    </div>
+                </div>
+                <div class="surface">
+                    <div class="p-5">
+                        <div class="text-sm text-gray-600">{{ __('xQBT') }}</div>
+                        <div class="mt-1 text-2xl font-semibold text-gray-900 tabular-nums">{{ number_format((float) ($xqbtUnits ?? 0), 0) }}</div>
+                        <div class="mt-2 text-sm text-gray-600">{{ __('Genesis Node Network units') }}</div>
+                    </div>
+                </div>
+                <div class="surface">
+                    <div class="p-5">
+                        <div class="text-sm text-gray-600">{{ __('QBT Wallet') }}</div>
+                        <div class="mt-1 text-2xl font-semibold text-gray-900 tabular-nums">USDT {{ number_format((float) ($qbtWalletValue ?? 0), 2) }}</div>
+                        <div class="mt-2 text-sm text-gray-600">{{ __('Unit price') }}: USDT {{ number_format((float) ($qbtUnitPrice ?? 0), 0) }}</div>
                     </div>
                 </div>
                 <div class="surface">
@@ -172,7 +186,7 @@
                                     @empty
                                         <tr>
                                             <td class="py-3 text-gray-600" colspan="6">
-                                                {{ __('You don’t have any machines yet. Deposit and buy your first Quantum Machine to start earning daily QOS.') }}
+                                                {{ __('You don’t have any machines yet. Deposit and activate your first Quantum Machine to start earning daily QOS.') }}
                                             </td>
                                         </tr>
                                     @endforelse
@@ -230,7 +244,7 @@
                             <div class="font-medium text-gray-900">{{ __('How Quantum Trading works') }}</div>
                             <ul class="mt-2 text-sm text-gray-700 space-y-1">
                                 <li><span class="font-medium">1)</span> {{ __('Deposit USDT (BEP20) → credited to your Registered Wallet.') }}</li>
-                                <li><span class="font-medium">2)</span> {{ __('Buy a QPU Machine → your capital is allocated into the strategy engine.') }}</li>
+                                <li><span class="font-medium">2)</span> {{ __('Activate a QPU Machine → your capital is allocated into the strategy engine.') }}</li>
                                 <li><span class="font-medium">3)</span> {{ __('Earn daily QOS → credited into your Quant Wallet (UTC+8 daily distribution).') }}</li>
                                 <li><span class="font-medium">4)</span> {{ __('Build a network → direct sponsor + rank bonus + leader node rewards (if eligible).') }}</li>
                             </ul>

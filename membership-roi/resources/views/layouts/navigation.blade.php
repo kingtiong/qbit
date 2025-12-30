@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('qbp.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -82,17 +82,20 @@
     >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
-                {{ __('Packages') }}
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
                 {{ __('QBP') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
+                {{ __('Network') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
+                {{ __('Package (QPU)') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
-                {{ __('Auto Trade') }}
+                {{ __('Q-Flash (Auto Trade)') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
                 {{ __('Wallet') }}
