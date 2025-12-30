@@ -29,7 +29,7 @@
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div>
                             <div class="text-sm text-slate-700">{{ __('Funding → Machine Purchase → Daily Rewards (UTC+8)') }}</div>
-                            <div class="mt-1 text-2xl font-semibold text-slate-900">{{ __('Buy a Quantum Machine to start daily QOS') }}</div>
+                            <div class="mt-1 text-2xl font-semibold text-slate-900">{{ __('Activate a Quantum Machine to start daily QOS') }}</div>
                             <div class="mt-2 text-sm text-slate-700 max-w-3xl">
                                 {{ __('Deposits are credited to your Registered Wallet.') }}
                                 {{ __('All earnings and commissions are credited to your Quant Wallet.') }}
@@ -40,7 +40,7 @@
                             <div class="p-4 surface-solid">
                                 <div class="text-xs text-slate-600 uppercase tracking-wider">{{ __('Registered Wallet') }}</div>
                                 <div class="mt-1 text-xl font-semibold text-slate-900">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                                <div class="mt-1 text-xs text-slate-600">{{ __('Used to buy machines') }}</div>
+                                <div class="mt-1 text-xs text-slate-600">{{ __('Used to activate machines') }}</div>
                             </div>
                             <div class="p-4 surface-solid">
                                 <div class="text-xs text-slate-600 uppercase tracking-wider">{{ __('Quant Wallet') }}</div>
@@ -52,9 +52,6 @@
 
                     <div class="mt-4 text-sm text-slate-700">
                         {{ __('Daily distribution') }}: <span class="font-medium">UTC+8</span> ({{ __('system schedule') }}).
-                        @if ($todayRate)
-                            <span class="ml-2 opacity-80">{{ __('Legacy ROI reference (admin-set)') }}: {{ bcmul((string) $todayRate->rate, '100', 2) }}% {{ __('for') }} {{ $today->toDateString() }}</span>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -62,7 +59,6 @@
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 @forelse ($packages as $package)
                     @php
-                        $maxReturn = (float) ($package->amount ?? 0) * (float) ($package->max_return_multiplier ?? 0);
                         $canBuyRegistered = (float) $registeredWallet->balance >= (float) $package->amount;
                         $canBuyQuant = (float) $commissionWallet->balance >= (float) $package->amount;
                         $canBuyAny = $canBuyRegistered || $canBuyQuant;
@@ -78,8 +74,12 @@
                                         {{ $package->code ?? 'QPU' }}
                                     </div>
                                     <div class="mt-2 text-xl font-semibold text-gray-900">{{ $package->label }}</div>
-                                    @if ($package->summary)
-                                        <div class="mt-1 text-sm text-gray-600">{{ $package->summary }}</div>
+                                    @php
+                                        $summary = (string) ($package->summary ?? '');
+                                        $hideReturnCopy = (bool) preg_match('/\b\d+(\.\d+)?x\b/i', $summary) || (bool) preg_match('/max\s*return/i', $summary);
+                                    @endphp
+                                    @if ($summary !== '' && !$hideReturnCopy)
+                                        <div class="mt-1 text-sm text-gray-600">{{ $summary }}</div>
                                     @endif
                                 </div>
                                 <div class="text-right">
@@ -88,17 +88,10 @@
                                 </div>
                             </div>
 
-                            <div class="mt-4 grid grid-cols-2 gap-3">
+                            <div class="mt-4 grid grid-cols-1 gap-3">
                                 <div class="p-3 surface-muted">
                                     <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Daily QOS') }}</div>
                                     <div class="mt-1 font-semibold text-gray-900">{{ $package->currency }} {{ number_format((float) ($package->daily_qos_amount ?? 0), 2) }}</div>
-                                </div>
-                                <div class="p-3 surface-muted">
-                                    <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Max Return') }}</div>
-                                    <div class="mt-1 font-semibold text-gray-900">
-                                        {{ number_format((float) ($package->max_return_multiplier ?? 0), 2) }}x
-                                        <span class="text-xs text-gray-600">({{ $package->currency }} {{ number_format($maxReturn, 2) }})</span>
-                                    </div>
                                 </div>
                             </div>
 
@@ -109,9 +102,18 @@
                                 @endif
                             </div>
 
-                            @if (is_array($package->benefits) && count($package->benefits))
+                            @php
+                                $benefits = is_array($package->benefits) ? $package->benefits : [];
+                                $benefits = array_values(array_filter($benefits, function ($b) {
+                                    $s = (string) $b;
+                                    if (preg_match('/\b\d+(\.\d+)?x\b/i', $s)) return false;
+                                    if (preg_match('/max\s*return/i', $s)) return false;
+                                    return true;
+                                }));
+                            @endphp
+                            @if (count($benefits))
                                 <ul class="mt-4 text-sm text-gray-700 space-y-1">
-                                    @foreach ($package->benefits as $b)
+                                    @foreach ($benefits as $b)
                                         <li class="flex gap-2">
                                             <span class="mt-2 h-1.5 w-1.5 rounded-full bg-amber-400"></span>
                                             <span>{{ $b }}</span>
@@ -130,7 +132,7 @@
                                     @click="open = true"
                                     @disabled(!$canBuyAny || $remainingUnits <= 0)
                                 >
-                                    {{ $canBuyAny ? __('Join / Start') : __('Insufficient Funds') }}
+                                    {{ $canBuyAny ? __('Activate') : __('Insufficient Funds') }}
                                 </button>
                             </div>
 
@@ -159,7 +161,7 @@
                                             <input type="hidden" name="wallet_type" value="registered" />
                                             <div class="text-xs text-gray-600 uppercase tracking-wider">{{ __('Registered Wallet') }}</div>
                                             <div class="mt-1 text-lg font-semibold text-gray-900 tabular-nums">USDT {{ number_format((float) $registeredWallet->balance, 2) }}</div>
-                                            <div class="mt-2 text-xs text-gray-600">{{ __('Used to buy machines') }}</div>
+                                            <div class="mt-2 text-xs text-gray-600">{{ __('Used to activate machines') }}</div>
                                             <button type="submit" class="btn-dark w-full mt-3 normal-case text-sm" @disabled(!$canBuyRegistered)>{{ __('Pay with Registered') }}</button>
                                         </form>
 
@@ -190,12 +192,12 @@
                 <div class="p-6">
                     <div class="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <div class="text-lg font-medium text-gray-900">{{ __('QBP') }}</div>
+                            <div class="text-lg font-medium text-gray-900">{{ __('Genesis Node Network') }}</div>
                             <div class="mt-1 text-sm text-gray-600">
-                                {{ __('Buy QBP units from Tier 1 upward. Price increases by tier; amounts are integer-only (no cents).') }}
+                                {{ __('Join QBP from Tier 1 upward. Price increases by tier; amounts are integer-only (no cents).') }}
                             </div>
                         </div>
-                        <a href="{{ route('qbp.index') }}" class="btn-neutral normal-case text-sm">{{ __('Open QBP') }}</a>
+                        <a href="{{ route('qbp.index') }}" class="btn-neutral normal-case text-sm">{{ __('Join QBP') }}</a>
                     </div>
                 </div>
             </div>

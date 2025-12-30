@@ -114,7 +114,7 @@ class GbpController extends Controller
     {
         $foundingSold = (int) (Setting::getValue('qbp_founding_partner_sold', '0') ?: '0');
         if ($foundingSold < self::FOUNDING_PARTNER_CAP) {
-            return back()->with('status', 'QBP is locked. Complete Founding Partners (30/30) first.');
+            return back()->with('status', 'QBP is locked. Complete Founder Team (30/30) first.');
         }
 
         $validated = $request->validate([
@@ -300,7 +300,7 @@ class GbpController extends Controller
 
                 $sold = (int) ($gate->value ?? '0');
                 if ($sold >= self::FOUNDING_PARTNER_CAP) {
-                    abort(422, 'Founding Partners are sold out. QBP is now open.');
+                    abort(422, 'Founder Team is sold out. QBP is now open.');
                 }
 
                 // Each user can only buy one (either Pro or Pro Max).
@@ -308,7 +308,7 @@ class GbpController extends Controller
                     ->where('user_id', $user->id)
                     ->exists();
                 if ($already) {
-                    abort(422, 'You have already purchased a Founding Partner slot.');
+                    abort(422, 'You have already purchased a Founder Team slot.');
                 }
 
                 /** @var Wallet $lockedWallet */
@@ -346,11 +346,11 @@ class GbpController extends Controller
                 $gate->save();
             });
         } catch (\Throwable $e) {
-            $msg = $e->getMessage() ?: 'Unable to purchase Founding Partner right now.';
+            $msg = $e->getMessage() ?: 'Unable to purchase Founder Team right now.';
             return back()->with('status', $msg);
         }
 
-        return back()->with('status', 'Founding Partner purchased successfully.');
+        return back()->with('status', 'Founder Team purchased successfully.');
     }
 }
 

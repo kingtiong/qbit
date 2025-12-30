@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Auto Trade') }}</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Q-Flash (Auto Trade)') }}</h2>
                 <div class="text-sm text-gray-600">{{ __('Top 20 market simulation with live ticks and trade history.') }}</div>
             </div>
             <div class="flex flex-wrap gap-2">
