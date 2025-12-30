@@ -74,8 +74,12 @@
                                         {{ $package->code ?? 'QPU' }}
                                     </div>
                                     <div class="mt-2 text-xl font-semibold text-gray-900">{{ $package->label }}</div>
-                                    @if ($package->summary)
-                                        <div class="mt-1 text-sm text-gray-600">{{ $package->summary }}</div>
+                                    @php
+                                        $summary = (string) ($package->summary ?? '');
+                                        $hideReturnCopy = (bool) preg_match('/\b\d+(\.\d+)?x\b/i', $summary) || (bool) preg_match('/max\s*return/i', $summary);
+                                    @endphp
+                                    @if ($summary !== '' && !$hideReturnCopy)
+                                        <div class="mt-1 text-sm text-gray-600">{{ $summary }}</div>
                                     @endif
                                 </div>
                                 <div class="text-right">
@@ -98,9 +102,18 @@
                                 @endif
                             </div>
 
-                            @if (is_array($package->benefits) && count($package->benefits))
+                            @php
+                                $benefits = is_array($package->benefits) ? $package->benefits : [];
+                                $benefits = array_values(array_filter($benefits, function ($b) {
+                                    $s = (string) $b;
+                                    if (preg_match('/\b\d+(\.\d+)?x\b/i', $s)) return false;
+                                    if (preg_match('/max\s*return/i', $s)) return false;
+                                    return true;
+                                }));
+                            @endphp
+                            @if (count($benefits))
                                 <ul class="mt-4 text-sm text-gray-700 space-y-1">
-                                    @foreach ($package->benefits as $b)
+                                    @foreach ($benefits as $b)
                                         <li class="flex gap-2">
                                             <span class="mt-2 h-1.5 w-1.5 rounded-full bg-amber-400"></span>
                                             <span>{{ $b }}</span>
