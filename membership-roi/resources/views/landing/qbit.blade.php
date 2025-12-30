@@ -148,7 +148,7 @@
                 </span>
             </div>
 
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">
+            <h1 class="font-sans font-extrabold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">
                 QUANTUM<br>
                 <span class="text-gold-gradient font-extrabold">GENESIS</span>
             </h1>
