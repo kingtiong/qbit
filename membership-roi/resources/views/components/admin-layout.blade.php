@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'IQBIT') }} - Admin</title>
-    <link rel="icon" href="/favicon.ico">
+    @php
+        $faviconCandidates = [
+            'images/favicon.ico',
+            'images/favicon.png',
+            'favicon.ico',
+        ];
+        $faviconPath = null;
+        foreach ($faviconCandidates as $p) {
+            if (file_exists(public_path($p))) {
+                $faviconPath = $p;
+                break;
+            }
+        }
+    @endphp
+    <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
     @if (!app()->environment('testing'))
         @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -6,7 +6,21 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'IQBIT') }}</title>
-        <link rel="icon" href="/favicon.ico">
+        @php
+            $faviconCandidates = [
+                'images/favicon.ico',
+                'images/favicon.png',
+                'favicon.ico',
+            ];
+            $faviconPath = null;
+            foreach ($faviconCandidates as $p) {
+                if (file_exists(public_path($p))) {
+                    $faviconPath = $p;
+                    break;
+                }
+            }
+        @endphp
+        <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

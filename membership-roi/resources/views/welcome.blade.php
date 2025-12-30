@@ -4,7 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'IQBIT') }}</title>
-    <link rel="icon" href="/favicon.ico">
+    @php
+        $faviconCandidates = [
+            'images/favicon.ico',
+            'images/favicon.png',
+            'favicon.ico',
+        ];
+        $faviconPath = null;
+        foreach ($faviconCandidates as $p) {
+            if (file_exists(public_path($p))) {
+                $faviconPath = $p;
+                break;
+            }
+        }
+    @endphp
+    <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
     @if (!app()->environment('testing'))
         @vite(['resources/css/app.css', 'resources/js/app.js'])

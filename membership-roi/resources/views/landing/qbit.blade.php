@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IQBIT | Quantum Genesis</title>
-    <link rel="icon" href="/favicon.ico">
+    @php
+        $faviconCandidates = [
+            'images/favicon.ico',
+            'images/favicon.png',
+            'favicon.ico',
+        ];
+        $faviconPath = null;
+        foreach ($faviconCandidates as $p) {
+            if (file_exists(public_path($p))) {
+                $faviconPath = $p;
+                break;
+            }
+        }
+    @endphp
+    <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
