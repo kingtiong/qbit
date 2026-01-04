@@ -54,7 +54,7 @@
 
     /* Top navigation */
     .topbar {
-        @apply sticky top-0 z-30 border-b border-amber-300/15 bg-black/80 backdrop-blur-xl;
+        @apply sticky top-0 z-30 border-b border-amber-300/15 bg-black;
     }
 
     /* Buttons */

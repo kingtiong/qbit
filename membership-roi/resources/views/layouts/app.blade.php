@@ -37,7 +37,7 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="border-b border-white/10 bg-black/50 backdrop-blur-xl">
+                <header class="border-b border-white/10 bg-black">
                     <div class="page-container py-7">
                         {{ $header }}
                     </div>
@@ -47,7 +47,12 @@
             <!-- Page Content -->
             <main class="page-section">
                 <div class="page-container">
-                    {{ $slot }}
+                    <div class="flex gap-6">
+                        @include('layouts.sidebar')
+                        <div class="min-w-0 flex-1">
+                            {{ $slot }}
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>

@@ -6,7 +6,7 @@
                 <button
                     type="button"
                     @click="open = true"
-                    class="inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out"
+                    class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out"
                     aria-label="Menu"
                 >
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -19,27 +19,7 @@
                     <x-application-logo class="block h-9 w-auto" />
                 </a>
 
-                <!-- Desktop nav (so menu isn't "only Wallet") -->
-                <div class="hidden lg:flex items-center gap-2 ml-2">
-                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
-                        {{ __('QBP') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
-                        {{ __('Network') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
-                        {{ __('Package (QPU)') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
-                        {{ __('Q-Flash') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
-                        {{ __('Wallet') }}
-                    </x-nav-link>
-                </div>
+                <!-- Desktop nav is in the left sidebar (layouts/sidebar.blade.php). -->
             </div>
 
             <!-- Right side: language + user -->
