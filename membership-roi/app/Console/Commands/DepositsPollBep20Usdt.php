@@ -58,9 +58,11 @@ class DepositsPollBep20Usdt extends Command
         $lookbackMinutes = (int) $this->option('minutes');
         $since = now()->subMinutes(max(10, $lookbackMinutes));
 
+        // Poll both active and recently-expired sessions so deposits can still be credited
+        // even if the scheduler was delayed (as long as the tx happened within the reserved window).
         $sessions = DepositSession::query()
-            ->where('status', 'active')
-            ->where('created_at', '>=', $since)
+            ->whereIn('status', ['active', 'expired'])
+            ->where('reserved_until', '>=', $since)
             ->with('depositAddress')
             ->orderBy('id')
             ->get();
@@ -74,11 +76,7 @@ class DepositsPollBep20Usdt extends Command
                 continue;
             }
 
-            // Expire sessions past reserved window (no more tracing).
-            if ($session->reserved_until->lessThanOrEqualTo(now())) {
-                $session->forceFill(['status' => 'expired'])->save();
-                continue;
-            }
+            $sessionExpired = $session->reserved_until->lessThanOrEqualTo(now());
 
             $query = [
                 'module' => 'account',
@@ -103,7 +101,13 @@ class DepositsPollBep20Usdt extends Command
 
             $json = $resp->json();
             if (!is_array($json) || ($json['status'] ?? null) !== '1') {
-                // status 0 often means no transactions; ignore.
+                // status 0 often means no transactions; log other failures to help debugging.
+                $message = (string) (($json['message'] ?? '') ?: '');
+                $result = $json['result'] ?? null;
+                $resultStr = is_string($result) ? $result : '';
+                if ($message && strtolower($message) !== 'no transactions found') {
+                    $this->warn("BscScan returned status ".(($json['status'] ?? 'n/a'))." for {$address}: {$message} {$resultStr}");
+                }
                 continue;
             }
 
@@ -211,6 +215,11 @@ class DepositsPollBep20Usdt extends Command
 
                 // Only one credit per session in this MVP.
                 break;
+            }
+
+            // Mark session as expired after processing if the reserved window is over and it wasn't completed.
+            if ($sessionExpired && $session->status === 'active') {
+                $session->forceFill(['status' => 'expired'])->save();
             }
         }
 
