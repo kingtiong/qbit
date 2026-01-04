@@ -39,8 +39,9 @@ return [
         'key' => env('BSCSCAN_API_KEY'),
         // Can be either:
         // - V1-style: https://api.bscscan.com/api
-        // - V2-style: https://api.bscscan.com/v2/api (requires chainid)
         // - Etherscan V2 multichain: https://api.etherscan.io/v2/api (requires chainid and plan support)
+        //
+        // Note: BscScan itself is commonly used via the V1-style `/api` endpoint.
         'base' => env('BSCSCAN_API_BASE', 'https://api.bscscan.com/api'),
         // BSC mainnet is 56 (used for V2 multichain endpoints).
         'chainid' => (int) env('BSCSCAN_CHAIN_ID', 56),
