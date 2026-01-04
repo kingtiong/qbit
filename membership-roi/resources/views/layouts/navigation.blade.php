@@ -18,6 +18,28 @@
                 <a href="{{ route('qbp.index') }}" class="shrink-0 flex items-center">
                     <x-application-logo class="block h-9 w-auto" />
                 </a>
+
+                <!-- Desktop nav (so menu isn't "only Wallet") -->
+                <div class="hidden lg:flex items-center gap-2 ml-2">
+                    <x-nav-link :href="route('qbp.index')" :active="request()->routeIs('qbp.*') || request()->routeIs('gbp.*')">
+                        {{ __('QBP') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('network.index')" :active="request()->routeIs('network.*')">
+                        {{ __('Network') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
+                        {{ __('Package (QPU)') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('autotrade.index')" :active="request()->routeIs('autotrade.*')">
+                        {{ __('Q-Flash') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                        {{ __('Wallet') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Right side: language + user -->
