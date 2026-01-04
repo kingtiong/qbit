@@ -81,6 +81,11 @@
     .select {
         @apply block w-full rounded-xl bg-white/5 px-3 py-2 text-sm text-white ring-1 ring-inset ring-white/15 focus:ring-2 focus:ring-inset focus:ring-amber-400;
     }
+    /* Native select dropdown items (fix white-on-white option text in some browsers) */
+    .select option,
+    .select optgroup {
+        @apply text-black bg-white;
+    }
 }
 
 @layer utilities {
