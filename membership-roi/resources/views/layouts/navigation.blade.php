@@ -6,7 +6,7 @@
                 <button
                     type="button"
                     @click="open = true"
-                    class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out"
+                    class="inline-flex items-center justify-center p-2 rounded-xl text-amber-50/80 hover:text-amber-50 bg-white/5 hover:bg-white/10 ring-1 ring-amber-300/20 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-black transition duration-150 ease-in-out"
                     aria-label="Menu"
                 >
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -19,7 +19,7 @@
                     <x-application-logo class="block h-9 w-auto" />
                 </a>
 
-                <!-- Desktop nav is in the left sidebar (layouts/sidebar.blade.php). -->
+                <!-- Menu is intentionally in the hamburger drawer. -->
             </div>
 
             <!-- Right side: language + user -->

@@ -47,12 +47,7 @@
             <!-- Page Content -->
             <main class="page-section">
                 <div class="page-container">
-                    <div class="flex gap-6">
-                        @include('layouts.sidebar')
-                        <div class="min-w-0 flex-1">
-                            {{ $slot }}
-                        </div>
-                    </div>
+                    {{ $slot }}
                 </div>
             </main>
         </div>
