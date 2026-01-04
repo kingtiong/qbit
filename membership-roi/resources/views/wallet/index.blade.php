@@ -157,6 +157,9 @@
                 <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-3">{{ __('Recent deposits') }}</div>
+                        <div class="mb-3 text-sm text-gray-600">
+                            {{ __('After you send USDT to the deposit address, please refresh this page to see your deposit once it is detected.') }}
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>
