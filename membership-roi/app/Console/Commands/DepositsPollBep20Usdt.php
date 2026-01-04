@@ -32,14 +32,28 @@ class DepositsPollBep20Usdt extends Command
      */
     public function handle(): int
     {
-        $apiKey = (string) config('services.bscscan.key', env('BSCSCAN_API_KEY'));
-        $baseUrl = (string) config('services.bscscan.base', env('BSCSCAN_API_BASE', 'https://api.bscscan.com/api'));
+        // Prefer the existing bscscan config, but allow ETHERSCAN_* env as fallback
+        // so deployments that only have an "Etherscan key" can still configure a V2 multichain base URL.
+        $apiKey = (string) (config('services.bscscan.key')
+            ?: env('BSCSCAN_API_KEY')
+            ?: env('ETHERSCAN_API_KEY'));
+
+        $baseUrl = (string) (config('services.bscscan.base')
+            ?: env('BSCSCAN_API_BASE')
+            ?: env('ETHERSCAN_API_BASE', 'https://api.bscscan.com/api'));
+
+        $chainId = (int) (config('services.bscscan.chainid')
+            ?: env('BSCSCAN_CHAIN_ID', 56)
+            ?: env('BSC_CHAIN_ID', 56));
         $usdtContract = (string) config('services.bscscan.usdt_contract', env('USDT_BEP20_CONTRACT', '0x55d398326f99059fF775485246999027B3197955'));
 
         if (!$apiKey) {
-            $this->error('Missing BSCSCAN_API_KEY');
+            $this->error('Missing API key (set BSCSCAN_API_KEY or ETHERSCAN_API_KEY)');
             return Command::FAILURE;
         }
+
+        // Detect V2 multichain endpoints (they require `chainid`).
+        $isV2 = str_contains($baseUrl, '/v2/api');
 
         $lookbackMinutes = (int) $this->option('minutes');
         $since = now()->subMinutes(max(10, $lookbackMinutes));
@@ -66,16 +80,21 @@ class DepositsPollBep20Usdt extends Command
                 continue;
             }
 
-            $resp = Http::timeout(20)->get($baseUrl, [
+            $query = [
                 'module' => 'account',
                 'action' => 'tokentx',
+                // V2 multichain endpoints require chainid (BSC mainnet = 56).
+                // V1 endpoints ignore unknown params, but we only add it when on /v2/api.
+                ...($isV2 ? ['chainid' => $chainId] : []),
                 'address' => $address,
                 'contractaddress' => $usdtContract,
                 'page' => 1,
                 'offset' => 50,
                 'sort' => 'desc',
                 'apikey' => $apiKey,
-            ]);
+            ];
+
+            $resp = Http::timeout(20)->get($baseUrl, $query);
 
             if (!$resp->ok()) {
                 $this->warn("BscScan request failed for {$address}: HTTP ".$resp->status());
