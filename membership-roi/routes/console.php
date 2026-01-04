@@ -11,5 +11,6 @@ Artisan::command('inspire', function () {
 // Legacy ROI rate accrual (older module)
 Schedule::command('roi:accrue')->dailyAt('00:10');
 Schedule::command('qos:distribute')->dailyAt('00:10')->timezone(\App\Services\BusinessTime::TZ);
-Schedule::command('deposits:poll')->everyFiveMinutes();
+// Poll frequently so deposits appear quickly on the wallet page.
+Schedule::command('deposits:poll')->everyMinute();
 Schedule::command('autotrade:tick')->everyMinute()->timezone(\App\Services\BusinessTime::TZ);

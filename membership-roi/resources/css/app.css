@@ -33,10 +33,11 @@
 
     /* Surfaces (replace “boxed” borders) */
     .surface {
-        @apply bg-gradient-to-b from-zinc-950 to-zinc-900 ring-1 ring-amber-300/20 shadow-lg shadow-black/50 rounded-2xl;
+        /* Solid background (avoid "not solid" gradient look) */
+        @apply bg-zinc-950 ring-1 ring-amber-300/20 shadow-lg shadow-black/50 rounded-2xl;
     }
     .surface-solid {
-        @apply bg-gradient-to-br from-amber-500/10 via-zinc-950 to-zinc-900 ring-1 ring-amber-300/25 shadow-lg shadow-black/55 rounded-2xl;
+        @apply bg-zinc-950 ring-1 ring-amber-300/25 shadow-lg shadow-black/55 rounded-2xl;
     }
     .surface-muted {
         @apply bg-zinc-950/80 ring-1 ring-amber-300/15 rounded-2xl;
@@ -44,7 +45,7 @@
 
     /* “Shiny gold” surfaces for key callouts */
     .surface-gold {
-        @apply bg-gradient-to-br from-amber-500/25 via-yellow-300/10 to-zinc-950 ring-1 ring-amber-300/35 shadow-xl shadow-black/60 rounded-2xl;
+        @apply bg-amber-500/10 ring-1 ring-amber-300/35 shadow-xl shadow-black/60 rounded-2xl;
     }
     .surface-gold-solid {
         /* solid-ish gold panel that still works in dark UI */
@@ -53,7 +54,7 @@
 
     /* Top navigation */
     .topbar {
-        @apply sticky top-0 z-30 border-b border-amber-300/15 bg-black/80 backdrop-blur-xl;
+        @apply sticky top-0 z-30 border-b border-amber-300/15 bg-black;
     }
 
     /* Buttons */
@@ -80,6 +81,11 @@
     }
     .select {
         @apply block w-full rounded-xl bg-white/5 px-3 py-2 text-sm text-white ring-1 ring-inset ring-white/15 focus:ring-2 focus:ring-inset focus:ring-amber-400;
+    }
+    /* Native select dropdown items (fix white-on-white option text in some browsers) */
+    .select option,
+    .select optgroup {
+        @apply text-black bg-white;
     }
 }
 

@@ -18,6 +18,8 @@
                 <a href="{{ route('qbp.index') }}" class="shrink-0 flex items-center">
                     <x-application-logo class="block h-9 w-auto" />
                 </a>
+
+                <!-- Menu is intentionally in the hamburger drawer. -->
             </div>
 
             <!-- Right side: language + user -->

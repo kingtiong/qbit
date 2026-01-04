@@ -37,7 +37,7 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="border-b border-white/10 bg-black/50 backdrop-blur-xl">
+                <header class="border-b border-white/10 bg-black">
                     <div class="page-container py-7">
                         {{ $header }}
                     </div>

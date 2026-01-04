@@ -27,53 +27,6 @@
                             </div>
                         </div>
 
-                        <div class="mt-4 surface-muted p-4">
-                            <div class="flex flex-wrap items-center justify-between gap-3">
-                                <div class="text-lg font-medium text-gray-900">{{ __('Genesis Node Network (QBP) & QBIT rules') }}</div>
-                                <a href="{{ route('vesting.index') }}" class="btn-neutral normal-case text-sm">{{ __('Vesting') }}</a>
-                            </div>
-
-                            <div class="mt-2 text-sm text-gray-700 space-y-3">
-                                <div>
-                                    <div class="font-medium text-gray-900">{{ __('Founder Team') }}</div>
-                                    <ul class="mt-1 space-y-1">
-                                        <li>- {{ __('Founder Pro (USDT 5,000)') }} → {{ __('13 units of QBP') }}</li>
-                                        <li>- {{ __('Founder Pro Max (USDT 10,000)') }} → {{ __('31 units of QBP') }}</li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <div class="font-medium text-gray-900">{{ __('Daily QBIT token per QBP unit') }}</div>
-                                    <ul class="mt-1 space-y-1">
-                                        <li>- {{ __('Tier 1') }}: {{ __('50 QBIT / day per QBP unit') }}</li>
-                                        <li>- {{ __('Tier 2') }}: {{ __('45 QBIT / day per QBP unit (10% reduction)') }}</li>
-                                        <li>- {{ __('Tier 3') }}: {{ __('40.50 QBIT / day per QBP unit (another 10% reduction)') }}</li>
-                                        <li>- {{ __('Then it continues reducing 10% each tier until Tier 25.') }}</li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <div class="font-medium text-gray-900">{{ __('Vesting withdrawal unlock') }}</div>
-                                    <ul class="mt-1 space-y-1">
-                                        <li>- {{ __('After 30 days') }}: {{ __('25%') }}</li>
-                                        <li>- {{ __('After 90 days') }}: {{ __('50%') }}</li>
-                                        <li>- {{ __('After 180 days') }}: {{ __('100%') }}</li>
-                                    </ul>
-                                    <div class="mt-1 text-xs text-gray-600">
-                                        {{ __('Tokens will be dropped first; you must click Vesting to start vesting, then withdraw based on the schedule.') }}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="font-medium text-gray-900">{{ __('Upline commission') }}</div>
-                                    <ul class="mt-1 space-y-1">
-                                        <li>- {{ __('Founder Team sales') }}: {{ __('10% commission to upline') }}</li>
-                                        <li>- {{ __('QBP sales') }}: {{ __('10% commission to upline') }}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="mt-4">
                             <div class="text-lg font-medium mb-2">{{ __('Deposit (USDT BEP20)') }}</div>
 
@@ -204,6 +157,9 @@
                 <div class="surface">
                     <div class="p-6 text-gray-900">
                         <div class="text-lg font-medium mb-3">{{ __('Recent deposits') }}</div>
+                        <div class="mb-3 text-sm text-gray-600">
+                            {{ __('After you send USDT to the deposit address, please refresh this page to see your deposit once it is detected.') }}
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full text-sm">
                                 <thead>

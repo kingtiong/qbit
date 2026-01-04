@@ -32,21 +32,37 @@ class DepositsPollBep20Usdt extends Command
      */
     public function handle(): int
     {
-        $apiKey = (string) config('services.bscscan.key', env('BSCSCAN_API_KEY'));
-        $baseUrl = (string) config('services.bscscan.base', env('BSCSCAN_API_BASE', 'https://api.bscscan.com/api'));
+        // Prefer the existing bscscan config, but allow ETHERSCAN_* env as fallback
+        // so deployments that only have an "Etherscan key" can still configure a V2 multichain base URL.
+        $apiKey = (string) (config('services.bscscan.key')
+            ?: env('BSCSCAN_API_KEY')
+            ?: env('ETHERSCAN_API_KEY'));
+
+        $baseUrl = (string) (config('services.bscscan.base')
+            ?: env('BSCSCAN_API_BASE')
+            ?: env('ETHERSCAN_API_BASE', 'https://api.bscscan.com/api'));
+
+        $chainId = (int) (config('services.bscscan.chainid')
+            ?: env('BSCSCAN_CHAIN_ID', 56)
+            ?: env('BSC_CHAIN_ID', 56));
         $usdtContract = (string) config('services.bscscan.usdt_contract', env('USDT_BEP20_CONTRACT', '0x55d398326f99059fF775485246999027B3197955'));
 
         if (!$apiKey) {
-            $this->error('Missing BSCSCAN_API_KEY');
+            $this->error('Missing API key (set BSCSCAN_API_KEY or ETHERSCAN_API_KEY)');
             return Command::FAILURE;
         }
+
+        // Detect V2 multichain endpoints (they require `chainid`).
+        $isV2 = str_contains($baseUrl, '/v2/api');
 
         $lookbackMinutes = (int) $this->option('minutes');
         $since = now()->subMinutes(max(10, $lookbackMinutes));
 
+        // Poll both active and recently-expired sessions so deposits can still be credited
+        // even if the scheduler was delayed (as long as the tx happened within the reserved window).
         $sessions = DepositSession::query()
-            ->where('status', 'active')
-            ->where('created_at', '>=', $since)
+            ->whereIn('status', ['active', 'expired'])
+            ->where('reserved_until', '>=', $since)
             ->with('depositAddress')
             ->orderBy('id')
             ->get();
@@ -60,22 +76,23 @@ class DepositsPollBep20Usdt extends Command
                 continue;
             }
 
-            // Expire sessions past reserved window (no more tracing).
-            if ($session->reserved_until->lessThanOrEqualTo(now())) {
-                $session->forceFill(['status' => 'expired'])->save();
-                continue;
-            }
+            $sessionExpired = $session->reserved_until->lessThanOrEqualTo(now());
 
-            $resp = Http::timeout(20)->get($baseUrl, [
+            $query = [
                 'module' => 'account',
                 'action' => 'tokentx',
+                // V2 multichain endpoints require chainid (BSC mainnet = 56).
+                // V1 endpoints ignore unknown params, but we only add it when on /v2/api.
+                ...($isV2 ? ['chainid' => $chainId] : []),
                 'address' => $address,
                 'contractaddress' => $usdtContract,
                 'page' => 1,
                 'offset' => 50,
                 'sort' => 'desc',
                 'apikey' => $apiKey,
-            ]);
+            ];
+
+            $resp = Http::timeout(20)->get($baseUrl, $query);
 
             if (!$resp->ok()) {
                 $this->warn("BscScan request failed for {$address}: HTTP ".$resp->status());
@@ -84,7 +101,13 @@ class DepositsPollBep20Usdt extends Command
 
             $json = $resp->json();
             if (!is_array($json) || ($json['status'] ?? null) !== '1') {
-                // status 0 often means no transactions; ignore.
+                // status 0 often means no transactions; log other failures to help debugging.
+                $message = (string) (($json['message'] ?? '') ?: '');
+                $result = $json['result'] ?? null;
+                $resultStr = is_string($result) ? $result : '';
+                if ($message && strtolower($message) !== 'no transactions found') {
+                    $this->warn("BscScan returned status ".(($json['status'] ?? 'n/a'))." for {$address}: {$message} {$resultStr}");
+                }
                 continue;
             }
 
@@ -192,6 +215,11 @@ class DepositsPollBep20Usdt extends Command
 
                 // Only one credit per session in this MVP.
                 break;
+            }
+
+            // Mark session as expired after processing if the reserved window is over and it wasn't completed.
+            if ($sessionExpired && $session->status === 'active') {
+                $session->forceFill(['status' => 'expired'])->save();
             }
         }
 
