@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }" class="topbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center gap-3">
-                <!-- Hamburger (3-line) -->
+        <div class="h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+            <!-- Left: hamburger -->
+            <div class="flex items-center justify-start">
                 <button
                     type="button"
                     @click="open = true"
@@ -13,17 +13,15 @@
                         <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-
-                <!-- Logo -->
-                <a href="{{ route('qbp.index') }}" class="shrink-0 flex items-center">
-                    <x-application-logo class="block h-9 w-auto" />
-                </a>
-
-                <!-- Menu is intentionally in the hamburger drawer. -->
             </div>
 
+            <!-- Center: logo -->
+            <a href="{{ route('qbp.index') }}" class="justify-self-center shrink-0 flex items-center">
+                <x-application-logo class="block h-9 w-auto" />
+            </a>
+
             <!-- Right side: language + user -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center justify-end gap-2">
                 <div class="mr-1 flex items-center gap-2">
                     <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                         EN

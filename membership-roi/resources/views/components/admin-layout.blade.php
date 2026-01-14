@@ -31,7 +31,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2">
-                    <x-application-logo class="h-8 w-8 text-gray-800" />
+                    <x-application-logo class="block h-8 w-auto text-gray-800" />
                     <span class="font-semibold text-gray-800">IQBIT Admin</span>
                 </a>
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-700">

@@ -20,7 +20,7 @@
     <img
         src="{{ asset($logoPath) }}"
         alt="{{ config('app.name', 'Logo') }}"
-        {{ $attributes }}
+        {{ $attributes->merge(['class' => 'block object-contain object-center']) }}
     />
 @else
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>
