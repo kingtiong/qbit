@@ -22,6 +22,10 @@
 
             <!-- Right side: language + user -->
             <div class="flex items-center justify-end gap-2">
+                <a href="{{ route('qbp.index') }}" class="flex items-center mr-1" aria-label="Home">
+                    <x-application-logo class="block h-7 w-auto opacity-90" />
+                </a>
+
                 <div class="mr-1 flex items-center gap-2">
                     <a href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}" class="px-2 py-1 rounded-lg text-xs ring-1 ring-amber-300/20 hover:bg-white/5 {{ app()->getLocale() === 'en' ? 'bg-amber-500/10 text-amber-50' : 'text-amber-50/70' }}">
                         EN

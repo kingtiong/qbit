@@ -17,8 +17,13 @@
 @endphp
 
 @if ($logoPath)
+    @php
+        // Cache-bust when the file is replaced but keeps the same name.
+        $logoVersion = @filemtime(public_path($logoPath)) ?: null;
+        $logoUrl = asset($logoPath) . ($logoVersion ? ('?v=' . $logoVersion) : '');
+    @endphp
     <img
-        src="{{ asset($logoPath) }}"
+        src="{{ $logoUrl }}"
         alt="{{ config('app.name', 'Logo') }}"
         {{ $attributes->merge(['class' => 'block object-contain object-center']) }}
     />
