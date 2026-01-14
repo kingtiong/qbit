@@ -1,15 +1,26 @@
 @php
-    // Prefer an uploaded image in public/images, fallback to old SVG.
+    // Prefer an uploaded image in public/images (or public/image), fallback to old SVG.
     $logoCandidates = [
         'images/logo.png',
+        'image/logo.png',
+        // Some deployments use an alternate filename.
+        'images/logo5.png',
+        'image/logo5.png',
         'images/logo.webp',
+        'image/logo.webp',
         'images/logo.jpg',
+        'image/logo.jpg',
         'images/logo.jpeg',
+        'image/logo.jpeg',
         'images/logo.svg',
+        'image/logo.svg',
     ];
     $logoPath = null;
     foreach ($logoCandidates as $p) {
-        if (file_exists(public_path($p))) {
+        $abs = public_path($p);
+        $size = @filesize($abs);
+        // Skip empty/corrupt placeholders (e.g. 0–few bytes).
+        if (is_file($abs) && $size !== false && $size > 256) {
             $logoPath = $p;
             break;
         }
@@ -17,10 +28,15 @@
 @endphp
 
 @if ($logoPath)
+    @php
+        // Cache-bust when the file is replaced but keeps the same name.
+        $logoVersion = @filemtime(public_path($logoPath)) ?: null;
+        $logoUrl = asset($logoPath) . ($logoVersion ? ('?v=' . $logoVersion) : '');
+    @endphp
     <img
-        src="{{ asset($logoPath) }}"
+        src="{{ $logoUrl }}"
         alt="{{ config('app.name', 'Logo') }}"
-        {{ $attributes }}
+        {{ $attributes->merge(['class' => 'block object-contain object-center']) }}
     />
 @else
     <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>

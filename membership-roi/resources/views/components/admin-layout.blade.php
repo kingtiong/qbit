@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'IQBIT') }} - Admin</title>
+    <title>{{ config('app.name', 'QBit') }} - Admin</title>
     @php
         $faviconCandidates = [
             'images/favicon.ico',
@@ -31,8 +31,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2">
-                    <x-application-logo class="h-8 w-8 text-gray-800" />
-                    <span class="font-semibold text-gray-800">IQBIT Admin</span>
+                    <x-application-logo class="block h-8 w-auto text-gray-800" />
+                    <span class="font-semibold text-gray-800">QBit Admin</span>
                 </a>
                 <div class="flex flex-wrap items-center gap-4 text-sm text-gray-700">
                     <a class="hover:underline" href="{{ route('admin.users.index') }}">Users</a>

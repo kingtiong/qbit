@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'IQBIT') }}</title>
+        <title>{{ config('app.name', 'QBit') }}</title>
         @php
             $faviconCandidates = [
                 'images/favicon.ico',
@@ -35,7 +35,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <x-application-logo class="block h-20 w-auto fill-current text-gray-500" />
                 </a>
             </div>
 
