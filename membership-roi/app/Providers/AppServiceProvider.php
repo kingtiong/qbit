@@ -22,6 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Ensure branding isn't the default Laravel skeleton name.
+        // (Some deployments may still have APP_NAME=Laravel in .env.)
+        $appName = (string) config('app.name', '');
+        if ($appName === '' || $appName === 'Laravel' || $appName === 'IQBIT') {
+            config(['app.name' => 'QBit']);
+        }
+
         User::creating(function (User $user): void {
             if ($user->invite_code) {
                 return;

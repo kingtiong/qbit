@@ -64,7 +64,7 @@
                 <div class="p-4 flex items-center justify-between border-b border-white/10">
                     <a href="{{ route('qbp.index') }}" class="flex items-center gap-2" @click="open = false">
                         <x-application-logo class="h-8 w-auto" />
-                        <span class="text-sm font-semibold text-amber-50">{{ config('app.name', 'IQBIT') }}</span>
+                        <span class="text-sm font-semibold text-amber-50">{{ config('app.name', 'QBit') }}</span>
                     </a>
                     <button
                         type="button"

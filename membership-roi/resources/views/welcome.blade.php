@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'IQBIT') }}</title>
+    <title>{{ config('app.name', 'QBit') }}</title>
     @php
         $faviconCandidates = [
             'images/favicon.ico',
@@ -27,9 +27,9 @@
 <body class="min-h-screen flex items-center justify-center">
     <div class="surface-solid p-8 w-full max-w-md">
         <div class="flex items-center gap-3 mb-6">
-            <x-application-logo class="w-12 h-12 text-gray-800" />
+            <x-application-logo class="block h-12 w-auto text-gray-800" />
             <div>
-                <div class="text-xl font-semibold">IQBIT</div>
+                <div class="text-xl font-semibold">QBit</div>
                 <div class="text-sm text-gray-600">{{ __('Member & Admin access') }}</div>
             </div>
         </div>
