@@ -1,11 +1,16 @@
 @php
-    // Prefer an uploaded image in public/images, fallback to old SVG.
+    // Prefer an uploaded image in public/images (or public/image), fallback to old SVG.
     $logoCandidates = [
         'images/logo.png',
+        'image/logo.png',
         'images/logo.webp',
+        'image/logo.webp',
         'images/logo.jpg',
+        'image/logo.jpg',
         'images/logo.jpeg',
+        'image/logo.jpeg',
         'images/logo.svg',
+        'image/logo.svg',
     ];
     $logoPath = null;
     foreach ($logoCandidates as $p) {
