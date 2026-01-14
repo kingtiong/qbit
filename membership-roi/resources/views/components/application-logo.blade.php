@@ -3,6 +3,9 @@
     $logoCandidates = [
         'images/logo.png',
         'image/logo.png',
+        // Some deployments use an alternate filename.
+        'images/logo5.png',
+        'image/logo5.png',
         'images/logo.webp',
         'image/logo.webp',
         'images/logo.jpg',
@@ -14,7 +17,10 @@
     ];
     $logoPath = null;
     foreach ($logoCandidates as $p) {
-        if (file_exists(public_path($p))) {
+        $abs = public_path($p);
+        $size = @filesize($abs);
+        // Skip empty/corrupt placeholders (e.g. 0–few bytes).
+        if (is_file($abs) && $size !== false && $size > 256) {
             $logoPath = $p;
             break;
         }
