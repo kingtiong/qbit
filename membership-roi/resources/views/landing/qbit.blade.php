@@ -291,7 +291,7 @@ body {
   background: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(148, 163, 184, 0.28);
   box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
-  padding: 18px;
+  padding: 0;
   overflow: hidden;
   min-height: 310px;
 }
@@ -303,11 +303,10 @@ body {
 }
 
 .highlight-card__image {
-  margin-top: 14px;
   width: 100%;
-  height: auto;
-  border-radius: 16px;
+  height: 100%;
   display: block;
+  object-fit: cover;
 }
 
 .highlight-grid {
