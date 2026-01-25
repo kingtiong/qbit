@@ -994,9 +994,6 @@ body {
         <div class="topbar__actions">
           <button class="lang" type="button" onclick="window.location.href='{{ app()->getLocale() === 'zh_CN' ? request()->fullUrlWithQuery(['lang' => 'en']) : request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}'">
             <span>{{ app()->getLocale() === 'zh_CN' ? '简体中文' : 'English' }}</span>
-            <svg class="lang__chev" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </button>
           <button class="pledge" type="button" onclick="window.location.href='{{ route('login') }}'">
             <span>Login</span>
