@@ -218,6 +218,64 @@
           }
         }
 
+        function moveLogoFarLeft() {
+          const { headerRow, leftBlock } = findHeaderBlocks();
+          if (!headerRow || !leftBlock) return;
+
+          // Remove left padding from the main container so logo sits at page edge.
+          // Walk up a few levels and zero out padding-left on the first container that looks like a page wrapper.
+          let el = headerRow;
+          for (let i = 0; i < 8 && el; i++) {
+            const cls = (el.getAttribute && el.getAttribute('class')) ? el.getAttribute('class') : '';
+            const looksLikeContainer =
+              cls.includes('mx-auto') ||
+              cls.includes('max-w-') ||
+              cls.includes('px-') ||
+              cls.includes('sm:px') ||
+              cls.includes('md:px');
+
+            if (looksLikeContainer) {
+              el.style.paddingLeft = '0';
+              el.style.marginLeft = '0';
+              break;
+            }
+            el = el.parentElement;
+          }
+
+          // Also ensure left block doesn't have extra spacing.
+          leftBlock.style.marginLeft = '0';
+          leftBlock.style.paddingLeft = '0';
+        }
+
+        function removeLanguageSwitchButtons() {
+          const { rightBlock } = findHeaderBlocks();
+          if (!rightBlock) return;
+
+          const markers = [
+            'en',
+            '中文',
+            'language',
+            'switch',
+            '切换',
+          ];
+
+          const nodes = Array.from(rightBlock.querySelectorAll('a,button'));
+          for (const node of nodes) {
+            const text = normalizeText(node);
+            const lower = text.toLowerCase();
+
+            // Keep Login button/link.
+            if (lower === 'login' || lower.includes('login')) continue;
+
+            if (!text) continue;
+
+            // Remove language toggles.
+            if (markers.some((m) => lower === m || text === m || lower.includes(m.toLowerCase ? m.toLowerCase() : m))) {
+              node.remove();
+            }
+          }
+        }
+
         function setAppLogo() {
           // Replace the top-left app logo image used by the SPA with Logo01.png.
           // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
@@ -475,6 +533,8 @@
           alignHeaderRow();
           injectHeaderLogo();
           logoOnlyOnLeft();
+          removeLanguageSwitchButtons();
+          moveLogoFarLeft();
           setAppLogo();
           moveCoreHighlightsToRight();
           removeTopMenuButton();
