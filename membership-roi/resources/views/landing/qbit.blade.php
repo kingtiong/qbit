@@ -212,6 +212,46 @@
           }
         }
 
+        function moveCoreHighlightsToRight() {
+          const root = document.getElementById('root');
+          if (!root) return;
+
+          const markers = ['core highlights', '核心亮点'];
+          const all = Array.from(root.querySelectorAll('*'));
+          const hits = all.filter((el) => {
+            const t = normalizeText(el).toLowerCase();
+            return t && markers.some((m) => t.includes(m));
+          });
+
+          for (const hit of hits) {
+            // Walk up to find a 2-column container (grid/flex) that holds the highlight.
+            let container = hit;
+            for (let i = 0; i < 8 && container; i++) {
+              container = container.parentElement;
+              if (!container) break;
+
+              const kids = Array.from(container.children).filter((c) => c && c.nodeType === 1);
+              if (kids.length !== 2) continue;
+
+              const cls = (container.getAttribute('class') || '');
+              const isTwoColLayout =
+                cls.includes('grid') ||
+                cls.includes('flex') ||
+                cls.includes('lg:grid-cols-') ||
+                cls.includes('grid-cols-2');
+
+              if (!isTwoColLayout) continue;
+
+              const [left, right] = kids;
+              // If the highlight is currently in the left column, swap order.
+              if (left.contains(hit) && !right.contains(hit)) {
+                container.insertBefore(right, left);
+                return;
+              }
+            }
+          }
+        }
+
         function removeTopMenuButton() {
           // Remove common SPA menu toggle buttons (labels vary by locale/build).
           const candidates = document.querySelectorAll('button');
@@ -364,6 +404,7 @@
           alignHeaderRow();
           injectHeaderLogo();
           setAppLogo();
+          moveCoreHighlightsToRight();
           removeTopMenuButton();
           removeTopMenuItems();
           replacePledgeWithLogin();
