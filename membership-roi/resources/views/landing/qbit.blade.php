@@ -83,10 +83,72 @@
     <script type="module" crossorigin src="{{ asset('assets/index-AfuN7V2V.js') }}"></script>
     <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
   </head>
-  <body class="bg-slate-50">
+  <body class="bg-black text-white">
     <div id="root"></div>
 
     <style>
+      /* Theme override: gold / black / white / grey (homepage only) */
+      html, body { background: #000; color: #fff; }
+      #root { color: #fff; }
+
+      /* Main page backgrounds */
+      #root .min-h-screen { background: #000 !important; }
+      #root .bg-gradient-to-br,
+      #root .bg-gradient-to-r,
+      #root .bg-slate-50,
+      #root .bg-slate-100,
+      #root .bg-white { background: rgba(10, 10, 12, 0.92) !important; }
+
+      /* Text colors */
+      #root .text-slate-900,
+      #root .text-gray-900,
+      #root .text-slate-800,
+      #root .text-slate-700 { color: rgba(255, 255, 255, 0.92) !important; }
+      #root .text-slate-600,
+      #root .text-slate-500,
+      #root .text-gray-600,
+      #root .text-gray-500 { color: rgba(255, 255, 255, 0.68) !important; }
+
+      /* Borders */
+      #root .border-slate-200,
+      #root .border-slate-300,
+      #root .border-white\/5,
+      #root .border-white\/10 { border-color: rgba(197, 157, 95, 0.28) !important; }
+
+      /* Shadows */
+      #root .shadow-sm,
+      #root .shadow-lg,
+      #root .shadow-2xl { box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65) !important; }
+
+      /* Buttons */
+      #root a.bg-slate-900,
+      #root button.bg-slate-900 {
+        background: linear-gradient(135deg, #FFF5D6 0%, #C59D5F 60%, #B68D40 100%) !important;
+        color: #000 !important;
+        border-color: rgba(255, 255, 255, 0.0) !important;
+      }
+      #root a.border-slate-300,
+      #root button.border-slate-300 {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        border-color: rgba(197, 157, 95, 0.28) !important;
+      }
+
+      /* Links */
+      #root a { color: #C59D5F; }
+      #root a:hover { color: #F3E5B5; }
+
+      /* Inputs */
+      #root input,
+      #root textarea,
+      #root select {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        border-color: rgba(197, 157, 95, 0.25) !important;
+      }
+      #root input::placeholder,
+      #root textarea::placeholder { color: rgba(255, 255, 255, 0.45) !important; }
+
       /* Remove top menu button (hamburger/menu toggle) */
       button[aria-label*="menu" i],
       button[aria-label*="导航" i],
