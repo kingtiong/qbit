@@ -84,6 +84,34 @@
     <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
   </head>
   <body class="bg-slate-50">
+    <!-- App logo overlay (always visible, top-left) -->
+    <div
+      id="app-logo"
+      style="
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 9999;
+        width: 56px;
+        height: 56px;
+        padding: 8px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+      aria-label="App logo"
+    >
+      <img
+        src="{{ asset('assets/Logo01.png') }}"
+        alt="App logo"
+        style="width: 100%; height: 100%; object-fit: contain;"
+      />
+    </div>
+
     <div id="root"></div>
 
     <style>
