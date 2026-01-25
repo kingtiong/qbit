@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DeAI Nexus Space</title>
+
     @php
       $faviconCandidates = [
           'images/favicon.ico',
@@ -17,253 +18,376 @@
               break;
           }
       }
-
-      $langKey = app()->getLocale() === 'zh_CN' ? 'zh-CN' : 'en-US';
-      $otherLangQuery = app()->getLocale() === 'zh_CN' ? 'en' : 'zh_CN';
-      $switchLangUrl = request()->fullUrlWithQuery(['lang' => $otherLangQuery]);
-
-      $dataPath = resource_path('content/deai_nexus.json');
-      $deai = file_exists($dataPath) ? json_decode((string) file_get_contents($dataPath), true) : [];
-      $groups = is_array($deai['groups'] ?? null) ? $deai['groups'] : [];
-
-      // Helper: render markdown but strip all links (<a href=...>) so there are no external link dependencies.
-      $render = function (?string $md): string {
-          $html = \Illuminate\Support\Str::markdown((string) $md);
-          // Strip anchor tags but keep visible text
-          $html = preg_replace('~<a\\b[^>]*>(.*?)</a>~is', '$1', $html) ?? $html;
-          return $html;
-      };
     @endphp
     <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
-    @if (!app()->environment('testing'))
-      @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    <script>
+      // Make SPA language switching apply immediately (same-tab).
+      // Some SPAs listen to the "storage" event for locale changes, but browsers only
+      // fire it in *other* tabs. We re-dispatch it in this tab when locale changes.
+      (function () {
+        if (typeof window === 'undefined' || !window.localStorage) return;
+        if (window.__deaiSameTabStoragePatched) return;
+        window.__deaiSameTabStoragePatched = true;
+
+        const origSetItem = window.localStorage.setItem.bind(window.localStorage);
+        const origRemoveItem = window.localStorage.removeItem.bind(window.localStorage);
+
+        function shouldDispatch(key, newValue) {
+          const k = (key || '').toString().toLowerCase();
+          const v = (newValue == null ? '' : String(newValue)).toLowerCase();
+          return k.includes('locale') || v === 'en-us' || v === 'zh-cn' || v.startsWith('zh');
+        }
+
+        window.localStorage.setItem = function (key, value) {
+          const oldValue = window.localStorage.getItem(key);
+          const result = origSetItem(key, value);
+          try {
+            if (shouldDispatch(key, value)) {
+              window.dispatchEvent(
+                new StorageEvent('storage', {
+                  key,
+                  oldValue,
+                  newValue: String(value),
+                  storageArea: window.localStorage,
+                  url: window.location.href,
+                })
+              );
+            }
+          } catch (_) {}
+          return result;
+        };
+
+        window.localStorage.removeItem = function (key) {
+          const oldValue = window.localStorage.getItem(key);
+          const result = origRemoveItem(key);
+          try {
+            if (shouldDispatch(key, null)) {
+              window.dispatchEvent(
+                new StorageEvent('storage', {
+                  key,
+                  oldValue,
+                  newValue: null,
+                  storageArea: window.localStorage,
+                  url: window.location.href,
+                })
+              );
+            }
+          } catch (_) {}
+          return result;
+        };
+      })();
+    </script>
+
+    {{-- DeAI Nexus (mirrored build assets) --}}
+    <script type="module" crossorigin src="{{ asset('assets/index-AfuN7V2V.js') }}"></script>
+    <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
+  </head>
+  <body class="bg-black text-white">
+    <div id="root"></div>
 
     <style>
-      /* Homepage-only palette: gold / black / white / grey */
-      :root {
-        --gold: #C59D5F;
-        --gold-2: #F3E5B5;
-        --ink: #050505;
-        --panel: rgba(255, 255, 255, 0.06);
-        --panel-2: rgba(255, 255, 255, 0.04);
-        --stroke: rgba(197, 157, 95, 0.28);
-        --muted: rgba(255, 255, 255, 0.70);
+      /* Theme override: gold / black / white / grey (homepage only) */
+      html, body { background: #000; color: #fff; }
+      #root { color: #fff; }
+
+      /* Main page backgrounds */
+      #root .min-h-screen { background: #000 !important; }
+      #root .bg-gradient-to-br,
+      #root .bg-gradient-to-r,
+      #root .bg-slate-50,
+      #root .bg-slate-100,
+      #root .bg-white { background: rgba(10, 10, 12, 0.92) !important; }
+
+      /* Text colors */
+      #root .text-slate-900,
+      #root .text-gray-900,
+      #root .text-slate-800,
+      #root .text-slate-700 { color: rgba(255, 255, 255, 0.92) !important; }
+      #root .text-slate-600,
+      #root .text-slate-500,
+      #root .text-gray-600,
+      #root .text-gray-500 { color: rgba(255, 255, 255, 0.68) !important; }
+
+      /* Borders */
+      #root .border-slate-200,
+      #root .border-slate-300,
+      #root .border-white\/5,
+      #root .border-white\/10 { border-color: rgba(197, 157, 95, 0.28) !important; }
+
+      /* Shadows */
+      #root .shadow-sm,
+      #root .shadow-lg,
+      #root .shadow-2xl { box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65) !important; }
+
+      /* Buttons */
+      #root a.bg-slate-900,
+      #root button.bg-slate-900 {
+        background: linear-gradient(135deg, #FFF5D6 0%, #C59D5F 60%, #B68D40 100%) !important;
+        color: #000 !important;
+        border-color: rgba(255, 255, 255, 0.0) !important;
+      }
+      #root a.border-slate-300,
+      #root button.border-slate-300 {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        border-color: rgba(197, 157, 95, 0.28) !important;
       }
 
-      body {
-        background: radial-gradient(1100px 600px at 20% 0%, rgba(197, 157, 95, 0.12) 0%, transparent 60%),
-                    radial-gradient(900px 520px at 80% 10%, rgba(243, 229, 181, 0.10) 0%, transparent 55%),
-                    #000;
-        color: #fff;
-      }
+      /* Links */
+      #root a { color: #C59D5F; }
+      #root a:hover { color: #F3E5B5; }
 
-      .gold-text { color: var(--gold); }
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--stroke);
-        border-radius: 18px;
-        box-shadow: 0 24px 70px rgba(0,0,0,0.65);
+      /* Inputs */
+      #root input,
+      #root textarea,
+      #root select {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        border-color: rgba(197, 157, 95, 0.25) !important;
       }
-      .panel-muted { background: var(--panel-2); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; }
-      .kbd {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.15rem 0.45rem;
-        border-radius: 0.5rem;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-        color: rgba(255,255,255,0.85);
-        font-size: 12px;
+      #root input::placeholder,
+      #root textarea::placeholder { color: rgba(255, 255, 255, 0.45) !important; }
+
+      /* Remove top menu button (hamburger/menu toggle) */
+      button[aria-label*="menu" i],
+      button[aria-label*="导航" i],
+      button[aria-label*="菜單" i],
+      button[aria-label*="菜单" i] {
+        display: none !important;
       }
-
-      /* Markdown rendering (exact text preserved; only presentation styled) */
-      .content h1, .content h2, .content h3 { color: #fff; font-weight: 700; }
-      .content h2 { margin-top: 1rem; font-size: 1.125rem; }
-      .content h3 { margin-top: .75rem; font-size: 1rem; }
-      .content p { margin-top: .75rem; color: var(--muted); line-height: 1.75; }
-      .content ul, .content ol { margin-top: .75rem; padding-left: 1.25rem; color: var(--muted); }
-      .content li { margin-top: .25rem; }
-      .content code { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.10); padding: 0 .35rem; border-radius: .35rem; }
-      .content pre { margin-top: .75rem; background: #0b0b0c; border: 1px solid rgba(197,157,95,0.22); border-radius: 14px; padding: .9rem; overflow-x:auto; }
-      .content pre code { background: transparent; border: none; padding: 0; }
-      .content hr { margin: 1rem 0; border: none; border-top: 1px solid rgba(197,157,95,0.22); }
-
-      [x-cloak] { display: none !important; }
     </style>
-  </head>
 
-  <body>
-    <div
-      class="min-h-screen"
-      x-data="{
-        q: '',
-        openGroup: null,
-        openSection: null,
-        filter() {
-          const q = (this.q || '').trim().toLowerCase();
-          const sections = document.querySelectorAll('[data-deai-section]');
-          for (const el of sections) {
-            if (!q) { el.classList.remove('hidden'); continue; }
-            const txt = (el.textContent || '').toLowerCase();
-            el.classList.toggle('hidden', !txt.includes(q));
+    <script>
+      (function () {
+        const LOGIN_URL = @json(route('login'));
+        const APP_LOGO_URL = @json(asset('assets/Logo01.png'));
+
+        function normalizeText(el) {
+          return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
+        }
+
+        function setAppLogo() {
+          // Replace the top-left app logo image used by the SPA with Logo01.png.
+          // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
+          const imgs = document.querySelectorAll('img');
+          for (const img of imgs) {
+            const alt = (img.getAttribute('alt') || '').toLowerCase();
+            const src = (img.getAttribute('src') || '').toLowerCase();
+
+            const isLogo =
+              alt.includes('logo') ||
+              src.includes('logo192') ||
+              src.includes('deai') && alt.includes('logo');
+
+            if (!isLogo) continue;
+
+            // Prefer swapping only the small header logo (avoid changing large images in content).
+            const w = img.naturalWidth || img.width || 0;
+            const h = img.naturalHeight || img.height || 0;
+            const className = (img.getAttribute('class') || '');
+            const looksLikeHeaderIcon =
+              className.includes('w-14') ||
+              className.includes('h-14') ||
+              className.includes('rounded-2xl') ||
+              (w > 0 && h > 0 && w <= 200 && h <= 200);
+
+            if (!looksLikeHeaderIcon) continue;
+
+            if (img.getAttribute('src') !== APP_LOGO_URL) {
+              img.setAttribute('src', APP_LOGO_URL);
+            }
+            // Also keep consistent alt text.
+            img.setAttribute('alt', 'App logo');
+
+            // Make it bigger (inside the white header area).
+            img.style.width = '112px';
+            img.style.height = '112px';
+            img.style.objectFit = 'contain';
+            img.style.filter = 'drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18))';
+            // Keep transform neutral (avoid pushing it out of view).
+            img.style.transform = 'none';
+
+            // Ensure its immediate container can accommodate the larger logo.
+            const parent = img.parentElement;
+            if (parent) {
+              parent.style.width = '112px';
+              parent.style.height = '112px';
+              parent.style.overflow = 'visible';
+              // Nudge the whole logo container upward into the white header area.
+              parent.style.marginTop = '-18px';
+              parent.style.position = 'relative';
+              parent.style.zIndex = '50';
+            }
           }
-        },
-        toggleGroup(id) { this.openGroup = (this.openGroup === id ? null : id); },
-        toggleSection(id) { this.openSection = (this.openSection === id ? null : id); }
-      }"
-      x-init="$watch('q', () => filter())"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Header / Hero (new layout, same content) -->
-        <header class="flex flex-col gap-6">
-          <div class="flex items-center justify-between gap-4 flex-wrap">
-            <div class="flex items-center gap-4 min-w-0">
-              <div class="w-14 h-14 rounded-2xl ring-1 ring-[rgba(197,157,95,0.28)] bg-white/5 flex items-center justify-center overflow-hidden">
-                <img src="{{ asset('images/Logo01.png') }}" alt="Logo" class="w-full h-full object-contain" />
-              </div>
-              <div class="min-w-0">
-                <div class="text-xl font-semibold tracking-wide">DeAI Nexus Space</div>
-                <div class="text-sm text-white/70">
-                  {{ $langKey === 'zh-CN' ? '去中心化 AI 算力网络平台' : 'Decentralized AI Computing Network Platform' }}
-                </div>
-              </div>
-            </div>
+        }
 
-            <div class="flex items-center gap-2">
-              <a href="{{ $switchLangUrl }}" class="btn-neutral normal-case text-sm">
-                {{ $langKey === 'zh-CN' ? 'Switch to English' : '切换中文' }}
-              </a>
-              <a href="{{ route('login') }}" class="btn-primary normal-case text-sm">{{ $langKey === 'zh-CN' ? '登录' : 'Login' }}</a>
-            </div>
-          </div>
+        function removeTopMenuButton() {
+          // Remove common SPA menu toggle buttons (labels vary by locale/build).
+          const candidates = document.querySelectorAll('button');
+          for (const btn of candidates) {
+            const label = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
+            const text = normalizeText(btn).toLowerCase();
 
-          <div class="panel p-6 md:p-8">
-            @php
-              $introGroup = collect($groups)->firstWhere('id', 'project_introduction');
-              $intro = $introGroup['children'][0]['content'][$langKey] ?? '';
-            @endphp
+            if (
+              label.includes('menu') ||
+              label.includes('navigation') ||
+              label.includes('nav') ||
+              label.includes('导航') ||
+              label.includes('菜單') ||
+              label.includes('菜单') ||
+              text === 'menu' ||
+              text === '导航'
+            ) {
+              btn.remove();
+              continue;
+            }
+          }
+        }
 
-            <div class="flex flex-col lg:flex-row gap-6 lg:items-start">
-              <div class="flex-1 min-w-0">
-                <div class="text-xs tracking-[0.35em] uppercase text-white/60">On‑chain AI</div>
-                <h1 class="mt-3 text-3xl md:text-4xl font-extrabold leading-tight">
-                  <span class="gold-text">DeAI Nexus</span>
-                  <span class="text-white/90">{{ $langKey === 'zh-CN' ? '内容总览' : 'Content Overview' }}</span>
-                </h1>
-                <p class="mt-3 text-white/70 leading-relaxed">
-                  {{ $langKey === 'zh-CN'
-                    ? '以下内容与 deainexus.space 的文字保持一致，仅更换为全新 UI 结构与风格。'
-                    : 'All wording below matches deainexus.space exactly; only the UI structure and styling are redesigned.' }}
-                </p>
-                <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-white/70">
-                  <span class="kbd">{{ $langKey === 'zh-CN' ? '搜索' : 'Search' }}</span>
-                  <span>{{ $langKey === 'zh-CN' ? '在下面输入关键词过滤内容' : 'Type keywords below to filter content' }}</span>
-                </div>
-              </div>
+        function replacePledgeWithLogin() {
+          const nodes = document.querySelectorAll('a,button');
+          for (const node of nodes) {
+            if (node && node.dataset && node.dataset.loginPatched === '1') continue;
 
-              <div class="w-full lg:w-[420px] panel-muted p-4 md:p-5">
-                <div class="text-sm font-semibold text-white">{{ $langKey === 'zh-CN' ? '快速搜索' : 'Quick Search' }}</div>
-                <div class="mt-3">
-                  <input
-                    x-model="q"
-                    type="text"
-                    class="input !bg-white/5 !text-white !ring-white/15 placeholder:!text-white/50"
-                    placeholder="{{ $langKey === 'zh-CN' ? '输入关键词…' : 'Type keywords…' }}"
-                  />
-                </div>
-                <div class="mt-3 text-xs text-white/55">
-                  {{ $langKey === 'zh-CN'
-                    ? '提示：所有链接已移除（仅保留可见文本），不依赖任何外部脚本或域名。'
-                    : 'Note: links are removed (visible text preserved). No external scripts/domains are used.' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+            const text = normalizeText(node);
+            const isPledge =
+              text.toLowerCase() === 'pledge' ||
+              text.toLowerCase().includes('pledge') ||
+              text.includes('质押') ||
+              text.includes('質押');
 
-        <!-- New structure: left “library” index + right content chapters -->
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <aside class="lg:col-span-4 xl:col-span-3">
-            <div class="panel p-5 sticky top-6">
-              <div class="text-sm font-semibold text-white">{{ $langKey === 'zh-CN' ? '内容目录' : 'Library Index' }}</div>
-              <div class="mt-3 space-y-2">
-                @foreach ($groups as $g)
-                  @php
-                    $gTitle = $g['title'][$langKey] ?? $g['title']['en-US'] ?? $g['id'];
-                  @endphp
-                  <button
-                    type="button"
-                    class="w-full text-left px-3 py-2 rounded-xl border border-[rgba(255,255,255,0.10)] hover:border-[rgba(197,157,95,0.35)] hover:bg-white/5 transition"
-                    @click="toggleGroup(@js($g['id']))"
-                  >
-                    <div class="flex items-center justify-between gap-3">
-                      <div class="text-white/90 font-medium">{{ $gTitle }}</div>
-                      <div class="text-white/60 text-xs" x-text="openGroup === @js($g['id']) ? '—' : '+'"></div>
-                    </div>
-                  </button>
-                @endforeach
-              </div>
-              <div class="mt-4 text-xs text-white/55">
-                {{ $langKey === 'zh-CN' ? '点击目录展开章节；右侧为全新排版呈现。' : 'Click an item to open its chapter. The right side shows the redesigned presentation.' }}
-              </div>
-            </div>
-          </aside>
+            if (!isPledge) continue;
 
-          <main class="lg:col-span-8 xl:col-span-9 space-y-6">
-            @foreach ($groups as $g)
-              @php
-                $gTitle = $g['title'][$langKey] ?? $g['title']['en-US'] ?? $g['id'];
-                $children = is_array($g['children'] ?? null) ? $g['children'] : [];
-              @endphp
+            // Replace element entirely to preserve layout classes while changing behavior.
+            const link = document.createElement('a');
+            link.href = LOGIN_URL;
+            link.className = node.className || '';
+            link.textContent = 'Login';
+            link.dataset.loginPatched = '1';
 
-              <section class="panel p-6" x-show="!openGroup || openGroup === @js($g['id'])" x-cloak>
-                <div class="flex items-center justify-between gap-4">
-                  <div>
-                    <div class="text-xs tracking-[0.35em] uppercase text-white/60">{{ $g['id'] }}</div>
-                    <h2 class="mt-2 text-2xl font-bold text-white">{{ $gTitle }}</h2>
-                  </div>
-                  <button
-                    type="button"
-                    class="btn-neutral normal-case text-sm"
-                    @click="openGroup = @js($g['id']); openSection = null;"
-                  >
-                    {{ $langKey === 'zh-CN' ? '聚焦本章' : 'Focus chapter' }}
-                  </button>
-                </div>
+            // Ensure click navigates to Laravel login flow.
+            link.addEventListener('click', function (e) {
+              e.preventDefault();
+              window.location.href = LOGIN_URL;
+            });
 
-                <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  @foreach ($children as $c)
-                    @php
-                      $cTitle = $c['title'][$langKey] ?? $c['title']['en-US'] ?? $c['id'];
-                      $md = $c['content'][$langKey] ?? $c['content']['en-US'] ?? '';
-                      $html = $render($md);
-                    @endphp
-                    <article class="panel-muted p-4 md:p-5" data-deai-section>
-                      <button
-                        type="button"
-                        class="w-full text-left"
-                        @click="toggleSection(@js($c['id']))"
-                      >
-                        <div class="flex items-start justify-between gap-3">
-                          <div class="text-white font-semibold leading-snug">{{ $cTitle }}</div>
-                          <div class="text-white/60 text-xs mt-1" x-text="openSection === @js($c['id']) ? 'Hide' : 'Show'"></div>
-                        </div>
-                        <div class="mt-1 text-xs text-white/55">{{ $c['id'] }}</div>
-                      </button>
+            node.replaceWith(link);
+          }
+        }
 
-                      <div class="mt-4 content" x-show="openSection === @js($c['id'])" x-cloak>
-                        {!! $html !!}
-                      </div>
-                    </article>
-                  @endforeach
-                </div>
-              </section>
-            @endforeach
-          </main>
-        </div>
-      </div>
-    </div>
+        function removeTopMenuItems() {
+          // Remove top nav items requested by user (desktop + mobile menus)
+          const banned = [
+            'overview',
+            'technology',
+            'applications',
+            'comparison',
+            'tokenmics', // user spelling
+            'tokenomics',
+            'value capture',
+            'audit',
+            'tools',
+            'data',
+            'roadshow',
+            'roadmap',
+            'dapp',
+            // Common Chinese labels seen on DeAI Nexus
+            '概览',
+            '總覽',
+            '技术',
+            '技術',
+            '应用',
+            '應用',
+            '对比',
+            '對比',
+            '代币经济',
+            '代幣經濟',
+            '价值捕获',
+            '價值捕獲',
+            '审计',
+            '審計',
+            '工具',
+            '数据',
+            '數據',
+            '路演',
+            '路线图',
+            '路線圖',
+            'dapp',
+          ];
+
+          // 1) Remove anchor-based section navigation links regardless of label.
+          // Most SPAs implement top menus as hash/anchor links.
+          const anchorLinks = document.querySelectorAll('a[href^="#"], a[href*="/#"], a[href*="#"]');
+          for (const a of anchorLinks) {
+            const href = (a.getAttribute('href') || '').trim();
+            if (!href) continue;
+
+            const lowerHref = href.toLowerCase();
+            // Keep nothing hash-based on homepage nav (user wants no menu items).
+            // Avoid removing purely-empty/placeholder links.
+            if (lowerHref.startsWith('#') || lowerHref.includes('/#') || lowerHref.includes('#')) {
+              // But don't touch Login links if any ever use hash (unlikely).
+              const text = normalizeText(a).toLowerCase();
+              if (text.includes('login')) continue;
+              a.remove();
+            }
+          }
+
+          // 2) Remove by visible labels (English + Chinese), for both <a> and <button>.
+          const nodes = document.querySelectorAll('a,button');
+          for (const node of nodes) {
+            const text = normalizeText(node);
+            if (!text) continue;
+
+            const lower = text.toLowerCase();
+
+            // Keep login-related UI intact.
+            if (lower === 'login' || lower.includes('login')) continue;
+
+            // Remove only if it matches one of the menu items.
+            if (banned.some((w) => lower === w || lower.includes(w))) {
+              node.remove();
+            }
+          }
+
+          // 3) Remove now-empty menu containers (common patterns: nav, ul, flex rows).
+          const maybeContainers = document.querySelectorAll('nav, ul, ol, div');
+          for (const el of maybeContainers) {
+            // Skip if it still contains a login element.
+            if (el.querySelector && el.querySelector('a[href*="login"], a[href="/login"], button')) {
+              const loginEl = el.querySelector('a[href*="login"], a[href="/login"]');
+              if (loginEl) continue;
+            }
+            const hasLinks = el.querySelector && el.querySelector('a,button');
+            if (!hasLinks) continue;
+            const visibleText = normalizeText(el);
+            if (!visibleText) {
+              // If container has no text and no images/inputs, drop it.
+              const hasMedia = el.querySelector && el.querySelector('img,svg,input,select,textarea');
+              if (!hasMedia) el.remove();
+            }
+          }
+        }
+
+        function applyPatches() {
+          setAppLogo();
+          removeTopMenuButton();
+          removeTopMenuItems();
+          replacePledgeWithLogin();
+        }
+
+        // Run now, then keep enforcing as the SPA renders/updates.
+        applyPatches();
+        const mo = new MutationObserver(function () {
+          applyPatches();
+        });
+        mo.observe(document.documentElement, { subtree: true, childList: true });
+
+        // Fallback periodic enforcement (in case of shadow DOM or rapid updates).
+        setInterval(applyPatches, 1500);
+
+      })();
+    </script>
   </body>
 </html>
