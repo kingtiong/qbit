@@ -143,12 +143,15 @@
             img.style.height = '112px';
             img.style.objectFit = 'contain';
             img.style.filter = 'drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18))';
+            // Nudge upward so it stays within the white header band.
+            img.style.transform = 'translateY(-18px)';
 
             // Ensure its immediate container can accommodate the larger logo.
             const parent = img.parentElement;
             if (parent) {
               parent.style.width = '112px';
               parent.style.height = '112px';
+              parent.style.overflow = 'visible';
             }
           }
         }
