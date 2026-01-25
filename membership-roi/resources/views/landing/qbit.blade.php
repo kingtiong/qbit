@@ -302,6 +302,14 @@ body {
   color: rgba(15, 23, 42, 0.82);
 }
 
+.highlight-card__image {
+  margin-top: 14px;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
+
 .highlight-grid {
   margin-top: 14px;
   display: grid;
@@ -1167,62 +1175,7 @@ body {
 
           <div class="hero__right">
             <div class="highlight-card">
-              <div class="highlight-card__title">{{ $t('Core Highlights', '核心亮点') }}</div>
-              <div class="highlight-grid">
-                <div class="mini">
-                  <div class="mini__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                      <path d="M7 12l3 3 7-7" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M4.5 12a7.5 7.5 0 1 0 15 0 7.5 7.5 0 0 0-15 0Z" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25"/>
-                    </svg>
-                  </div>
-                  <div class="mini__text">
-                    <div class="mini__head">{!! $t('Innovative PoDRC<br />+ PoS Hybrid<br />Mining', '创新 PoDRC<br />+ PoS 混合<br />挖矿') !!}</div>
-                  </div>
-                </div>
-                <div class="mini">
-                  <div class="mini__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                      <path d="M12 6v6l4 2" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25"/>
-                    </svg>
-                  </div>
-                  <div class="mini__text">
-                    <div class="mini__head">{!! $t('Massive<br />Decentralized<br />Compute<br />Infrastructure', '海量<br />去中心化<br />算力<br />基础设施') !!}</div>
-                  </div>
-                </div>
-                <div class="mini">
-                  <div class="mini__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                      <path d="M7 10a5 5 0 0 1 10 0v4a5 5 0 0 1-10 0v-4Z" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25"/>
-                      <path d="M9 14h6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                      <path d="M12 12v4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
-                  </div>
-                  <div class="mini__text">
-                    <div class="mini__head">{!! $t('100%<br />Community-Driven<br />Issuance, No VC', '100%<br />社区驱动<br />发行，无 VC') !!}</div>
-                  </div>
-                </div>
-                <div class="mini">
-                  <div class="mini__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                      <path d="M6 16h12" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                      <path d="M6 12h8" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                      <path d="M6 8h4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                      <path d="M5 19h14" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25" stroke-linecap="round"/>
-                    </svg>
-                  </div>
-                  <div class="mini__text">
-                    <div class="mini__head">{!! $t('Four-Epoch Ladder<br />for Global<br />Consensus', '四纪元阶梯<br />实现全球<br />共识') !!}</div>
-                  </div>
-                </div>
-              </div>
-              <div class="cube-art" aria-hidden="true">
-                <div class="cube cube--a"></div>
-                <div class="cube cube--b"></div>
-                <div class="cube cube--c"></div>
-                <div class="cube cube--d"></div>
-              </div>
+              <img class="highlight-card__image" src="{{ asset('images/Image01.png') }}" alt="" />
             </div>
           </div>
         </div>
