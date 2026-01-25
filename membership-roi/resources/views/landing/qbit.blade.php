@@ -92,8 +92,8 @@
         top: 16px;
         left: 16px;
         z-index: 9999;
-        width: 56px;
-        height: 56px;
+        width: 112px;
+        height: 112px;
         padding: 0;
         border-radius: 0;
         background: transparent;
