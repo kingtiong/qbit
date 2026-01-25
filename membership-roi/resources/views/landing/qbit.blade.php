@@ -302,10 +302,9 @@ body {
 
 .highlight-card__image {
   width: 100%;
-  height: 380px;
+  height: auto;
   border-radius: 22px;
   display: block;
-  object-fit: cover;
   animation: qbFloat 6s ease-in-out infinite;
   will-change: transform;
 }
