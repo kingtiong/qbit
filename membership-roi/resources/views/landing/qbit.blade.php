@@ -108,6 +108,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
 }
 
 .lang {
@@ -988,21 +989,6 @@ body {
             <div class="brand__name">DeAI Nexus Space</div>
           </div>
         </div>
-
-        <nav class="nav" aria-label="Primary">
-          <a class="nav__link" href="#">Overview</a>
-          <a class="nav__link" href="#">Technology</a>
-          <a class="nav__link" href="#">Applications</a>
-          <a class="nav__link" href="#">Comparison</a>
-          <a class="nav__link" href="#">Tokenomics</a>
-          <a class="nav__link" href="#">Value Capture</a>
-          <a class="nav__link" href="#">Audit</a>
-          <a class="nav__link" href="#">Tools</a>
-          <a class="nav__link" href="#">Data</a>
-          <a class="nav__link" href="#">Roadshow</a>
-          <a class="nav__link" href="#">Roadmap</a>
-          <a class="nav__link" href="#">DApp</a>
-        </nav>
 
         <div class="topbar__actions">
           <button class="lang" type="button">
