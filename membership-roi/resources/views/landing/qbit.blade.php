@@ -21,570 +21,215 @@
     @endphp
     <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
-    <script>
-      // Make SPA language switching apply immediately (same-tab).
-      // Some SPAs listen to the "storage" event for locale changes, but browsers only
-      // fire it in *other* tabs. We re-dispatch it in this tab when locale changes.
-      (function () {
-        if (typeof window === 'undefined' || !window.localStorage) return;
-        if (window.__deaiSameTabStoragePatched) return;
-        window.__deaiSameTabStoragePatched = true;
+    @if (!app()->environment('testing'))
+      @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
 
-        const origSetItem = window.localStorage.setItem.bind(window.localStorage);
-        const origRemoveItem = window.localStorage.removeItem.bind(window.localStorage);
+    @php
+      $langKey = app()->getLocale() === 'zh_CN' ? 'zh-CN' : 'en-US';
+      $contentPath = resource_path('content/deainexus_SD_groups.json');
+      $payload = file_exists($contentPath) ? json_decode((string) file_get_contents($contentPath), true) : [];
+      $groups = is_array($payload['groups'] ?? null) ? $payload['groups'] : [];
 
-        function shouldDispatch(key, newValue) {
-          const k = (key || '').toString().toLowerCase();
-          const v = (newValue == null ? '' : String(newValue)).toLowerCase();
-          return k.includes('locale') || v === 'en-us' || v === 'zh-cn' || v.startsWith('zh');
-        }
+      $renderMarkdownWithTables = function (string $md): string {
+          // Extract markdown table blocks (lines starting with '|') and render as HTML tables,
+          // then run Str::markdown on remaining text.
+          $lines = preg_split("/\\r?\\n/", $md);
+          $tables = [];
+          $outLines = [];
+          $i = 0;
+          while ($i < count($lines)) {
+              $line = $lines[$i];
+              if (preg_match('/^\\|.+\\|\\s*$/', $line)) {
+                  $block = [];
+                  while ($i < count($lines) && preg_match('/^\\|.+\\|\\s*$/', $lines[$i])) {
+                      $block[] = $lines[$i];
+                      $i++;
+                  }
+                  $key = '__TABLE_' . count($tables) . '__';
+                  $tables[$key] = $block;
+                  $outLines[] = $key;
+                  continue;
+              }
+              $outLines[] = $line;
+              $i++;
+          }
 
-        window.localStorage.setItem = function (key, value) {
-          const oldValue = window.localStorage.getItem(key);
-          const result = origSetItem(key, value);
-          try {
-            if (shouldDispatch(key, value)) {
-              window.dispatchEvent(
-                new StorageEvent('storage', {
-                  key,
-                  oldValue,
-                  newValue: String(value),
-                  storageArea: window.localStorage,
-                  url: window.location.href,
-                })
-              );
-            }
-          } catch (_) {}
-          return result;
-        };
+          $html = \Illuminate\Support\Str::markdown(implode(\"\\n\", $outLines));
 
-        window.localStorage.removeItem = function (key) {
-          const oldValue = window.localStorage.getItem(key);
-          const result = origRemoveItem(key);
-          try {
-            if (shouldDispatch(key, null)) {
-              window.dispatchEvent(
-                new StorageEvent('storage', {
-                  key,
-                  oldValue,
-                  newValue: null,
-                  storageArea: window.localStorage,
-                  url: window.location.href,
-                })
-              );
-            }
-          } catch (_) {}
-          return result;
-        };
-      })();
-    </script>
+          foreach ($tables as $key => $block) {
+              // Parse markdown table block
+              $rows = [];
+              foreach ($block as $b) {
+                  $cells = array_values(array_filter(array_map('trim', explode('|', trim($b, \"|\"))), fn($c) => $c !== ''));
+                  $rows[] = $cells;
+              }
+              // Detect separator row (---)
+              $header = [];
+              $body = [];
+              $isHeaderDone = false;
+              foreach ($rows as $idx => $cells) {
+                  $allDashes = count($cells) > 0 && array_reduce($cells, fn($ok, $c) => $ok && preg_match('/^:?-{2,}:?$/', $c), true);
+                  if ($allDashes) { $isHeaderDone = true; continue; }
+                  if (!$isHeaderDone && empty($header)) { $header = $cells; continue; }
+                  $body[] = $cells;
+              }
 
-    {{-- DeAI Nexus (mirrored build assets) --}}
-    <script type="module" crossorigin src="{{ asset('assets/index-AfuN7V2V.js') }}"></script>
-    <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
-  </head>
-  <body class="bg-slate-50">
-    <div id="root"></div>
+              $tableHtml = '<div class=\"my-6 overflow-x-auto\"><table class=\"min-w-full text-sm border border-white/10 rounded-xl overflow-hidden\">';
+              if (!empty($header)) {
+                  $tableHtml .= '<thead class=\"bg-white/5\"><tr>';
+                  foreach ($header as $h) {
+                      $tableHtml .= '<th class=\"px-4 py-3 text-left font-semibold text-white\">' . e($h) . '</th>';
+                  }
+                  $tableHtml .= '</tr></thead>';
+              }
+              $tableHtml .= '<tbody class=\"bg-black/20\">';
+              foreach ($body as $rIdx => $cells) {
+                  $tableHtml .= '<tr class=\"border-t border-white/10\">';
+                  foreach ($cells as $c) {
+                      $tableHtml .= '<td class=\"px-4 py-3 text-white/80\">' . e($c) . '</td>';
+                  }
+                  $tableHtml .= '</tr>';
+              }
+              $tableHtml .= '</tbody></table></div>';
+
+              $html = str_replace($key, $tableHtml, $html);
+          }
+
+          // Strip anchors but keep their visible text (no external dependency/clickthrough).
+          $html = preg_replace('~<a\\b[^>]*>(.*?)</a>~is', '$1', $html) ?? $html;
+          return $html;
+      };
+    @endphp
 
     <style>
-      /* Remove top menu button (hamburger/menu toggle) */
-      button[aria-label*="menu" i],
-      button[aria-label*="导航" i],
-      button[aria-label*="菜單" i],
-      button[aria-label*="菜单" i] {
-        display: none !important;
-      }
+      /* Homepage-only: keep DeAI Nexus light layout, but independent of SPA */
+      body { background: linear-gradient(135deg, #f6f5ff 0%, #ffffff 45%, #e1f2ff 100%); color: #0f172a; }
+      .card { background: rgba(255,255,255,0.85); border: 1px solid rgba(15,23,42,0.08); border-radius: 16px; box-shadow: 0 18px 55px rgba(15,23,42,0.08); }
+      .chip { background: rgba(15,23,42,0.04); border: 1px solid rgba(15,23,42,0.08); border-radius: 999px; padding: .25rem .6rem; font-size: 12px; color: rgba(15,23,42,0.75); }
+      .muted { color: rgba(15,23,42,0.65); }
+
+      /* Markdown styling */
+      .content h1,.content h2,.content h3 { color: #0f172a; font-weight: 700; }
+      .content p { margin-top: .75rem; color: rgba(15,23,42,0.78); line-height: 1.75; }
+      .content ul,.content ol { margin-top: .75rem; padding-left: 1.25rem; color: rgba(15,23,42,0.78); }
+      .content li { margin-top: .25rem; }
+      .content code { background: rgba(15,23,42,0.06); padding: 0 .35rem; border-radius: .35rem; }
+      .content pre { margin-top: .75rem; background: rgba(15,23,42,0.92); color: #e2e8f0; padding: .9rem; border-radius: .9rem; overflow-x: auto; }
+      .content pre code { background: transparent; padding: 0; }
+
+      [x-cloak] { display: none !important; }
     </style>
-
-    <script>
-      (function () {
-        const LOGIN_URL = @json(route('login'));
-        const APP_LOGO_URL = @json(asset('images/Logo01.png'));
-
-        function normalizeText(el) {
-          return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
-        }
-
-        function alignHeaderRow() {
-          const { headerRow, leftBlock, rightBlock } = findHeaderBlocks();
-          if (headerRow) headerRow.style.alignItems = 'center';
-          if (leftBlock) leftBlock.style.alignItems = 'center';
-          if (rightBlock) rightBlock.style.alignItems = 'center';
-        }
-
-        function findHeaderBlocks() {
-          const root = document.getElementById('root');
-          if (!root) return { headerRow: null, leftBlock: null, rightBlock: null };
-
-          // Find the Login button/link in the header area.
-          const nodes = Array.from(root.querySelectorAll('a,button'));
-          const loginEl = nodes.find((el) => normalizeText(el).toLowerCase() === 'login') || null;
-          if (!loginEl) return { headerRow: null, leftBlock: null, rightBlock: null };
-
-          // Walk up to find a flex container near the top that likely represents the header row.
-          let headerRow = loginEl.parentElement;
-          for (let i = 0; i < 10 && headerRow; i++) {
-            const cls = (headerRow.getAttribute('class') || '');
-            const isFlex = cls.includes('flex') || getComputedStyle(headerRow).display === 'flex';
-            const top = headerRow.getBoundingClientRect().top;
-            if (isFlex && top >= -20 && top < 220 && headerRow.children.length >= 2) break;
-            headerRow = headerRow.parentElement;
-          }
-          if (!headerRow) return { headerRow: null, leftBlock: null, rightBlock: null };
-
-          // Identify which child contains the login element -> right block.
-          const kids = Array.from(headerRow.children).filter((c) => c && c.nodeType === 1);
-          const rightBlock = kids.find((c) => c.contains(loginEl)) || null;
-          const leftBlock = kids.find((c) => c !== rightBlock) || null;
-
-          return { headerRow, leftBlock, rightBlock };
-        }
-
-        function injectHeaderLogo() {
-          // Ensure Logo01.png is always visible in the top-left header area,
-          // even if the SPA uses SVG/text instead of an <img>.
-          const { headerRow, leftBlock, rightBlock } = findHeaderBlocks();
-          if (!headerRow || !leftBlock) return;
-
-          // Already injected
-          if (leftBlock.querySelector('[data-app-logo=\"1\"]')) return;
-
-          // Prefer swapping an existing img in the left block if present.
-          const existingImg = leftBlock.querySelector('img');
-          if (existingImg) {
-            existingImg.src = APP_LOGO_URL;
-            existingImg.alt = 'App logo';
-            existingImg.setAttribute('data-app-logo', '1');
-            existingImg.style.width = '72px';
-            existingImg.style.height = '72px';
-            existingImg.style.objectFit = 'contain';
-            existingImg.style.background = 'transparent';
-            existingImg.style.display = 'block';
-            // Remove border/ring/background from the wrapper if any.
-            const p = existingImg.parentElement;
-            if (p) {
-              p.style.background = 'transparent';
-              p.style.border = 'none';
-              p.style.boxShadow = 'none';
-              p.style.padding = '0';
-            }
-            return;
-          }
-
-          // Otherwise, inject a new img at the start of the left block.
-          const img = document.createElement('img');
-          img.src = APP_LOGO_URL;
-          img.alt = 'App logo';
-          img.setAttribute('data-app-logo', '1');
-          img.style.width = '72px';
-          img.style.height = '72px';
-          img.style.objectFit = 'contain';
-          img.style.background = 'transparent';
-          img.style.flex = '0 0 auto';
-          img.style.display = 'block';
-
-          // Make sure the left block can show it nicely.
-          leftBlock.style.display = 'flex';
-          leftBlock.style.alignItems = 'center';
-          leftBlock.style.gap = '0';
-          leftBlock.style.marginLeft = '0';
-          leftBlock.style.paddingLeft = '0';
-
-          leftBlock.insertBefore(img, leftBlock.firstChild);
-        }
-
-        function logoOnlyOnLeft() {
-          const { headerRow, leftBlock } = findHeaderBlocks();
-          if (!headerRow || !leftBlock) return;
-
-          // Keep only the injected/app logo visible on the left.
-          const logo = leftBlock.querySelector('[data-app-logo=\"1\"], img');
-          for (const child of Array.from(leftBlock.children)) {
-            if (logo && (child === logo || child.contains(logo))) {
-              child.style.display = 'flex';
-              continue;
-            }
-            child.style.display = 'none';
-          }
-
-          // Remove any border/ring/pill effects around the logo container.
-          const logoParent = logo ? logo.parentElement : null;
-          if (logoParent) {
-            logoParent.style.background = 'transparent';
-            logoParent.style.border = 'none';
-            logoParent.style.boxShadow = 'none';
-            logoParent.style.padding = '0';
-            logoParent.style.margin = '0';
-          }
-        }
-
-        function removeLanguageSwitchButtons() {
-          // Remove the language switch control(s) in header; keep Login.
-          const { rightBlock } = findHeaderBlocks();
-          if (!rightBlock) return;
-
-          const nodes = Array.from(rightBlock.querySelectorAll('a,button'));
-          for (const node of nodes) {
-            const text = normalizeText(node);
-            const lower = text.toLowerCase();
-            const href = (node.getAttribute && node.getAttribute('href')) ? node.getAttribute('href') : '';
-
-            // Keep Login button/link.
-            const isLogin =
-              lower === 'login' ||
-              lower.includes('login') ||
-              (typeof href === 'string' && href.includes('/login'));
-
-            if (isLogin) continue;
-
-            // Remove everything else in the header right block (language switches, extra buttons, etc.).
-            node.remove();
-          }
-        }
-
-        function removeLanguageLabelText() {
-          // Some builds show locale as plain text (e.g. "English") near the logo.
-          // Remove/hide those labels in the header area while keeping Login.
-          const { headerRow } = findHeaderBlocks();
-          if (!headerRow) return;
-
-          const labels = new Set(['english', '中文', '简体中文', '繁體中文', 'en', 'zh', 'language']);
-
-          const elements = Array.from(headerRow.querySelectorAll('*'));
-          for (const el of elements) {
-            // Skip if this element contains the Login control
-            const maybeLogin = el.querySelector && el.querySelector('a[href*=\"/login\"], a[href*=\"login\"], button');
-            if (maybeLogin) {
-              const t = normalizeText(maybeLogin).toLowerCase();
-              if (t === 'login' || t.includes('login')) continue;
-            }
-
-            const txt = normalizeText(el);
-            if (!txt) continue;
-
-            const lower = txt.toLowerCase();
-            if (labels.has(lower)) {
-              el.style.display = 'none';
-              continue;
-            }
-
-            // Also hide short labels that appear alongside logo: e.g. "English" inside a small span
-            if ((lower === 'english') || (txt === '中文') || (txt === 'EN') || (txt === 'Zh')) {
-              el.style.display = 'none';
-            }
-          }
-        }
-
-        function moveLogoToTopLeft() {
-          // Make the logo the leftmost element by shifting the left block to the viewport edge,
-          // without changing the rest of the header layout.
-          const { leftBlock } = findHeaderBlocks();
-          if (!leftBlock) return;
-          const logo = leftBlock.querySelector('[data-app-logo=\"1\"], img');
-          if (!logo) return;
-
-          // Only move when the left block contains only the logo (logoOnlyOnLeft()).
-          if (leftBlock.dataset && leftBlock.dataset.logoPinned === '1') return;
-
-          // IMPORTANT: measure from the untransformed position; otherwise repeated runs can oscillate.
-          const prevTransform = leftBlock.style.transform;
-          leftBlock.style.transform = 'none';
-
-          const rect = leftBlock.getBoundingClientRect();
-          const desiredLeft = 12; // keep a small gutter
-          const dx = rect.left - desiredLeft;
-          if (!Number.isFinite(dx)) {
-            leftBlock.style.transform = prevTransform;
-            return;
-          }
-
-          leftBlock.style.transition = 'none';
-          leftBlock.style.willChange = 'transform';
-          leftBlock.style.transform = `translateX(${-dx}px)`;
-          leftBlock.style.marginLeft = '0';
-          leftBlock.style.paddingLeft = '0';
-
-          if (leftBlock.dataset) leftBlock.dataset.logoPinned = '1';
-        }
-
-        function setAppLogo() {
-          // Replace the top-left app logo image used by the SPA with Logo01.png.
-          // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
-          const imgs = document.querySelectorAll('img');
-          for (const img of imgs) {
-            const alt = (img.getAttribute('alt') || '').toLowerCase();
-            const src = (img.getAttribute('src') || '').toLowerCase();
-
-            const isLogo =
-              alt.includes('logo') ||
-              src.includes('logo192') ||
-              src.includes('deai') && alt.includes('logo');
-
-            if (!isLogo) continue;
-
-            // Prefer swapping only the small header logo (avoid changing large images in content).
-            const w = img.naturalWidth || img.width || 0;
-            const h = img.naturalHeight || img.height || 0;
-            const className = (img.getAttribute('class') || '');
-            const looksLikeHeaderIcon =
-              className.includes('w-14') ||
-              className.includes('h-14') ||
-              className.includes('rounded-2xl') ||
-              (w > 0 && h > 0 && w <= 200 && h <= 200);
-
-            if (!looksLikeHeaderIcon) continue;
-
-            if (img.getAttribute('src') !== APP_LOGO_URL) {
-              img.setAttribute('src', APP_LOGO_URL);
-            }
-            // Also keep consistent alt text.
-            img.setAttribute('alt', 'App logo');
-
-            // Bigger, transparent, and aligned with header buttons.
-            img.style.width = '72px';
-            img.style.height = '72px';
-            img.style.objectFit = 'contain';
-            img.style.background = 'transparent';
-            img.style.padding = '0';
-            img.style.borderRadius = '0';
-            img.style.filter = 'none';
-            img.style.transform = 'none';
-
-            // Ensure its immediate container can accommodate the larger logo.
-            const parent = img.parentElement;
-            if (parent) {
-              parent.style.width = '72px';
-              parent.style.height = '72px';
-              parent.style.overflow = 'visible';
-              parent.style.marginTop = '0';
-              parent.style.position = 'relative';
-              parent.style.zIndex = '50';
-
-              // Make container transparent (remove white pill background/padding if present).
-              parent.style.background = 'transparent';
-              parent.style.padding = '0';
-              parent.style.border = 'none';
-              parent.style.boxShadow = 'none';
-              parent.style.display = 'flex';
-              parent.style.alignItems = 'center';
-              parent.style.justifyContent = 'center';
-            }
-          }
-        }
-
-        function moveCoreHighlightsToRight() {
-          const root = document.getElementById('root');
-          if (!root) return;
-
-          const markers = ['core highlights', '核心亮点'];
-          const all = Array.from(root.querySelectorAll('*'));
-          const hits = all.filter((el) => {
-            const t = normalizeText(el).toLowerCase();
-            return t && markers.some((m) => t.includes(m));
-          });
-
-          for (const hit of hits) {
-            // Walk up to find a 2-column container (grid/flex) that holds the highlight.
-            let container = hit;
-            for (let i = 0; i < 8 && container; i++) {
-              container = container.parentElement;
-              if (!container) break;
-
-              const kids = Array.from(container.children).filter((c) => c && c.nodeType === 1);
-              if (kids.length !== 2) continue;
-
-              const cls = (container.getAttribute('class') || '');
-              const isTwoColLayout =
-                cls.includes('grid') ||
-                cls.includes('flex') ||
-                cls.includes('lg:grid-cols-') ||
-                cls.includes('grid-cols-2');
-
-              if (!isTwoColLayout) continue;
-
-              const [left, right] = kids;
-              // If the highlight is currently in the left column, swap order.
-              if (left.contains(hit) && !right.contains(hit)) {
-                container.insertBefore(right, left);
-                return;
-              }
-            }
-          }
-        }
-
-        function removeTopMenuButton() {
-          // Remove common SPA menu toggle buttons (labels vary by locale/build).
-          const candidates = document.querySelectorAll('button');
-          for (const btn of candidates) {
-            const label = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
-            const text = normalizeText(btn).toLowerCase();
-
-            if (
-              label.includes('menu') ||
-              label.includes('navigation') ||
-              label.includes('nav') ||
-              label.includes('导航') ||
-              label.includes('菜單') ||
-              label.includes('菜单') ||
-              text === 'menu' ||
-              text === '导航'
-            ) {
-              btn.remove();
-              continue;
-            }
-          }
-        }
-
-        function replacePledgeWithLogin() {
-          const nodes = document.querySelectorAll('a,button');
-          for (const node of nodes) {
-            if (node && node.dataset && node.dataset.loginPatched === '1') continue;
-
-            const text = normalizeText(node);
-            const isPledge =
-              text.toLowerCase() === 'pledge' ||
-              text.toLowerCase().includes('pledge') ||
-              text.includes('质押') ||
-              text.includes('質押');
-
-            if (!isPledge) continue;
-
-            // Replace element entirely to preserve layout classes while changing behavior.
-            const link = document.createElement('a');
-            link.href = LOGIN_URL;
-            link.className = node.className || '';
-            link.textContent = 'Login';
-            link.dataset.loginPatched = '1';
-
-            // Ensure click navigates to Laravel login flow.
-            link.addEventListener('click', function (e) {
-              e.preventDefault();
-              window.location.href = LOGIN_URL;
-            });
-
-            node.replaceWith(link);
-          }
-        }
-
-        function removeTopMenuItems() {
-          // Remove top nav items requested by user (desktop + mobile menus)
-          const banned = [
-            'overview',
-            'technology',
-            'applications',
-            'comparison',
-            'tokenmics', // user spelling
-            'tokenomics',
-            'value capture',
-            'audit',
-            'tools',
-            'data',
-            'roadshow',
-            'roadmap',
-            'dapp',
-            // Common Chinese labels seen on DeAI Nexus
-            '概览',
-            '總覽',
-            '技术',
-            '技術',
-            '应用',
-            '應用',
-            '对比',
-            '對比',
-            '代币经济',
-            '代幣經濟',
-            '价值捕获',
-            '價值捕獲',
-            '审计',
-            '審計',
-            '工具',
-            '数据',
-            '數據',
-            '路演',
-            '路线图',
-            '路線圖',
-            'dapp',
-          ];
-
-          // 1) Remove anchor-based section navigation links regardless of label.
-          // Most SPAs implement top menus as hash/anchor links.
-          const anchorLinks = document.querySelectorAll('a[href^="#"], a[href*="/#"], a[href*="#"]');
-          for (const a of anchorLinks) {
-            const href = (a.getAttribute('href') || '').trim();
-            if (!href) continue;
-
-            const lowerHref = href.toLowerCase();
-            // Keep nothing hash-based on homepage nav (user wants no menu items).
-            // Avoid removing purely-empty/placeholder links.
-            if (lowerHref.startsWith('#') || lowerHref.includes('/#') || lowerHref.includes('#')) {
-              // But don't touch Login links if any ever use hash (unlikely).
-              const text = normalizeText(a).toLowerCase();
-              if (text.includes('login')) continue;
-              a.remove();
-            }
-          }
-
-          // 2) Remove by visible labels (English + Chinese), for both <a> and <button>.
-          const nodes = document.querySelectorAll('a,button');
-          for (const node of nodes) {
-            const text = normalizeText(node);
-            if (!text) continue;
-
-            const lower = text.toLowerCase();
-
-            // Keep login-related UI intact.
-            if (lower === 'login' || lower.includes('login')) continue;
-
-            // Remove only if it matches one of the menu items.
-            if (banned.some((w) => lower === w || lower.includes(w))) {
-              node.remove();
-            }
-          }
-
-          // 3) Remove now-empty menu containers (common patterns: nav, ul, flex rows).
-          const maybeContainers = document.querySelectorAll('nav, ul, ol, div');
-          for (const el of maybeContainers) {
-            // Skip if it still contains a login element.
-            if (el.querySelector && el.querySelector('a[href*="login"], a[href="/login"], button')) {
-              const loginEl = el.querySelector('a[href*="login"], a[href="/login"]');
-              if (loginEl) continue;
-            }
-            const hasLinks = el.querySelector && el.querySelector('a,button');
-            if (!hasLinks) continue;
-            const visibleText = normalizeText(el);
-            if (!visibleText) {
-              // If container has no text and no images/inputs, drop it.
-              const hasMedia = el.querySelector && el.querySelector('img,svg,input,select,textarea');
-              if (!hasMedia) el.remove();
-            }
-          }
-        }
-
-        function applyPatches() {
-          alignHeaderRow();
-          injectHeaderLogo();
-          logoOnlyOnLeft();
-          removeLanguageSwitchButtons();
-          removeLanguageLabelText();
-          moveLogoToTopLeft();
-          setAppLogo();
-          moveCoreHighlightsToRight();
-          removeTopMenuButton();
-          removeTopMenuItems();
-          replacePledgeWithLogin();
-        }
-
-        // Run now, then keep enforcing as the SPA renders/updates.
-        applyPatches();
-        const mo = new MutationObserver(function () {
-          applyPatches();
-        });
-        mo.observe(document.documentElement, { subtree: true, childList: true });
-
-        // Fallback periodic enforcement (in case of shadow DOM or rapid updates).
-        setInterval(applyPatches, 1500);
-
-      })();
-    </script>
+  </head>
+  <body>
+    @php
+      // You can still switch language via ?lang=en or ?lang=zh_CN (middleware).
+      $activeGroupId = 'project_introduction';
+      $activeGroup = collect($groups)->firstWhere('id', $activeGroupId);
+      $heroMd = (string) (($activeGroup['children'][0]['content'][$langKey] ?? '') ?: ($activeGroup['children'][0]['content']['en-US'] ?? ''));
+      $heroHtml = $renderMarkdownWithTables($heroMd);
+    @endphp
+
+    <div class="mx-auto max-w-6xl px-4 py-8 md:px-10" x-data="{ q: '', active: '{{ $activeGroupId }}' }">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="{{ asset('images/Logo01.png') }}" alt="Logo" class="w-12 h-12 object-contain" />
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="{{ route('login') }}" class="btn-dark normal-case text-sm">Login</a>
+        </div>
+      </div>
+
+      <div class="mt-6 card p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="flex-1 content">
+            {!! $heroHtml !!}
+          </div>
+          <div class="w-full md:w-[340px]">
+            <div class="card p-4">
+              <div class="text-sm font-semibold text-slate-900">Search</div>
+              <div class="mt-3">
+                <input
+                  type="text"
+                  class="input !bg-white !text-slate-900 !ring-slate-200 placeholder:!text-slate-400"
+                  x-model="q"
+                  placeholder="Type keywords…"
+                />
+              </div>
+              <div class="mt-3 text-xs muted">
+                Language can be changed via <span class="chip">?lang=en</span> / <span class="chip">?lang=zh_CN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <aside class="lg:col-span-4">
+          <div class="card p-4 sticky top-6">
+            <div class="text-sm font-semibold text-slate-900">Sections</div>
+            <div class="mt-3 space-y-2">
+              @foreach ($groups as $g)
+                @php
+                  $gTitle = $g['title'][$langKey] ?? $g['title']['en-US'] ?? $g['id'];
+                @endphp
+                <button
+                  type="button"
+                  class="w-full text-left px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 transition"
+                  :class="active === @js($g['id']) ? 'bg-slate-50' : 'bg-white'"
+                  @click="active = @js($g['id'])"
+                >
+                  <div class="font-medium text-slate-900">{{ $gTitle }}</div>
+                  <div class="text-xs muted">{{ $g['id'] }}</div>
+                </button>
+              @endforeach
+            </div>
+          </div>
+        </aside>
+
+        <main class="lg:col-span-8 space-y-4">
+          @foreach ($groups as $g)
+            @php
+              $gTitle = $g['title'][$langKey] ?? $g['title']['en-US'] ?? $g['id'];
+              $children = is_array($g['children'] ?? null) ? $g['children'] : [];
+            @endphp
+            <section class="card p-5" x-show="active === @js($g['id'])" x-cloak>
+              <div class="flex items-end justify-between gap-3">
+                <div>
+                  <div class="text-xs muted">{{ $g['id'] }}</div>
+                  <div class="text-lg font-semibold text-slate-900">{{ $gTitle }}</div>
+                </div>
+                <div class="text-xs muted">{{ count($children) }} items</div>
+              </div>
+
+              <div class="mt-4 space-y-3">
+                @foreach ($children as $c)
+                  @php
+                    $cTitle = $c['title'][$langKey] ?? $c['title']['en-US'] ?? $c['id'];
+                    $md = (string) (($c['content'][$langKey] ?? '') ?: ($c['content']['en-US'] ?? ''));
+                    $html = $renderMarkdownWithTables($md);
+                    $searchHaystack = strtolower($cTitle . ' ' . strip_tags($html));
+                  @endphp
+
+                  <div class="border border-slate-200 rounded-xl overflow-hidden" x-show="!q || @js($searchHaystack).includes(q.toLowerCase())">
+                    <button
+                      type="button"
+                      class="w-full flex items-center justify-between gap-3 px-4 py-3 bg-white hover:bg-slate-50 transition"
+                      @click="$el.nextElementSibling.classList.toggle('hidden')"
+                    >
+                      <div class="text-slate-900 font-medium">{{ $cTitle }}</div>
+                      <div class="text-xs muted">{{ $c['id'] }}</div>
+                    </button>
+                    <div class="px-4 pb-4 content hidden">
+                      {!! $html !!}
+                    </div>
+                  </div>
+                @endforeach
+              </div>
+            </section>
+          @endforeach
+        </main>
+      </div>
+    </div>
   </body>
 </html>
