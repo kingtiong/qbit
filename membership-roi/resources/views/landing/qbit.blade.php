@@ -218,6 +218,53 @@
           }
         }
 
+        function removeLanguageSwitchButtons() {
+          // Remove the language switch control(s) in header; keep Login.
+          const { rightBlock } = findHeaderBlocks();
+          if (!rightBlock) return;
+
+          const nodes = Array.from(rightBlock.querySelectorAll('a,button'));
+          for (const node of nodes) {
+            const text = normalizeText(node);
+            const lower = text.toLowerCase();
+
+            // Keep Login button/link.
+            if (lower === 'login' || lower.includes('login')) continue;
+
+            // Remove common language switch labels.
+            if (
+              lower === 'en' ||
+              lower === 'english' ||
+              lower.includes('switch to english') ||
+              text === '中文' ||
+              text.includes('切换') ||
+              text.includes('切換') ||
+              lower.includes('language')
+            ) {
+              node.remove();
+            }
+          }
+        }
+
+        function moveLogoToTopLeft() {
+          // Make the logo the leftmost element by shifting the left block to the viewport edge,
+          // without changing the rest of the header layout.
+          const { leftBlock } = findHeaderBlocks();
+          if (!leftBlock) return;
+          const logo = leftBlock.querySelector('[data-app-logo=\"1\"], img');
+          if (!logo) return;
+
+          // Only move when the left block contains only the logo (logoOnlyOnLeft()).
+          const rect = leftBlock.getBoundingClientRect();
+          const desiredLeft = 12; // keep a small gutter
+          const dx = rect.left - desiredLeft;
+          if (!Number.isFinite(dx)) return;
+
+          leftBlock.style.transform = `translateX(${-dx}px)`;
+          leftBlock.style.marginLeft = '0';
+          leftBlock.style.paddingLeft = '0';
+        }
+
         function setAppLogo() {
           // Replace the top-left app logo image used by the SPA with Logo01.png.
           // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
@@ -475,6 +522,8 @@
           alignHeaderRow();
           injectHeaderLogo();
           logoOnlyOnLeft();
+          removeLanguageSwitchButtons();
+          moveLogoToTopLeft();
           setAppLogo();
           moveCoreHighlightsToRight();
           removeTopMenuButton();
