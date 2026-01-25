@@ -106,33 +106,64 @@
         }
 
         function alignHeaderRow() {
-          // Align left logo block with language/login buttons (same baseline/center).
-          const headerRow = document.querySelector('div.flex.items-start.justify-between.gap-4.flex-wrap');
-          if (headerRow) {
-            headerRow.style.alignItems = 'center';
+          const { headerRow, leftBlock, rightBlock } = findHeaderBlocks();
+          if (headerRow) headerRow.style.alignItems = 'center';
+          if (leftBlock) leftBlock.style.alignItems = 'center';
+          if (rightBlock) rightBlock.style.alignItems = 'center';
+        }
+
+        function findHeaderBlocks() {
+          const root = document.getElementById('root');
+          if (!root) return { headerRow: null, leftBlock: null, rightBlock: null };
+
+          // Find the Login button/link in the header area.
+          const nodes = Array.from(root.querySelectorAll('a,button'));
+          const loginEl = nodes.find((el) => normalizeText(el).toLowerCase() === 'login') || null;
+          if (!loginEl) return { headerRow: null, leftBlock: null, rightBlock: null };
+
+          // Walk up to find a flex container near the top that likely represents the header row.
+          let headerRow = loginEl.parentElement;
+          for (let i = 0; i < 10 && headerRow; i++) {
+            const cls = (headerRow.getAttribute('class') || '');
+            const isFlex = cls.includes('flex') || getComputedStyle(headerRow).display === 'flex';
+            const top = headerRow.getBoundingClientRect().top;
+            if (isFlex && top >= -20 && top < 220 && headerRow.children.length >= 2) break;
+            headerRow = headerRow.parentElement;
           }
-          const leftBlock = document.querySelector('div.flex.items-center.gap-4');
-          if (leftBlock) {
-            leftBlock.style.alignItems = 'center';
-          }
+          if (!headerRow) return { headerRow: null, leftBlock: null, rightBlock: null };
+
+          // Identify which child contains the login element -> right block.
+          const kids = Array.from(headerRow.children).filter((c) => c && c.nodeType === 1);
+          const rightBlock = kids.find((c) => c.contains(loginEl)) || null;
+          const leftBlock = kids.find((c) => c !== rightBlock) || null;
+
+          return { headerRow, leftBlock, rightBlock };
         }
 
         function injectHeaderLogo() {
           // Ensure Logo01.png is always visible in the top-left header area,
           // even if the SPA uses SVG/text instead of an <img>.
-          const headerRow = document.querySelector('div.flex.items-start.justify-between.gap-4.flex-wrap');
-          if (!headerRow) return;
-          const leftBlock = headerRow.querySelector('div.flex.items-center.gap-4');
-          if (!leftBlock) return;
+          const { headerRow, leftBlock, rightBlock } = findHeaderBlocks();
+          if (!headerRow || !leftBlock) return;
 
+          // Already injected
           if (leftBlock.querySelector('[data-app-logo=\"1\"]')) return;
 
-          // Hide the existing logo element (usually the first child block).
-          const first = leftBlock.firstElementChild;
-          if (first && !first.matches('img') && !first.hasAttribute('data-app-logo')) {
-            first.style.display = 'none';
+          // Prefer swapping an existing img in the left block if present.
+          const existingImg = leftBlock.querySelector('img');
+          if (existingImg) {
+            existingImg.src = APP_LOGO_URL;
+            existingImg.alt = 'App logo';
+            existingImg.setAttribute('data-app-logo', '1');
+            existingImg.style.width = '72px';
+            existingImg.style.height = '72px';
+            existingImg.style.objectFit = 'contain';
+            existingImg.style.background = 'transparent';
+            existingImg.style.display = 'block';
+            return;
           }
 
+          // Otherwise, inject a new img at the start of the left block.
           const img = document.createElement('img');
           img.src = APP_LOGO_URL;
           img.alt = 'App logo';
@@ -143,6 +174,11 @@
           img.style.background = 'transparent';
           img.style.flex = '0 0 auto';
           img.style.display = 'block';
+
+          // Make sure the left block can show it nicely.
+          leftBlock.style.display = 'flex';
+          leftBlock.style.alignItems = 'center';
+          leftBlock.style.gap = leftBlock.style.gap || '12px';
 
           leftBlock.insertBefore(img, leftBlock.firstChild);
         }
