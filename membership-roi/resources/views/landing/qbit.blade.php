@@ -143,8 +143,8 @@
             img.style.height = '112px';
             img.style.objectFit = 'contain';
             img.style.filter = 'drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18))';
-            // Nudge upward so it stays within the white header band.
-            img.style.transform = 'translateY(-18px)';
+            // Keep transform neutral (avoid pushing it out of view).
+            img.style.transform = 'none';
 
             // Ensure its immediate container can accommodate the larger logo.
             const parent = img.parentElement;
@@ -152,6 +152,10 @@
               parent.style.width = '112px';
               parent.style.height = '112px';
               parent.style.overflow = 'visible';
+              // Nudge the whole logo container upward into the white header area.
+              parent.style.marginTop = '-18px';
+              parent.style.position = 'relative';
+              parent.style.zIndex = '50';
             }
           }
         }
