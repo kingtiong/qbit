@@ -1166,8 +1166,7 @@ body {
           <div class="roadshowCard" id="roadshowCard">
             <div class="roadshow">
               <div class="roadshow__left">
-                <div class="roadshow__title">{{ $t('Roadshow Video Preview', '路演视频预览') }}</div>
-                <div class="roadshow__sub">{{ $t('A short clip capturing the vibe and key exchanges from the roadshow.', '一段短片记录路演现场氛围与关键交流。') }}</div>
+                <div class="roadshow__title">{{ $t('Quantum Intro Videos', '量子介绍视频') }}</div>
               </div>
               <button class="ghost" type="button" id="roadshowToggle">
                 <span class="ghost__icon" aria-hidden="true">
