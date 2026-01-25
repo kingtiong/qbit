@@ -212,7 +212,7 @@
           }
         }
 
-        function moveCoreHighlightsToRight() {
+        function moveCoreHighlightsToLeft() {
           const root = document.getElementById('root');
           if (!root) return;
 
@@ -243,8 +243,8 @@
               if (!isTwoColLayout) continue;
 
               const [left, right] = kids;
-              // If the highlight is currently in the left column, swap order.
-              if (left.contains(hit) && !right.contains(hit)) {
+              // If the highlight is currently in the right column, swap order.
+              if (right.contains(hit) && !left.contains(hit)) {
                 container.insertBefore(right, left);
                 return;
               }
@@ -404,7 +404,7 @@
           alignHeaderRow();
           injectHeaderLogo();
           setAppLogo();
-          moveCoreHighlightsToRight();
+          moveCoreHighlightsToLeft();
           removeTopMenuButton();
           removeTopMenuItems();
           replacePledgeWithLogin();
