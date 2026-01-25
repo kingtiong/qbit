@@ -288,12 +288,12 @@ body {
 .highlight-card {
   position: relative;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.74);
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   padding: 0;
   overflow: hidden;
-  min-height: 310px;
+  min-height: 380px;
 }
 
 .highlight-card__title {
