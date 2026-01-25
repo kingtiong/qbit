@@ -242,6 +242,39 @@
           }
         }
 
+        function removeLanguageLabelText() {
+          // Some builds show locale as plain text (e.g. "English") near the logo.
+          // Remove/hide those labels in the header area while keeping Login.
+          const { headerRow } = findHeaderBlocks();
+          if (!headerRow) return;
+
+          const labels = new Set(['english', '中文', '简体中文', '繁體中文', 'en', 'zh', 'language']);
+
+          const elements = Array.from(headerRow.querySelectorAll('*'));
+          for (const el of elements) {
+            // Skip if this element contains the Login control
+            const maybeLogin = el.querySelector && el.querySelector('a[href*=\"/login\"], a[href*=\"login\"], button');
+            if (maybeLogin) {
+              const t = normalizeText(maybeLogin).toLowerCase();
+              if (t === 'login' || t.includes('login')) continue;
+            }
+
+            const txt = normalizeText(el);
+            if (!txt) continue;
+
+            const lower = txt.toLowerCase();
+            if (labels.has(lower)) {
+              el.style.display = 'none';
+              continue;
+            }
+
+            // Also hide short labels that appear alongside logo: e.g. "English" inside a small span
+            if ((lower === 'english') || (txt === '中文') || (txt === 'EN') || (txt === 'Zh')) {
+              el.style.display = 'none';
+            }
+          }
+        }
+
         function moveLogoToTopLeft() {
           // Make the logo the leftmost element by shifting the left block to the viewport edge,
           // without changing the rest of the header layout.
@@ -532,6 +565,7 @@
           injectHeaderLogo();
           logoOnlyOnLeft();
           removeLanguageSwitchButtons();
+          removeLanguageLabelText();
           moveLogoToTopLeft();
           setAppLogo();
           moveCoreHighlightsToRight();
