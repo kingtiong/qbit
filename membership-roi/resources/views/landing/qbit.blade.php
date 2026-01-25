@@ -70,8 +70,8 @@ body {
 }
 
 .brand__mark {
-  width: 56px;
-  height: 56px;
+  width: 120px;
+  height: 62px;
   display: grid;
   place-items: center;
 }
@@ -974,7 +974,7 @@ body {
       <div class="container topbar__inner">
         <div class="brand">
           <div class="brand__mark" aria-hidden="true">
-            <img src="{{ asset('images/Logo01.png') }}" alt="" width="56" height="56" />
+            <img src="{{ asset('images/Logo01.png') }}" alt="" height="62" />
           </div>
         </div>
 
