@@ -227,22 +227,18 @@
           for (const node of nodes) {
             const text = normalizeText(node);
             const lower = text.toLowerCase();
+            const href = (node.getAttribute && node.getAttribute('href')) ? node.getAttribute('href') : '';
 
             // Keep Login button/link.
-            if (lower === 'login' || lower.includes('login')) continue;
+            const isLogin =
+              lower === 'login' ||
+              lower.includes('login') ||
+              (typeof href === 'string' && href.includes('/login'));
 
-            // Remove common language switch labels.
-            if (
-              lower === 'en' ||
-              lower === 'english' ||
-              lower.includes('switch to english') ||
-              text === '中文' ||
-              text.includes('切换') ||
-              text.includes('切換') ||
-              lower.includes('language')
-            ) {
-              node.remove();
-            }
+            if (isLogin) continue;
+
+            // Remove everything else in the header right block (language switches, extra buttons, etc.).
+            node.remove();
           }
         }
 
