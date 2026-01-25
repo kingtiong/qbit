@@ -47,11 +47,24 @@
         }
 
         function removeTopMenuButton() {
-          const candidates = document.querySelectorAll('button[aria-label]');
+          // Remove common SPA menu toggle buttons (labels vary by locale/build).
+          const candidates = document.querySelectorAll('button');
           for (const btn of candidates) {
-            const label = (btn.getAttribute('aria-label') || '').toLowerCase();
-            if (label.includes('menu') || label.includes('导航') || label.includes('菜單') || label.includes('菜单')) {
+            const label = ((btn.getAttribute('aria-label') || '') + ' ' + (btn.getAttribute('title') || '')).toLowerCase();
+            const text = normalizeText(btn).toLowerCase();
+
+            if (
+              label.includes('menu') ||
+              label.includes('navigation') ||
+              label.includes('nav') ||
+              label.includes('导航') ||
+              label.includes('菜單') ||
+              label.includes('菜单') ||
+              text === 'menu' ||
+              text === '导航'
+            ) {
               btn.remove();
+              continue;
             }
           }
         }
@@ -103,8 +116,49 @@
             'roadshow',
             'roadmap',
             'dapp',
+            // Common Chinese labels seen on DeAI Nexus
+            '概览',
+            '總覽',
+            '技术',
+            '技術',
+            '应用',
+            '應用',
+            '对比',
+            '對比',
+            '代币经济',
+            '代幣經濟',
+            '价值捕获',
+            '價值捕獲',
+            '审计',
+            '審計',
+            '工具',
+            '数据',
+            '數據',
+            '路演',
+            '路线图',
+            '路線圖',
+            'dapp',
           ];
 
+          // 1) Remove anchor-based section navigation links regardless of label.
+          // Most SPAs implement top menus as hash/anchor links.
+          const anchorLinks = document.querySelectorAll('a[href^="#"], a[href*="/#"], a[href*="#"]');
+          for (const a of anchorLinks) {
+            const href = (a.getAttribute('href') || '').trim();
+            if (!href) continue;
+
+            const lowerHref = href.toLowerCase();
+            // Keep nothing hash-based on homepage nav (user wants no menu items).
+            // Avoid removing purely-empty/placeholder links.
+            if (lowerHref.startsWith('#') || lowerHref.includes('/#') || lowerHref.includes('#')) {
+              // But don't touch Login links if any ever use hash (unlikely).
+              const text = normalizeText(a).toLowerCase();
+              if (text.includes('login')) continue;
+              a.remove();
+            }
+          }
+
+          // 2) Remove by visible labels (English + Chinese), for both <a> and <button>.
           const nodes = document.querySelectorAll('a,button');
           for (const node of nodes) {
             const text = normalizeText(node);
@@ -118,6 +172,24 @@
             // Remove only if it matches one of the menu items.
             if (banned.some((w) => lower === w || lower.includes(w))) {
               node.remove();
+            }
+          }
+
+          // 3) Remove now-empty menu containers (common patterns: nav, ul, flex rows).
+          const maybeContainers = document.querySelectorAll('nav, ul, ol, div');
+          for (const el of maybeContainers) {
+            // Skip if it still contains a login element.
+            if (el.querySelector && el.querySelector('a[href*="login"], a[href="/login"], button')) {
+              const loginEl = el.querySelector('a[href*="login"], a[href="/login"]');
+              if (loginEl) continue;
+            }
+            const hasLinks = el.querySelector && el.querySelector('a,button');
+            if (!hasLinks) continue;
+            const visibleText = normalizeText(el);
+            if (!visibleText) {
+              // If container has no text and no images/inputs, drop it.
+              const hasMedia = el.querySelector && el.querySelector('img,svg,input,select,textarea');
+              if (!hasMedia) el.remove();
             }
           }
         }
