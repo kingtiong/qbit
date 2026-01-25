@@ -323,19 +323,6 @@ body {
   border-radius: 22px;
   display: block;
   object-fit: cover;
-  animation: qbFloat 8s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes qbFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .highlight-card__image {
-    animation: none;
-  }
 }
 
 .highlight-grid {
