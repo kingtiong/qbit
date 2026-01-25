@@ -303,6 +303,7 @@ body {
 .highlight-card__image {
   width: 100%;
   height: auto;
+  margin-top: 18px;
   border-radius: 22px;
   display: block;
   animation: qbFloat 6s ease-in-out infinite;
