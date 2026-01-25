@@ -99,9 +99,45 @@
     <script>
       (function () {
         const LOGIN_URL = @json(route('login'));
+        const APP_LOGO_URL = @json(asset('assets/Logo01.png'));
 
         function normalizeText(el) {
           return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
+        }
+
+        function setAppLogo() {
+          // Replace the top-left app logo image used by the SPA with Logo01.png.
+          // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
+          const imgs = document.querySelectorAll('img');
+          for (const img of imgs) {
+            const alt = (img.getAttribute('alt') || '').toLowerCase();
+            const src = (img.getAttribute('src') || '').toLowerCase();
+
+            const isLogo =
+              alt.includes('logo') ||
+              src.includes('logo192') ||
+              src.includes('deai') && alt.includes('logo');
+
+            if (!isLogo) continue;
+
+            // Prefer swapping only the small header logo (avoid changing large images in content).
+            const w = img.naturalWidth || img.width || 0;
+            const h = img.naturalHeight || img.height || 0;
+            const className = (img.getAttribute('class') || '');
+            const looksLikeHeaderIcon =
+              className.includes('w-14') ||
+              className.includes('h-14') ||
+              className.includes('rounded-2xl') ||
+              (w > 0 && h > 0 && w <= 200 && h <= 200);
+
+            if (!looksLikeHeaderIcon) continue;
+
+            if (img.getAttribute('src') !== APP_LOGO_URL) {
+              img.setAttribute('src', APP_LOGO_URL);
+            }
+            // Also keep consistent alt text.
+            img.setAttribute('alt', 'App logo');
+          }
         }
 
         function removeTopMenuButton() {
@@ -253,6 +289,7 @@
         }
 
         function applyPatches() {
+          setAppLogo();
           removeTopMenuButton();
           removeTopMenuItems();
           replacePledgeWithLogin();
