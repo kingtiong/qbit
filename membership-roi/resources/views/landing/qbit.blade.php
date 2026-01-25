@@ -70,8 +70,8 @@ body {
 }
 
 .brand__mark {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
 }
@@ -974,10 +974,7 @@ body {
       <div class="container topbar__inner">
         <div class="brand">
           <div class="brand__mark" aria-hidden="true">
-            <img src="{{ asset('images/Logo01.png') }}" alt="" width="22" height="22" />
-          </div>
-          <div class="brand__text">
-            <div class="brand__name">DeAI Nexus Space</div>
+            <img src="{{ asset('images/Logo01.png') }}" alt="" width="44" height="44" />
           </div>
         </div>
 
