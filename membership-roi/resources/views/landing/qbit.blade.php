@@ -255,14 +255,27 @@
           if (!logo) return;
 
           // Only move when the left block contains only the logo (logoOnlyOnLeft()).
+          if (leftBlock.dataset && leftBlock.dataset.logoPinned === '1') return;
+
+          // IMPORTANT: measure from the untransformed position; otherwise repeated runs can oscillate.
+          const prevTransform = leftBlock.style.transform;
+          leftBlock.style.transform = 'none';
+
           const rect = leftBlock.getBoundingClientRect();
           const desiredLeft = 12; // keep a small gutter
           const dx = rect.left - desiredLeft;
-          if (!Number.isFinite(dx)) return;
+          if (!Number.isFinite(dx)) {
+            leftBlock.style.transform = prevTransform;
+            return;
+          }
 
+          leftBlock.style.transition = 'none';
+          leftBlock.style.willChange = 'transform';
           leftBlock.style.transform = `translateX(${-dx}px)`;
           leftBlock.style.marginLeft = '0';
           leftBlock.style.paddingLeft = '0';
+
+          if (leftBlock.dataset) leftBlock.dataset.logoPinned = '1';
         }
 
         function setAppLogo() {
