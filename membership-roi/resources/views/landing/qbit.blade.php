@@ -133,6 +133,30 @@
           return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
         }
 
+        function alignOverlayLogo() {
+          const logo = document.getElementById('app-logo');
+          if (!logo) return;
+
+          // Prefer aligning with the visible "DeAI" title text.
+          const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
+          const titleEl = headings.find((el) => normalizeText(el).toLowerCase().includes('deai'));
+
+          let left = 16;
+          if (titleEl) {
+            left = Math.round(titleEl.getBoundingClientRect().left);
+          } else {
+            // Fallback: align with the main centered container if present.
+            const container = document.querySelector('.max-w-6xl');
+            if (container) {
+              // add a small inset to match inner padding
+              left = Math.round(container.getBoundingClientRect().left + 16);
+            }
+          }
+
+          const maxLeft = Math.max(16, window.innerWidth - logo.offsetWidth - 16);
+          logo.style.left = `${Math.min(maxLeft, Math.max(16, left))}px`;
+        }
+
         function setAppLogo() {
           // Replace the top-left app logo image used by the SPA with Logo01.png.
           // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
@@ -317,6 +341,7 @@
         }
 
         function applyPatches() {
+          alignOverlayLogo();
           setAppLogo();
           removeTopMenuButton();
           removeTopMenuItems();
@@ -332,6 +357,9 @@
 
         // Fallback periodic enforcement (in case of shadow DOM or rapid updates).
         setInterval(applyPatches, 1500);
+
+        // Keep alignment correct on resize/orientation changes.
+        window.addEventListener('resize', alignOverlayLogo);
       })();
     </script>
   </body>
