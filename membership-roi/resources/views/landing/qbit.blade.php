@@ -21,6 +21,64 @@
     @endphp
     <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
 
+    <script>
+      // Make SPA language switching apply immediately (same-tab).
+      // Some SPAs listen to the "storage" event for locale changes, but browsers only
+      // fire it in *other* tabs. We re-dispatch it in this tab when locale changes.
+      (function () {
+        if (typeof window === 'undefined' || !window.localStorage) return;
+        if (window.__deaiSameTabStoragePatched) return;
+        window.__deaiSameTabStoragePatched = true;
+
+        const origSetItem = window.localStorage.setItem.bind(window.localStorage);
+        const origRemoveItem = window.localStorage.removeItem.bind(window.localStorage);
+
+        function shouldDispatch(key, newValue) {
+          const k = (key || '').toString().toLowerCase();
+          const v = (newValue == null ? '' : String(newValue)).toLowerCase();
+          return k.includes('locale') || v === 'en-us' || v === 'zh-cn' || v.startsWith('zh');
+        }
+
+        window.localStorage.setItem = function (key, value) {
+          const oldValue = window.localStorage.getItem(key);
+          const result = origSetItem(key, value);
+          try {
+            if (shouldDispatch(key, value)) {
+              window.dispatchEvent(
+                new StorageEvent('storage', {
+                  key,
+                  oldValue,
+                  newValue: String(value),
+                  storageArea: window.localStorage,
+                  url: window.location.href,
+                })
+              );
+            }
+          } catch (_) {}
+          return result;
+        };
+
+        window.localStorage.removeItem = function (key) {
+          const oldValue = window.localStorage.getItem(key);
+          const result = origRemoveItem(key);
+          try {
+            if (shouldDispatch(key, null)) {
+              window.dispatchEvent(
+                new StorageEvent('storage', {
+                  key,
+                  oldValue,
+                  newValue: null,
+                  storageArea: window.localStorage,
+                  url: window.location.href,
+                })
+              );
+            }
+          } catch (_) {}
+          return result;
+        };
+      })();
+    </script>
+
     {{-- DeAI Nexus (mirrored build assets) --}}
     <script type="module" crossorigin src="{{ asset('assets/index-AfuN7V2V.js') }}"></script>
     <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
