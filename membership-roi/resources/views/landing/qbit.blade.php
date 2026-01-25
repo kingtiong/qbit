@@ -974,16 +974,7 @@ body {
       <div class="container topbar__inner">
         <div class="brand">
           <div class="brand__mark" aria-hidden="true">
-            <svg viewBox="0 0 48 48" width="22" height="22" fill="none">
-              <defs>
-                <linearGradient id="g1" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#6B5BFF" />
-                  <stop offset="1" stop-color="#2D6BFF" />
-                </linearGradient>
-              </defs>
-              <path d="M24 6c9.94 0 18 8.06 18 18s-8.06 18-18 18c-4.52 0-8.65-1.67-11.8-4.43V10.43A17.92 17.92 0 0 1 24 6Z" fill="url(#g1)"/>
-              <path d="M22 14h4.8c5.2 0 9.2 3.7 9.2 10s-4 10-9.2 10H22V14Zm4.6 4H26v12h.6c3.2 0 5.7-2 5.7-6s-2.5-6-5.7-6Z" fill="#fff" opacity="0.9"/>
-            </svg>
+            <img src="{{ asset('images/Logo01.png') }}" alt="" width="22" height="22" />
           </div>
           <div class="brand__text">
             <div class="brand__name">DeAI Nexus Space</div>
