@@ -160,6 +160,14 @@
             existingImg.style.objectFit = 'contain';
             existingImg.style.background = 'transparent';
             existingImg.style.display = 'block';
+            // Remove border/ring/background from the wrapper if any.
+            const p = existingImg.parentElement;
+            if (p) {
+              p.style.background = 'transparent';
+              p.style.border = 'none';
+              p.style.boxShadow = 'none';
+              p.style.padding = '0';
+            }
             return;
           }
 
@@ -178,9 +186,36 @@
           // Make sure the left block can show it nicely.
           leftBlock.style.display = 'flex';
           leftBlock.style.alignItems = 'center';
-          leftBlock.style.gap = leftBlock.style.gap || '12px';
+          leftBlock.style.gap = '0';
+          leftBlock.style.marginLeft = '0';
+          leftBlock.style.paddingLeft = '0';
 
           leftBlock.insertBefore(img, leftBlock.firstChild);
+        }
+
+        function logoOnlyOnLeft() {
+          const { headerRow, leftBlock } = findHeaderBlocks();
+          if (!headerRow || !leftBlock) return;
+
+          // Keep only the injected/app logo visible on the left.
+          const logo = leftBlock.querySelector('[data-app-logo=\"1\"], img');
+          for (const child of Array.from(leftBlock.children)) {
+            if (logo && (child === logo || child.contains(logo))) {
+              child.style.display = 'flex';
+              continue;
+            }
+            child.style.display = 'none';
+          }
+
+          // Remove any border/ring/pill effects around the logo container.
+          const logoParent = logo ? logo.parentElement : null;
+          if (logoParent) {
+            logoParent.style.background = 'transparent';
+            logoParent.style.border = 'none';
+            logoParent.style.boxShadow = 'none';
+            logoParent.style.padding = '0';
+            logoParent.style.margin = '0';
+          }
         }
 
         function setAppLogo() {
@@ -439,6 +474,7 @@
         function applyPatches() {
           alignHeaderRow();
           injectHeaderLogo();
+          logoOnlyOnLeft();
           setAppLogo();
           moveCoreHighlightsToRight();
           removeTopMenuButton();
