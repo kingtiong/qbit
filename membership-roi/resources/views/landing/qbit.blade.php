@@ -111,6 +111,40 @@ body {
   margin-left: auto;
 }
 
+.langwrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.langmenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 160px;
+  padding: 6px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.10);
+  z-index: 30;
+}
+
+.langitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: rgba(15, 23, 42, 0.82);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.langitem:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
 .lang {
   display: inline-flex;
   align-items: center;
@@ -979,12 +1013,18 @@ body {
         </div>
 
         <div class="topbar__actions">
-          <button class="lang" type="button">
-            <span>English</span>
-            <svg class="lang__chev" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+          <div class="langwrap">
+            <button class="lang" type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false">
+              <span>{{ app()->getLocale() === 'zh_CN' ? '简体中文' : 'English' }}</span>
+              <svg class="lang__chev" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
+                <path d="M5 7.5L10 12.5L15 7.5" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="langmenu" id="langMenu" role="menu" aria-label="Language" hidden>
+              <a class="langitem" role="menuitem" href="{{ request()->fullUrlWithQuery(['lang' => 'en']) }}">English</a>
+              <a class="langitem" role="menuitem" href="{{ request()->fullUrlWithQuery(['lang' => 'zh_CN']) }}">简体中文</a>
+            </div>
+          </div>
           <button class="pledge" type="button" onclick="window.location.href='{{ route('login') }}'">
             <span>Login</span>
             <svg class="pledge__icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
@@ -1868,5 +1908,39 @@ body {
         </div>
       </section>
     </main>
+
+    <script>
+      (function () {
+        const btn = document.getElementById('langBtn');
+        const menu = document.getElementById('langMenu');
+        if (!btn || !menu) return;
+
+        function close() {
+          menu.hidden = true;
+          btn.setAttribute('aria-expanded', 'false');
+        }
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const willOpen = menu.hidden;
+          if (willOpen) {
+            menu.hidden = false;
+            btn.setAttribute('aria-expanded', 'true');
+          } else {
+            close();
+          }
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!menu.hidden && !menu.contains(e.target) && !btn.contains(e.target)) {
+            close();
+          }
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') close();
+        });
+      })();
+    </script>
   </body>
 </html>
