@@ -99,10 +99,22 @@
     <script>
       (function () {
         const LOGIN_URL = @json(route('login'));
-        const APP_LOGO_URL = @json(asset('assets/Logo01.png'));
+        const APP_LOGO_URL = @json(asset('images/Logo01.png'));
 
         function normalizeText(el) {
           return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
+        }
+
+        function alignHeaderRow() {
+          // Align left logo block with language/login buttons (same baseline/center).
+          const headerRow = document.querySelector('div.flex.items-start.justify-between.gap-4.flex-wrap');
+          if (headerRow) {
+            headerRow.style.alignItems = 'center';
+          }
+          const leftBlock = document.querySelector('div.flex.items-center.gap-4');
+          if (leftBlock) {
+            leftBlock.style.alignItems = 'center';
+          }
         }
 
         function setAppLogo() {
@@ -138,24 +150,34 @@
             // Also keep consistent alt text.
             img.setAttribute('alt', 'App logo');
 
-            // Make it bigger (inside the white header area).
-            img.style.width = '112px';
-            img.style.height = '112px';
+            // Bigger, transparent, and aligned with header buttons.
+            img.style.width = '72px';
+            img.style.height = '72px';
             img.style.objectFit = 'contain';
-            img.style.filter = 'drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18))';
-            // Keep transform neutral (avoid pushing it out of view).
+            img.style.background = 'transparent';
+            img.style.padding = '0';
+            img.style.borderRadius = '0';
+            img.style.filter = 'none';
             img.style.transform = 'none';
 
             // Ensure its immediate container can accommodate the larger logo.
             const parent = img.parentElement;
             if (parent) {
-              parent.style.width = '112px';
-              parent.style.height = '112px';
+              parent.style.width = '72px';
+              parent.style.height = '72px';
               parent.style.overflow = 'visible';
-              // Nudge the whole logo container upward into the white header area.
-              parent.style.marginTop = '-18px';
+              parent.style.marginTop = '0';
               parent.style.position = 'relative';
               parent.style.zIndex = '50';
+
+              // Make container transparent (remove white pill background/padding if present).
+              parent.style.background = 'transparent';
+              parent.style.padding = '0';
+              parent.style.border = 'none';
+              parent.style.boxShadow = 'none';
+              parent.style.display = 'flex';
+              parent.style.alignItems = 'center';
+              parent.style.justifyContent = 'center';
             }
           }
         }
@@ -309,6 +331,7 @@
         }
 
         function applyPatches() {
+          alignHeaderRow();
           setAppLogo();
           removeTopMenuButton();
           removeTopMenuItems();
