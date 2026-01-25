@@ -320,6 +320,7 @@ body {
 .highlight-card__image {
   width: 100%;
   height: 100%;
+  border-radius: 22px;
   display: block;
   object-fit: cover;
 }
@@ -1189,7 +1190,7 @@ body {
 
           <div class="hero__right">
             <div class="highlight-card">
-              <img class="highlight-card__image" src="{{ asset('images/Image01.png') }}" alt="" />
+              <img class="highlight-card__image" src="{{ asset('images/Image01.jpg') }}" alt="" />
             </div>
           </div>
         </div>
