@@ -1039,6 +1039,10 @@ body {
 
     <main>
       @php
+        $isZh = app()->getLocale() === 'zh_CN';
+        $t = function (string $en, string $zh) use ($isZh): string {
+            return $isZh ? $zh : $en;
+        };
         $contentLocale = in_array(app()->getLocale(), ['zh', 'zh_CN', 'zh-CN', 'zh_TW', 'zh-TW'], true) ? 'zh-CN' : 'en-US';
         $sdPath = resource_path('content/deainexus_SD_groups.json');
         $sd = null;
@@ -1133,14 +1137,14 @@ body {
           <div class="hero__left">
             <h1 class="hero__title">
               <span>DeAI Nexus</span>
-              <span>The Engine for</span>
-              <span>Decentralized AI</span>
+              <span>{{ $t('The Engine for', '去中心化 AI 的引擎') }}</span>
+              <span>{{ $t('Decentralized AI', '去中心化 AI') }}</span>
             </h1>
 
             <p class="hero__lead">
-              A decentralized infrastructure that runs, calls, and verifies AI models on-chain—<br />
-              turning AI from a black-box service into a provable, governable, and composable<br />
-              on-chain capability.
+              {!! $isZh
+                ? '一个可在链上原生运行、调用与验证 AI 模型的去中心化基础设施——<br />让 AI 从“黑盒服务”变为“可证明、可治理、可组合”的链上能力。'
+                : 'A decentralized infrastructure that runs, calls, and verifies AI models on-chain—<br />turning AI from a black-box service into a provable, governable, and composable<br />on-chain capability.' !!}
             </p>
 
             <div class="hero__cta">
@@ -1152,34 +1156,34 @@ body {
                   <path d="M7.5 5.5H5.6A2.1 2.1 0 0 0 3.5 7.6v6.8A2.1 2.1 0 0 0 5.6 16.5h6.8a2.1 2.1 0 0 0 2.1-2.1v-1.9" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
                 </svg>
               </button>
-              <button class="linkbtn" type="button">Explore Tech</button>
-              <button class="linkbtn" type="button">Tokenomics</button>
-              <button class="linkbtn" type="button">Whitepaper</button>
+              <button class="linkbtn" type="button">{{ $t('Explore Tech', '探索技术') }}</button>
+              <button class="linkbtn" type="button">{{ $t('Tokenomics', '代币经济') }}</button>
+              <button class="linkbtn" type="button">{{ $t('Whitepaper', '白皮书') }}</button>
             </div>
 
             <div class="stats">
               <div class="stat">
-                <div class="stat__label">Max daily</div>
+                <div class="stat__label">{{ $t('Max daily', '最高日化') }}</div>
                 <div class="stat__value">0.80%</div>
               </div>
               <div class="stat">
-                <div class="stat__label">Max APY<br />(compounded)</div>
+                <div class="stat__label">{!! $t('Max APY<br />(compounded)', '最高年化<br />（复利）') !!}</div>
                 <div class="stat__value">≈ 885%</div>
               </div>
               <div class="stat">
-                <div class="stat__label">High staking ratio</div>
+                <div class="stat__label">{{ $t('High staking ratio', '高质押比例') }}</div>
                 <div class="stat__value">&gt;95%</div>
               </div>
             </div>
 
             <div class="hero__disclaimer">
-              Return figures are for informational purposes only and do not constitute any promise or financial advice.
+              {{ $t('Return figures are for informational purposes only and do not constitute any promise or financial advice.', '回报数据仅供参考，不构成任何承诺或财务建议。') }}
             </div>
           </div>
 
           <div class="hero__right">
             <div class="highlight-card">
-              <div class="highlight-card__title">Core Highlights</div>
+              <div class="highlight-card__title">{{ $t('Core Highlights', '核心亮点') }}</div>
               <div class="highlight-grid">
                 <div class="mini">
                   <div class="mini__icon" aria-hidden="true">
@@ -1189,7 +1193,7 @@ body {
                     </svg>
                   </div>
                   <div class="mini__text">
-                    <div class="mini__head">Innovative PoDRC<br />+ PoS Hybrid<br />Mining</div>
+                    <div class="mini__head">{!! $t('Innovative PoDRC<br />+ PoS Hybrid<br />Mining', '创新 PoDRC<br />+ PoS 混合<br />挖矿') !!}</div>
                   </div>
                 </div>
                 <div class="mini">
@@ -1200,7 +1204,7 @@ body {
                     </svg>
                   </div>
                   <div class="mini__text">
-                    <div class="mini__head">Massive<br />Decentralized<br />Compute<br />Infrastructure</div>
+                    <div class="mini__head">{!! $t('Massive<br />Decentralized<br />Compute<br />Infrastructure', '海量<br />去中心化<br />算力<br />基础设施') !!}</div>
                   </div>
                 </div>
                 <div class="mini">
@@ -1212,7 +1216,7 @@ body {
                     </svg>
                   </div>
                   <div class="mini__text">
-                    <div class="mini__head">100%<br />Community-Driven<br />Issuance, No VC</div>
+                    <div class="mini__head">{!! $t('100%<br />Community-Driven<br />Issuance, No VC', '100%<br />社区驱动<br />发行，无 VC') !!}</div>
                   </div>
                 </div>
                 <div class="mini">
@@ -1225,7 +1229,7 @@ body {
                     </svg>
                   </div>
                   <div class="mini__text">
-                    <div class="mini__head">Four-Epoch Ladder<br />for Global<br />Consensus</div>
+                    <div class="mini__head">{!! $t('Four-Epoch Ladder<br />for Global<br />Consensus', '四纪元阶梯<br />实现全球<br />共识') !!}</div>
                   </div>
                 </div>
               </div>
@@ -1242,8 +1246,8 @@ body {
         <div class="container">
           <div class="roadshow">
             <div class="roadshow__left">
-              <div class="roadshow__title">Roadshow Video Preview</div>
-              <div class="roadshow__sub">A short clip capturing the vibe and key exchanges from the roadshow.</div>
+              <div class="roadshow__title">{{ $t('Roadshow Video Preview', '路演视频预览') }}</div>
+              <div class="roadshow__sub">{{ $t('A short clip capturing the vibe and key exchanges from the roadshow.', '一段短片记录路演现场氛围与关键交流。') }}</div>
             </div>
             <button class="ghost" type="button">
               <span class="ghost__icon" aria-hidden="true">
@@ -1253,7 +1257,7 @@ body {
                   <path d="M13 12l6-3v6l-6-3Z" fill="#475569" opacity="0.8"/>
                 </svg>
               </span>
-              <span>Expand Video</span>
+              <span>{{ $t('Expand Video', '展开视频') }}</span>
             </button>
           </div>
         </div>
@@ -1268,10 +1272,11 @@ body {
               </svg>
             </div>
           </div>
-          <h2 class="advantages__title">Project Advantages</h2>
+          <h2 class="advantages__title">{{ $t('Project Advantages', '项目优势') }}</h2>
           <p class="advantages__sub">
-            Built around verifiability, composability, governance, and security—closing the loop from infrastructure<br />
-            to applications.
+            {!! $isZh
+              ? '围绕可验证性、可组合性、治理与安全构建——从基础设施到应用形成闭环。'
+              : 'Built around verifiability, composability, governance, and security—closing the loop from infrastructure<br />to applications.' !!}
           </p>
 
           <div class="adv-grid">
@@ -1283,12 +1288,12 @@ body {
                     <path d="M9 12l2 2 4-4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">Verifiable Inference</div>
+                <div class="adv__title">{{ $t('Verifiable Inference', '可验证推理') }}</div>
               </div>
               <div class="adv__text">
-                Turn inference correctness into proofs—<br />
-                reducing black-box risk and replacing<br />
-                trust with verification.
+                {!! $isZh
+                  ? '将推理正确性转化为证明——<br />降低黑盒风险，用验证替代信任。'
+                  : 'Turn inference correctness into proofs—<br />reducing black-box risk and replacing<br />trust with verification.' !!}
               </div>
             </div>
 
@@ -1302,12 +1307,12 @@ body {
                     <path d="M9 15h4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">AI as Contract</div>
+                <div class="adv__title">{{ $t('AI as Contract', 'AI 即合约能力') }}</div>
               </div>
               <div class="adv__text">
-                AI is not an external API—it’s a native<br />
-                on-chain capability callable by contracts<br />
-                and composable by design.
+                {!! $isZh
+                  ? 'AI 不是外部 API——它是可被合约调用的<br />链上原生能力，并天然可组合。'
+                  : 'AI is not an external API—it’s a native<br />on-chain capability callable by contracts<br />and composable by design.' !!}
               </div>
             </div>
 
@@ -1320,12 +1325,12 @@ body {
                     <path d="M12 14v3" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">Privacy + Trust, Together</div>
+                <div class="adv__title">{{ $t('Privacy + Trust, Together', '隐私与可信兼顾') }}</div>
               </div>
               <div class="adv__text">
-                TEE for trusted execution, ZK for<br />
-                correctness—balancing privacy and<br />
-                verifiability.
+                {!! $isZh
+                  ? 'TEE 用于可信执行，ZK 用于正确性——<br />在隐私与可验证之间取得平衡。'
+                  : 'TEE for trusted execution, ZK for<br />correctness—balancing privacy and<br />verifiability.' !!}
               </div>
             </div>
 
@@ -1339,12 +1344,12 @@ body {
                     <path d="M18 17V13" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">Scalable Execution</div>
+                <div class="adv__title">{{ $t('Scalable Execution', '可扩展执行') }}</div>
               </div>
               <div class="adv__text">
-                Shard models and schedule in parallel—<br />
-                boosting throughput and stability for<br />
-                large-model workloads.
+                {!! $isZh
+                  ? '模型分片并行调度——<br />提升大模型负载下的吞吐与稳定性。'
+                  : 'Shard models and schedule in parallel—<br />boosting throughput and stability for<br />large-model workloads.' !!}
               </div>
             </div>
 
@@ -1357,12 +1362,12 @@ body {
                     <path d="M12 17h.01" stroke="#2D6BFF" stroke-width="2.6" stroke-linecap="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">Security Foundation</div>
+                <div class="adv__title">{{ $t('Security Foundation', '安全基础') }}</div>
               </div>
               <div class="adv__text">
-                Audit-first engineering—surfacing positive<br />
-                audit conclusions and a<br />
-                remediation-ready posture.
+                {!! $isZh
+                  ? '审计优先的工程实践——<br />提供清晰审计结论，并具备完善修复机制。'
+                  : 'Audit-first engineering—surfacing positive<br />audit conclusions and a<br />remediation-ready posture.' !!}
               </div>
             </div>
 
@@ -1377,12 +1382,12 @@ body {
                     <circle cx="12" cy="12" r="3.2" stroke="#2D6BFF" stroke-width="1.6" opacity="0.9"/>
                   </svg>
                 </div>
-                <div class="adv__title">Ecosystem Interfaces</div>
+                <div class="adv__title">{{ $t('Ecosystem Interfaces', '生态接口') }}</div>
               </div>
               <div class="adv__text">
-                From SDKs to oracles and data layers—<br />
-                building blocks for DApps across DeFi,<br />
-                GameFi, SocialFi, and more.
+                {!! $isZh
+                  ? '从 SDK 到预言机与数据层——<br />为 DeFi、GameFi、SocialFi 等 DApp 提供构建模块。'
+                  : 'From SDKs to oracles and data layers—<br />building blocks for DApps across DeFi,<br />GameFi, SocialFi, and more.' !!}
               </div>
             </div>
           </div>
@@ -1456,8 +1461,8 @@ body {
                 <path d="M12 2l1.2 5.2L18 9l-4.8 1.8L12 16l-1.2-5.2L6 9l4.8-1.8L12 2Z" fill="#2D6BFF"/>
               </svg>
             </div>
-            <h2 class="section__title">Tech Path: Five-Layer Architecture</h2>
-            <p class="section__sub">A modular stack designed for verifiable on-chain AI—from chain runtime to ecosystem.</p>
+            <h2 class="section__title">{{ $t('Tech Path: Five-Layer Architecture', '技术路径：五层技术架构') }}</h2>
+            <p class="section__sub">{{ $t('A modular stack designed for verifiable on-chain AI—from chain runtime to ecosystem.', '面向可验证链上 AI 的模块化技术栈——从链运行时到生态层。') }}</p>
           </div>
 
           <div class="panel">
@@ -1499,8 +1504,8 @@ body {
                 <path d="M12 7v5l3 2" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Core Applications</h2>
-            <p class="section__sub">Built on infrastructure primitives—models, deployment, security, and AI-native finance.</p>
+            <h2 class="section__title">{{ $t('Core Applications', '核心应用') }}</h2>
+            <p class="section__sub">{{ $t('Built on infrastructure primitives—models, deployment, security, and AI-native finance.', '基于基础设施原语构建——模型、部署、安全与 AI 原生金融。') }}</p>
           </div>
 
           <div class="panel">
@@ -1509,7 +1514,7 @@ body {
                 <div class="card">
                   <div class="card__top">
                     <div class="card__title">{{ $app['title'][$contentLocale] ?? $app['title']['en-US'] ?? '' }}</div>
-                    <div class="card__tag">App</div>
+                    <div class="card__tag">{{ $t('App', '应用') }}</div>
                   </div>
                   <div class="card__text">{{ $excerpt($app['content'][$contentLocale] ?? '') }}</div>
                 </div>
@@ -1530,8 +1535,8 @@ body {
                 <path d="M18 17V13" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Key Capability Comparison</h2>
-            <p class="section__sub">A snapshot of core performance data and technical comparison.</p>
+            <h2 class="section__title">{{ $t('Key Capability Comparison', '关键能力对比') }}</h2>
+            <p class="section__sub">{{ $t('A snapshot of core performance data and technical comparison.', '核心性能数据与技术对比概览。') }}</p>
           </div>
 
           <div class="panel">
@@ -1570,8 +1575,8 @@ body {
                 <path d="M9 12l2 2 4-4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Tokenomics</h2>
-            <p class="section__sub">Dual-token design with governance utility, staking utility, and deflation mechanisms.</p>
+            <h2 class="section__title">{{ $t('Tokenomics', '代币经济') }}</h2>
+            <p class="section__sub">{{ $t('Dual-token design with governance utility, staking utility, and deflation mechanisms.', '双代币设计：治理用途、质押用途与通缩机制。') }}</p>
           </div>
 
           <div class="panel">
@@ -1579,7 +1584,7 @@ body {
               <div class="donut-card">
                 <div class="card__top">
                   <div class="card__title">DEAI</div>
-                  <div class="card__tag">Allocation</div>
+                  <div class="card__tag">{{ $t('Allocation', '分配') }}</div>
                 </div>
                 <div class="donut-row">
                   <div class="donut" aria-hidden="true">
@@ -1597,7 +1602,7 @@ body {
               <div class="donut-card">
                 <div class="card__top">
                   <div class="card__title">DEAI-T</div>
-                  <div class="card__tag">Staking</div>
+                  <div class="card__tag">{{ $t('Staking', '质押') }}</div>
                 </div>
                 <div class="card__text">
                   {{ $excerpt($economics['content'][$contentLocale] ?? '', 180) }}
@@ -1607,10 +1612,10 @@ body {
                     <div class="donut__label">DEAI-T</div>
                   </div>
                   <ul class="legend">
-                    <li><span class="swatch swatch--a"></span>Settlement Unit</li>
-                    <li><span class="swatch swatch--b"></span>Staking Utility</li>
-                    <li><span class="swatch swatch--c"></span>Deflation Design</li>
-                    <li><span class="swatch swatch--d"></span>Governable Supply</li>
+                    <li><span class="swatch swatch--a"></span>{{ $t('Settlement Unit', '结算单位') }}</li>
+                    <li><span class="swatch swatch--b"></span>{{ $t('Staking Utility', '质押用途') }}</li>
+                    <li><span class="swatch swatch--c"></span>{{ $t('Deflation Design', '通缩设计') }}</li>
+                    <li><span class="swatch swatch--d"></span>{{ $t('Governable Supply', '可治理供应') }}</li>
                   </ul>
                 </div>
               </div>
@@ -1631,31 +1636,31 @@ body {
                 <circle cx="12" cy="12" r="3.2" stroke="#2D6BFF" stroke-width="1.6" opacity="0.9"/>
               </svg>
             </div>
-            <h2 class="section__title">Five Value-Capture Mechanisms</h2>
-            <p class="section__sub">Designed to align infrastructure growth with sustainable ecosystem value.</p>
+            <h2 class="section__title">{{ $t('Five Value-Capture Mechanisms', '五大价值捕获机制') }}</h2>
+            <p class="section__sub">{{ $t('Designed to align infrastructure growth with sustainable ecosystem value.', '用于将基础设施增长与可持续生态价值对齐。') }}</p>
           </div>
 
           <div class="panel">
             <div class="value-grid">
               <div class="mini-card">
-                <div class="mini-card__title">Compute Demand</div>
-                <div class="mini-card__text">Real AI computing usage drives on-chain fees and throughput.</div>
+                <div class="mini-card__title">{{ $t('Compute Demand', '算力需求') }}</div>
+                <div class="mini-card__text">{{ $t('Real AI computing usage drives on-chain fees and throughput.', '真实 AI 算力使用推动链上费用与吞吐。') }}</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">Staking Utility</div>
-                <div class="mini-card__text">DEAI-T required for nodes and settlement; usage grows with network.</div>
+                <div class="mini-card__title">{{ $t('Staking Utility', '质押用途') }}</div>
+                <div class="mini-card__text">{{ $t('DEAI-T required for nodes and settlement; usage grows with network.', 'DEAI-T 用于节点与结算；随网络增长而增长。') }}</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">Deflation Design</div>
-                <div class="mini-card__text">Burn + loss + buyback-style levers reduce long-term sell pressure.</div>
+                <div class="mini-card__title">{{ $t('Deflation Design', '通缩设计') }}</div>
+                <div class="mini-card__text">{{ $t('Burn + loss + buyback-style levers reduce long-term sell pressure.', '销毁 + 折损 + 回购等机制降低长期抛压。') }}</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">Ecosystem Fund</div>
-                <div class="mini-card__text">Community-governed funding supports builders, tools, and adoption.</div>
+                <div class="mini-card__title">{{ $t('Ecosystem Fund', '生态基金') }}</div>
+                <div class="mini-card__text">{{ $t('Community-governed funding supports builders, tools, and adoption.', '社区治理资金支持建设者、工具与采用。') }}</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">Governance Premium</div>
-                <div class="mini-card__text">Voting, proposals, and upgrades connect ownership to network evolution.</div>
+                <div class="mini-card__title">{{ $t('Governance Premium', '治理溢价') }}</div>
+                <div class="mini-card__text">{{ $t('Voting, proposals, and upgrades connect ownership to network evolution.', '投票、提案与升级将所有权连接到网络演进。') }}</div>
               </div>
             </div>
           </div>
@@ -1672,18 +1677,18 @@ body {
                 <path d="M12 17h.01" stroke="#2D6BFF" stroke-width="2.6" stroke-linecap="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Audit &amp; Security</h2>
-            <p class="section__sub">Audit conclusions and operational security primitives—built for transparency.</p>
+            <h2 class="section__title">{{ $t('Audit &amp; Security', '审计与安全') }}</h2>
+            <p class="section__sub">{{ $t('Audit conclusions and operational security primitives—built for transparency.', '审计结论与运行级安全机制——面向透明度构建。') }}</p>
           </div>
 
           <div class="panel">
             <div class="grid-2">
               <div class="card">
                 <div class="card__top">
-                  <div class="card__title">Audit Overview</div>
-                  <div class="card__tag">24 Checks</div>
+                  <div class="card__title">{{ $t('Audit Overview', '审计概览') }}</div>
+                  <div class="card__tag">{{ $t('24 Checks', '24 项检测') }}</div>
                 </div>
-                <div class="card__text">Key conclusions from the security audit report.</div>
+                <div class="card__text">{{ $t('Key conclusions from the security audit report.', '安全审计报告的关键结论。') }}</div>
                 <div class="acc__body" style="padding: 0; margin-top: 10px;">
                   <ul style="margin: 0; padding-left: 18px;">
                     @foreach ($auditChecks as $c)
@@ -1695,8 +1700,8 @@ body {
 
               <div class="card">
                 <div class="card__top">
-                  <div class="card__title">Non-Custodial Safety</div>
-                  <div class="card__tag">Self-Custody</div>
+                  <div class="card__title">{{ $t('Non-Custodial Safety', '非托管安全') }}</div>
+                  <div class="card__tag">{{ $t('Self-Custody', '自托管') }}</div>
                 </div>
                 <div class="card__text">
                   {{ $excerpt(((($getChild('code_audit', 'asset_security_guide') ?? [])['content'][$contentLocale] ?? '')), 220) }}
@@ -1717,8 +1722,8 @@ body {
                 <path d="M5 19h14" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25" stroke-linecap="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Community Tools</h2>
-            <p class="section__sub">Official apps and community entry points.</p>
+            <h2 class="section__title">{{ $t('Community Tools', '社区工具') }}</h2>
+            <p class="section__sub">{{ $t('Official apps and community entry points.', '官方应用与社区入口。') }}</p>
           </div>
 
           <div class="panel">
@@ -1753,18 +1758,18 @@ body {
                 <path d="M18 17V13" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
             </div>
-            <h2 class="section__title">Liquidity &amp; Holders</h2>
-            <p class="section__sub">On-chain visibility into liquidity conditions and distribution context.</p>
+            <h2 class="section__title">{{ $t('Liquidity &amp; Holders', '流动性与持仓') }}</h2>
+            <p class="section__sub">{{ $t('On-chain visibility into liquidity conditions and distribution context.', '链上可视化的流动性状况与分布背景。') }}</p>
           </div>
 
           <div class="panel">
             <div class="liquidity-grid">
               <div class="card">
                 <div class="card__top">
-                  <div class="card__title">Liquidity</div>
-                  <div class="card__tag">Pool</div>
+                  <div class="card__title">{{ $t('Liquidity', '流动性') }}</div>
+                  <div class="card__tag">{{ $t('Pool', '池子') }}</div>
                 </div>
-                <div class="card__text">A simplified view of liquidity conditions and market stability signals.</div>
+                <div class="card__text">{{ $t('A simplified view of liquidity conditions and market stability signals.', '流动性状况与市场稳定信号的简化视图。') }}</div>
                 <div class="viz" aria-hidden="true">
                   <svg class="viz__line" viewBox="0 0 200 80" fill="none">
                     <path d="M4 62 C28 55, 36 18, 64 26 C92 34, 108 70, 140 46 C160 32, 176 36, 196 22" stroke="#2D6BFF" stroke-width="3" stroke-linecap="round"/>
@@ -1775,11 +1780,11 @@ body {
 
               <div class="card">
                 <div class="card__top">
-                  <div class="card__title">Holders</div>
-                  <div class="card__tag">Context</div>
+                  <div class="card__title">{{ $t('Holders', '持仓') }}</div>
+                  <div class="card__tag">{{ $t('Context', '背景') }}</div>
                 </div>
                 <div class="card__text">
-                  Top holder addresses include infrastructure contracts and liquidity pool addresses, supporting fairness and decentralization of distribution.
+                  {{ $t('Top holder addresses include infrastructure contracts and liquidity pool addresses, supporting fairness and decentralization of distribution.', '前几大持仓地址包含基础设施合约与流动性池地址，有助于保障分配公平与去中心化。') }}
                 </div>
                 <div class="viz" aria-hidden="true">
                   <svg class="viz__line" viewBox="0 0 200 80" fill="none">
@@ -1806,8 +1811,8 @@ body {
                 <path d="M13 12l6-3v6l-6-3Z" fill="#2D6BFF" opacity="0.65"/>
               </svg>
             </div>
-            <h2 class="section__title">Roadshow</h2>
-            <p class="section__sub">Highlights from recent community and ecosystem events.</p>
+            <h2 class="section__title">{{ $t('Roadshow', '路演') }}</h2>
+            <p class="section__sub">{{ $t('Highlights from recent community and ecosystem events.', '近期社区与生态活动精彩回顾。') }}</p>
           </div>
 
           <div class="panel">
@@ -1823,8 +1828,8 @@ body {
                   </div>
                 </div>
                 <div class="video__body">
-                  <div class="video__title">Bangkok Roadshow</div>
-                  <div class="video__sub">A short clip capturing the vibe and key exchanges from the roadshow.</div>
+                  <div class="video__title">{{ $t('Bangkok Roadshow', '曼谷路演') }}</div>
+                  <div class="video__sub">{{ $t('A short clip capturing the vibe and key exchanges from the roadshow.', '一段短片记录路演现场氛围与关键交流。') }}</div>
                 </div>
               </div>
 
@@ -1839,8 +1844,8 @@ body {
                   </div>
                 </div>
                 <div class="video__body">
-                  <div class="video__title">Singapore Roadshow</div>
-                  <div class="video__sub">Community meetups, partner conversations, and product demos in the field.</div>
+                  <div class="video__title">{{ $t('Singapore Roadshow', '新加坡路演') }}</div>
+                  <div class="video__sub">{{ $t('Community meetups, partner conversations, and product demos in the field.', '社区交流、合作伙伴对话与现场产品演示。') }}</div>
                 </div>
               </div>
             </div>
@@ -1856,8 +1861,8 @@ body {
                 <path d="M12 2l1.2 5.2L18 9l-4.8 1.8L12 16l-1.2-5.2L6 9l4.8-1.8L12 2Z" fill="#2D6BFF"/>
               </svg>
             </div>
-            <h2 class="section__title">Roadmap</h2>
-            <p class="section__sub">A view into milestones and the multi-epoch path forward.</p>
+            <h2 class="section__title">{{ $t('Roadmap', '路线图') }}</h2>
+            <p class="section__sub">{{ $t('A view into milestones and the multi-epoch path forward.', '里程碑与多纪元推进路径概览。') }}</p>
           </div>
 
           <div class="panel">
@@ -1873,12 +1878,12 @@ body {
                 </div>
               @endforeach
               <div class="timeline-card">
-                <div class="timeline-card__title">Key Milestones</div>
+                <div class="timeline-card__title">{{ $t('Key Milestones', '重要里程碑') }}</div>
                 <ul class="timeline">
-                  <li>Epoch 1 Launch (2025-03-29)</li>
-                  <li>Epoch 2 Launch (2025-09-21)</li>
-                  <li>Epoch 3 Storm Deflation (2026-Q3)</li>
-                  <li>Mainnet Launch (2026-Q4)</li>
+                  <li>{{ $t('Epoch 1 Launch (2025-03-29)', '一纪元启动（2025-03-29）') }}</li>
+                  <li>{{ $t('Epoch 2 Launch (2025-09-21)', '二纪元启动（2025-09-21）') }}</li>
+                  <li>{{ $t('Epoch 3 Storm Deflation (2026-Q3)', '三纪元暴风通缩（2026-Q3）') }}</li>
+                  <li>{{ $t('Mainnet Launch (2026-Q4)', '主网上线（2026-Q4）') }}</li>
                 </ul>
               </div>
             </div>
@@ -1886,9 +1891,9 @@ body {
 
           <div class="cta">
             <div class="cta__panel">
-              <h3 class="cta__title">Start Your AI Model Journey</h3>
+              <h3 class="cta__title">{{ $t('Start Your AI Model Journey', '开启你的 AI 模型之旅') }}</h3>
               <p class="cta__sub">
-                Build, deploy, and verify AI on-chain with a modular stack designed for composability, governance, and security.
+                {{ $t('Build, deploy, and verify AI on-chain with a modular stack designed for composability, governance, and security.', '使用为可组合性、治理与安全而设计的模块化技术栈，在链上构建、部署并验证 AI。') }}
               </p>
               <div class="cta__actions">
                 <button class="primary" type="button" onclick="window.location.href='{{ route('login') }}'">
@@ -1900,7 +1905,7 @@ body {
                   </svg>
                 </button>
                 <button class="ghost" type="button">
-                  <span>Whitepaper</span>
+                  <span>{{ $t('Whitepaper', '白皮书') }}</span>
                 </button>
               </div>
             </div>
