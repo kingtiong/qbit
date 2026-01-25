@@ -1136,15 +1136,15 @@ body {
         <div class="container hero__grid">
           <div class="hero__left">
             <h1 class="hero__title">
-              <span>DeAI Nexus</span>
-              <span>{{ $t('The Engine for', '去中心化 AI 的引擎') }}</span>
-              <span>{{ $t('Decentralized AI', '去中心化 AI') }}</span>
+              <span>{{ $t('Quantum Genesis', '量子创世') }}</span>
+              <span>{{ $t('The Next Innovation', '下一次创新') }}</span>
             </h1>
 
             <p class="hero__lead">
-              {!! $isZh
-                ? '一个可在链上原生运行、调用与验证 AI 模型的去中心化基础设施——<br />让 AI 从“黑盒服务”变为“可证明、可治理、可组合”的链上能力。'
-                : 'A decentralized infrastructure that runs, calls, and verifies AI models on-chain—<br />turning AI from a black-box service into a provable, governable, and composable<br />on-chain capability.' !!}
+              {{ $t(
+                "QBIT is driven by Quantum-Inspired Algorithms. By running simulated QAOA and Quantum Annealing on elite computing clusters (Google Willow, NVIDIA, IBM), we unlock superior computational speed today. We don't wait for the quantum future—we apply its efficiency now to solve complex arbitrage routing problems instantly.",
+                "QBIT 由量子启发算法驱动。通过在顶级算力集群（Google Willow、NVIDIA、IBM）上运行模拟 QAOA 与量子退火，我们在当下就释放更强的计算速度。我们不等待量子未来——而是把它的效率现在就用起来，瞬间解决复杂的套利路由问题。"
+              ) }}
             </p>
 
             <div class="hero__cta">
