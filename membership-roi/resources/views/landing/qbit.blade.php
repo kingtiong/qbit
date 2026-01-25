@@ -345,17 +345,39 @@ body {
 .cube--c { right: 0; top: 86px; }
 .cube--d { right: 52px; top: 120px; }
 
-.roadshow {
+.roadshowCard {
   margin-top: 22px;
-  border-radius: 18px;
+  border-radius: 22px;
   background: rgba(18, 18, 22, 0.82);
-  border: 1px solid var(--qb-border);
+  border: 1px solid rgba(212, 175, 55, 0.18);
   box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.roadshow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
+}
+
+.roadshow__divider {
+  height: 1px;
+  background: rgba(212, 175, 55, 0.14);
+}
+
+.roadshow__panel {
+  padding: 18px;
+}
+
+.roadshow__frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 18px;
+  display: block;
+  background: #000;
 }
 
 .roadshow__title {
@@ -1141,21 +1163,34 @@ body {
         </div>
 
         <div class="container">
-          <div class="roadshow">
-            <div class="roadshow__left">
-              <div class="roadshow__title">{{ $t('Roadshow Video Preview', '路演视频预览') }}</div>
-              <div class="roadshow__sub">{{ $t('A short clip capturing the vibe and key exchanges from the roadshow.', '一段短片记录路演现场氛围与关键交流。') }}</div>
+          <div class="roadshowCard" id="roadshowCard">
+            <div class="roadshow">
+              <div class="roadshow__left">
+                <div class="roadshow__title">{{ $t('Roadshow Video Preview', '路演视频预览') }}</div>
+                <div class="roadshow__sub">{{ $t('A short clip capturing the vibe and key exchanges from the roadshow.', '一段短片记录路演现场氛围与关键交流。') }}</div>
+              </div>
+              <button class="ghost" type="button" id="roadshowToggle">
+                <span class="ghost__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                    <path d="M4 8h16" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M8 4v16" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M13 12l6-3v6l-6-3Z" fill="#475569" opacity="0.8"/>
+                  </svg>
+                </span>
+                <span id="roadshowToggleLabel">{{ $t('Expand Video', '展开视频') }}</span>
+              </button>
             </div>
-            <button class="ghost" type="button">
-              <span class="ghost__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
-                  <path d="M4 8h16" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M8 4v16" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M13 12l6-3v6l-6-3Z" fill="#475569" opacity="0.8"/>
-                </svg>
-              </span>
-              <span>{{ $t('Expand Video', '展开视频') }}</span>
-            </button>
+            <div class="roadshow__divider"></div>
+            <div class="roadshow__panel" id="roadshowPanel" hidden>
+              <iframe
+                class="roadshow__frame"
+                id="roadshowFrame"
+                title="Roadshow"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                data-src="https://www.youtube-nocookie.com/embed/RQWpF2Gb-gU?rel=0&modestbranding=1"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -1811,5 +1846,34 @@ body {
       </section>
     </main>
 
+    <script>
+      (function () {
+        const toggle = document.getElementById('roadshowToggle');
+        const panel = document.getElementById('roadshowPanel');
+        const frame = document.getElementById('roadshowFrame');
+        const label = document.getElementById('roadshowToggleLabel');
+        if (!toggle || !panel || !frame || !label) return;
+
+        const textExpand = @json($t('Expand Video', '展开视频'));
+        const textCollapse = @json($t('Collapse Video', '收起视频'));
+
+        function setOpen(isOpen) {
+          if (isOpen) {
+            panel.hidden = false;
+            label.textContent = textCollapse;
+            if (!frame.src) {
+              frame.src = frame.getAttribute('data-src') || '';
+            }
+          } else {
+            panel.hidden = true;
+            label.textContent = textExpand;
+          }
+        }
+
+        toggle.addEventListener('click', function () {
+          setOpen(panel.hidden);
+        });
+      })();
+    </script>
   </body>
 </html>
