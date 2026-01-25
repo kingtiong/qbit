@@ -84,34 +84,6 @@
     <link rel="stylesheet" crossorigin href="{{ asset('assets/index-B2bo1EsD.css') }}">
   </head>
   <body class="bg-slate-50">
-    <!-- App logo overlay (always visible, top-left) -->
-    <div
-      id="app-logo"
-      style="
-        position: fixed;
-        top: 16px;
-        left: 16px;
-        z-index: 9999;
-        width: 112px;
-        height: 112px;
-        padding: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      "
-      aria-label="App logo"
-    >
-      <img
-        src="{{ asset('assets/Logo01.png') }}"
-        alt="App logo"
-        style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18));"
-      />
-    </div>
-
     <div id="root"></div>
 
     <style>
@@ -131,30 +103,6 @@
 
         function normalizeText(el) {
           return (el && el.textContent ? el.textContent : "").trim().replace(/\s+/g, " ");
-        }
-
-        function alignOverlayLogo() {
-          const logo = document.getElementById('app-logo');
-          if (!logo) return;
-
-          // Prefer aligning with the visible "DeAI" title text.
-          const headings = Array.from(document.querySelectorAll('h1, h2, h3'));
-          const titleEl = headings.find((el) => normalizeText(el).toLowerCase().includes('deai'));
-
-          let left = 16;
-          if (titleEl) {
-            left = Math.round(titleEl.getBoundingClientRect().left);
-          } else {
-            // Fallback: align with the main centered container if present.
-            const container = document.querySelector('.max-w-6xl');
-            if (container) {
-              // add a small inset to match inner padding
-              left = Math.round(container.getBoundingClientRect().left + 16);
-            }
-          }
-
-          const maxLeft = Math.max(16, window.innerWidth - logo.offsetWidth - 16);
-          logo.style.left = `${Math.min(maxLeft, Math.max(16, left))}px`;
         }
 
         function setAppLogo() {
@@ -189,6 +137,19 @@
             }
             // Also keep consistent alt text.
             img.setAttribute('alt', 'App logo');
+
+            // Make it bigger (inside the white header area).
+            img.style.width = '112px';
+            img.style.height = '112px';
+            img.style.objectFit = 'contain';
+            img.style.filter = 'drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18))';
+
+            // Ensure its immediate container can accommodate the larger logo.
+            const parent = img.parentElement;
+            if (parent) {
+              parent.style.width = '112px';
+              parent.style.height = '112px';
+            }
           }
         }
 
@@ -341,7 +302,6 @@
         }
 
         function applyPatches() {
-          alignOverlayLogo();
           setAppLogo();
           removeTopMenuButton();
           removeTopMenuItems();
@@ -358,8 +318,6 @@
         // Fallback periodic enforcement (in case of shadow DOM or rapid updates).
         setInterval(applyPatches, 1500);
 
-        // Keep alignment correct on resize/orientation changes.
-        window.addEventListener('resize', alignOverlayLogo);
       })();
     </script>
   </body>
