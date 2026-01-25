@@ -300,26 +300,9 @@ body {
   color: var(--qb-muted-2);
 }
 
-.highlight-card {
-  position: relative;
-  border-radius: 22px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  overflow: hidden;
-  min-height: 380px;
-}
-
-.highlight-card__title {
-  font-weight: 650;
-  font-size: 13px;
-  color: var(--qb-text);
-}
-
 .highlight-card__image {
   width: 100%;
-  height: 100%;
+  height: 380px;
   border-radius: 22px;
   display: block;
   object-fit: cover;
@@ -1196,9 +1179,7 @@ body {
           </div>
 
           <div class="hero__right">
-            <div class="highlight-card">
-              <img class="highlight-card__image" src="{{ asset('images/Image01.jpg') }}" alt="" />
-            </div>
+            <img class="highlight-card__image" src="{{ asset('images/Image01.jpg') }}" alt="" />
           </div>
         </div>
 
