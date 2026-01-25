@@ -985,8 +985,8 @@ body {
               <path d="M5 7.5L10 12.5L15 7.5" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <button class="pledge" type="button">
-            <span>Pledge</span>
+          <button class="pledge" type="button" onclick="window.location.href='{{ route('login') }}'">
+            <span>Login</span>
             <svg class="pledge__icon" viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
               <path d="M8.5 3.5h8v8" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M16.5 3.5l-9 9" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1104,8 +1104,8 @@ body {
             </p>
 
             <div class="hero__cta">
-              <button class="primary" type="button">
-                <span>Start</span>
+              <button class="primary" type="button" onclick="window.location.href='{{ route('login') }}'">
+                <span>Login</span>
                 <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
                   <path d="M8.5 3.5h8v8" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M16.5 3.5l-9 9" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1851,8 +1851,8 @@ body {
                 Build, deploy, and verify AI on-chain with a modular stack designed for composability, governance, and security.
               </p>
               <div class="cta__actions">
-                <button class="primary" type="button">
-                  <span>Start</span>
+                <button class="primary" type="button" onclick="window.location.href='{{ route('login') }}'">
+                  <span>Login</span>
                   <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true">
                     <path d="M8.5 3.5h8v8" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M16.5 3.5l-9 9" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
