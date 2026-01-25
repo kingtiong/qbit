@@ -87,8 +87,44 @@
           }
         }
 
+        function removeTopMenuItems() {
+          // Remove top nav items requested by user (desktop + mobile menus)
+          const banned = [
+            'overview',
+            'technology',
+            'applications',
+            'comparison',
+            'tokenmics', // user spelling
+            'tokenomics',
+            'value capture',
+            'audit',
+            'tools',
+            'data',
+            'roadshow',
+            'roadmap',
+            'dapp',
+          ];
+
+          const nodes = document.querySelectorAll('a,button');
+          for (const node of nodes) {
+            const text = normalizeText(node);
+            if (!text) continue;
+
+            const lower = text.toLowerCase();
+
+            // Keep login-related UI intact.
+            if (lower === 'login' || lower.includes('login')) continue;
+
+            // Remove only if it matches one of the menu items.
+            if (banned.some((w) => lower === w || lower.includes(w))) {
+              node.remove();
+            }
+          }
+        }
+
         function applyPatches() {
           removeTopMenuButton();
+          removeTopMenuItems();
           replacePledgeWithLogin();
         }
 
