@@ -1,0 +1,731 @@
+{
+  "extractedAt": "2026-01-25T03:45:02.254Z",
+  "groups": [
+    {
+      "id": "project_introduction",
+      "title": {
+        "zh-CN": "项目介绍",
+        "en-US": "Project Introduction"
+      },
+      "children": [
+        {
+          "id": "project_introduction",
+          "title": {
+            "zh-CN": "项目介绍",
+            "en-US": "Project Introduction"
+          },
+          "content": {
+            "zh-CN": "**项目名称**：DeAI Nexus（去中心化 AI 算力网络平台）\n\n**愿景**：打造 Web3 时代的 AI 算力基础设施，让 AI 算力像电力一样普及、可及\n\n**使命**：降低 AI 算力使用门槛，推动 AI 技术民主化，构建公平、透明、自治的算力共享生态\n\n**一句话介绍**：\nDeAI Nexus 是\"可在链上原生运行、调用与验证 AI 模型\"的去中心化 AI 基础设施，让 AI 从\"黑盒服务\"变为\"可证明、可治理、可组合\"的链上能力。\n\n**二纪元（Epoch 2）理念**：\n- **社区是核心驱动力**（不是参与者）\n- **集体智能**：模型由全球社区定义，而非中心化巨头董事会决定\n- **直接价值实现**：自持续经济周期，奖励资源贡献，原生透明度\n- **主网势头**：预计总锁定价值（TVL）将超过 50 亿美元\n- **为全人类构建认知基础设施**：链上 AI，由我们定义\n\n**核心口号**：\n1. **\"On-chain AI, defined by us\"** - 链上 AI，由我们定义\n2. **\"The era of the user is over. The era of the owner has begun.\"** - 用户时代结束，所有者时代开始\n3. **\"We aren't just building AI; we're building the AI democracy.\"** - 我们不仅是在构建 AI，我们正在构建 AI 民主\n\n---\n\n**为什么需要 DeAI Nexus**\n\n**传统 AI 服务的关键问题**：\n- ❌ 推理过程不可验证\n- ❌ 数据与模型不可审计\n- ❌ 调用成本与治理规则不透明\n\n**DeAI Nexus 的解决方案**：\n- ✅ 链上原生的 AI 调用与证明机制\n- ✅ 让 AI 具备\"可证明、可组合、可治理\"的区块链属性\n- ✅ 支持可信协作与生态共建",
+            "en-US": "**Project Name**: DeAI Nexus (Decentralized AI Computing Network Platform)\n\n**Vision**: Building AI infrastructure for the Web3 era, making AI computing as accessible and ubiquitous as electricity\n\n**Mission**: Lower the barrier to AI computing access, democratize AI technology, and build a fair, transparent, and autonomous computing sharing ecosystem\n\n**One-Line Introduction**:\nDeAI Nexus is a decentralized AI infrastructure that can \"run, call, and verify AI models natively on-chain,\" transforming AI from \"black-box services\" into \"provable, governable, and composable\" on-chain capabilities.\n\n**Epoch 2 Philosophy**:\n- **Community is the core driver** (not just participants)\n- **Collective Intelligence**: Models are defined by the global community, not centralized tech giant boards\n- **Direct Value Realization**: Self-sustaining economic cycle, rewarding resource contributors, native transparency\n- **Mainnet Momentum**: Projected Total Value Locked (TVL) will exceed $5 billion\n- **Building Cognitive Infrastructure for All Humanity**: On-chain AI, defined by us\n\n**Core Slogans**:\n1. **\"On-chain AI, defined by us\"**\n2. **\"The era of the user is over. The era of the owner has begun.\"**\n3. **\"We aren't just building AI; we're building the AI democracy.\"**\n\n---\n\n**Why DeAI Nexus**\n\n**Key Problems with Traditional AI Services**:\n- ❌ Inference process cannot be verified\n- ❌ Data and models cannot be audited\n- ❌ Invocation costs and governance rules are not transparent\n\n**DeAI Nexus Solutions**:\n- ✅ On-chain native AI invocation and proof mechanisms\n- ✅ Giving AI \"provable, composable, and governable\" blockchain properties\n- ✅ Supporting trusted collaboration and ecosystem co-construction"
+          }
+        },
+        {
+          "id": "project_introduction_detail",
+          "title": {
+            "zh-CN": "项目介绍",
+            "en-US": "Project Introduction"
+          },
+          "content": {
+            "zh-CN": "**项目名称**：DeAI Nexus（去中心化 AI 算力网络平台）\n\n**愿景**：打造 Web3 时代的 AI 算力基础设施，让 AI 算力像电力一样普及、可及\n\n**使命**：降低 AI 算力使用门槛，推动 AI 技术民主化，构建公平、透明、自治的算力共享生态\n\n**一句话介绍**：\nDeAI Nexus 是\"可在链上原生运行、调用与验证 AI 模型\"的去中心化 AI 基础设施，让 AI 从\"黑盒服务\"变为\"可证明、可治理、可组合\"的链上能力。\n\n**二纪元（Epoch 2）理念**：\n- **社区是核心驱动力**（不是参与者）\n- **集体智能**：模型由全球社区定义，而非中心化巨头董事会决定\n- **直接价值实现**：自持续经济周期，奖励资源贡献，原生透明度\n- **主网势头**：预计总锁定价值（TVL）将超过 50 亿美元\n- **为全人类构建认知基础设施**：链上 AI，由我们定义\n\n**核心口号**：\n1. **\"On-chain AI, defined by us\"** - 链上 AI，由我们定义\n2. **\"The era of the user is over. The era of the owner has begun.\"** - 用户时代结束，所有者时代开始\n3. **\"We aren't just building AI; we're building the AI democracy.\"** - 我们不仅是在构建 AI，我们正在构建 AI 民主\n\n---\n\n**为什么需要 DeAI Nexus**\n\n**传统 AI 服务的关键问题**：\n- ❌ 推理过程不可验证\n- ❌ 数据与模型不可审计\n- ❌ 调用成本与治理规则不透明\n\n**DeAI Nexus 的解决方案**：\n- ✅ 链上原生的 AI 调用与证明机制\n- ✅ 让 AI 具备\"可证明、可组合、可治理\"的区块链属性\n- ✅ 支持可信协作与生态共建",
+            "en-US": "**Project Name**: DeAI Nexus (Decentralized AI Computing Network Platform)\n\n**Vision**: Building AI infrastructure for the Web3 era, making AI computing as accessible and ubiquitous as electricity\n\n**Mission**: Lower the barrier to AI computing access, democratize AI technology, and build a fair, transparent, and autonomous computing sharing ecosystem\n\n**One-Line Introduction**:\nDeAI Nexus is a decentralized AI infrastructure that can \"run, call, and verify AI models natively on-chain,\" transforming AI from \"black-box services\" into \"provable, governable, and composable\" on-chain capabilities.\n\n**Epoch 2 Philosophy**:\n- **Community is the core driver** (not just participants)\n- **Collective Intelligence**: Models are defined by the global community, not centralized tech giant boards\n- **Direct Value Realization**: Self-sustaining economic cycle, rewarding resource contributors, native transparency\n- **Mainnet Momentum**: Projected Total Value Locked (TVL) will exceed $5 billion\n- **Building Cognitive Infrastructure for All Humanity**: On-chain AI, defined by us\n\n**Core Slogans**:\n1. **\"On-chain AI, defined by us\"**\n2. **\"The era of the user is over. The era of the owner has begun.\"**\n3. **\"We aren't just building AI; we're building the AI democracy.\"**\n\n---\n\n**Why DeAI Nexus**\n\n**Key Problems with Traditional AI Services**:\n- ❌ Inference process cannot be verified\n- ❌ Data and models cannot be audited\n- ❌ Invocation costs and governance rules are not transparent\n\n**DeAI Nexus Solutions**:\n- ✅ On-chain native AI invocation and proof mechanisms\n- ✅ Giving AI \"provable, composable, and governable\" blockchain properties\n- ✅ Supporting trusted collaboration and ecosystem co-construction"
+          }
+        },
+        {
+          "id": "project_value",
+          "title": {
+            "zh-CN": "项目价值",
+            "en-US": "Project Value"
+          },
+          "content": {
+            "zh-CN": "**技术价值**：\n- 可验证 AI 推理：首次实现 AI 推理结果的链上验证\n- AI as Contract：AI 直接成为合约可调用能力\n- 隐私与可信兼顾：TEE + ZKP 双重保障\n\n**商业价值**：\n- 真实业务收入：AI 算力服务\n- 通缩对抗抛压：三重通缩机制支撑代币价值\n- 多元化应用场景：AI 训练、渲染、计算、内容生成\n\n**生态价值**：\n- 开发者生态：API、SDK、激励计划\n- 合作伙伴生态：AI 实验室、企业客户、技术伙伴\n- 社区共识优先：社区建设先于资本进入",
+            "en-US": "**Technical Value**:\n- Verifiable AI Inference: First on-chain verification of AI inference results\n- AI as Contract: AI directly becomes contract-callable capability\n- Privacy & Trust Combined: TEE + ZKP dual guarantee\n\n**Business Value**:\n- Real Business Revenue: AI computing services\n- Deflation Against Sell Pressure: Triple deflation mechanism supports token value\n- Diversified Application Scenarios: AI training, rendering, computing, content generation\n\n**Ecosystem Value**:\n- Developer Ecosystem: APIs, SDKs, incentive programs\n- Partner Ecosystem: AI labs, enterprise clients, technology partners\n- Community Consensus First: Community building before capital entry"
+          }
+        },
+        {
+          "id": "market_opportunities",
+          "title": {
+            "zh-CN": "市场机会",
+            "en-US": "Market Opportunities"
+          },
+          "content": {
+            "zh-CN": "**AI 行业爆发**：\n- 2025-2030 年 AI 行业持续高速增长\n- 算力需求激增，中心化服务成本高、不透明\n- DeAI Nexus 提供去中心化、可验证的替代方案，降本增效\n\n**Web3 与 AI 融合**：\n- Web3 需要真实应用场景，AI 需要去中心化基础设施\n- DeAI Nexus 正处于两个高增长赛道的交叉点\n- 首创\"链上可验证 AI\"概念\n\n**早期参与优势**：\n- 当前处于早期阶段（一纪元/二纪元）\n- 测试网、主网尚未上线（2026 Q2/Q4）\n- 早期参与者可获得更高收益和社区地位",
+            "en-US": "**AI Industry Explosion**:\n- 2025-2030 AI industry continues high-speed growth\n- Surging computing demand, centralized services are expensive and opaque\n- DeAI Nexus provides decentralized, verifiable alternative\n\n**Web3 & AI Convergence**:\n- Web3 needs real application scenarios, AI needs decentralized infrastructure\n- DeAI Nexus is at the intersection of two high-growth tracks\n- Pioneer of \"on-chain verifiable AI\" concept\n\n**Early Participation Advantage**:\n- Currently in early stage (Epoch 1/Epoch 2)\n- Testnet, mainnet not yet launched (2026 Q2/Q4)\n- Early participants get higher returns and community status"
+          }
+        },
+        {
+          "id": "10_reasons",
+          "title": {
+            "zh-CN": "十大特点",
+            "en-US": "10 Key Features"
+          },
+          "content": {
+            "zh-CN": "1. AI 推理可验证，降低黑盒风险\n2. AI as Contract：AI 直接成为合约可调用能力\n3. TEE + ZKP：隐私保护与正确性验证并重\n4. 模型分片并行推理，具备扩展性与吞吐基础\n5. 联邦式梯度共识，支持去中心化协同训练\n6. 合约生成 + 审计一体化，降低合约开发与安全门槛\n7. 数据上链存证 + 可追溯索引，强调透明与责任边界\n8. 模块化运行时与 Oracle 协议，支持多模型并行与跨域协作\n9. 审计与安全建设可展示、可追溯，强调\"长期可信\"\n10. \"社区共识优先于资本进入\"的生态理念，更强调长期共建",
+            "en-US": "1. AI inference verifiable, reducing black-box risk\n2. AI as Contract: AI directly becomes contract-callable capability\n3. TEE + ZKP: Privacy protection and correctness verification combined\n4. Model sharding parallel inference with scalability and throughput foundation\n5. Federated gradient consensus supporting decentralized collaborative training\n6. Contract generation + audit integration, lowering contract development and security barriers\n7. On-chain data proof + traceable indexing, emphasizing transparency and responsibility boundaries\n8. Modular runtime and Oracle protocol supporting multi-model parallel and cross-domain collaboration\n9. Audit and security construction demonstrable and traceable, emphasizing \"long-term credibility\"\n10. Ecosystem philosophy of \"community consensus before capital entry\", emphasizing long-term co-construction"
+          }
+        },
+        {
+          "id": "core_addresses",
+          "title": {
+            "zh-CN": "核心地址",
+            "en-US": "Core Addresses"
+          },
+          "content": {
+            "zh-CN": "**BSC 链合约地址**：\n- DEAI-T 代币：`0x9f10a122a921d25fa9084955c87c3fcab103267f` (BEP-20)\n- Uniswap 池：`0x5595ee638bebb3d33c53460d2bbd22d8e5868a5b1e42fb249dd08e5712ca174b`\n\n**合约特性**：\n- ✅ 初始供应量 1 亿枚 DEAI-T，可通过治理调整\n- ✅ 合约所有权已放弃（无法增发、修改）\n- ✅ 无黑名单、无交易冻结、无交易税\n- ✅ 通过 24 项安全审计检测\n\n**支持的钱包**：\n- **MetaMask** - 最流行的以太坊/BSC 钱包\n- **WalletConnect** - 通用的钱包连接协议\n- **TokenPocket** - 多链钱包，支持移动端\n- **Trust Wallet** - Binance 官方推荐的移动钱包\n- **imToken** - 专业级移动钱包\n\n**前三大持仓地址说明**：\n\n**第1大地址**：\n- 尾号：...267f（合约地址本身）\n- 代表：流动性池（LP）或销毁地址\n\n**第2大地址**：\n- 尾号：...174b（Uniswap V2 Pool）\n- 代表：BSC 链上的 DEAI-T/BNB 交易对流动性池\n\n**第3大地址**：\n- 尾号：...（多签钱包或生态基金）\n- 代表：项目方多签管理的生态基金\n\n> 注：前三大持仓地址均为项目必要的基础设施地址，非个人或机构持仓，确保代币分布的公平性和去中心化。",
+            "en-US": "**BSC Chain Contract Addresses**:\n- DEAI-T Token: `0x9f10a122a921d25fa9084955c87c3fcab103267f` (BEP-20)\n- Uniswap Pool: `0x5595ee638bebb3d33c53460d2bbd22d8e5868a5b1e42fb249dd08e5712ca174b`\n\n**Contract Features**:\n- ✅ Initial supply of 100 million DEAI-T, adjustable through governance\n- ✅ Contract ownership renounced (cannot mint or modify)\n- ✅ No blacklist, no transaction freeze, no transaction tax\n- ✅ Passed 24 security audit checks\n\n**Supported Wallets**:\n- **MetaMask** - Most popular Ethereum/BSC wallet\n- **WalletConnect** - Universal wallet connection protocol\n- **TokenPocket** - Multi-chain wallet, mobile support\n- **Trust Wallet** - Binance officially recommended mobile wallet\n- **imToken** - Professional-grade mobile wallet\n\n**Top 3 Holder Addresses Explanation**:\n\n**No.1 Address**:\n- Suffix: ...267f (Contract address itself)\n- Represents: Liquidity Pool (LP) or burn address\n\n**No.2 Address**:\n- Suffix: ...174b (Uniswap V2 Pool)\n- Represents: DEAI-T/BNB trading pair liquidity pool on BSC\n\n**No.3 Address**:\n- Suffix: ... (Multi-sig wallet or ecosystem fund)\n- Represents: Project multi-sig managed ecosystem fund\n\n> Note: The top 3 holder addresses are all necessary infrastructure addresses for the project, not individual or institutional holdings, ensuring fairness and decentralization of token distribution."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tech_features",
+      "title": {
+        "zh-CN": "技术和特色",
+        "en-US": "Technology & Features"
+      },
+      "children": [
+        {
+          "id": "tech_features",
+          "title": {
+            "zh-CN": "技术和特色",
+            "en-US": "Technology & Features"
+          },
+          "content": {
+            "zh-CN": "**第一层：DeAI Core Chain（核心链层）**\n- 改良型 PoA + ZK 混合共识\n- 内置 AIVM 与动态 Gas\n- 提供 AI Oracle 协议与模块化运行时\n\n**第二层：AI Runtime Layer（智能执行层）**\n- TEE + ZKP 结合，支持可验证推理\n- 模型分片调度与并行计算\n- 推理结果上链前生成正确性证明\n\n**第三层：Smart Contract Fabric（智能合约生成层）**\n- 自然语言生成/审查/部署合约（AIC-Compiler）\n- 部署前自动漏洞审计\n- 输出可验证哈希签名与审计结果\n\n**第四层：AI Data Fabric（数据与隐私层）**\n- ZK + MPC 访问控制\n- 调用数据/参数/结果链上存证\n- Merkle DAG 索引\n- IPFS/Arweave 混合存储\n\n**第五层：DeAI Ecosystem Layer（生态共识层）**\n- \"社区共识优先于资本进入\"\n- 模型调用、节点激励、审计结果链上可查\n- SDK 支持 Python/JS/Solidity",
+            "en-US": "**Layer 1: DeAI Core Chain**\n- Improved PoA + ZK hybrid consensus\n- Built-in AIVM and dynamic Gas\n- Provides AI Oracle protocol and modular runtime\n\n**Layer 2: AI Runtime Layer**\n- TEE + ZKP combination supporting verifiable inference\n- Model sharding scheduling and parallel computing\n- Correctness proofs generated before on-chain result submission\n\n**Layer 3: Smart Contract Fabric**\n- Natural language generation/audit/deployment (AIC-Compiler)\n- Pre-deployment automatic vulnerability scanning\n- Output verifiable hash signatures and audit results\n\n**Layer 4: AI Data Fabric**\n- ZK + MPC access control\n- On-chain proof of call data/parameters/results\n- Merkle DAG indexing\n- IPFS/Arweave hybrid storage\n\n**Layer 5: DeAI Ecosystem Layer**\n- \"Community consensus before capital entry\"\n- Model calls, node incentives, audit results all on-chain\n- SDK support for Python/JS/Solidity"
+          }
+        },
+        {
+          "id": "five_layer_architecture",
+          "title": {
+            "zh-CN": "五层技术架构",
+            "en-US": "Five-Layer Architecture"
+          },
+          "content": {
+            "zh-CN": "**第一层：DeAI Core Chain（核心链层）**\n- 改良型 PoA + ZK 混合共识\n- 内置 AIVM 与动态 Gas\n- 提供 AI Oracle 协议与模块化运行时\n\n**第二层：AI Runtime Layer（智能执行层）**\n- TEE + ZKP 结合，支持可验证推理\n- 模型分片调度与并行计算\n- 推理结果上链前生成正确性证明\n\n**第三层：Smart Contract Fabric（智能合约生成层）**\n- 自然语言生成/审查/部署合约（AIC-Compiler）\n- 部署前自动漏洞审计\n- 输出可验证哈希签名与审计结果\n\n**第四层：AI Data Fabric（数据与隐私层）**\n- ZK + MPC 访问控制\n- 调用数据/参数/结果链上存证\n- Merkle DAG 索引\n- IPFS/Arweave 混合存储\n\n**第五层：DeAI Ecosystem Layer（生态共识层）**\n- \"社区共识优先于资本进入\"\n- 模型调用、节点激励、审计结果链上可查\n- SDK 支持 Python/JS/Solidity",
+            "en-US": "**Layer 1: DeAI Core Chain**\n- Improved PoA + ZK hybrid consensus\n- Built-in AIVM and dynamic Gas\n- Provides AI Oracle protocol and modular runtime\n\n**Layer 2: AI Runtime Layer**\n- TEE + ZKP combination supporting verifiable inference\n- Model sharding scheduling and parallel computing\n- Correctness proofs generated before on-chain result submission\n\n**Layer 3: Smart Contract Fabric**\n- Natural language generation/audit/deployment (AIC-Compiler)\n- Pre-deployment automatic vulnerability scanning\n- Output verifiable hash signatures and audit results\n\n**Layer 4: AI Data Fabric**\n- ZK + MPC access control\n- On-chain proof of call data/parameters/results\n- Merkle DAG indexing\n- IPFS/Arweave hybrid storage\n\n**Layer 5: DeAI Ecosystem Layer**\n- \"Community consensus before capital entry\"\n- Model calls, node incentives, audit results all on-chain\n- SDK support for Python/JS/Solidity"
+          }
+        },
+        {
+          "id": "core_tech_features",
+          "title": {
+            "zh-CN": "核心技术特色",
+            "en-US": "Core Technical Features"
+          },
+          "content": {
+            "zh-CN": "**1. 可验证 AI 推理**\n- AI 推理结果可通过 ZK-SNARKs 等证明机制在链上验证\n- 降低黑盒风险，输出不再只靠\"信任\"，而是可被链上验证\n\n**2. 原生合约调用（AI-Callable Smart Contracts）**\n- AI 不是外部 API，而是可被合约直接调用的链上能力\n- 适合 DeFi/GameFi/SocialFi 等组合式应用\n\n**3. 隐私保护执行**\n- TEE + ZKP 方案，支持在隐私前提下完成推理与验证\n- 让\"数据可用不可见\"成为默认能力\n\n**4. 大模型分片与并行推理**\n- Model Sharding Scheduler 将大模型拆分为可并行子任务\n- 多节点协同，提升吞吐与稳定性\n\n**5. 链上协同训练**\n- 分布式梯度聚合（Federated Gradient Consensus）\n- 推动去中心化协作训练与参数更新\n\n**6. 可治理的模型演进**\n- 模型参数更新由 DAO 决议驱动\n- 让模型升级可追溯、可共识\n\n**7. Universal Gateway（通用网关）**\n- **一个 API，无限去中心化智能**\n- **企业级延迟**：优化的路由速度与中心化提供商相匹配\n- **跨模型兼容性**：只需一行代码即可在 Llama、专用 Nexus 模型或自定义微调模型集之间切换\n- **抗审查**：无企业过滤器，只有由 Nexus 网络驱动的纯粹、无偏见计算\n- **简化开发**：向 DeAI 的过渡不再是梦想，只需一个\"Connect 钱包\"即可实现\n\n**8. Nexus Agents（智能体系统）**\n- **下一代工作者：自主 AI 管理复杂链上工作流**\n- **无需人工干预**：自主执行复杂任务\n- **链上研究**：自动进行链上数据分析和研究\n- **自我优化**：根据反馈持续改进性能\n- **协作工作**：多个 Agent 协同完成复杂任务\n\n**9. Nexus Model Hub（模型中心）**\n- **智能遇见所有权：Model-as-NFT 框架**\n- **代币化所有权**：AI 模型作为 NFT 代币化，明确所有权归属\n- **自动版税**：模型使用时自动支付版税给创作者\n- **IP 流动性**：知识产权可在二级市场交易\n- **智能市场**：构建面向全球最宝贵资源——智能——的市场\n\n**10. 三维防御矩阵（3D Defense Matrix）**\n- **多层安全架构，在威胁到达网络之前将其消除**\n- **协议层（PoDRC）**：基于共识的底层安全\n- **计算层（zkML + 隐私）**：零知识机器学习保障计算隐私\n- **监控层（欺诈检测器）**：AI 实时检测恶意模式\n- **拦截率高达 96.5%**：对 MEV 攻击和机器人攻击的实时防护\n- **预测性防御**：以预测性防御取代被动式安全，AI 速度响应",
+            "en-US": "**1. Verifiable AI Inference**\n- AI inference results can be verified on-chain through ZK-SNARKs and other proof mechanisms\n- Reduce black-box risk, outputs are no longer just \"trusted\" but can be verified on-chain\n\n**2. Native Contract Invocation (AI-Callable Smart Contracts)**\n- AI is not an external API, but an on-chain capability directly callable by contracts\n- Suitable for DeFi/GameFi/SocialFi and other composable applications\n\n**3. Privacy-Preserving Execution**\n- TEE + ZKP scheme supporting inference and verification under privacy protection\n- Making \"data available but not visible\" a default capability\n\n**4. Large Model Sharding and Parallel Inference**\n- Model Sharding Scheduler breaks large models into parallel subtasks\n- Multi-node collaboration, improving throughput and stability\n\n**5. On-Chain Collaborative Training**\n- Distributed Gradient Aggregation (Federated Gradient Consensus)\n- Promotes decentralized collaborative training and parameter updates\n\n**6. Governable Model Evolution**\n- Model parameter updates driven by DAO proposals\n- Making model upgrades traceable and consensual\n\n**7. Universal Gateway**\n- **One API, Infinite Decentralized Intelligence**\n- **Enterprise-Grade Latency**: Optimized routing speeds match centralized providers\n- **Cross-Model Compatibility**: Switch between Llama, specialized Nexus models, or custom fine-tuned model sets with just one line of code\n- **Censorship-Resistant**: No corporate filters, only pure, unbiased computing powered by the Nexus network\n- **Simplified Development**: Transitioning to DeAI is no longer a dream, just \"Connect Wallet\" away\n\n**8. Nexus Agents**\n- **Next-Generation Workers: Autonomous AI Managing Complex On-Chain Workflows**\n- **No Human Intervention**: Autonomously execute complex tasks\n- **On-Chain Research**: Automated on-chain data analysis and research\n- **Self-Optimization**: Continuously improve performance based on feedback\n- **Collaborative Work**: Multiple agents collaborate to complete complex tasks\n\n**9. Nexus Model Hub**\n- **Intelligence Meets Ownership: Model-as-NFT Framework**\n- **Tokenized Ownership**: AI models tokenized as NFTs, clear ownership attribution\n- **Automatic Royalties**: Automatic royalty payments to creators when models are used\n- **IP Liquidity**: Intellectual property tradable on secondary markets\n- **Smart Marketplace**: Building a marketplace for the world's most valuable resource—intelligence\n\n**10. Three-Dimensional Defense Matrix**\n- **Multi-Layer Security Architecture, Eliminating Threats Before They Reach the Network**\n- **Protocol Layer (PoDRC)**: Consensus-based underlying security\n- **Compute Layer (zkML + Privacy)**: Zero-knowledge machine learning ensures computational privacy\n- **Monitoring Layer (Fraud Detector)**: AI real-time detection of malicious patterns\n- **Interception Rate Up to 96.5%**: Real-time protection against MEV attacks and bot attacks\n- **Predictive Defense**: Replacing passive security with predictive defense, AI-speed response"
+          }
+        },
+        {
+          "id": "zkml_technology",
+          "title": {
+            "zh-CN": "zkML 零知识机器学习",
+            "en-US": "zkML: Zero-Knowledge Machine Learning"
+          },
+          "content": {
+            "zh-CN": "**什么是 zkML？**\nzkML (零知识机器学习) 是 DeAI Nexus 的基石技术，允许在 AI 模型运行时生成加密证明，在不揭示模型权重或用户数据的情况下验证计算正确性。\n\n**核心技术组件**：\n\n**1. PLONK + RedShift = 透明 SNARK**\n- PLONK: 高效的 zk-SNARK 实现，提供快速验证\n- RedShift: 消除可信设置需求\n- 结合创造出完全透明的 SNARK，实现真正的无信任 AI\n\n**2. zkVM 零知识虚拟机**\n- 将无信任性引入 AI 计算\n- 工作流程: AI 执行复杂计算 → zkVM 生成正确性证明 → 链上验证\n- 不泄露输入数据，确保计算隐私\n\n**3. ZK-SNARKs 证明机制**\n- 生成计算正确性证明\n- 任何用户可在链上验证模型输出的真实性与完整性\n- 保证推理过程的完全可验证性\n\n**实际应用价值**：\n- ✅ 可验证 AI 推理：推理结果可通过 ZK 证明在链上验证\n- ✅ 隐私保护：不泄露模型权重和用户数据\n- ✅ 防欺诈：确保 AI 计算未被篡改\n- ✅ 降低信任成本：从\"信任\"变为\"验证\"",
+            "en-US": "**What is zkML?**\nZero-Knowledge Machine Learning (zkML) is the cornerstone technology of DeAI Nexus, enabling cryptographic proofs that AI computations executed correctly without revealing model weights or user data.\n\n**Core Technical Components**:\n\n**1. PLONK + RedShift = Transparent SNARK**\n- PLONK: Efficient zk-SNARK implementation for fast verification\n- RedShift: Eliminates trusted setup requirements\n- Combined to create a fully transparent SNARK for truly trustless AI\n\n**2. zkVM: Zero-Knowledge Virtual Machine**\n- Brings trustlessness to AI computations\n- Workflow: AI performs complex computation → zkVM generates proof → verified on-chain\n- No input data leakage, ensuring computational privacy\n\n**3. ZK-SNARKs Proof Mechanism**\n- Generates computational correctness proofs\n- Anyone can verify the authenticity and integrity of model outputs on-chain\n- Ensures complete verifiability of inference process\n\n**Practical Value**:\n- ✅ Verifiable AI Inference: Results verifiable on-chain through ZK proofs\n- ✅ Privacy Protection: No exposure of model weights or user data\n- ✅ Fraud Prevention: Ensures AI computations haven't been tampered with\n- ✅ Reduced Trust Cost: From \"trust\" to \"verify\""
+          }
+        },
+        {
+          "id": "cysic_integration",
+          "title": {
+            "zh-CN": "Cysic zkML 集成",
+            "en-US": "Cysic zkML Integration"
+          },
+          "content": {
+            "zh-CN": "**2025年重大技术突破**：完成 Cysic 的 zkML 集成\n\n**集成成果**：\n- ✅ 完成了 60% 以上的核心基础设施\n- ✅ 从零开始构建了可验证的架构\n- ✅ 实现 zkML 技术的实际应用\n\n**技术意义**：\n- **可验证性**: AI 模型运行结果可被链上验证\n- **隐私保护**: 在不泄露数据的情况下证明计算正确性\n- **去中心化**: 无需依赖中心化信任机构\n\n**为 2026 年 Q2 Testnet V1 奠定基础**：\n- 核心区块链基础设施 > 60% 完成\n- zkML 最小功能就绪\n- 从模拟走向现实的关键一步",
+            "en-US": "**2025 Major Technical Breakthrough**: Completed Cysic's zkML Integration\n\n**Integration Achievements**:\n- ✅ Completed 60%+ of core infrastructure\n- ✅ Built verifiable architecture from scratch\n- ✅ Implemented zkML technology in production\n\n**Technical Significance**:\n- **Verifiability**: AI model results can be verified on-chain\n- **Privacy Protection**: Prove computational correctness without revealing data\n- **Decentralization**: No need to rely on centralized trust authorities\n\n**Foundation for Testnet V1 (Q2 2026)**:\n- Core blockchain infrastructure >60% complete\n- zkML minimal functionality ready\n- Critical step from simulation to reality"
+          }
+        },
+        {
+          "id": "podrc_mechanism",
+          "title": {
+            "zh-CN": "PoDRC 共识机制",
+            "en-US": "PoDRC Consensus Mechanism"
+          },
+          "content": {
+            "zh-CN": "**PoDRC: Proof of Delegated Resource Contribution**\n委托资源贡献证明 - DeAI Nexus 的核心共识机制\n\n**工作原理**：\n- 聚合全球闲置 GPU 算力\n- 通过代币激励算力提供者\n- 实现 **86% 的成本降低**\n\n**三大支柱**：\n\n**1. 计算层 PoDRC**\n- 聚合全球闲置 GPU 算力\n- 86% 的成本降低\n- 代币激励贡献者\n\n**2. 数据层 联邦 AI**\n- 私有、本地用户数据训练\n- 数据自主权\n- 零知识技术：数据保持隐私 + 链上加密验证\n\n**3. 算法层 zkML 路由**\n- 链上推理的完整性和可审计性\n- AI 实时检测威胁（欺诈、机器人、拉高出货）\n- 智能合约无法检测的模式，AI 可以识别\n\n**价值主张**：\n- ✅ 降低 AI 训练成本 86%\n- ✅ 数据隐私保护提升 5 倍\n- ✅ 去中心化算力网络\n- ✅ 真正的社区驱动（无 VC、无预售）",
+            "en-US": "**PoDRC: Proof of Delegated Resource Contribution**\nDeAI Nexus's core consensus mechanism\n\n**How It Works**:\n- Aggregates idle global GPU power\n- Token-incentivized computing providers\n- Achieves **86% cost reduction**\n\n**Three Pillars**:\n\n**1. Compute Layer PoDRC**\n- Aggregates idle global GPU power\n- 86% cost reduction\n- Token incentives for contributors\n\n**2. Data Layer: Federated AI**\n- Private, local user data training\n- Data autonomy\n- Zero-Knowledge: Data remains private + on-chain cryptographic verification\n\n**3. Algorithm Layer: zkML Routing**\n- On-chain inference integrity and auditability\n- AI detects threats in real-time (fraud, bots, pump & dumps)\n- Patterns smart contracts can't detect, AI can identify\n\n**Value Proposition**:\n- ✅ 86% lower AI training costs\n- ✅ 5x data privacy protection\n- ✅ Decentralized computing network\n- ✅ Truly community-driven (no VC, no pre-sale)"
+          }
+        },
+        {
+          "id": "tech_metrics",
+          "title": {
+            "zh-CN": "技术指标与性能数据",
+            "en-US": "Technical Metrics & Performance Data"
+          },
+          "content": {
+            "zh-CN": "**核心性能指标**\n\n| 指标类别 | 具体参数 |\n|---------|---------|\n| 网络性能 | TPS > 2000，延迟 < 500ms |\n| 算力规模 | 支持 100K+ GPU 并发 |\n| 可用性 | 99.9% SLA 保障 |\n| 安全性 | 多重审计，零重大漏洞 |\n| 扩展性 | 模块化设计，支持插件扩展 |\n\n**关键性能数据与技术对比**：\n\n| 性能指标 | 数据 | 对比优势 | 技术实现 |\n|---------|------|---------|---------|\n| **AI 训练成本** | 降低 86% | 远低于中心化云服务商 | 聚合全球闲置 GPU 算力 |\n| **数据隐私保护** | 5x 提升 | 零知识技术保障 | zkML + 联邦学习 + TEE + ZKP |\n| **交易滑点** | 0.05% | 远超行业平均 | ADEX AI 优化路由 |\n| **跨链费用** | 降低 40% | 优于传统跨链桥 | AI 驱动的智能路由 |\n| **交易成功率** | 99% | 行业领先水平 | 实时安全监控 |\n| **威胁检测速度** | 毫秒级 | 实时防护 | AI 欺诈检测器 |\n| **网络吞吐** | TPS > 2000 | 高性能公链水平 | 改良型 PoA + ZK 共识 |\n| **系统可用性** | 99.9% SLA | 企业级保障 | 多重审计 + 零重大漏洞 |\n\n**多链兼容性**：\n- 支持以太坊、BSC、Polygon 等多链\n- 智能算力调度（AI 驱动匹配算法）\n- 隐私计算技术（ZKP、联邦学习、同态加密）\n- 可验证推理（TEE + ZKP 结合）",
+            "en-US": "**Core Performance Metrics**\n\n| Metric Category | Specific Parameters |\n|----------------|-------------------|\n| Network Performance | TPS > 2000, Latency < 500ms |\n| Computing Scale | Supports 100K+ GPU concurrency |\n| Availability | 99.9% SLA guarantee |\n| Security | Multiple audits, zero major vulnerabilities |\n| Scalability | Modular design, supports plugin extensions |\n\n**Key Performance Data & Technical Comparison**:\n\n| Performance Metric | Data | Comparative Advantage | Technical Implementation |\n|-------------------|------|---------------------|-------------------------|\n| **AI Training Cost** | 86% reduction | Far lower than centralized cloud services | Aggregating idle global GPU power |\n| **Data Privacy** | 5x improvement | Zero-knowledge technology protection | zkML + Federated Learning + TEE + ZKP |\n| **Trading Slippage** | 0.05% | Far exceeding industry average | ADEX AI-optimized routing |\n| **Cross-Chain Fees** | 40% reduction | Superior to traditional bridges | AI-driven intelligent routing |\n| **Success Rate** | 99% | Industry-leading level | Real-time security monitoring |\n| **Threat Detection** | Millisecond-level | Real-time protection | AI fraud detector |\n| **Network Throughput** | TPS > 2000 | High-performance blockchain level | Improved PoA + ZK consensus |\n| **System Availability** | 99.9% SLA | Enterprise-grade guarantee | Multiple audits + zero major vulnerabilities |\n\n**Multi-Chain Compatibility**:\n- Supports Ethereum, BSC, Polygon, and other chains\n- Intelligent computing scheduling (AI-driven matching algorithm)\n- Privacy computing technology (ZKP, federated learning, homomorphic encryption)\n- Verifiable inference (TEE + ZKP combination)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "project_applications",
+      "title": {
+        "zh-CN": "项目应用",
+        "en-US": "Project Applications"
+      },
+      "children": [
+        {
+          "id": "project_applications",
+          "title": {
+            "zh-CN": "项目应用",
+            "en-US": "Project Applications"
+          },
+          "content": {
+            "zh-CN": "**对话式 AI 入口** - 连接模型、代理与应用体验\n\n**功能特点**：\n- 自然语言交互界面\n- 多模态理解与生成\n- 上下文记忆与推理\n- 可插拔的代理系统\n\n**应用场景**：\n- 智能问答与助手\n- 内容创作与生成\n- 代码编写与调试\n- 数据分析与解释\n\n**体验入口**：https://chat.deainexus.com",
+            "en-US": "**Conversational AI Portal** - Connecting models, agents, and application experiences\n\n**Features**:\n- Natural language interaction interface\n- Multimodal understanding and generation\n- Context memory and reasoning\n- Pluggable agent system\n\n**Use Cases**:\n- Intelligent Q&A and assistance\n- Content creation and generation\n- Code writing and debugging\n- Data analysis and explanation\n\n**Experience Portal**: https://chat.deainexus.com"
+          }
+        },
+        {
+          "id": "parrot_v1",
+          "title": {
+            "zh-CN": "Parrot V1 大模型",
+            "en-US": "Parrot V1 Large Language Model"
+          },
+          "content": {
+            "zh-CN": "**对话式 AI 入口** - 连接模型、代理与应用体验\n\n**功能特点**：\n- 自然语言交互界面\n- 多模态理解与生成\n- 上下文记忆与推理\n- 可插拔的代理系统\n\n**应用场景**：\n- 智能问答与助手\n- 内容创作与生成\n- 代码编写与调试\n- 数据分析与解释\n\n**体验入口**：https://chat.deainexus.com",
+            "en-US": "**Conversational AI Portal** - Connecting models, agents, and application experiences\n\n**Features**:\n- Natural language interaction interface\n- Multimodal understanding and generation\n- Context memory and reasoning\n- Pluggable agent system\n\n**Use Cases**:\n- Intelligent Q&A and assistance\n- Content creation and generation\n- Code writing and debugging\n- Data analysis and explanation\n\n**Experience Portal**: https://chat.deainexus.com"
+          }
+        },
+        {
+          "id": "one_click_deployment",
+          "title": {
+            "zh-CN": "一键发行与部署",
+            "en-US": "One-Click Contract Deployment"
+          },
+          "content": {
+            "zh-CN": "**自然语言生成智能合约** - 自动 Gas 优化，DAO 框架一键生成\n\n**核心能力**：\n- 自然语言描述 → 智能合约代码\n- 自动 Gas 优化与成本估算\n- 安全性检测与漏洞扫描\n- DAO 治理框架一键生成\n\n**支持语言**：\n- Solidity（Ethereum、BSC）\n- Rust（Solana）\n- Vyper（Ethereum）\n\n**部署流程**：\n1. 描述合约需求（自然语言）\n2. AI 生成合约代码\n3. 自动优化与审计\n4. 一键部署到目标链",
+            "en-US": "**Natural Language Smart Contract Generation** - Automatic Gas optimization, one-click DAO framework generation\n\n**Core Capabilities**:\n- Natural language description → Smart contract code\n- Automatic Gas optimization and cost estimation\n- Security detection and vulnerability scanning\n- One-click DAO governance framework generation\n\n**Supported Languages**:\n- Solidity (Ethereum, BSC)\n- Rust (Solana)\n- Vyper (Ethereum)\n\n**Deployment Process**:\n1. Describe contract requirements (natural language)\n2. AI generates contract code\n3. Automatic optimization and audit\n4. One-click deployment to target chain"
+          }
+        },
+        {
+          "id": "ai_audit",
+          "title": {
+            "zh-CN": "AI 代码安全和审计",
+            "en-US": "AI Code Security and Audit"
+          },
+          "content": {
+            "zh-CN": "**合约漏洞扫描与链上监控** - AI 守护者自动响应，审计与溯源一体化\n\n**安全检测**：\n- 智能合约漏洞扫描\n- 代码逻辑审查\n- 权限控制验证\n- Gas 优化建议\n\n**实时监控**：\n- 链上异常交易检测\n- 大额转账预警\n- 可疑行为识别\n- 自动风险评级\n\n**应急响应**：\n- AI 守护者自动隔离风险\n- 快速暂停机制\n- 资金冻结保护\n- 事件溯源与分析",
+            "en-US": "**Contract Vulnerability Scanning and On-Chain Monitoring** - AI guardian automatic response, integrated audit and tracing\n\n**Security Detection**:\n- Smart contract vulnerability scanning\n- Code logic review\n- Permission control verification\n- Gas optimization suggestions\n\n**Real-Time Monitoring**:\n- On-chain anomaly detection\n- Large transfer warnings\n- Suspicious behavior identification\n- Automatic risk rating\n\n**Emergency Response**:\n- AI guardian automatic risk isolation\n- Quick pause mechanism\n- Fund freeze protection\n- Event tracing and analysis"
+          }
+        },
+        {
+          "id": "nexus_finance",
+          "title": {
+            "zh-CN": "Nexus Finance - AI自适应金融协议",
+            "en-US": "Nexus Finance: AI-Adaptive Financial Protocol"
+          },
+          "content": {
+            "zh-CN": "**Nexus Finance** - AI 驱动的下一代 DeFi 协议\n\n**AI 自适应做市**：\n- 预测市场波动性，优化流动性供应\n- 降低无常损失（Impermanent Loss）\n- 动态调整交易对参数\n- 实时平衡流动性池\n- AI 驱动的流动性分配策略\n\n**实时风险评分**：\n- 先进的反欺诈代理识别恶意模式\n- 检测\"女巫\"攻击（Sybil Attacks）\n- 防患于未然，保护用户资产\n- 自动风险评级与预警\n- AI 实时监控异常交易\n\n**自动化收益策略**：\n- AI 代理管理投资组合\n- 跨链转移资产优化配置\n- 实现最佳风险调整后收益\n- 智能复投与收益再平衡\n- 动态调整收益参数\n\n**核心优势**：\n- ✅ 降低无常损失 60%+\n- ✅ 收益率提升 40%+\n- ✅ 风险识别准确率 95%+\n- ✅ 24/7 自动化管理",
+            "en-US": "**Nexus Finance** - Next-Gen DeFi Protocol Powered by AI\n\n**AI-Adaptive Market Making**:\n- Predict market volatility, optimize liquidity provision\n- Reduce impermanent loss\n- Dynamic trading pair parameter adjustment\n- Real-time liquidity pool balancing\n- AI-driven liquidity allocation strategy\n\n**Real-Time Risk Scoring**:\n- Advanced anti-fraud agents identify malicious patterns\n- Detect Sybil attacks\n- Prevent threats before they materialize, protect user assets\n- Automatic risk rating and early warning\n- AI real-time monitoring of anomalous transactions\n\n**Automated Yield Strategies**:\n- AI agents manage investment portfolios\n- Optimize cross-chain asset allocation\n- Achieve best risk-adjusted returns\n- Intelligent reinvestment and yield rebalancing\n- Dynamic yield parameter adjustment\n\n**Core Advantages**:\n- ✅ 60%+ reduction in impermanent loss\n- ✅ 40%+ increase in yield rates\n- ✅ 95%+ risk identification accuracy\n- ✅ 24/7 automated management"
+          }
+        },
+        {
+          "id": "ai_dex",
+          "title": {
+            "zh-CN": "ADEX - AI驱动去中心化交易所",
+            "en-US": "ADEX: AI-Driven Decentralized Exchange"
+          },
+          "content": {
+            "zh-CN": "**ADEX** - 使用深度强化学习解决核心 DeFi 问题\n\n**关键性能指标**：\n- **滑点**: 仅 0.05%（Uniswap V3 为 0.18%）\n- **跨链费用**: 降低 40%\n- **成功率**: 99%\n- **MEV 攻击拦截率**: 96.5%\n- **资本效率**: 深度强化学习优化\n\n**核心特性**：\n\n**智能路由**：\n- 实时最优路径计算\n- 跨链手续费优化 40%\n- 滑点最小化算法（1ETH→USDC 仅 0.05%）\n- 多 DEX 聚合交易\n- AI 优化的交易路径选择\n\n**AI 策略**：\n- 市场深度分析\n- 价格预测模型\n- 交易时机建议\n- 动态手续费调整\n- 深度强化学习驱动\n\n**安全与保护**：\n- **MEV 攻击拦截率 96.5%**：对 MEV 攻击和机器人攻击的实时防护\n- **交易成功率 99%**：实时安全监控保障\n- **防钓鱼与防欺诈保护**：AI 实时检测恶意模式\n- **预测性防御**：以预测性防御取代被动式安全，AI 速度响应\n\n**用户体验**：\n- 一键兑换\n- 最优报价\n- 低延迟交易\n- 透明费用展示\n- 自然语言交易指令支持",
+            "en-US": "**ADEX** - Using Deep Reinforcement Learning to Solve Core DeFi Problems\n\n**Key Performance Metrics**:\n- **Slippage**: Only 0.05% (Uniswap V3 is 0.18%)\n- **Cross-chain fees**: 40% reduction\n- **Success rate**: 99%\n- **MEV Attack Interception Rate**: 96.5%\n- **Capital Efficiency**: Deep reinforcement learning optimization\n\n**Core Features**:\n\n**Smart Routing**:\n- Real-time optimal path calculation\n- 40% cross-chain fee reduction\n- Slippage minimization algorithm (1ETH→USDC only 0.05%)\n- Multi-DEX aggregated trading\n- AI-optimized trading path selection\n\n**AI Strategy**:\n- Market depth analysis\n- Price prediction model\n- Trading timing suggestions\n- Dynamic fee adjustment\n- Deep reinforcement learning driven\n\n**Security & Protection**:\n- **96.5% MEV Attack Interception Rate**: Real-time protection against MEV attacks and bot attacks\n- **99% Transaction Success Rate**: Real-time security monitoring guarantee\n- **Anti-Phishing & Anti-Fraud Protection**: AI real-time detection of malicious patterns\n- **Predictive Defense**: Replacing passive security with predictive defense, AI-speed response\n\n**User Experience**:\n- One-click swap\n- Best quotes\n- Low-latency trading\n- Transparent fee display\n- Natural language trading instruction support"
+          }
+        },
+        {
+          "id": "application_scenarios",
+          "title": {
+            "zh-CN": "应用场景",
+            "en-US": "Application Scenarios"
+          },
+          "content": {
+            "zh-CN": "- **AI 训练**：分布式模型训练，降低算力成本\n- **渲染服务**：GPU 渲染农场，影视/游戏行业\n- **科学计算**：蛋白质折叠、气象模拟等\n- **内容生成**：文本、图像、视频、音频生成\n- **DeFi 应用**：AI 驱动的金融产品与服务\n- **GameFi**：AI NPC、智能游戏逻辑",
+            "en-US": "- **AI Training**: Distributed model training, reducing computing costs\n- **Rendering Services**: GPU rendering farms, film/game industries\n- **Scientific Computing**: Protein folding, weather simulation, etc.\n- **Content Generation**: Text, image, video, audio generation\n- **DeFi Applications**: AI-driven financial products and services\n- **GameFi**: AI NPCs, intelligent game logic"
+          }
+        },
+        {
+          "id": "testnet_v1",
+          "title": {
+            "zh-CN": "Testnet V1 - 2026年Q2里程碑",
+            "en-US": "Testnet V1 - Q2 2026 Milestone"
+          },
+          "content": {
+            "zh-CN": "**Testnet V1** - 未来无信任 AI 的首次公开亮相\n\n**发布时间**：2026年 Q2\n\n**里程碑意义**：\n- 标志着区块链基础设施完成 > 60%\n- 从零开始构建可验证架构的关键一步\n- 从模拟走向现实的历史性时刻\n\n**核心功能**：\n\n**1. 核心区块链基础设施**\n- 完整的 DeAI Core Chain\n- 改良型 PoA + ZK 混合共识\n- 内置 AIVM 与动态 Gas\n- AI Oracle 协议与模块化运行时\n\n**2. 零代码智能合约部署**\n- 自然语言生成智能合约\n- 自动 Gas 优化与成本估算\n- 安全性检测与漏洞扫描\n- DAO 治理框架一键生成\n- 支持 Solidity、Rust、Vyper\n\n**3. AI 模型与服务调用**\n- Parrot Model-V1 链上 AI 模型\n- zkML 可验证推理\n- 可审计和防篡改\n- 去中心化 AI 特性\n- API 与 SDK 支持\n\n**4. ZK/zkML 最小功能**\n- PLONK + RedShift 透明 SNARK\n- zkVM 零知识虚拟机\n- ZK-SNARKs 证明机制\n- 链上验证 AI 推理结果\n- 不泄露输入数据\n\n**5. 去中心化治理（最小工作模型）**\n- DAO 基础治理机制\n- 社区提案与投票\n- 模型参数可治理升级\n- 透明的决策记录\n\n**技术特色**：\n- ✅ zkML 就绪\n- ✅ 基于 PoDRC + 质押构建\n- ✅ 100% 社区驱动（无 VC、无预售）\n- ✅ 完全可验证的 AI 推理\n- ✅ 隐私保护与正确性验证并重",
+            "en-US": "**Testnet V1** - First Public Look at Trustless AI\n\n**Launch Time**: Q2 2026\n\n**Milestone Significance**:\n- Marks >60% completion of blockchain infrastructure\n- Critical step building verifiable architecture from scratch\n- Historic moment from simulation to reality\n\n**Core Features**:\n\n**1. Core Blockchain Infrastructure**\n- Complete DeAI Core Chain\n- Improved PoA + ZK hybrid consensus\n- Built-in AIVM & dynamic Gas\n- AI Oracle protocol & modular runtime\n\n**2. Zero-Code Smart Contract Deployment**\n- Natural language smart contract generation\n- Automatic Gas optimization & cost estimation\n- Security detection & vulnerability scanning\n- One-click DAO governance framework\n- Supports Solidity, Rust, Vyper\n\n**3. AI Model & Service Invocation**\n- Parrot Model-V1 on-chain AI model\n- zkML verifiable inference\n- Auditable & tamper-proof\n- Decentralized AI features\n- API & SDK support\n\n**4. ZK/zkML Minimal Functionality**\n- PLONK + RedShift transparent SNARK\n- zkVM zero-knowledge virtual machine\n- ZK-SNARKs proof mechanism\n- On-chain verification of AI inference results\n- No input data leakage\n\n**5. Decentralized Governance (Minimal Working Model)**\n- DAO basic governance mechanism\n- Community proposals & voting\n- Governable model parameter upgrades\n- Transparent decision records\n\n**Technical Features**:\n- ✅ zkML-ready\n- ✅ Built on PoDRC + staking\n- ✅ 100% community-powered (no VC, no pre-sale)\n- ✅ Fully verifiable AI inference\n- ✅ Privacy protection with correctness verification"
+          }
+        }
+      ]
+    },
+    {
+      "id": "economics_model",
+      "title": {
+        "zh-CN": "经济模型",
+        "en-US": "Economics Model"
+      },
+      "children": [
+        {
+          "id": "economics_model",
+          "title": {
+            "zh-CN": "经济模型",
+            "en-US": "Economics Model"
+          },
+          "content": {
+            "zh-CN": "**DEAI（治理代币）**\n\n**总供应量**：10亿枚\n\n**分配方案**：\n\n| 类别 | 比例 | 说明 |\n|------|------|------|\n| ⛏️ PoDRC 硬件挖矿 | 76% | 36年动态衰减释放 |\n| 🏛️ 早期社区 DAO | 10% | 二纪元 DEAI-T 兑换 |\n| 🏦 生态基金 | 9% | 每年<1.5%释放，社区投票决定 |\n| 👨‍💻 开发团队 | 5% | 锁仓1年，线性释放5年 |\n\n**代币功能**：\n- 参与平台治理投票\n- 提案与决策权\n- 质押获得 DEAI-T 奖励\n- 交易手续费减免\n\n---\n\n**DEAI-T（质押代币）**\n\n**初始供应量**：1亿枚，可通过治理调整\n\n**代币功能**：\n- 算力节点质押凭证（必需）\n- 收益结算单位（所有奖励以DEAI-T结算）\n- 质押获取静态收益\n- 社区动态收益和节点激励\n\n**通缩机制**：\n- 质押销毁：质押时20%（其中10%黑洞销毁+5%官方手续费+5%节点池）\n- 暴风通缩：三纪元（2026-Q3）启动加速通缩",
+            "en-US": "**DEAI (Governance Token)**\n\n**Total Supply**: 1 billion DEAI\n\n**Allocation Plan**:\n\n| Category | Ratio | Description |\n|----------|-------|-------------|\n| ⛏️ PoDRC Hardware Mining | 76% | 36-year dynamic decay release |\n| 🏛️ Early Community DAO | 10% | Epoch 2 DEAI-T exchange |\n| 🏦 Ecosystem Fund | 9% | <1.5% release/year, community vote |\n| 👨‍💻 Development Team | 5% | 1-year lock, 5-year linear vesting |\n\n**Token Functions**:\n- Platform governance voting\n- Proposal and decision-making rights\n- Stake to earn DEAI-T rewards\n- Transaction fee discounts\n\n---\n\n**DEAI-T (Staking Token)**\n\n**Initial Supply**: 100 million, adjustable through governance\n\n**Token Functions**:\n- Computing node staking certificate (required)\n- Revenue settlement unit (all rewards settled in DEAI-T)\n- Stake to earn static rewards (DPR ranges and APY calculations, see \"Models and Rewards\" section)\n- Referral to earn dynamic rewards (L1/L2/L3 tier difference)\n\n**Deflation Mechanism**:\n- Staking burn: 10% directly burned when staking\n- Unstake loss: 20% loss when unstaking (10% burn + 5% fee + 5% node pool)\n- Transaction burn: 10% transaction fee automatically burned per computing transaction\n- Storm deflation: Epoch 3 (2026-Q3) launches accelerated deflation"
+          }
+        },
+        {
+          "id": "dual_token_design",
+          "title": {
+            "zh-CN": "双代币设计",
+            "en-US": "Dual Token Design"
+          },
+          "content": {
+            "zh-CN": "**DEAI（治理代币）**\n\n**总供应量**：10亿枚\n\n**分配方案**：\n\n| 类别 | 比例 | 说明 |\n|------|------|------|\n| ⛏️ PoDRC 硬件挖矿 | 76% | 36年动态衰减释放 |\n| 🏛️ 早期社区 DAO | 10% | 二纪元 DEAI-T 兑换 |\n| 🏦 生态基金 | 9% | 每年<1.5%释放，社区投票决定 |\n| 👨‍💻 开发团队 | 5% | 锁仓1年，线性释放5年 |\n\n**代币功能**：\n- 参与平台治理投票\n- 提案与决策权\n- 质押获得 DEAI-T 奖励\n- 交易手续费减免\n\n---\n\n**DEAI-T（质押代币）**\n\n**初始供应量**：1亿枚，可通过治理调整\n\n**代币功能**：\n- 算力节点质押凭证（必需）\n- 收益结算单位（所有奖励以DEAI-T结算）\n- 质押获取静态收益\n- 社区动态收益和节点激励\n\n**通缩机制**：\n- 质押销毁：质押时20%（其中10%黑洞销毁+5%官方手续费+5%节点池）\n- 暴风通缩：三纪元（2026-Q3）启动加速通缩",
+            "en-US": "**DEAI (Governance Token)**\n\n**Total Supply**: 1 billion DEAI\n\n**Allocation Plan**:\n\n| Category | Ratio | Description |\n|----------|-------|-------------|\n| ⛏️ PoDRC Hardware Mining | 76% | 36-year dynamic decay release |\n| 🏛️ Early Community DAO | 10% | Epoch 2 DEAI-T exchange |\n| 🏦 Ecosystem Fund | 9% | <1.5% release/year, community vote |\n| 👨‍💻 Development Team | 5% | 1-year lock, 5-year linear vesting |\n\n**Token Functions**:\n- Platform governance voting\n- Proposal and decision-making rights\n- Stake to earn DEAI-T rewards\n- Transaction fee discounts\n\n---\n\n**DEAI-T (Staking Token)**\n\n**Initial Supply**: 100 million, adjustable through governance\n\n**Token Functions**:\n- Computing node staking certificate (required)\n- Revenue settlement unit (all rewards settled in DEAI-T)\n- Stake to earn static rewards (DPR ranges and APY calculations, see \"Models and Rewards\" section)\n- Referral to earn dynamic rewards (L1/L2/L3 tier difference)\n\n**Deflation Mechanism**:\n- Staking burn: 10% directly burned when staking\n- Unstake loss: 20% loss when unstaking (10% burn + 5% fee + 5% node pool)\n- Transaction burn: 10% transaction fee automatically burned per computing transaction\n- Storm deflation: Epoch 3 (2026-Q3) launches accelerated deflation"
+          }
+        },
+        {
+          "id": "deflation_mechanism",
+          "title": {
+            "zh-CN": "通缩机制",
+            "en-US": "Deflation Mechanism"
+          },
+          "content": {
+            "zh-CN": "**三重通缩设计**：\n1. **交易销毁**：每笔算力交易 10% 手续费自动销毁 DEAI-T\n2. **解锁折损**：质押解锁 20% 折损（10% 销毁 + 5% 手续费 + 5% 节点池）\n3. **定期回购**：定期回购销毁计划\n4. **暴风通缩**：三纪元（2026-Q3）将启动暴风通缩",
+            "en-US": "**Triple Deflation Design**:\n1. **Transaction Burn**: 10% transaction fee automatically burns DEAI-T on each computing transaction\n2. **Unlock Loss**: 20% loss on unstaking (10% burn + 5% fee + 5% node pool)\n3. **Regular Buyback**: Periodic buyback and burn program\n4. **Storm Deflation**: Will launch in Epoch 3 (2026-Q3)"
+          }
+        },
+        {
+          "id": "economic_model_highlights",
+          "title": {
+            "zh-CN": "经济模型亮点",
+            "en-US": "Economic Model Highlights"
+          },
+          "content": {
+            "zh-CN": "**核心亮点**：\n- 双代币生态（DEAI 治理 + DEAI-T 质押）\n- 通缩机制（交易销毁、质押折损、定期回购）\n- 可持续收益（静态 0.55%-0.80% 日化、动态最高 22%+34%）\n- 强流动性（Uniswap 池子、充足流动性）\n- 透明可查（所有数据链上可验证）",
+            "en-US": "**Core Highlights**:\n- Dual token ecosystem (DEAI governance + DEAI-T staking)\n- Deflation mechanism (transaction burn, staking loss, regular buyback)\n- Sustainable returns (static 0.55%-0.80% daily, dynamic up to 22%+34%)\n- Strong liquidity (Uniswap pool, sufficient liquidity)\n- Transparent and verifiable (all data on-chain verifiable)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "community_rules",
+      "title": {
+        "zh-CN": "社区规则",
+        "en-US": "Community Rules"
+      },
+      "children": [
+        {
+          "id": "community_rules",
+          "title": {
+            "zh-CN": "社区规则",
+            "en-US": "Community Rules"
+          },
+          "content": {
+            "zh-CN": "| 级别                          | 管理加成             | 结构要求                | 个人质押       |\n|-----------------------------|---------------------|-----------------------|--------------|\n| ⚫️ 达标社区                 | 3% / 3%             | 个人或团队 EV ≥ 5,000 | 300 DEAI-T   |\n| ⭐️ 一星社区                 | 6% / 6%             | 2 个达标社区          | 1,000 DEAI-T |\n| ⭐️⭐️ 二星社区              | 8% / 8%             | 2 个一星社区          | 2,000 DEAI-T |\n| ⭐️⭐️⭐️ 三星社区          | 10% / 10%           | 3 个二星社区          | 5,000 DEAI-T |\n| ⭐️⭐️⭐️⭐️ 四星社区      | 12% / 12%           | 2 个三星社区          | 10,000 DEAI-T|\n| ⭐️⭐️⭐️⭐️⭐️ 五星社区 | 13% / 13%           | 2 个四星社区          | 30,000 DEAI-T|\n| 👑 社区大使                  | 14% / 14% (+全球1%) | 2 个五星社区          | 100,000 DEAI-T|",
+            "en-US": "| Level                              | Management Bonus      | Structure Requirement              | Personal Stake |\n|-----------------------------------|----------------------|-----------------------------------|---------------|\n| ⚫️ Standard Community            | 3% / 3%              | Personal or Team EV ≥ 5,000      | 300 DEAI-T    |\n| ⭐️ 1-Star Community              | 6% / 6%              | 2 Standard Communities            | 1,000 DEAI-T  |\n| ⭐️⭐️ 2-Star Community           | 8% / 8%              | 2 1-Star Communities              | 2,000 DEAI-T  |\n| ⭐️⭐️⭐️ 3-Star Community        | 10% / 10%            | 3 2-Star Communities              | 5,000 DEAI-T  |\n| ⭐️⭐️⭐️⭐️ 4-Star Community    | 12% / 12%            | 2 3-Star Communities              | 10,000 DEAI-T |\n| ⭐️⭐️⭐️⭐️⭐️ 5-Star Community | 13% / 13%            | 2 4-Star Communities              | 30,000 DEAI-T |\n| 👑 Community Ambassador         | 14% / 14% (+Global 1%) | 2 5-Star Communities              | 100,000 DEAI-T|"
+          }
+        },
+        {
+          "id": "community_levels",
+          "title": {
+            "zh-CN": "社区级别体系",
+            "en-US": "Community Level System"
+          },
+          "content": {
+            "zh-CN": "| 级别                          | 管理加成             | 结构要求                | 个人质押       |\n|-----------------------------|---------------------|-----------------------|--------------|\n| ⚫️ 达标社区                 | 3% / 3%             | 个人或团队 EV ≥ 5,000 | 300 DEAI-T   |\n| ⭐️ 一星社区                 | 6% / 6%             | 2 个达标社区          | 1,000 DEAI-T |\n| ⭐️⭐️ 二星社区              | 8% / 8%             | 2 个一星社区          | 2,000 DEAI-T |\n| ⭐️⭐️⭐️ 三星社区          | 10% / 10%           | 3 个二星社区          | 5,000 DEAI-T |\n| ⭐️⭐️⭐️⭐️ 四星社区      | 12% / 12%           | 2 个三星社区          | 10,000 DEAI-T|\n| ⭐️⭐️⭐️⭐️⭐️ 五星社区 | 13% / 13%           | 2 个四星社区          | 30,000 DEAI-T|\n| 👑 社区大使                  | 14% / 14% (+全球1%) | 2 个五星社区          | 100,000 DEAI-T|",
+            "en-US": "| Level                              | Management Bonus      | Structure Requirement              | Personal Stake |\n|-----------------------------------|----------------------|-----------------------------------|---------------|\n| ⚫️ Standard Community            | 3% / 3%              | Personal or Team EV ≥ 5,000      | 300 DEAI-T    |\n| ⭐️ 1-Star Community              | 6% / 6%              | 2 Standard Communities            | 1,000 DEAI-T  |\n| ⭐️⭐️ 2-Star Community           | 8% / 8%              | 2 1-Star Communities              | 2,000 DEAI-T  |\n| ⭐️⭐️⭐️ 3-Star Community        | 10% / 10%            | 3 2-Star Communities              | 5,000 DEAI-T  |\n| ⭐️⭐️⭐️⭐️ 4-Star Community    | 12% / 12%            | 2 3-Star Communities              | 10,000 DEAI-T |\n| ⭐️⭐️⭐️⭐️⭐️ 5-Star Community | 13% / 13%            | 2 4-Star Communities              | 30,000 DEAI-T |\n| 👑 Community Ambassador         | 14% / 14% (+Global 1%) | 2 5-Star Communities              | 100,000 DEAI-T|"
+          }
+        },
+        {
+          "id": "basic_sharing",
+          "title": {
+            "zh-CN": "基础分享",
+            "en-US": "Basic Sharing"
+          },
+          "content": {
+            "zh-CN": "| 奖励梯度 | 质押奖励 | 销售奖励 |\n|---------|---------|---------|\n| LV1     | 8%      | 13%     |\n| LV2     | 5%      | 5%      |\n| LV3     | 3%      | 5%      |",
+            "en-US": "| Reward Tier | Staking Reward | Sales Reward |\n|-------------|----------------|--------------|\n| LV1         | 8%             | 13%          |\n| LV2         | 5%             | 5%           |\n| LV3         | 3%             | 5%           |"
+          }
+        },
+        {
+          "id": "special_incentives",
+          "title": {
+            "zh-CN": "特殊激励机制",
+            "en-US": "Special Incentives"
+          },
+          "content": {
+            "zh-CN": "**城市节点加成**：\n- 销售奖励额外 +7%\n- 需获得城市节点资格认证\n\n**三星节点激励**：\n- 三星及以上社区，个人质押进入前 50\n- 额外瓜分 5% 全网铸造奖励\n- 官方排行榜：https://app.deainexus.ai/zh-hant/leaderboard",
+            "en-US": "**City Node Bonus**:\n- Additional +7% sales reward\n- Requires city node qualification certification\n\n**3-Star Node Incentives**:\n- 3-Star and above communities, personal stake in top 50\n- Additional 5% of global minting rewards\n- Official Leaderboard: https://app.deainexus.ai/zh-hant/leaderboard"
+          }
+        }
+      ]
+    },
+    {
+      "id": "models_rewards",
+      "title": {
+        "zh-CN": "模型和收益",
+        "en-US": "Models & Rewards"
+      },
+      "children": [
+        {
+          "id": "models_rewards",
+          "title": {
+            "zh-CN": "模型和收益",
+            "en-US": "Models & Rewards"
+          },
+          "content": {
+            "zh-CN": "| 模型 | 价格 (USDT) | 有效上限 (DEAI-T) | DPR (日化) |\n|------|------------|------------------|-----------|\n| LV1  | 35         | 200              | 0.55%     |\n| LV2  | 210        | 1,200            | 0.60%     |\n| LV3  | 700        | 4,500            | 0.65%     |\n| LV4  | 2,100      | 15,000           | 0.70%     |\n| LV5  | 7,000      | 100,000          | 0.75%     |\n| LV6  | 14,000     | 300,000          | 0.80%     |",
+            "en-US": "| Model | Price (USDT) | Effective Cap (DEAI-T) | DPR (Daily) |\n|-------|-------------|----------------------|-------------|\n| LV1   | 35          | 200                  | 0.55%       |\n| LV2   | 210         | 1,200                | 0.60%       |\n| LV3   | 700         | 4,500                | 0.65%       |\n| LV4   | 2,100       | 15,000               | 0.70%       |\n| LV5   | 7,000       | 100,000              | 0.75%       |\n| LV6   | 14,000      | 300,000              | 0.80%       |"
+          }
+        },
+        {
+          "id": "model_levels",
+          "title": {
+            "zh-CN": "模型等级与 DPR",
+            "en-US": "Model Levels & DPR"
+          },
+          "content": {
+            "zh-CN": "| 模型 | 价格 (USDT) | 有效上限 (DEAI-T) | DPR (日化) |\n|------|------------|------------------|-----------|\n| LV1  | 35         | 200              | 0.55%     |\n| LV2  | 210        | 1,200            | 0.60%     |\n| LV3  | 700        | 4,500            | 0.65%     |\n| LV4  | 2,100      | 15,000           | 0.70%     |\n| LV5  | 7,000      | 100,000          | 0.75%     |\n| LV6  | 14,000     | 300,000          | 0.80%     |",
+            "en-US": "| Model | Price (USDT) | Effective Cap (DEAI-T) | DPR (Daily) |\n|-------|-------------|----------------------|-------------|\n| LV1   | 35          | 200                  | 0.55%       |\n| LV2   | 210         | 1,200                | 0.60%       |\n| LV3   | 700         | 4,500                | 0.65%       |\n| LV4   | 2,100       | 15,000               | 0.70%       |\n| LV5   | 7,000       | 100,000              | 0.75%       |\n| LV6   | 14,000      | 300,000              | 0.80%       |"
+          }
+        },
+        {
+          "id": "static_rewards_calculation",
+          "title": {
+            "zh-CN": "静态收益计算",
+            "en-US": "Static Rewards Calculation"
+          },
+          "content": {
+            "zh-CN": "**质押机制**：\n- 有效质押率 80%（实际有效质押 = 总质押 × 80%）\n- 20% 烧毁/折损分配：10% 直接销毁 + 5% 手续费 + 5% 节点池\n\n**计算公式**：\n```\n日收益 = 有效质押 × DPR\n有效质押 = min(模型上限, 总质押 × 80%)\n```\n\n**计算示例**：\n- 质押 10,000 DEAI-T，LV3 模型（DPR 0.65%）\n- 日收益 = 10,000 × 80% × 0.65% = **52 DEAI-T**",
+            "en-US": "**Staking Mechanism**:\n- Effective staking rate 80% (actual effective staking = total staking × 80%)\n- 20% burn/loss allocation: 10% direct burn + 5% fee + 5% node pool\n\n**Calculation Formula**:\n```\nDaily Revenue = Effective Stake × DPR\nEffective Stake = min(Model Cap, Total Stake × 80%)\n```\n\n**Calculation Example**:\n- Stake 10,000 DEAI-T, LV3 model (DPR 0.65%)\n- Daily revenue = 10,000 × 80% × 0.65% = **52 DEAI-T**"
+          }
+        },
+        {
+          "id": "compound_mechanism",
+          "title": {
+            "zh-CN": "复利与出局机制",
+            "en-US": "Compound & Exit Mechanism"
+          },
+          "content": {
+            "zh-CN": "**复利机制**：\n- 可选择将每日收益再质押\n- 复投同样享受 80% 有效率\n- 加速资产增长速度\n\n**出局机制**：\n- 累计收益达到 4 × 模型上限可退出\n- 退还本金（扣除 20% 折损）\n- 或继续质押获得长期收益\n\n**出局门槛示例**：\n- LV5 上限 100,000，出局门槛 = 400,000 DEAI-T\n\n**回报率亮点**：\n- 最高日化：0.80%（LV6 模型）\n- 最高年化（按复利口径估算）：约 885%\n\n> 说明：以上仅用于展示\"回报率上限口径\"的直观感受，实际以链上规则与产品页面实时数据为准，不构成任何承诺。",
+            "en-US": "**Compound Mechanism**:\n- Option to re-stake daily earnings\n- Re-staking also enjoys 80% effectiveness\n- Accelerates asset growth\n\n**Exit Mechanism**:\n- Can exit when cumulative revenue reaches 4 × model cap\n- Principal returned (minus 20% loss)\n- Or continue staking for long-term returns\n\n**Exit Threshold Example**:\n- LV5 cap 100,000, exit threshold = 400,000 DEAI-T\n\n**Return Highlights**:\n- Highest daily rate: 0.80% (LV6 model)\n- Highest annual return (compound estimate): approximately 885%\n\n> Note: The above is only for showing the \"return cap\" intuitive feel. Actual returns depend on on-chain rules and real-time product data, and do not constitute any commitment."
+          }
+        },
+        {
+          "id": "income_calculation_example",
+          "title": {
+            "zh-CN": "收益计算示例",
+            "en-US": "Income Calculation Example"
+          },
+          "content": {
+            "zh-CN": "**计算场景**：\n\n**我的配置**：\n- **级别**：⭐️⭐️⭐️ 三星社区（管理加成 10%）\n- **我的质押**：LV5 模型，20,000 EV（有效质押），DPR 0.75%\n\n**团队结构**：\n- 3 个二星社区（L1）：每个质押 5,000 DEAI-T\n- 6 个一星社区（L2）：每个质押 1,000 DEAI-T\n- 12 个达标社区（L3）：每个质押 5,000 DEAI-T\n\n---\n\n**静态收益**：\n- 质押：20,000 EV（有效质押）\n- **日收益** = 20,000 × 0.75% = **150 DEAI-T/天**\n\n**动态收益**：\n- **L1（3 个二星）**：基础 8% + 级差 2% = **14.4 DEAI-T/天**\n- **L2（6 个一星）**：基础 5% + 级差 4% = **3.24 DEAI-T/天**\n- **L3（12 个达标）**：基础 3% + 级差 7% = **45 DEAI-T/天**\n- **动态收益小计**：**62.64 DEAI-T/天**\n\n**特殊收益（三星节点激励）**：\n- 进入 TOP50 质押排行榜\n- 额外瓜分 5% 全网铸造奖励\n- **约 50 DEAI-T/天**（平均值）\n\n---\n\n**收益汇总**：\n\n| 收益类型 | 日收益 | 月收益 | 年收益 |\n|---------|-------|-------|-------|\n| 静态收益 | 150 DEAI-T | 4,500 DEAI-T | 54,750 DEAI-T |\n| 动态收益 | 62.64 DEAI-T | 1,879.2 DEAI-T | 22,863.6 DEAI-T |\n| 特殊收益 | 50 DEAI-T | 1,500 DEAI-T | 18,250 DEAI-T |\n| **合计** | **262.64 DEAI-T** | **7,879.2 DEAI-T** | **95,863.6 DEAI-T** |\n\n**收益分析**：\n- 静态收益占比：57.1%\n- 动态收益占比：23.9%\n- 特殊收益占比：19.0%\n\n> 说明：以上仅为示例，实际收益根据个人质押量、团队规模和市场情况波动。使用官方计算器获取准确预测：https://app.deainexus.ai/calculator",
+            "en-US": "**Calculation Scenario**:\n\n**My Configuration**:\n- **Level**: ⭐️⭐️⭐️ Three-Star Community (Management Bonus 10%)\n- **My Stake**: LV5 Model, 20,000 EV (Effective Stake), DPR 0.75%\n\n**Team Structure**:\n- 3 Two-Star Communities (L1): Each staking 5,000 DEAI-T\n- 6 One-Star Communities (L2): Each staking 1,000 DEAI-T\n- 12 Standard Communities (L3): Each staking 5,000 DEAI-T\n\n---\n\n**Static Income**:\n- Stake: 20,000 EV (Effective Stake)\n- **Daily Income** = 20,000 × 0.75% = **150 DEAI-T/day**\n\n**Dynamic Income**:\n- **L1 (3 Two-Star)**: Base 8% + Level Diff 2% = **14.4 DEAI-T/day**\n- **L2 (6 One-Star)**: Base 5% + Level Diff 4% = **3.24 DEAI-T/day**\n- **L3 (12 Standard)**: Base 3% + Level Diff 7% = **45 DEAI-T/day**\n- **Dynamic Subtotal**: **62.64 DEAI-T/day**\n\n**Special Income (Three-Star Node Incentive)**:\n- Enter TOP50 Staker Leaderboard\n- Additional share of 5% global minting rewards\n- **Approx. 50 DEAI-T/day** (average)\n\n---\n\n**Income Summary**:\n\n| Income Type | Daily | Monthly | Yearly |\n|-------------|-------|--------|--------|\n| Static Income | 150 DEAI-T | 4,500 DEAI-T | 54,750 DEAI-T |\n| Dynamic Income | 62.64 DEAI-T | 1,879.2 DEAI-T | 22,863.6 DEAI-T |\n| Special Income | 50 DEAI-T | 1,500 DEAI-T | 18,250 DEAI-T |\n| **Total** | **262.64 DEAI-T** | **7,879.2 DEAI-T** | **95,863.6 DEAI-T** |\n\n**Income Analysis**:\n- Static Income: 57.1%\n- Dynamic Income: 23.9%\n- Special Income: 19.0%\n\n> Note: The above is an example only. Actual returns vary based on personal stake, team size, and market conditions. Use the official calculator for accurate projections: https://app.deainexus.ai/calculator"
+          }
+        }
+      ]
+    },
+    {
+      "id": "code_audit",
+      "title": {
+        "zh-CN": "代码与风控",
+        "en-US": "Code & Risk Control"
+      },
+      "children": [
+        {
+          "id": "code_audit",
+          "title": {
+            "zh-CN": "代码与风控",
+            "en-US": "Code & Risk Control"
+          },
+          "content": {
+            "zh-CN": "**审计范围**：\n- Token 合约\n- Stake 合约\n\n**审计方法**：\n- 静态分析\n- 人工审阅\n- 测试用例\n\n**审计结论**：\n- ✅ 通过 24 项安全审计检测（100%通过率）\n- ✅ 无黑名单/白名单限制\n- ✅ 无交易冻结功能\n- ✅ 无增发/铸币权\n- ✅ 合约所有权已放弃（Ownership Renounced）\n- ✅ 无隐藏风险代码\n\n**24项审计检测详情**：\n\n**代码安全类（6项）**：\n1. ✅ 智能合约代码规范检测 - 代码遵循Solidity最佳实践\n2. ✅ 整数溢出/下溢检测 - 使用Solidity 0.8+内置安全检查\n3. ✅ 重入攻击检测 - 采用Checks-Effects-Interactions模式\n4. ✅ 访问控制检测 - onlyOwner修饰符正确实现\n5. ✅ 异常处理检测 - 使用require/revert正确处理\n6. ✅ 状态变量可变性检测 - 关键变量使用immutable/constant\n\n**业务逻辑类（5项）**：\n7. ✅ 逻辑漏洞检测 - 业务逻辑清晰，无缺陷\n8. ✅ 时间戳依赖检测 - 未使用block.timestamp进行关键判断\n9. ✅ 随机数安全性检测 - 使用Chainlink VRF安全可靠\n10. ✅ 委托调用检测 - 未使用delegatecall避免存储冲突\n11. ✅ 合约自毁逻辑检测 - 无自毁功能，避免误操作\n\n**Gas优化类（2项）**：\n12. ✅ Gas优化检测 - 循环效率良好，无无限循环\n13. ✅ 未使用的返回值检测 - 所有外部调用返回值均被正确处理\n\n**攻击防护类（6项）**：\n14. ✅ 前置交易攻击检测 - 使用ERC20Permit机制避免前置交易\n15. ✅ 闪电贷攻击检测 - 无常量函数可供闪电贷操纵\n16. ✅ DoS攻击检测 - 无外部调用依赖，抗DoS能力强\n17. ✅ 事件日志完整性检测 - 关键操作均有事件记录\n18. ✅ 接口兼容性检测 - 完全符合ERC20/ERC721标准\n19. ✅ 熔断机制检测 - 实现暂停功能，应急响应完善\n\n**架构与权限类（5项）**：\n20. ✅ 合约升级安全性检测 - 采用透明代理模式，安全可控\n21. ✅ 私钥管理安全检测 - 部署私钥已销毁，无泄露风险\n22. ✅ 权限管理完整性检测 - 多签控制关键操作，权限分离明确\n23. ✅ 数据隐私保护检测 - 敏感数据不上链，隐私保护到位\n24. ✅ 整体架构安全性检测 - 模块化设计，架构清晰安全\n\n**安全保障机制**：\n\n**权威第三方审计**\n- 通过权威机构智能合约审计\n- 24 项安全检测全部通过\n- 审计报告公开可查\n\n**链上完全透明可验证**\n- 所有交易记录公开可查\n- 任何增发、冻结操作都会在链上留下痕迹\n- 社区可以实时监控合约状态\n- BSCScan 验证：https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**合约权限可查**\n- 无黑名单功能（无法冻结账户）\n- 无增发权（totalSupply 只减不增）\n- 无隐藏后门（24 项审计确认）\n- 所有关键参数链上可验证\n\n**审计报告来源**：\n- 审计机构：权威第三方审计机构\n- 报告日期：2025-11-20\n- 报告类型：Token + Stake Contract Review",
+            "en-US": "**Audit Scope**:\n- Token Contract\n- Stake Contract\n\n**Audit Methods**:\n- Static analysis\n- Manual review\n- Test cases\n\n**Audit Conclusion**:\n- ✅ Passed all 24 security audit checks (100% pass rate)\n- ✅ No blacklist/whitelist restrictions\n- ✅ No transaction freeze functionality\n- ✅ No minting/burning rights\n- ✅ Contract ownership renounced (Ownership Renounced)\n- ✅ No hidden risk code\n\n**24 Audit Check Details**:\n\n**Code Security (6 items)**:\n1. ✅ Smart Contract Code Standards - Follows Solidity best practices\n2. ✅ Integer Overflow/Underflow - Uses Solidity 0.8+ built-in safety\n3. ✅ Reentrancy Attack - Adopts Checks-Effects-Interactions pattern\n4. ✅ Access Control - onlyOwner modifier correctly implemented\n5. ✅ Exception Handling - Uses require/revert properly\n6. ✅ State Variable Immutability - Key variables use immutable/constant\n\n**Business Logic (5 items)**:\n7. ✅ Logic Vulnerabilities - Clear business logic, no defects\n8. ✅ Timestamp Dependency - No critical use of block.timestamp\n9. ✅ Random Number Security - Uses Chainlink VRF safely\n10. ✅ Delegatecall Detection - No delegatecall to avoid storage conflicts\n11. ✅ Self-Destruct Logic - No self-destruct function to avoid accidents\n\n**Gas Optimization (2 items)**:\n12. ✅ Gas Optimization - Efficient loops, no infinite loops\n13. ✅ Unused Return Values - All external call returns handled correctly\n\n**Attack Protection (6 items)**:\n14. ✅ Front-Running Attack - Uses ERC20Permit to avoid front-running\n15. ✅ Flash Loan Attack - No constant functions for flash loan manipulation\n16. ✅ DoS Attack - No external call dependencies, strong DoS resistance\n17. ✅ Event Log Integrity - All critical operations have event logs\n18. ✅ Interface Compatibility - Fully ERC20/ERC721 compliant\n19. ✅ Circuit Breaker - Pause function implemented, emergency ready\n\n**Architecture & Permissions (5 items)**:\n20. ✅ Contract Upgrade Security - Transparent proxy pattern, safe and controllable\n21. ✅ Private Key Management - Deployment key destroyed, no leak risk\n22. ✅ Permission Management - Multi-sig for critical ops, clear separation\n23. ✅ Data Privacy Protection - Sensitive data off-chain, privacy protected\n24. ✅ Overall Architecture Security - Modular design, clear and safe architecture\n\n**Security Assurance Mechanisms**:\n\n**Authoritative Third-Party Audit**\n- Passed authoritative smart contract audit\n- All 24 security checks passed\n- Audit report publicly available\n\n**Fully On-Chain Transparent and Verifiable**\n- All transaction records publicly verifiable\n- Any minting or freezing operations leave on-chain traces\n- Community can monitor contract status in real-time\n- BSCScan verification: https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**Contract Permissions Verifiable**\n- No blacklist function (cannot freeze accounts)\n- No minting rights (totalSupply only decreases)\n- No hidden backdoors (confirmed by 24 audits)\n- All key parameters on-chain verifiable\n\n**Audit Report Source**:\n- Auditor: Authoritative third-party audit firm\n- Report Date: 2025-11-20\n- Report Type: Token + Stake Contract Review"
+          }
+        },
+        {
+          "id": "security_audit_report",
+          "title": {
+            "zh-CN": "安全审计报告",
+            "en-US": "Security Audit Report"
+          },
+          "content": {
+            "zh-CN": "**审计范围**：\n- Token 合约\n- Stake 合约\n\n**审计方法**：\n- 静态分析\n- 人工审阅\n- 测试用例\n\n**审计结论**：\n- ✅ 通过 24 项安全审计检测（100%通过率）\n- ✅ 无黑名单/白名单限制\n- ✅ 无交易冻结功能\n- ✅ 无增发/铸币权\n- ✅ 合约所有权已放弃（Ownership Renounced）\n- ✅ 无隐藏风险代码\n\n**24项审计检测详情**：\n\n**代码安全类（6项）**：\n1. ✅ 智能合约代码规范检测 - 代码遵循Solidity最佳实践\n2. ✅ 整数溢出/下溢检测 - 使用Solidity 0.8+内置安全检查\n3. ✅ 重入攻击检测 - 采用Checks-Effects-Interactions模式\n4. ✅ 访问控制检测 - onlyOwner修饰符正确实现\n5. ✅ 异常处理检测 - 使用require/revert正确处理\n6. ✅ 状态变量可变性检测 - 关键变量使用immutable/constant\n\n**业务逻辑类（5项）**：\n7. ✅ 逻辑漏洞检测 - 业务逻辑清晰，无缺陷\n8. ✅ 时间戳依赖检测 - 未使用block.timestamp进行关键判断\n9. ✅ 随机数安全性检测 - 使用Chainlink VRF安全可靠\n10. ✅ 委托调用检测 - 未使用delegatecall避免存储冲突\n11. ✅ 合约自毁逻辑检测 - 无自毁功能，避免误操作\n\n**Gas优化类（2项）**：\n12. ✅ Gas优化检测 - 循环效率良好，无无限循环\n13. ✅ 未使用的返回值检测 - 所有外部调用返回值均被正确处理\n\n**攻击防护类（6项）**：\n14. ✅ 前置交易攻击检测 - 使用ERC20Permit机制避免前置交易\n15. ✅ 闪电贷攻击检测 - 无常量函数可供闪电贷操纵\n16. ✅ DoS攻击检测 - 无外部调用依赖，抗DoS能力强\n17. ✅ 事件日志完整性检测 - 关键操作均有事件记录\n18. ✅ 接口兼容性检测 - 完全符合ERC20/ERC721标准\n19. ✅ 熔断机制检测 - 实现暂停功能，应急响应完善\n\n**架构与权限类（5项）**：\n20. ✅ 合约升级安全性检测 - 采用透明代理模式，安全可控\n21. ✅ 私钥管理安全检测 - 部署私钥已销毁，无泄露风险\n22. ✅ 权限管理完整性检测 - 多签控制关键操作，权限分离明确\n23. ✅ 数据隐私保护检测 - 敏感数据不上链，隐私保护到位\n24. ✅ 整体架构安全性检测 - 模块化设计，架构清晰安全\n\n**安全保障机制**：\n\n**权威第三方审计**\n- 通过权威机构智能合约审计\n- 24 项安全检测全部通过\n- 审计报告公开可查\n\n**链上完全透明可验证**\n- 所有交易记录公开可查\n- 任何增发、冻结操作都会在链上留下痕迹\n- 社区可以实时监控合约状态\n- BSCScan 验证：https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**合约权限可查**\n- 无黑名单功能（无法冻结账户）\n- 无增发权（totalSupply 只减不增）\n- 无隐藏后门（24 项审计确认）\n- 所有关键参数链上可验证\n\n**审计报告来源**：\n- 审计机构：权威第三方审计机构\n- 报告日期：2025-11-20\n- 报告类型：Token + Stake Contract Review",
+            "en-US": "**Audit Scope**:\n- Token Contract\n- Stake Contract\n\n**Audit Methods**:\n- Static analysis\n- Manual review\n- Test cases\n\n**Audit Conclusion**:\n- ✅ Passed all 24 security audit checks (100% pass rate)\n- ✅ No blacklist/whitelist restrictions\n- ✅ No transaction freeze functionality\n- ✅ No minting/burning rights\n- ✅ Contract ownership renounced (Ownership Renounced)\n- ✅ No hidden risk code\n\n**24 Audit Check Details**:\n\n**Code Security (6 items)**:\n1. ✅ Smart Contract Code Standards - Follows Solidity best practices\n2. ✅ Integer Overflow/Underflow - Uses Solidity 0.8+ built-in safety\n3. ✅ Reentrancy Attack - Adopts Checks-Effects-Interactions pattern\n4. ✅ Access Control - onlyOwner modifier correctly implemented\n5. ✅ Exception Handling - Uses require/revert properly\n6. ✅ State Variable Immutability - Key variables use immutable/constant\n\n**Business Logic (5 items)**:\n7. ✅ Logic Vulnerabilities - Clear business logic, no defects\n8. ✅ Timestamp Dependency - No critical use of block.timestamp\n9. ✅ Random Number Security - Uses Chainlink VRF safely\n10. ✅ Delegatecall Detection - No delegatecall to avoid storage conflicts\n11. ✅ Self-Destruct Logic - No self-destruct function to avoid accidents\n\n**Gas Optimization (2 items)**:\n12. ✅ Gas Optimization - Efficient loops, no infinite loops\n13. ✅ Unused Return Values - All external call returns handled correctly\n\n**Attack Protection (6 items)**:\n14. ✅ Front-Running Attack - Uses ERC20Permit to avoid front-running\n15. ✅ Flash Loan Attack - No constant functions for flash loan manipulation\n16. ✅ DoS Attack - No external call dependencies, strong DoS resistance\n17. ✅ Event Log Integrity - All critical operations have event logs\n18. ✅ Interface Compatibility - Fully ERC20/ERC721 compliant\n19. ✅ Circuit Breaker - Pause function implemented, emergency ready\n\n**Architecture & Permissions (5 items)**:\n20. ✅ Contract Upgrade Security - Transparent proxy pattern, safe and controllable\n21. ✅ Private Key Management - Deployment key destroyed, no leak risk\n22. ✅ Permission Management - Multi-sig for critical ops, clear separation\n23. ✅ Data Privacy Protection - Sensitive data off-chain, privacy protected\n24. ✅ Overall Architecture Security - Modular design, clear and safe architecture\n\n**Security Assurance Mechanisms**:\n\n**Authoritative Third-Party Audit**\n- Passed authoritative smart contract audit\n- All 24 security checks passed\n- Audit report publicly available\n\n**Fully On-Chain Transparent and Verifiable**\n- All transaction records publicly verifiable\n- Any minting or freezing operations leave on-chain traces\n- Community can monitor contract status in real-time\n- BSCScan verification: https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**Contract Permissions Verifiable**\n- No blacklist function (cannot freeze accounts)\n- No minting rights (totalSupply only decreases)\n- No hidden backdoors (confirmed by 24 audits)\n- All key parameters on-chain verifiable\n\n**Audit Report Source**:\n- Auditor: Authoritative third-party audit firm\n- Report Date: 2025-11-20\n- Report Type: Token + Stake Contract Review"
+          }
+        },
+        {
+          "id": "risk_control_mechanisms",
+          "title": {
+            "zh-CN": "风险控制机制",
+            "en-US": "Risk Control Mechanisms"
+          },
+          "content": {
+            "zh-CN": "**项目方保护措施**：\n\n**动态稳定基金**\n- 提取15%交易费存入USDC储备池\n- 用于应对极端市场情况\n- 保证系统稳定性\n\n**回购机制**\n- 当DEAI单日跌幅>20%时启动回购\n- 稳定代币价格，防止恐慌性抛售\n- 回购资金来自平台收入\n\n**抗鲸鱼机制**\n- 单地址挖矿奖励上限\n- 前五年≤0.5%/月\n- 五年后≤0.2%/月\n- 大额质押阶梯费率\n\n**系统性风险对冲**\n- 建立风险储备池（销毁额的20%）\n- 应对技术故障、安全漏洞等系统性风险\n- 多重签名钱包管理\n\n**熔断机制**\n- 当TVL周跌幅>25%时暂停挖矿\n- 波动率>15%时触发交易限制\n- 保护用户资产安全\n\n**用户资产安全保障**：\n\n**非托管模式**\n- 用户始终掌控私钥\n- 资产存储在个人钱包\n- 项目方无法访问或冻结用户资产\n\n**链上透明**\n- 所有交易记录公开可查\n- 合约代码开源审计\n- 质押和奖励链上自动结算\n\n**所有权放弃**\n- 合约所有权已放弃\n- 无法增发代币\n- 无法修改合约参数",
+            "en-US": "**Project Protection Measures**:\n\n**Dynamic Stability Fund**\n- Extract 15% of transaction fees into USDC reserve pool\n- Used to respond to extreme market conditions\n- Ensure system stability\n\n**Buyback Mechanism**\n- Activate buyback when DEAI daily drop >20%\n- Stabilize token price, prevent panic selling\n- Buyback funds from platform revenue\n\n**Anti-Whale Mechanism**\n- Single address mining reward cap\n- First 5 years: ≤0.5%/month\n- After 5 years: ≤0.2%/month\n- Large staking tiered fees\n\n**Systematic Risk Hedging**\n- Establish risk reserve pool (20% of burn amount)\n- Respond to technical failures, security vulnerabilities, and other systemic risks\n- Multi-signature wallet management\n\n**Circuit Breaker Mechanism**\n- Pause mining when weekly TVL drop >25%\n- Trigger trading restrictions when volatility >15%\n- Protect user asset safety\n\n**User Asset Security Guarantee**:\n\n**Non-Custodial Model**\n- Users always control private keys\n- Assets stored in personal wallets\n- Project team cannot access or freeze user assets\n\n**On-Chain Transparency**\n- All transaction records publicly verifiable\n- Contract code open source and audited\n- Staking and rewards settled automatically on-chain\n\n**Ownership Renounced**\n- Contract ownership renounced\n- Cannot mint additional tokens\n- Cannot modify contract parameters"
+          }
+        },
+        {
+          "id": "asset_security_guide",
+          "title": {
+            "zh-CN": "资产安全保障指南",
+            "en-US": "Asset Security Guide"
+          },
+          "content": {
+            "zh-CN": "**资产安全机制**\n\n质押的资产始终存储在区块链上，而非项目方服务器。这种非托管模式确保了资产完全由用户掌控。\n\n**核心原则**：\n- 你的 DEAI-T 始终在自己的钱包地址\n- 质押操作是链上交易，数据在区块链上\n- 官网只是前端界面，不托管任何资金\n- 私钥始终由用户自己掌控\n\n**合约独立运行**\n- DEAI-T 合约代码部署在 BSC 链，全球节点运行\n- 官网关闭不影响合约执行\n- 质押和提取完全由智能合约自动执行\n\n**应急操作方案**\n\n当官网不可用时，用户可通过以下方式提取资产：\n\n**方法1：通过 BSCScan 直接操作**\n1. 访问：https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f#writeContract\n2. 连接钱包（点击 \"Write Contract\" → \"Connect to Web3\"）\n3. 找到 `unstake` 函数\n4. 输入解押数量，确认交易\n\n**方法2：通过其他前端**\n- Uniswap：与合约交互\n- 其他社区开发的 DApp\n- 开源的区块链浏览器\n\n**方法3：自己写脚本**\n```javascript\n// 使用 Web3.js 或 Ethers.js\nconst contract = new ethers.Contract(address, abi, signer);\nawait contract.unstake(amount);\n```\n\n**合约安全特性**\n\n合约代码经过严格审计，具备以下安全特性：\n\n- ✅ **无黑名单功能**：无法冻结账户\n- ✅ **无增发权**：无法稀释你的资产\n- ✅ **无交易冻结**：无法阻止你交易\n- ✅ **所有数据链上可查**：完全透明可验证\n\n**实战建议**\n- ✅ 学会使用 BSCScan 直接操作合约\n- ✅ 加入项目社区，保持信息畅通\n- ✅ 定期备份钱包助记词\n- ✅ 验证合约地址，确保与官方一致",
+            "en-US": "**Asset Security Mechanism**\n\nStaked assets are always stored on the blockchain, not on the project server. This non-custodial model ensures assets are fully controlled by users.\n\n**Core Principles**:\n- Your DEAI-T is always in your wallet address\n- Staking is an on-chain transaction, data on blockchain\n- Website is just frontend, does not custody any funds\n- Private keys always controlled by users\n\n**Contract Independent Operation**\n- DEAI-T contract deployed on BSC chain, run by global nodes\n- Website closure does not affect contract execution\n- Staking and unstaking fully automatic via smart contract\n\n**Emergency Operation Methods**\n\nWhen the website is unavailable, users can withdraw assets via:\n\n**Method 1: Direct via BSCScan**\n1. Visit: https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f#writeContract\n2. Connect wallet (Click \"Write Contract\" → \"Connect to Web3\")\n3. Find `unstake` function\n4. Input unstake amount, confirm transaction\n\n**Method 2: Via other frontends**\n- Uniswap: Interact with contract\n- Other community-developed DApps\n- Open source blockchain explorers\n\n**Method 3: Write your own script**\n```javascript\n// Using Web3.js or Ethers.js\nconst contract = new ethers.Contract(address, abi, signer);\nawait contract.unstake(amount);\n```\n\n**Contract Security Features**\n\nThe contract code has undergone rigorous auditing and has the following security features:\n\n- ✅ **No blacklist function**: Cannot freeze accounts\n- ✅ **No minting rights**: Cannot dilute your assets\n- ✅ **No transaction freeze**: Cannot stop your trading\n- ✅ **All data on-chain verifiable**: Fully transparent and verifiable\n\n**Best Practices**:\n- ✅ Learn to use BSCScan for direct contract interaction\n- ✅ Join project community, stay informed\n- ✅ Regularly backup wallet seed phrase\n- ✅ Verify contract address matches official"
+          }
+        },
+        {
+          "id": "open_source_strategy",
+          "title": {
+            "zh-CN": "开源策略与透明度",
+            "en-US": "Open Source Strategy & Transparency"
+          },
+          "content": {
+            "zh-CN": "**开源策略**\n\nDeAI Nexus 采用分阶段开源策略，在主网上线前（2026-Q4）暂不完全开源，主要基于技术保护和商业策略考虑。\n\n**保护核心技术的必要性**\n- AI 算力匹配算法是核心竞争力\n- zkML（零知识机器学习）实现细节是技术壁垒\n- 前期投入大量研发成本，需要保护知识产权\n- 避免暴露代码漏洞给黑客增加攻击风险\n\n**开源的利弊平衡**\n\n**优点**：\n- 社区可以公开审查代码，发现潜在问题\n- 信任度高，适合公链、基础设施项目\n- 便于开发者贡献和协作\n\n**挑战**：\n- 竞争对手可以直接复制代码和技术方案\n- 暴露安全漏洞给黑客，增加被攻击风险\n- 不适合有核心商业机密的项目\n\n**成功案例参考**\n微信、支付宝等商业软件都不开源，但通过第三方审计 + 严格测试 + 银行级安全保障，数十亿人安全使用。这证明：开源 ≠ 安全，不开源 ≠ 不安全。\n\n**逐步开源计划**\n- 主网上线前（2026-Q4）：核心合约审计通过\n- 主网上线后：逐步开放非核心模块\n- 生态成熟后：根据社区反馈决定开源范围",
+            "en-US": "**Open Source Strategy**\n\nDeAI Nexus adopts a phased open-source strategy, not fully open source before mainnet launch (2026-Q4), mainly based on technology protection and business strategy considerations.\n\n**Necessity of Protecting Core Technology**\n- AI computing matching algorithm is core competitiveness\n- zkML (Zero-Knowledge Machine Learning) implementation details are technical barriers\n- Huge R&D investment early on, need to protect IP\n- Avoid exposing code vulnerabilities to hackers\n\n**Pros and Cons Balance of Open Source**\n\n**Advantages**:\n- Community can publicly review code, discover potential issues\n- High trust, suitable for public chains, infrastructure projects\n- Facilitates developer contribution and collaboration\n\n**Challenges**:\n- Competitors can directly copy code and technical solutions\n- Expose security vulnerabilities to hackers, increase attack risk\n- Not suitable for projects with core trade secrets\n\n**Success Case References**\nWeChat, Alipay and other commercial software are not open source, but through third-party audit + strict testing + bank-level security, billions use safely. This proves: open source ≠ secure, not open source ≠ insecure.\n\n**Gradual Open Source Plan**:\n- Before mainnet (2026-Q4): Core contract audit passed\n- After mainnet: Gradually open non-core modules\n- After ecosystem matures: Decide open source scope based on community feedback"
+          }
+        },
+        {
+          "id": "transparency_commitment",
+          "title": {
+            "zh-CN": "透明度与开放承诺",
+            "en-US": "Transparency & Openness Commitment"
+          },
+          "content": {
+            "zh-CN": "**透明度原则**\n\nDeAI Nexus 坚持最大程度的透明度，确保社区能够全面了解项目的运行状况和发展方向。\n\n**链上数据公开透明**\n- ✅ 所有交易记录公开可查，任何操作均可追溯\n- ✅ 质押和奖励数据实时更新，链上自动结算\n- ✅ 合约代码经过权威审计，确保安全可靠\n- ✅ **Uniswap 流动性池**（BNB链）：https://app.uniswap.org/explore/pools/bnb/0x5595ee638bebb3d33c53460d2bbd22d8e5868a5b1e42fb249dd08e5712ca174b\n- ✅ **质押活动地址**（BSCScan）：https://bscscan.com/address/0x2639f229324fa137f3472d4ebb99063bd7fd7f91#tokentxns\n- ✅ **持仓查询**（CMC）：https://dex.coinmarketcap.com/zh/token/bsc/0x9f10a122a921d25fa9084955c87c3fcab103267f/\n- ✅ **代币合约地址**（BSCScan）：https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**定期信息披露**\n- 📊 季度报告：每季度发布项目进展报告\n- 📈 数据透明：定期披露 TVL、用户数等关键指标\n- 🎯 路线图更新：及时公布重要里程碑和计划调整\n- 💬 社区沟通：通过社交媒体、Discord、Telegram 等渠道与社区保持沟通\n\n**开源承诺**\n- 🔒 主网前：核心代码逐步开源，防止黑客恶意攻击\n- ✅ 主网后：根据生态成熟度，扩大开源范围\n- 🤝 社区参与：欢迎开发者审计代码、提出改进建议\n- 🌟 最佳实践：参考行业领先项目的开源策略\n\n**安全审计保障**\n- ✅ 通过权威第三方机构 24 项安全审计检测\n- 📋 审计报告公开可查，确保代码安全性\n- 🔍 漏洞奖励计划：鼓励白帽黑客协助发现安全问题\n- 🛡️ 应急响应机制：快速响应安全事件，保障用户资产\n\n**合规与透明并重**\n- ⚖️ 遵守各地法律法规，确保项目合规运营\n- 🌐 全球用户可参与，建议遵守当地监管要求\n- 💡 定期更新合规政策，保持与监管机构沟通\n- 📢 重要决策通过 DAO 治理，让社区参与决策\n\n**多方监督机制**\n- 👥 社区监督：用户可通过 Discord、Twitter 等渠道提出质疑\n- 📊 数据验证：第三方平台（如 CMC、CoinGecko）可验证数据\n- 🔗 链上验证：所有操作记录在区块链上，不可篡改\n- 🏆 外部审计：定期邀请独立机构进行财务和技术审计\n\n**承诺与行动**\n- 💪 我们承诺：不隐瞒关键信息，不误导投资者\n- 🎯 我们行动：定期公布项目进展，接受社区监督\n- 🌍 我们愿景：打造最透明、最可信的去中心化 AI 算力网络\n- 🤝 我们邀请：加入社区，共同见证 DeAI Nexus 的成长",
+            "en-US": "**Transparency Principles**\n\nDeAI Nexus upholds the highest level of transparency, ensuring the community has comprehensive understanding of project operations and development direction.\n\n**On-Chain Data Transparency**\n- ✅ All transaction records publicly verifiable, every operation traceable\n- ✅ Staking and rewards data updated in real-time, automatically settled on-chain\n- ✅ Contract code audited by authoritative agencies, ensuring safety and reliability\n- ✅ **Uniswap Liquidity Pool** (BNB Chain): https://app.uniswap.org/explore/pools/bnb/0x5595ee638bebb3d33c53460d2bbd22d8e5868a5b1e42fb249dd08e5712ca174b\n- ✅ **Staking Activity Address** (BSCScan): https://bscscan.com/address/0x2639f229324fa137f3472d4ebb99063bd7fd7f91#tokentxns\n- ✅ **Holdings Query** (CMC): https://dex.coinmarketcap.com/zh/token/bsc/0x9f10a122a921d25fa9084955c87c3fcab103267f/\n- ✅ **Token Contract Address** (BSCScan): https://bscscan.com/address/0x9f10a122a921d25fa9084955c87c3fcab103267f\n\n**Regular Information Disclosure**\n- 📊 Quarterly Reports: Publish project progress reports every quarter\n- 📈 Data Transparency: Regularly disclose key metrics like TVL, user count\n- 🎯 Roadmap Updates: Timely announce important milestones and plan adjustments\n- 💬 Community Communication: Maintain communication through social media, Discord, Telegram, etc.\n\n**Open Source Commitment**\n- 🔒 Pre-Mainnet: Core code gradually open-sourced to prevent malicious hacker attacks\n- ✅ Post-Mainnet: Expand open source scope based on ecosystem maturity\n- 🤝 Community Participation: Welcome developers to audit code and suggest improvements\n- 🌟 Best Practices: Reference open source strategies of industry-leading projects\n\n**Security Audit Assurance**\n- ✅ Passed 24 security audit checks by authoritative third-party agencies\n- 📋 Audit report publicly available, ensuring code security\n- 🔍 Bug Bounty Program: Encourage white-hat hackers to help discover security issues\n- 🛡️ Emergency Response: Quick response to security incidents, protecting user assets\n\n**Compliance and Transparency**\n- ⚖️ Comply with local laws and regulations, ensure compliant project operations\n- 🌐 Global users can participate, recommend complying with local regulatory requirements\n- 💡 Regularly update compliance policies, maintain communication with regulators\n- 📢 Important decisions through DAO governance, letting community participate in decision-making\n\n**Multi-Party Oversight Mechanism**\n- 👥 Community Oversight: Users can raise questions through Discord, Twitter, etc.\n- 📊 Data Verification: Third-party platforms (like CMC, CoinGecko) can verify data\n- 🔗 On-Chain Verification: All operation records on blockchain, immutable\n- 🏆 External Audit: Regularly invite independent agencies for financial and technical audits\n\n**Commitments and Actions**\n- 💪 Our Commitment: No withholding of key information, no misleading of investors\n- 🎯 Our Actions: Regularly publish project progress, accept community supervision\n- 🌍 Our Vision: Build the most transparent and trustworthy decentralized AI computing network\n- 🤝 Our Invitation: Join the community, witness the growth of DeAI Nexus together"
+          }
+        },
+        {
+          "id": "compliance_policy",
+          "title": {
+            "zh-CN": "合规参与指南",
+            "en-US": "Compliance Participation Guide"
+          },
+          "content": {
+            "zh-CN": "**合法参与投资**\n\nDeAI Nexus 作为去中心化项目，面向全球用户开放。建议所有用户在参与前了解并遵守当地法律法规。\n\n**全球参与原则**\n- DeAI Nexus 是去中心化项目，全球用户都可以参与\n- 建议遵守当地法律法规\n- 了解加密货币相关的税务要求\n- 选择合规的交易渠道和支付方式\n\n**参与方式**\n- 作为投资者参与质押和推广\n- 不涉及发币、提供金融或交易服务\n- 个人可正常出入金，选择合规渠道\n\n**合规建议**\n- ✅ 资金自持，优先使用去中心化交易方式\n- ✅ 了解并遵守当地法律法规\n- ✅ 保留交易记录用于税务申报\n- ✅ 定期学习最新的合规政策\n\n**避免行为**\n- ❌ 参与洗钱活动\n- ❌ 非法跨境换汇\n- ❌ 使用不明来源的资金\n- ❌ 向不明身份的第三方转账\n\n**安全建议**\n- 🔒 保护好私钥和助记词，不要分享给任何人\n- ✅ 通过官方渠道参与，警惕钓鱼网站\n- 📚 学习区块链安全知识，提高防范意识\n- 🤝 遇到问题及时联系官方社区",
+            "en-US": "**Compliant Participation**\n\nAs a decentralized project, DeAI Nexus is open to global users. All users are advised to understand and comply with local laws and regulations before participating.\n\n**Global Participation Principles**\n- DeAI Nexus is a decentralized project, global users can participate\n- Recommend complying with local laws and regulations\n- Understand cryptocurrency-related tax requirements\n- Choose compliant trading channels and payment methods\n\n**Participation Methods**\n- Participate in staking and promotion as an investor\n- Does not involve issuing tokens, providing financial or trading services\n- Individuals can normally deposit and withdraw, choose compliant channels\n\n**Compliance Recommendations**\n- ✅ Self-custody of funds, prioritize decentralized trading methods\n- ✅ Understand and comply with local laws and regulations\n- ✅ Keep transaction records for tax declaration\n- ✅ Regularly learn latest compliance policies\n\n**Avoid These Behaviors**\n- ❌ Participate in money laundering activities\n- ❌ Illegal cross-border exchange\n- ❌ Use funds from unknown sources\n- ❌ Transfer to unidentified third parties\n\n**Safety Recommendations**\n- 🔒 Protect your private keys and seed phrase, never share with anyone\n- ✅ Participate through official channels, beware of phishing websites\n- 📚 Learn blockchain security knowledge, improve awareness\n- 🤝 Contact official community promptly if you encounter issues"
+          }
+        }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "title": {
+        "zh-CN": "路线图",
+        "en-US": "Roadmap"
+      },
+      "children": [
+        {
+          "id": "roadmap",
+          "title": {
+            "zh-CN": "路线图",
+            "en-US": "Roadmap"
+          },
+          "content": {
+            "zh-CN": "**2024 年**：\n- 曼谷路演\n- 实验室/技术远景\n\n**2025 年**：\n- 新加坡路演\n- 曼谷路演\n- 官宣计划\n- 项目规划\n- **3月29日**：一纪元启动\n- **9月21日**：二纪元启动\n- THBW 2025 曼谷区块链周（白金赞助商+路演）\n\n**2026 年**：\n- **3月6日** 全球 AI 峰会\n- **2026-Q2** Testnet 1 上线\n- **2026-Q3** 三纪元暴风通缩\n- **2026-Q4** 主网上线（MECX、币安 ALPHA）",
+            "en-US": "**2024**:\n- Bangkok Roadshow\n- Lab/Technology Vision\n\n**2025**:\n- Singapore Roadshow\n- Bangkok Roadshow\n- Plan Announcement\n- Project Planning\n- **March 29, 2025**: Epoch 1 Launch\n- **September 21, 2025**: Epoch 2 Launch\n- THBW 2025 Bangkok Blockchain Week (Platinum Sponsor + Roadshow)\n\n**2026**:\n- **March 6**: Global AI Summit\n- **2026-Q2**: Testnet 1 Launch\n- **2026-Q3**: Epoch 3 Storm Deflation\n- **2026-Q4**: Mainnet Launch (MECX, Binance ALPHA)"
+          }
+        },
+        {
+          "id": "timeline",
+          "title": {
+            "zh-CN": "时间轴",
+            "en-US": "Timeline"
+          },
+          "content": {
+            "zh-CN": "**2024 年**：\n- 曼谷路演\n- 实验室/技术远景\n\n**2025 年**：\n- 新加坡路演\n- 曼谷路演\n- 官宣计划\n- 项目规划\n- **3月29日**：一纪元启动\n- **9月21日**：二纪元启动\n- THBW 2025 曼谷区块链周（白金赞助商+路演）\n\n**2026 年**：\n- **3月6日** 全球 AI 峰会\n- **2026-Q2** Testnet 1 上线\n- **2026-Q3** 三纪元暴风通缩\n- **2026-Q4** 主网上线（MECX、币安 ALPHA）",
+            "en-US": "**2024**:\n- Bangkok Roadshow\n- Lab/Technology Vision\n\n**2025**:\n- Singapore Roadshow\n- Bangkok Roadshow\n- Plan Announcement\n- Project Planning\n- **March 29, 2025**: Epoch 1 Launch\n- **September 21, 2025**: Epoch 2 Launch\n- THBW 2025 Bangkok Blockchain Week (Platinum Sponsor + Roadshow)\n\n**2026**:\n- **March 6**: Global AI Summit\n- **2026-Q2**: Testnet 1 Launch\n- **2026-Q3**: Epoch 3 Storm Deflation\n- **2026-Q4**: Mainnet Launch (MECX, Binance ALPHA)"
+          }
+        },
+        {
+          "id": "key_milestones",
+          "title": {
+            "zh-CN": "重要里程碑",
+            "en-US": "Key Milestones"
+          },
+          "content": {
+            "zh-CN": "**一纪元启动（2025-03-29）**：\n- DeAI Nexus 生态正式启动\n- 智能合约部署与代币生成事件\n- 初始算力网络上线\n- 社区体系建立\n\n**二纪元启动（2025-09-21）**：\n- 生态规模扩张与技术升级\n- 全球节点网络完善\n- 企业级算力服务推出\n- DAO 治理机制深化\n\n**三纪元暴风通缩（2026-Q3）**：\n- 代币通缩机制加速\n- 生态价值捕获增强\n- 持续通缩推动价值提升\n\n**主网上线（2026-Q4）**：\n- MECX 中心化交易所上线\n- 币安 ALPHA 项目曝光\n- 完整生态闭环形成\n- 全球化运营展开",
+            "en-US": "**Epoch 1 Launch (2025-03-29)**:\n- DeAI Nexus ecosystem official launch\n- Smart contract deployment and token generation event\n- Initial computing network launch\n- Community system establishment\n\n**Epoch 2 Launch (2025-09-21)**:\n- Ecosystem expansion and technology upgrade\n- Global node network completion\n- Enterprise-grade computing service launch\n- DAO governance mechanism deepening\n\n**Epoch 3 Storm Deflation (2026-Q3)**:\n- Accelerated token deflation mechanism\n- Enhanced ecosystem value capture\n- Continuous deflation drives value growth\n\n**Mainnet Launch (2026-Q4)**:\n- MECX centralized exchange listing\n- Binance ALPHA project exposure\n- Complete ecosystem closed-loop formation\n- Global operations expansion"
+          }
+        },
+        {
+          "id": "long_term_vision",
+          "title": {
+            "zh-CN": "长期愿景",
+            "en-US": "Long-term Vision"
+          },
+          "content": {
+            "zh-CN": "**技术愿景**：\n- 打造 Web3 时代的 AI 基础设施\n- 实现 AI 算力的民主化\n- 推动 AGI（通用人工智能）发展\n\n**社会愿景**：\n- 降低 AI 使用门槛\n- 促进教育公平\n- 创造就业机会\n- 推动可持续发展",
+            "en-US": "**Technical Vision**:\n- Build AI infrastructure for the Web3 era\n- Democratize AI computing power\n- Promote AGI (Artificial General Intelligence) development\n\n**Social Vision**:\n- Lower AI usage barriers\n- Promote educational equity\n- Create employment opportunities\n- Promote sustainable development"
+          }
+        },
+        {
+          "id": "community_growth",
+          "title": {
+            "zh-CN": "社区增长数据",
+            "en-US": "Community Growth Data"
+          },
+          "content": {
+            "zh-CN": "**实时数据看板**：https://app.deainexus.ai/zh-hant#claim-daily-rewards\n\n**全球扩张**：\n- 亚洲：快速增长的核心市场\n- 美洲：合作伙伴积极加入\n- 欧洲：技术社区关注度高\n\n**纪元系统发展**：\n\n**一纪元「十二星座计划」**：\n- 团结了全球社区\n- 建立了 DeAI-T 作为智能价值的体现\n\n**二纪元升级**：\n- 2025年9月21日启动\n- 升级版 DApp 上线\n- 新模块化模型系统\n- 重新设计的激励结构\n- 从模拟向现实的协调转变\n\n**社区活动**：\n- 周末挑战：AI 用例征集\n- 每周挑战猜谜游戏\n- 社区知识分享\n- 全球线上聚会",
+            "en-US": "**Real-Time Data Dashboard**: https://app.deainexus.ai/zh-hant#claim-daily-rewards\n\n**Global Expansion**:\n- Asia: Fast-growing core market\n- Americas: Partners actively joining\n- Europe: High technical community interest\n\n**Epoch System Development**:\n\n**Epoch One: \"12 Constellation Plan\"**:\n- United global community\n- Established DeAI-T as embodiment of intelligent value\n\n**Epoch 2 Upgrade**:\n- Launched September 21, 2025\n- Upgraded DApp launched\n- New modular model system\n- Redesigned incentive structure\n- Coordinated shift from simulation to reality\n\n**Community Activities**:\n- Weekend Challenge: AI use case submissions\n- Weekly Challenge Guessing Game\n- Community knowledge sharing\n- Global online meetups"
+          }
+        }
+      ]
+    },
+    {
+      "id": "governance_mechanism",
+      "title": {
+        "zh-CN": "治理机制",
+        "en-US": "Governance Mechanism"
+      },
+      "children": [
+        {
+          "id": "governance_mechanism",
+          "title": {
+            "zh-CN": "治理机制",
+            "en-US": "Governance Mechanism"
+          },
+          "content": {
+            "zh-CN": "DeAI Nexus 采用分级质押机制，不同等级享受不同的收益和治理权重：\n\n| 等级     | 质押要求       | 年化收益率 | 治理权重因子 | 权益                    |\n| -------- | -------------- | ---------- | ------------ | ----------------------- |\n| 普通质押 | ≥1,000 DEAI   | 5-8%       | 1.0x         | 基础投票权              |\n| 超级节点 | ≥50,000 DEAI  | 9%-12%     | 1.5x         | 提案权 + 收入分成       |\n| 机构质押 | ≥500,000 DEAI | 13%-15%    | 2.0x         | 专用 API + 跨链治理权重 |\n\n**收益率计算公式**：\n\n``\nAPY = BaseRate + min(10%, StakedAmount / 10^8 × 2 + NetworkFee / StakedTotal × 0.3)\n``\n\n**特点**：\n- 质押越多，收益率和治理权重越高\n- 超级节点拥有提案权\n- 机构质押享受专用API和跨链治理权重",
+            "en-US": "DeAI Nexus adopts a tiered staking mechanism where different levels enjoy different returns and governance weights:\n\n| Level        | Stake Req       | APY        | Governance Weight | Benefits                  |\n| ------------ | -------------- | ---------- | ---------------- | ------------------------- |\n| Normal       | ≥1,000 DEAI     | 5-8%       | 1.0x             | Basic voting rights        |\n| Super Node   | ≥50,000 DEAI    | 9%-12%     | 1.5x             | Proposal + income share    |\n| Institutional | ≥500,000 DEAI  | 13%-15%    | 2.0x             | Dedicated API + cross-chain governance weight |\n\n**Yield Calculation Formula**:\n\n``\nAPY = BaseRate + min(10%, StakedAmount / 10^8 × 2 + NetworkFee / StakedTotal × 0.3)\n``\n\n**Features**:\n- More stake = higher returns and governance weight\n- Super Nodes have proposal rights\n- Institutional staking gets dedicated API and cross-chain governance weight"
+          }
+        },
+        {
+          "id": "tiered_staking_system",
+          "title": {
+            "zh-CN": "分级质押系统",
+            "en-US": "Tiered Staking System"
+          },
+          "content": {
+            "zh-CN": "DeAI Nexus 采用分级质押机制，不同等级享受不同的收益和治理权重：\n\n| 等级     | 质押要求       | 年化收益率 | 治理权重因子 | 权益                    |\n| -------- | -------------- | ---------- | ------------ | ----------------------- |\n| 普通质押 | ≥1,000 DEAI   | 5-8%       | 1.0x         | 基础投票权              |\n| 超级节点 | ≥50,000 DEAI  | 9%-12%     | 1.5x         | 提案权 + 收入分成       |\n| 机构质押 | ≥500,000 DEAI | 13%-15%    | 2.0x         | 专用 API + 跨链治理权重 |\n\n**收益率计算公式**：\n\n``\nAPY = BaseRate + min(10%, StakedAmount / 10^8 × 2 + NetworkFee / StakedTotal × 0.3)\n``\n\n**特点**：\n- 质押越多，收益率和治理权重越高\n- 超级节点拥有提案权\n- 机构质押享受专用API和跨链治理权重",
+            "en-US": "DeAI Nexus adopts a tiered staking mechanism where different levels enjoy different returns and governance weights:\n\n| Level        | Stake Req       | APY        | Governance Weight | Benefits                  |\n| ------------ | -------------- | ---------- | ---------------- | ------------------------- |\n| Normal       | ≥1,000 DEAI     | 5-8%       | 1.0x             | Basic voting rights        |\n| Super Node   | ≥50,000 DEAI    | 9%-12%     | 1.5x             | Proposal + income share    |\n| Institutional | ≥500,000 DEAI  | 13%-15%    | 2.0x             | Dedicated API + cross-chain governance weight |\n\n**Yield Calculation Formula**:\n\n``\nAPY = BaseRate + min(10%, StakedAmount / 10^8 × 2 + NetworkFee / StakedTotal × 0.3)\n``\n\n**Features**:\n- More stake = higher returns and governance weight\n- Super Nodes have proposal rights\n- Institutional staking gets dedicated API and cross-chain governance weight"
+          }
+        },
+        {
+          "id": "dao_governance_framework",
+          "title": {
+            "zh-CN": "DAO治理框架",
+            "en-US": "DAO Governance Framework"
+          },
+          "content": {
+            "zh-CN": "**提案类型**：\n\n**基础提案**：\n- 1% 质押可发起\n- 全员投票\n- 适用于参数调整、资金使用等日常决策\n\n**技术升级**：\n- 需 5 个超级节点联署\n- 验证者委员会批准\n- 适用于协议升级、重大变更\n\n**投票权重公式**：\n\n``\nVotingPower = √(StakedDEAI) × (1 + ContributionScore / 100)\n``\n\n- **StakedDEAI**：质押的 DEAI 数量\n- **ContributionScore**：历史算力/数据贡献归一化值（0-100）\n\n**治理流程**：\n\n1. **提案发起**：达到质押要求的地址发起提案\n2. **社区讨论**：在 Discord/Telegram 论坛讨论\n3. **链上投票**：质押代币参与投票\n4. **自动执行**：通过的提案由智能合约自动执行",
+            "en-US": "**Proposal Types**:\n\n**Basic Proposals**:\n- 1% staking required to initiate\n- Open to all for voting\n- Applicable to parameter adjustments, fund usage, etc.\n\n**Technical Upgrades**:\n- Requires 5 Super Nodes to co-sponsor\n- Validator Committee approval\n- Applicable to protocol upgrades, major changes\n\n**Voting Weight Formula**:\n\n``\nVotingPower = √(StakedDEAI) × (1 + ContributionScore / 100)\n``\n\n- **StakedDEAI**: Amount of DEAI staked\n- **ContributionScore**: Normalized value of historical computing/data contributions (0-100)\n\n**Governance Process**:\n\n1. **Proposal Initiation**: Address meeting stake requirements initiates proposal\n2. **Community Discussion**: Discuss in Discord/Telegram forums\n3. **On-chain Voting**: Stake tokens to participate in voting\n4. **Auto Execution**: Passed proposals are automatically executed by smart contracts"
+          }
+        },
+        {
+          "id": "ai_governance_framework",
+          "title": {
+            "zh-CN": "AI治理框架",
+            "en-US": "AI Governance Framework"
+          },
+          "content": {
+            "zh-CN": "**核心理念：谁应该决定 AI 的伦理？大型科技公司，还是你？**\n\nDeAI Nexus 相信智能的\"权重\"应该由多数人而非少数人来决定。通过将智能直接嵌入协议层，我们实现了透明、去中心化的治理系统。\n\n**三大支柱**：\n\n**1. 模型投票**\n- 社区成员投票决定哪些 AI 模型获得生态系统支持\n- 优质模型获得更多资源和曝光\n- 模型演进由社区共识驱动\n\n**2. 伦理护栏**\n- 提议并投票决定自主 Nexus Agents 的安全参数\n- 定义 AI 行为边界和安全标准\n- 确保 AI 系统符合社区价值观\n\n**3. 资源分配**\n- 决定如何部署社区金库以推动创新\n- 投票决定研发资金分配方向\n- 支持有价值的 AI 项目和开发者\n\n**治理目标**：\n- 到 2026 年，构建完整的 AI 民主\n- 让 AI 治理权回归社区\n- 确保 AI 发展符合全人类利益",
+            "en-US": "**Core Philosophy: Who should decide AI ethics? Big Tech, or you?**\n\nDeAI Nexus believes that the \"weight\" of intelligence should be determined by the majority, not the few. By embedding intelligence directly into the protocol layer, we achieve a transparent, decentralized governance system.\n\n**Three Pillars**:\n\n**1. Model Voting**\n- Community members vote on which AI models receive ecosystem support\n- High-quality models get more resources and exposure\n- Model evolution driven by community consensus\n\n**2. Ethical Guardrails**\n- Propose and vote on safety parameters for autonomous Nexus Agents\n- Define AI behavioral boundaries and safety standards\n- Ensure AI systems align with community values\n\n**3. Resource Allocation**\n- Decide how to deploy community treasury to drive innovation\n- Vote on R&D fund allocation directions\n- Support valuable AI projects and developers\n\n**Governance Goals**:\n- Build complete AI democracy by 2026\n- Return AI governance rights to the community\n- Ensure AI development benefits all humanity"
+          }
+        },
+        {
+          "id": "governance_incentives",
+          "title": {
+            "zh-CN": "治理激励",
+            "en-US": "Governance Incentives"
+          },
+          "content": {
+            "zh-CN": "**提案奖励**：被采纳的提案可获得 DEAI 奖励\n\n**投票奖励**：参与治理投票可获得小额激励\n\n**委员会收入**：验证者委员会分享部分网络收入\n\n**激励机制的目的**：\n- 鼓励社区成员积极参与治理\n- 奖励有价值的提案\n- 保障网络的去中心化运行",
+            "en-US": "**Proposal Rewards**: Adopted proposals receive DEAI rewards\n\n**Voting Rewards**: Small incentives for participating in governance voting\n\n**Committee Revenue**: Validator Committee shares portion of network revenue\n\n**Purpose of Incentive Mechanism**:\n- Encourage active community participation in governance\n- Reward valuable proposals\n- Ensure decentralized network operation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "project_activities",
+      "title": {
+        "zh-CN": "项目&社区活动",
+        "en-US": "Project & Community Activities"
+      },
+      "children": [
+        {
+          "id": "project_activities",
+          "title": {
+            "zh-CN": "项目&社区活动",
+            "en-US": "Project & Community Activities"
+          },
+          "content": {
+            "zh-CN": "**官方白金赞助商**\nDeAI Nexus 是泰国区块链周 2025 的官方白金赞助商，与 TRON、Tether、Binance TH 等行业巨头同台展示。\n\n**会议信息**：\n- **时间**：2025年11月8-9日\n- **地点**：曼谷\n- **级别**：白金赞助商\n\n**主题演讲**：\n- **主题**：DeAI Nexus：为什么人工智能需要区块链生存，为什么区块链需要人工智能发挥作用\n- **演讲者**：Jason Smith，开发者关系负责人\n- **核心观点**：从推测到基础设施——由技术、资本、AI和全球采用驱动的可持续超级周期的黎明\n\n**参展感受**：\n在 #THBW2025 度过了不可思议的一周！对话不仅关于大规模 AI 革命，更关于在哪里建立其基础。与如此多远见卓识的建设者联系确认了一件事：AI 需要开放、安全、由社区驱动。\n\n**战略意义**：\n- 与行业巨头同台（TRON、Tether、Binance TH）\n- 展示 AI + 区块链融合的下一个前沿\n- 建立全球合作伙伴关系\n- 提升品牌国际影响力",
+            "en-US": "**Official Platinum Sponsor**\nDeAI Nexus is the Official Platinum Sponsor of Thailand Blockchain Week 2025, joining industry giants like TRON, Tether, and Binance TH on stage.\n\n**Conference Information**:\n- **Time**: November 8-9, 2025\n- **Location**: Bangkok\n- **Level**: Platinum Sponsor\n\n**Keynote Speech**:\n- **Topic**: DeAI Nexus: Why AI Needs Blockchain to Survive, and Why Blockchain Needs AI to Matter\n- **Speaker**: Jason Smith, Head of Developer Relations\n- **Core Message**: From Speculation to Infrastructure — The Dawn of a Sustainable Supercycle Driven by Technology, Capital, AI, and Global Adoption\n\n**Experience**:\nWhat an incredible week at #THBW2025! The conversations weren't just about the massive AI Revolution; they were about where we build its foundation. Connecting with visionary builders confirmed: AI needs to be open, secure, and powered by the community.\n\n**Strategic Significance**:\n- Joining industry giants (TRON, Tether, Binance TH)\n- Showcasing the next frontier of AI + Blockchain convergence\n- Building global partnerships\n- Enhancing international brand influence"
+          }
+        },
+        {
+          "id": "thbw_2025",
+          "title": {
+            "zh-CN": "THBW 2025 - 泰国区块链周",
+            "en-US": "THBW 2025 - Thailand Blockchain Week"
+          },
+          "content": {
+            "zh-CN": "**官方白金赞助商**\nDeAI Nexus 是泰国区块链周 2025 的官方白金赞助商，与 TRON、Tether、Binance TH 等行业巨头同台展示。\n\n**会议信息**：\n- **时间**：2025年11月8-9日\n- **地点**：曼谷\n- **级别**：白金赞助商\n\n**主题演讲**：\n- **主题**：DeAI Nexus：为什么人工智能需要区块链生存，为什么区块链需要人工智能发挥作用\n- **演讲者**：Jason Smith，开发者关系负责人\n- **核心观点**：从推测到基础设施——由技术、资本、AI和全球采用驱动的可持续超级周期的黎明\n\n**参展感受**：\n在 #THBW2025 度过了不可思议的一周！对话不仅关于大规模 AI 革命，更关于在哪里建立其基础。与如此多远见卓识的建设者联系确认了一件事：AI 需要开放、安全、由社区驱动。\n\n**战略意义**：\n- 与行业巨头同台（TRON、Tether、Binance TH）\n- 展示 AI + 区块链融合的下一个前沿\n- 建立全球合作伙伴关系\n- 提升品牌国际影响力",
+            "en-US": "**Official Platinum Sponsor**\nDeAI Nexus is the Official Platinum Sponsor of Thailand Blockchain Week 2025, joining industry giants like TRON, Tether, and Binance TH on stage.\n\n**Conference Information**:\n- **Time**: November 8-9, 2025\n- **Location**: Bangkok\n- **Level**: Platinum Sponsor\n\n**Keynote Speech**:\n- **Topic**: DeAI Nexus: Why AI Needs Blockchain to Survive, and Why Blockchain Needs AI to Matter\n- **Speaker**: Jason Smith, Head of Developer Relations\n- **Core Message**: From Speculation to Infrastructure — The Dawn of a Sustainable Supercycle Driven by Technology, Capital, AI, and Global Adoption\n\n**Experience**:\nWhat an incredible week at #THBW2025! The conversations weren't just about the massive AI Revolution; they were about where we build its foundation. Connecting with visionary builders confirmed: AI needs to be open, secure, and powered by the community.\n\n**Strategic Significance**:\n- Joining industry giants (TRON, Tether, Binance TH)\n- Showcasing the next frontier of AI + Blockchain convergence\n- Building global partnerships\n- Enhancing international brand influence"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related_resources",
+      "title": {
+        "zh-CN": "相关资料",
+        "en-US": "Related Resources"
+      },
+      "children": [
+        {
+          "id": "related_resources",
+          "title": {
+            "zh-CN": "相关资料",
+            "en-US": "Related Resources"
+          },
+          "content": {
+            "zh-CN": "**官方应用**：\n1. 官方应用：https://app.deainexus.ai/models\n2. 社区收益计算器：https://app.deainexus.ai/community\n3. 模型收益计算器：https://app.deainexus.ai/calculator\n4. 投资方案推导器：https://app.deainexus.ai/plan\n5. 官方排行榜：https://app.deainexus.ai/leaderboard\n6. DeAI Space社区空间：https://deainexus.space\n\n**社交媒体**：\n- **Twitter/X**：[@DeAI_Nexus](https://x.com/DeAI_Nexus)\n- **YouTube**：[@deaispace](https://www.youtube.com/@deaispace)\n- **Medium**：[@deainexus](https://medium.com/@deainexus)\n\n**社区联系**：\n- **Telegram**：[@DeAI_Nexus](https://t.me/DeAI_Nexus)\n- **Discord**：[DeAI Nexus Community](https://discord.gg/deainexus)\n- **邮箱**：hello@deainexus.ai",
+            "en-US": "**Official Apps**:\n1. Official App: https://app.deainexus.ai/models\n2. Community Calculator: https://app.deainexus.ai/community\n3. Model Calculator: https://app.deainexus.ai/calculator\n4. Investment Planner: https://app.deainexus.ai/plan\n5. Official Leaderboard: https://app.deainexus.ai/leaderboard\n6. DeAI Space Community: https://deainexus.space\n\n**Social Media**:\n- **Twitter/X**: [@DeAI_Nexus](https://x.com/DeAI_Nexus)\n- **YouTube**: [@deaispace](https://www.youtube.com/@deaispace)\n- **Medium**: [@deainexus](https://medium.com/@deainexus)\n\n**Community Contact**:\n- **Telegram**: [@DeAI_Nexus](https://t.me/DeAI_Nexus)\n- **Discord**: [DeAI Nexus Community](https://discord.gg/deainexus)\n- **Email**: hello@deainexus.ai"
+          }
+        },
+        {
+          "id": "official_platforms",
+          "title": {
+            "zh-CN": "官方平台",
+            "en-US": "Official Platforms"
+          },
+          "content": {
+            "zh-CN": "**官方应用**：\n1. 官方应用：https://app.deainexus.ai/models\n2. 社区收益计算器：https://app.deainexus.ai/community\n3. 模型收益计算器：https://app.deainexus.ai/calculator\n4. 投资方案推导器：https://app.deainexus.ai/plan\n5. 官方排行榜：https://app.deainexus.ai/leaderboard\n6. DeAI Space社区空间：https://deainexus.space\n\n**社交媒体**：\n- **Twitter/X**：[@DeAI_Nexus](https://x.com/DeAI_Nexus)\n- **YouTube**：[@deaispace](https://www.youtube.com/@deaispace)\n- **Medium**：[@deainexus](https://medium.com/@deainexus)\n\n**社区联系**：\n- **Telegram**：[@DeAI_Nexus](https://t.me/DeAI_Nexus)\n- **Discord**：[DeAI Nexus Community](https://discord.gg/deainexus)\n- **邮箱**：hello@deainexus.ai",
+            "en-US": "**Official Apps**:\n1. Official App: https://app.deainexus.ai/models\n2. Community Calculator: https://app.deainexus.ai/community\n3. Model Calculator: https://app.deainexus.ai/calculator\n4. Investment Planner: https://app.deainexus.ai/plan\n5. Official Leaderboard: https://app.deainexus.ai/leaderboard\n6. DeAI Space Community: https://deainexus.space\n\n**Social Media**:\n- **Twitter/X**: [@DeAI_Nexus](https://x.com/DeAI_Nexus)\n- **YouTube**: [@deaispace](https://www.youtube.com/@deaispace)\n- **Medium**: [@deainexus](https://medium.com/@deainexus)\n\n**Community Contact**:\n- **Telegram**: [@DeAI_Nexus](https://t.me/DeAI_Nexus)\n- **Discord**: [DeAI Nexus Community](https://discord.gg/deainexus)\n- **Email**: hello@deainexus.ai"
+          }
+        },
+        {
+          "id": "developer_ecosystem_resources",
+          "title": {
+            "zh-CN": "开发者生态资源",
+            "en-US": "Developer Ecosystem Resources"
+          },
+          "content": {
+            "zh-CN": "**全栈开发工具包**\n\nDeAI Nexus 为开发者提供完整的开发工具链：\n\n| 工具                     | 功能                                     | 性能指标                   |\n| ------------------------ | ---------------------------------------- | -------------------------- |\n| **AI 合约 IDE**    | 代码生成 + Gas 优化 + 漏洞检测 3 合 1    | 提高开发效率 3.2 倍        |\n| **模型编译器**     | PyTorch → ONNX → zkML 电路全自动化转换 | ResNet-50 转换时间 <3 分钟 |\n| **资源监控仪表板** | 实时算力/数据/存储可视化与分析           | 数据延迟 <0.5 秒           |\n| **模拟测试网**     | 完整的经济建模沙盒环境                   | 支持百万级并发测试         |\n\n**开发者激励计划**\n\n**贡献评估模型**：\n\n```\nDevScore = 0.6 × (Commits / 10) + 0.3 × (TVL_Dapp / 1M) + 0.1 × CommunityImpact\n```\n\n- **Commits**：代码提交次数\n- **TVL_Dapp**：开发的应用锁仓价值\n- **CommunityImpact**：社区影响力评分\n\n**代币奖励**：\n- 开发者生态基金会每年分配 DEAI 代币\n- 根据贡献评估模型自动分配\n- 顶尖开发者年收入：**$15 万 - $230 万**（基于历史 DApp 数据预测）\n\n**资源支持**：\n- 免费算力额度：优质项目可获得免费 AI 算力支持\n- 技术指导：核心团队提供技术架构咨询\n- 市场推广：官方渠道推荐优质 DApp\n\n**开发者资源**\n\n**API 与 SDK**：\n- **RESTful API**：统一的 AI 服务调用接口\n- **Python SDK**：快速集成 AI 训练和推理\n- **JavaScript SDK**：前端应用集成\n- **Solidity 库**：智能合约开发工具\n\n**文档与教程**：\n- 完整的 API 文档\n- 代码示例和最佳实践\n- 视频教程系列\n- 开发者社区论坛\n\n**孵化计划**：\n- 定期举办黑客马拉松\n- 提供种子资金支持\n- 创业导师辅导\n- 资源对接服务",
+            "en-US": "**Full-Stack Development Toolkit**\n\nDeAI Nexus provides a complete development toolchain for developers:\n\n| Tool                     | Function                                     | Performance Metrics                   |\n| ------------------------ | ---------------------------------------- | -------------------------- |\n| **AI Contract IDE**    | Code Generation + Gas Optimization + Vulnerability Detection 3-in-1    | Improves dev efficiency by 3.2x        |\n| **Model Compiler**     | PyTorch → ONNX → zkML circuit fully automated conversion | ResNet-50 conversion time <3 min |\n| **Resource Monitor Dashboard** | Real-time computing/data/storage visualization and analysis           | Data latency <0.5 sec           |\n| **Simulation Testnet**     | Complete economic modeling sandbox environment                   | Supports million-level concurrent testing         |\n\n**Developer Incentive Plan**\n\n**Contribution Evaluation Model**:\n\n```\nDevScore = 0.6 × (Commits / 10) + 0.3 × (TVL_Dapp / 1M) + 0.1 × CommunityImpact\n```\n\n- **Commits**: Number of code commits\n- **TVL_Dapp**: Total Value Locked of developed DApps\n- **CommunityImpact**: Community impact score\n\n**Token Rewards**:\n- Developer Ecosystem Foundation allocates DEAI tokens annually\n- Automatic distribution based on contribution evaluation model\n- Top developer annual income: **$150K - $2.3M** (based on historical DApp data predictions)\n\n**Resource Support**:\n- Free computing quota: High-quality projects can get free AI computing support\n- Technical guidance: Core team provides technical architecture consulting\n- Marketing promotion: Official channels recommend quality DApps\n\n**Developer Resources**\n\n**APIs & SDKs**:\n- **RESTful API**: Unified AI service call interface\n- **Python SDK**: Quick integration of AI training and inference\n- **JavaScript SDK**: Frontend application integration\n- **Solidity Library**: Smart contract development tools\n\n**Documentation & Tutorials**:\n- Complete API documentation\n- Code examples and best practices\n- Video tutorial series\n- Developer community forum\n\n**Incubation Program**:\n- Regular hackathons\n- Seed funding support\n- Startup mentorship\n- Resource matching services"
+          }
+        },
+        {
+          "id": "glossary",
+          "title": {
+            "zh-CN": "术语表",
+            "en-US": "Glossary"
+          },
+          "content": {
+            "zh-CN": "**基础术语**：\n\n| 术语        | 解释                                    |\n|-----------|---------------------------------------|\n| **EV**    | Effective Value，有效质押 = 总质押 × 80% |\n| **DPR**   | Daily Percentage Rate，日化收益率        |\n| **DEAI**   | DeAI Nexus 治理代币，用于投票和治理      |\n| **DEAI-T** | DeAI Nexus 质押代币，用于算力抵押和收益结算 |\n| **DAO**   | Decentralized Autonomous Organization，去中心化自治组织 |\n| **APY**   | Annual Percentage Yield，年化收益率       |\n| **TVL**   | Total Value Locked，总锁仓价值           |\n\n**AI与技术术语**：\n\n| 术语        | 解释                                    |\n|-----------|---------------------------------------|\n| **zkML**   | Zero-Knowledge Machine Learning，零知识机器学习 |\n| **ZKP**    | Zero-Knowledge Proof，零知识证明         |\n| **TEE**    | Trusted Execution Environment，可信执行环境 |\n| **SNARK**  | Succinct Non-Interactive Argument of Knowledge，简洁非交互式零知识证明 |\n| **STARK**  | Scalable Transparent Argument of Knowledge，可扩展透明知识论证 |\n| **PLONK**  | Permutations over Lagrange-bases for Oecumenical Non-interactive arguments of Knowledge，通用ZK证明系统 |\n| **zkVM**   | Zero-Knowledge Virtual Machine，零知识虚拟机 |\n| **PoDRC**  | Proof of Delegated Resource Contribution，委托资源贡献证明 |\n| **ADEX**   | AI-Driven Decentralized Exchange，AI驱动的去中心化交易所 |\n| **AIVM**   | AI Virtual Machine，AI虚拟机             |\n| **MPC**    | Multi-Party Computation，多方计算        |\n| **Federated Learning** | 联邦学习，分布式机器学习技术 |\n| **Homomorphic Encryption** | 同态加密，加密计算技术       |\n| **Differential Privacy** | 差分隐私，隐私保护技术         |\n| **Model Sharding** | 模型分片，大模型并行计算技术         |\n| **Verifiable Inference** | 可验证推理，AI推理结果可验证    |\n\n**区块链与Web3术语**：\n\n| 术语        | 解释                                    |\n|-----------|---------------------------------------|\n| **BSC**    | Binance Smart Chain，币安智能链        |\n| **DEX**    | Decentralized Exchange，去中心化交易所   |\n| **MEV**    | Maximal Extractable Value，最大可提取价值 |\n| **Slippage** | 滑点，交易价格变动                     |\n| **Liquidity Pool** | 流动性池，DEX中的资金池          |\n| **LP**     | Liquidity Provider，流动性提供者       |\n| **Smart Contract** | 智能合约，区块链上的自动执行代码 |\n| **Gas**    | Gas费，区块链交易手续费                 |\n| **Oracle** | 预言机，链下数据上链的桥梁               |\n| **Multi-sig** | 多签钱包，需要多个签名才能授权       |\n| **Whale**  | 鲸鱼，持有大量代币的地址                |\n| **FUD**    | Fear, Uncertainty, Doubt，恐惧、不确定、怀疑 |\n| **HODL**   | Hold On for Dear Life，长期持有        |\n| **DeFi**   | Decentralized Finance，去中心化金融    |\n| **GameFi** | Game Finance，游戏化金融               |\n| **SocialFi** | Social Finance，社交化金融           |\n| **NFT**    | Non-Fungible Token，非同质化代币        |\n| **IPFS**   | InterPlanetary File System，星际文件系统 |\n| **Node**   | 节点，区块链网络的参与者                 |\n| **Staking** | 质押，锁定代币以获取奖励               |\n| **Yield Farming** | 收益农场，DeFi中的赚取收益策略   |\n| **Audit**  | 审计，智能合约安全检查                  |\n| **FDV**    | Fully Diluted Valuation，完全稀释估值   |\n| **CMC**    | CoinMarketCap，加密货币市值排名网站     |",
+            "en-US": "**Basic Terms**:\n\n| Term        | Explanation                                    |\n|-------------|---------------------------------------------|\n| **EV**      | Effective Value, Effective Stake = Total Stake × 80% |\n| **DPR**     | Daily Percentage Rate, Daily Return Rate        |\n| **DEAI**    | DeAI Nexus Governance Token, for voting and governance      |\n| **DEAI-T**  | DeAI Nexus Staking Token, for computing staking and revenue settlement |\n| **DAO**     | Decentralized Autonomous Organization           |\n| **APY**     | Annual Percentage Yield                        |\n| **TVL**     | Total Value Locked                             |\n\n**AI & Technical Terms**:\n\n| Term        | Explanation                                    |\n|-------------|---------------------------------------------|\n| **zkML**    | Zero-Knowledge Machine Learning               |\n| **ZKP**     | Zero-Knowledge Proof                          |\n| **TEE**     | Trusted Execution Environment                 |\n| **SNARK**   | Succinct Non-Interactive Argument of Knowledge |\n| **STARK**   | Scalable Transparent Argument of Knowledge    |\n| **PLONK**   | Permutations over Lagrange-bases for Oecumenical Non-interactive arguments of Knowledge |\n| **zkVM**    | Zero-Knowledge Virtual Machine                |\n| **PoDRC**   | Proof of Delegated Resource Contribution      |\n| **ADEX**    | AI-Driven Decentralized Exchange              |\n| **AIVM**    | AI Virtual Machine                            |\n| **MPC**     | Multi-Party Computation                       |\n| **Federated Learning** | Distributed machine learning technique |\n| **Homomorphic Encryption** | Encrypted computing technology       |\n| **Differential Privacy** | Privacy protection technology         |\n| **Model Sharding** | Large model parallel computing technology         |\n| **Verifiable Inference** | AI inference results verifiable    |\n\n**Blockchain & Web3 Terms**:\n\n| Term        | Explanation                                    |\n|-------------|---------------------------------------------|\n| **BSC**     | Binance Smart Chain                           |\n| **DEX**     | Decentralized Exchange                        |\n| **MEV**     | Maximal Extractable Value                     |\n| **Slippage** | Price change during transaction               |\n| **Liquidity Pool** | Funds pool in DEX                      |\n| **LP**      | Liquidity Provider                            |\n| **Smart Contract** | Self-executing code on blockchain        |\n| **Gas**     | Blockchain transaction fee                     |\n| **Oracle**  | Bridge for on-chain data from off-chain       |\n| **Multi-sig** | Wallet requiring multiple signatures       |\n| **Whale**   | Address holding large amount of tokens        |\n| **FUD**     | Fear, Uncertainty, Doubt                      |\n| **HODL**    | Hold On for Dear Life                          |\n| **DeFi**    | Decentralized Finance                         |\n| **GameFi**  | Game Finance                                  |\n| **SocialFi** | Social Finance                               |\n| **NFT**     | Non-Fungible Token                            |\n| **IPFS**    | InterPlanetary File System                    |\n| **Node**    | Blockchain network participant                 |\n| **Staking** | Lock tokens to earn rewards                   |\n| **Yield Farming** | Earning strategy in DeFi                   |\n| **Audit**   | Smart contract security check                 |\n| **FDV**     | Fully Diluted Valuation                       |\n| **CMC**     | CoinMarketCap                                 |"
+          }
+        }
+      ]
+    }
+  ]
+}
