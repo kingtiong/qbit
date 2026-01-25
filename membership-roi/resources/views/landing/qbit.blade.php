@@ -1177,7 +1177,6 @@ body {
             </div>
 
             <div class="hero__disclaimer">
-              {{ $t('Return figures are for informational purposes only and do not constitute any promise or financial advice.', '回报数据仅供参考，不构成任何承诺或财务建议。') }}
             </div>
           </div>
 
