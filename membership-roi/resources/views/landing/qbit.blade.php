@@ -117,6 +117,36 @@
           }
         }
 
+        function injectHeaderLogo() {
+          // Ensure Logo01.png is always visible in the top-left header area,
+          // even if the SPA uses SVG/text instead of an <img>.
+          const headerRow = document.querySelector('div.flex.items-start.justify-between.gap-4.flex-wrap');
+          if (!headerRow) return;
+          const leftBlock = headerRow.querySelector('div.flex.items-center.gap-4');
+          if (!leftBlock) return;
+
+          if (leftBlock.querySelector('[data-app-logo=\"1\"]')) return;
+
+          // Hide the existing logo element (usually the first child block).
+          const first = leftBlock.firstElementChild;
+          if (first && !first.matches('img') && !first.hasAttribute('data-app-logo')) {
+            first.style.display = 'none';
+          }
+
+          const img = document.createElement('img');
+          img.src = APP_LOGO_URL;
+          img.alt = 'App logo';
+          img.setAttribute('data-app-logo', '1');
+          img.style.width = '72px';
+          img.style.height = '72px';
+          img.style.objectFit = 'contain';
+          img.style.background = 'transparent';
+          img.style.flex = '0 0 auto';
+          img.style.display = 'block';
+
+          leftBlock.insertBefore(img, leftBlock.firstChild);
+        }
+
         function setAppLogo() {
           // Replace the top-left app logo image used by the SPA with Logo01.png.
           // DeAI Nexus bundle uses an <img alt="DeAI logo" ...>. We swap src while preserving layout classes.
@@ -332,6 +362,7 @@
 
         function applyPatches() {
           alignHeaderRow();
+          injectHeaderLogo();
           setAppLogo();
           removeTopMenuButton();
           removeTopMenuItems();
