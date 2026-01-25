@@ -1161,21 +1161,6 @@ body {
               <button class="linkbtn" type="button">{{ $t('Whitepaper', '白皮书') }}</button>
             </div>
 
-            <div class="stats">
-              <div class="stat">
-                <div class="stat__label">{{ $t('Max daily', '最高日化') }}</div>
-                <div class="stat__value">0.80%</div>
-              </div>
-              <div class="stat">
-                <div class="stat__label">{!! $t('Max APY<br />(compounded)', '最高年化<br />（复利）') !!}</div>
-                <div class="stat__value">≈ 885%</div>
-              </div>
-              <div class="stat">
-                <div class="stat__label">{{ $t('High staking ratio', '高质押比例') }}</div>
-                <div class="stat__value">&gt;95%</div>
-              </div>
-            </div>
-
             <div class="hero__disclaimer">
             </div>
           </div>
