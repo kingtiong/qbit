@@ -94,11 +94,11 @@
         z-index: 9999;
         width: 56px;
         height: 56px;
-        padding: 8px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-        border: 1px solid rgba(15, 23, 42, 0.08);
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        border: none;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -108,7 +108,7 @@
       <img
         src="{{ asset('assets/Logo01.png') }}"
         alt="App logo"
-        style="width: 100%; height: 100%; object-fit: contain;"
+        style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.18));"
       />
     </div>
 
