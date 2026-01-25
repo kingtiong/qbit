@@ -55,13 +55,13 @@
               $i++;
           }
 
-          $html = \Illuminate\Support\Str::markdown(implode(\"\\n\", $outLines));
+          $html = \Illuminate\Support\Str::markdown(implode("\n", $outLines));
 
           foreach ($tables as $key => $block) {
               // Parse markdown table block
               $rows = [];
               foreach ($block as $b) {
-                  $cells = array_values(array_filter(array_map('trim', explode('|', trim($b, \"|\"))), fn($c) => $c !== ''));
+                  $cells = array_values(array_filter(array_map('trim', explode('|', trim($b, "|"))), fn($c) => $c !== ''));
                   $rows[] = $cells;
               }
               // Detect separator row (---)
@@ -75,19 +75,19 @@
                   $body[] = $cells;
               }
 
-              $tableHtml = '<div class=\"my-6 overflow-x-auto\"><table class=\"min-w-full text-sm border border-white/10 rounded-xl overflow-hidden\">';
+              $tableHtml = '<div class="my-6 overflow-x-auto"><table class="min-w-full text-sm border border-white/10 rounded-xl overflow-hidden">';
               if (!empty($header)) {
-                  $tableHtml .= '<thead class=\"bg-white/5\"><tr>';
+                  $tableHtml .= '<thead class="bg-white/5"><tr>';
                   foreach ($header as $h) {
-                      $tableHtml .= '<th class=\"px-4 py-3 text-left font-semibold text-white\">' . e($h) . '</th>';
+                      $tableHtml .= '<th class="px-4 py-3 text-left font-semibold text-white">' . e($h) . '</th>';
                   }
                   $tableHtml .= '</tr></thead>';
               }
-              $tableHtml .= '<tbody class=\"bg-black/20\">';
+              $tableHtml .= '<tbody class="bg-black/20">';
               foreach ($body as $rIdx => $cells) {
-                  $tableHtml .= '<tr class=\"border-t border-white/10\">';
+                  $tableHtml .= '<tr class="border-t border-white/10">';
                   foreach ($cells as $c) {
-                      $tableHtml .= '<td class=\"px-4 py-3 text-white/80\">' . e($c) . '</td>';
+                      $tableHtml .= '<td class="px-4 py-3 text-white/80">' . e($c) . '</td>';
                   }
                   $tableHtml .= '</tr>';
               }
