@@ -1331,7 +1331,7 @@ body {
 
           <div class="panel">
             <div class="stack">
-              @foreach ($layers as $i => $layer)
+              @for ($i = 0; $i < 3; $i++)
                 <details class="acc" @if ($i === 0) open @endif>
                   <summary>
                     <span class="acc__title">
@@ -1341,8 +1341,6 @@ body {
                         {{ $t('Layer 2: QBIT Middleware (The Core)', '第二层：QBIT 中间件（核心）') }}
                       @elseif ($i === 2)
                         {{ $t('Layer 3: Computational Layer (IBM/GPU)', '第三层：计算层（IBM/GPU）') }}
-                      @else
-                        {{ $layer['title'] }}
                       @endif
                     </span>
                     <span class="acc__meta">
@@ -1353,17 +1351,9 @@ body {
                       </span>
                     </span>
                   </summary>
-                  <div class="acc__body">
-                    @if (!empty($layer['bullets']))
-                      <ul>
-                        @foreach ($layer['bullets'] as $b)
-                          <li>{{ $b }}</li>
-                        @endforeach
-                      </ul>
-                    @endif
-                  </div>
+                  <div class="acc__body"></div>
                 </details>
-              @endforeach
+              @endfor
             </div>
           </div>
         </div>
