@@ -1377,10 +1377,27 @@ body {
               @foreach ($apps as $app)
                 <div class="card">
                   <div class="card__top">
-                    <div class="card__title">{{ $app['title'][$contentLocale] ?? $app['title']['en-US'] ?? '' }}</div>
+                    <div class="card__title">
+                      @if (($app['id'] ?? null) === 'parrot_v1')
+                        FinTech - Portfolio Optimization
+                      @else
+                        {{ $app['title'][$contentLocale] ?? $app['title']['en-US'] ?? '' }}
+                      @endif
+                    </div>
                     <div class="card__tag">{{ $t('App', '应用') }}</div>
                   </div>
-                  <div class="card__text">{{ $excerpt($app['content'][$contentLocale] ?? '') }}</div>
+                  <div class="card__text">
+                    @if (($app['id'] ?? null) === 'parrot_v1')
+                      Grounded in Markowitz Portfolio Theory, our hybrid quantum-classical model is powered by QAOA. We map complex optimization challenges to quantum ground state searches, using quantum parallelism to crack NP-hard problems. This allows us to navigate exponentially vast configuration spaces and instantly locate the optimal risk-return portfolio, revolutionizing the efficiency of large-scale asset allocation.
+                    @else
+                      {{ $excerpt($app['content'][$contentLocale] ?? '') }}
+                    @endif
+                  </div>
+                  @if (($app['id'] ?? null) === 'parrot_v1')
+                    <div style="margin-top: 12px;">
+                      <button class="ghost" type="button" onclick="window.location.href='{{ route('login') }}'">Try Now</button>
+                    </div>
+                  @endif
                 </div>
               @endforeach
             </div>
