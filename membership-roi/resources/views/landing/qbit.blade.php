@@ -1325,8 +1325,8 @@ body {
                 <path d="M12 2l1.2 5.2L18 9l-4.8 1.8L12 16l-1.2-5.2L6 9l4.8-1.8L12 2Z" fill="#2D6BFF"/>
               </svg>
             </div>
-            <h2 class="section__title">{{ $t('Tech Path: Five-Layer Architecture', '技术路径：五层技术架构') }}</h2>
-            <p class="section__sub">{{ $t('A modular stack designed for verifiable on-chain AI—from chain runtime to ecosystem.', '面向可验证链上 AI 的模块化技术栈——从链运行时到生态层。') }}</p>
+            <h2 class="section__title">{{ $t('Technology Path: Hybrid Quantum Architecture', '技术路径：混合量子架构') }}</h2>
+            <p class="section__sub">{{ $t('Bridging the gap between Classic AI reliability and Quantum potential.', '连接经典 AI 的可靠性与量子潜力。') }}</p>
           </div>
 
           <div class="panel">
@@ -1334,7 +1334,17 @@ body {
               @foreach ($layers as $i => $layer)
                 <details class="acc" @if ($i === 0) open @endif>
                   <summary>
-                    <span class="acc__title">{{ $layer['title'] }}</span>
+                    <span class="acc__title">
+                      @if ($i === 0)
+                        {{ $t('Application Layer', '应用层') }}
+                      @elseif ($i === 1)
+                        {{ $t('QBIT Middleware (The Core)', 'QBIT 中间件（核心）') }}
+                      @elseif ($i === 2)
+                        {{ $t('Computational Layer (IBM/GPU)', '计算层（IBM/GPU）') }}
+                      @else
+                        {{ $layer['title'] }}
+                      @endif
+                    </span>
                     <span class="acc__meta">
                       <span class="acc__chev" aria-hidden="true">
                         <svg viewBox="0 0 20 20" width="14" height="14" fill="none">
