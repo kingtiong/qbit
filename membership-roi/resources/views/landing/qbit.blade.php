@@ -1384,7 +1384,6 @@ body {
                         {{ $app['title'][$contentLocale] ?? $app['title']['en-US'] ?? '' }}
                       @endif
                     </div>
-                    <div class="card__tag">{{ $t('App', '应用') }}</div>
                   </div>
                   <div class="card__text">
                     @if (($app['id'] ?? null) === 'parrot_v1')
