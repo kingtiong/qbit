@@ -1265,62 +1265,6 @@ body {
               </div>
             </div>
 
-            <div class="adv">
-              <div class="adv__head">
-                <div class="adv__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M4 17h16" stroke="#2D6BFF" stroke-width="1.6" stroke-linecap="round"/>
-                    <path d="M6 17V11" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M12 17V7" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M18 17V13" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="adv__title">{{ $t('Scalable Execution', '可扩展执行') }}</div>
-              </div>
-              <div class="adv__text">
-                {!! $isZh
-                  ? '模型分片并行调度——<br />提升大模型负载下的吞吐与稳定性。'
-                  : 'Shard models and schedule in parallel—<br />boosting throughput and stability for<br />large-model workloads.' !!}
-              </div>
-            </div>
-
-            <div class="adv">
-              <div class="adv__head">
-                <div class="adv__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="#2D6BFF" stroke-width="1.6"/>
-                    <path d="M12 8v6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M12 17h.01" stroke="#2D6BFF" stroke-width="2.6" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="adv__title">{{ $t('Security Foundation', '安全基础') }}</div>
-              </div>
-              <div class="adv__text">
-                {!! $isZh
-                  ? '审计优先的工程实践——<br />提供清晰审计结论，并具备完善修复机制。'
-                  : 'Audit-first engineering—surfacing positive<br />audit conclusions and a<br />remediation-ready posture.' !!}
-              </div>
-            </div>
-
-            <div class="adv">
-              <div class="adv__head">
-                <div class="adv__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M12 2v6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M12 16v6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M2 12h6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M16 12h6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <circle cx="12" cy="12" r="3.2" stroke="#2D6BFF" stroke-width="1.6" opacity="0.9"/>
-                  </svg>
-                </div>
-                <div class="adv__title">{{ $t('Ecosystem Interfaces', '生态接口') }}</div>
-              </div>
-              <div class="adv__text">
-                {!! $isZh
-                  ? '从 SDK 到预言机与数据层——<br />为 DeFi、GameFi、SocialFi 等 DApp 提供构建模块。'
-                  : 'From SDKs to oracles and data layers—<br />building blocks for DApps across DeFi,<br />GameFi, SocialFi, and more.' !!}
-              </div>
-            </div>
           </div>
         </div>
       </section>
