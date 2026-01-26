@@ -1203,28 +1203,22 @@ body {
               </svg>
             </div>
           </div>
-          <h2 class="advantages__title">{{ $t('Project Advantages', '项目优势') }}</h2>
-          <p class="advantages__sub">
-            {!! $isZh
-              ? '围绕可验证性、可组合性、治理与安全构建——从基础设施到应用形成闭环。'
-              : 'Built around verifiability, composability, governance, and security—closing the loop from infrastructure<br />to applications.' !!}
-          </p>
+          <h2 class="advantages__title">{{ $t('Quantum Genesis Advantages', '量子创世优势') }}</h2>
+          <p class="advantages__sub"></p>
 
           <div class="adv-grid">
             <div class="adv">
               <div class="adv__head">
                 <div class="adv__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="#2D6BFF" stroke-width="1.6"/>
-                    <path d="M9 12l2 2 4-4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13 2L4 14h7l-1 8 10-14h-7l0-6Z" stroke="var(--qb-gold)" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M4 18h6" stroke="var(--qb-gold)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
                   </svg>
                 </div>
-                <div class="adv__title">{{ $t('Verifiable Inference', '可验证推理') }}</div>
+                <div class="adv__title">{{ $t('Speed', '速度') }}</div>
               </div>
               <div class="adv__text">
-                {!! $isZh
-                  ? '将推理正确性转化为证明——<br />降低黑盒风险，用验证替代信任。'
-                  : 'Turn inference correctness into proofs—<br />reducing black-box risk and replacing<br />trust with verification.' !!}
+                {{ $t('Extreme Velocity (Millisecond execution)', '极致速度（毫秒级执行）') }}
               </div>
             </div>
 
@@ -1232,18 +1226,14 @@ body {
               <div class="adv__head">
                 <div class="adv__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M7 3h10v18H7V3Z" stroke="#2D6BFF" stroke-width="1.6" opacity="0.9"/>
-                    <path d="M9 7h6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M9 11h6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M9 15h4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="var(--qb-gold)" stroke-width="1.6"/>
+                    <path d="M9.5 12.2l1.7 1.7 3.6-3.9" stroke="var(--qb-gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
-                <div class="adv__title">{{ $t('AI as Contract', 'AI 即合约能力') }}</div>
+                <div class="adv__title">{{ $t('Security', '安全') }}</div>
               </div>
               <div class="adv__text">
-                {!! $isZh
-                  ? 'AI 不是外部 API——它是可被合约调用的<br />链上原生能力，并天然可组合。'
-                  : 'AI is not an external API—it’s a native<br />on-chain capability callable by contracts<br />and composable by design.' !!}
+                {{ $t('Post-Quantum Shield (Future-proof asset protection)', '后量子护盾（面向未来的资产保护）') }}
               </div>
             </div>
 
@@ -1251,17 +1241,16 @@ body {
               <div class="adv__head">
                 <div class="adv__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                    <path d="M12 3a4 4 0 0 1 4 4v3H8V7a4 4 0 0 1 4-4Z" stroke="#2D6BFF" stroke-width="1.6"/>
-                    <path d="M7 10h10v10H7V10Z" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25"/>
-                    <path d="M12 14v3" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 20c4.2 0 7-2.8 7-6.5S16.2 7 12 7 5 9.8 5 13.5 7.8 20 12 20Z" stroke="var(--qb-gold)" stroke-width="1.6"/>
+                    <path d="M12 4v3" stroke="var(--qb-gold)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M9 13.5h6" stroke="var(--qb-gold)" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 10.5v6" stroke="var(--qb-gold)" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>
                   </svg>
                 </div>
-                <div class="adv__title">{{ $t('Privacy + Trust, Together', '隐私与可信兼顾') }}</div>
+                <div class="adv__title">{{ $t('Evolution', '演化') }}</div>
               </div>
               <div class="adv__text">
-                {!! $isZh
-                  ? 'TEE 用于可信执行，ZK 用于正确性——<br />在隐私与可验证之间取得平衡。'
-                  : 'TEE for trusted execution, ZK for<br />correctness—balancing privacy and<br />verifiability.' !!}
+                {{ $t('Adaptive Intelligence (AI + Quantum-inspired models)', '自适应智能（AI + 量子启发模型）') }}
               </div>
             </div>
 
