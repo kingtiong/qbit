@@ -1336,11 +1336,11 @@ body {
                   <summary>
                     <span class="acc__title">
                       @if ($i === 0)
-                        {{ $t('Application Layer', '应用层') }}
+                        {{ $t('Layer 1: Application Layer', '第一层：应用层') }}
                       @elseif ($i === 1)
-                        {{ $t('QBIT Middleware (The Core)', 'QBIT 中间件（核心）') }}
+                        {{ $t('Layer 2: QBIT Middleware (The Core)', '第二层：QBIT 中间件（核心）') }}
                       @elseif ($i === 2)
-                        {{ $t('Computational Layer (IBM/GPU)', '计算层（IBM/GPU）') }}
+                        {{ $t('Layer 3: Computational Layer (IBM/GPU)', '第三层：计算层（IBM/GPU）') }}
                       @else
                         {{ $layer['title'] }}
                       @endif
