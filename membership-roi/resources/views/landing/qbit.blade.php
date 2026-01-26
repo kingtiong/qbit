@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DeAI Nexus Space</title>
+    <title>QBIT - Quantum-Inspired Algorithms</title>
     @php
       $faviconCandidates = [
           'images/favicon.ico',
@@ -18,7 +18,7 @@
           }
       }
     @endphp
-    <link rel="icon" href="{{ $faviconPath ? asset($faviconPath) : '/favicon.ico' }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/Logo01.png') }}">
 
     <style>
 *,
