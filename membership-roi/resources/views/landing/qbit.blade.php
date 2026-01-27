@@ -948,11 +948,10 @@ body {
 }
 
 .rmYearCard {
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.10);
-  padding: 22px 20px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
   overflow-x: auto;
 }
 
@@ -962,79 +961,81 @@ body {
 
 .rmYear {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   font-weight: 750;
-  color: #0f172a;
+  color: var(--qb-text);
   font-size: 18px;
 }
 
-.rmTrack {
+.rmRow {
+  margin-top: 10px;
   position: relative;
-  margin-top: 14px;
-  padding-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0;
+  padding-top: 22px;
 }
 
-.rmTrack::before {
-  content: "";
+.rmLine {
   position: absolute;
   left: 0;
   right: 0;
-  top: 26px;
+  top: 40px;
   height: 3px;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.55);
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.65) 55%, rgba(99, 102, 241, 0.85) 100%);
 }
 
-.rmSlot {
-  position: relative;
+.rmMonths {
   display: grid;
-  justify-items: center;
-  grid-template-rows: 18px 26px auto;
-  min-height: 120px;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: start;
 }
 
-.rmMonthLabel {
+.rmM {
+  position: relative;
+  height: 64px;
+}
+
+.rmM::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 26px;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.rmM--label::before {
+  content: attr(data-n);
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
   font-size: 12px;
   color: #94a3b8;
   font-weight: 650;
-  line-height: 18px;
 }
 
-.rmDot {
+.rmM--active::after {
   width: 12px;
   height: 12px;
-  border-radius: 999px;
-  background: #e2e8f0;
-  position: relative;
-  top: 20px;
+  background: #ef4444;
+  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
 }
 
-.rmDot--active {
-  background: #4f46e5;
-  box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.12);
+.rmAchGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin-top: 14px;
 }
 
-.rmAch {
-  margin-top: 16px;
+.rmAchCell {
   text-align: center;
-  max-width: 160px;
-}
-
-.rmAchTitle {
-  font-weight: 700;
-  color: #0f172a;
+  color: var(--qb-text);
+  font-weight: 650;
   font-size: 14px;
   line-height: 1.15;
-}
-
-.rmAchSub {
-  margin-top: 6px;
-  font-size: 12.5px;
-  line-height: 1.2;
-  color: #64748b;
 }
 
 .cta {
@@ -1759,75 +1760,28 @@ body {
               <div class="rmYearCard">
                 <div class="rmInner">
                   <div class="rmYear">2026</div>
-                  <div class="rmTrack">
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Jan</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
+                  <div class="rmRow">
+                    <div class="rmLine" aria-hidden="true"></div>
+                    <div class="rmMonths" aria-hidden="true">
+                      <div class="rmM rmM--label rmM--active" data-n="1"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="3"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="6"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="9"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="12"></div>
                     </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Feb</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Mar</div>
-                      <div class="rmDot rmDot--active"></div>
-                      <div class="rmAch">
-                        <div class="rmAchTitle">Global AI<br>Summit</div>
-                      </div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Apr</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">May</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Jun</div>
-                      <div class="rmDot rmDot--active"></div>
-                      <div class="rmAch">
-                        <div class="rmAchTitle">Testnet 1<br>Launch</div>
-                      </div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Jul</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Aug</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Sep</div>
-                      <div class="rmDot rmDot--active"></div>
-                      <div class="rmAch">
-                        <div class="rmAchTitle">Epoch III<br>(Deflation<br>Phase)</div>
-                      </div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Oct</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Nov</div>
-                      <div class="rmDot"></div>
-                      <div class="rmAch"></div>
-                    </div>
-                    <div class="rmSlot">
-                      <div class="rmMonthLabel">Dec</div>
-                      <div class="rmDot rmDot--active"></div>
-                      <div class="rmAch">
-                        <div class="rmAchTitle">Mainnet<br>Launch</div>
-                      </div>
-                    </div>
+                  </div>
+                  <div class="rmAchGrid">
+                    <div class="rmAchCell" style="grid-column: 3 / span 1;">Global AI<br>Summit</div>
+                    <div class="rmAchCell" style="grid-column: 6 / span 1;">Testnet 1<br>Launch</div>
+                    <div class="rmAchCell" style="grid-column: 9 / span 1;">Epoch III<br>(Deflation<br>Phase)</div>
+                    <div class="rmAchCell" style="grid-column: 12 / span 1;">Mainnet<br>Launch</div>
                   </div>
                 </div>
               </div>
@@ -1835,20 +1789,24 @@ body {
               <div class="rmYearCard">
                 <div class="rmInner">
                   <div class="rmYear">2027</div>
-                  <div class="rmTrack">
-                    <div class="rmSlot"><div class="rmMonthLabel">Jan</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Feb</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Mar</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Apr</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">May</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Jun</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Jul</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Aug</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Sep</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Oct</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Nov</div><div class="rmDot"></div><div class="rmAch"></div></div>
-                    <div class="rmSlot"><div class="rmMonthLabel">Dec</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                  <div class="rmRow">
+                    <div class="rmLine" aria-hidden="true"></div>
+                    <div class="rmMonths" aria-hidden="true">
+                      <div class="rmM rmM--label" data-n="1"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="3"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="6"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="9"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="12"></div>
+                    </div>
                   </div>
+                  <div class="rmAchGrid"></div>
                 </div>
               </div>
             </div>
