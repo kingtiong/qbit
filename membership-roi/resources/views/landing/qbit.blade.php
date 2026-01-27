@@ -981,7 +981,6 @@ body {
   left: 0;
   right: 0;
   top: var(--rm-line-y);
-  transform: translateY(-12px);
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.65) 55%, rgba(99, 102, 241, 0.85) 100%);
