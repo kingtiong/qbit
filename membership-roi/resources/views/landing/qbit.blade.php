@@ -957,6 +957,8 @@ body {
 
 .rmInner {
   min-width: 0;
+  position: relative;
+  padding-bottom: 92px;
 }
 
 .rmYear {
@@ -988,7 +990,6 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   align-items: start;
-  transform: translateY(-22px);
 }
 
 .rmM {
@@ -1026,7 +1027,11 @@ body {
 .rmAchGrid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  margin-top: 20px;
+  margin-top: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--rm-line-y) + 12px + 10px + 12px);
 }
 
 .rmAchCell {
@@ -1042,7 +1047,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: calc(-20px - 10px);
+  top: calc(-12px - 10px);
   transform: translateX(-50%);
   width: 10px;
   height: 10px;
