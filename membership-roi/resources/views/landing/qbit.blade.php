@@ -998,7 +998,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: 30px;
+  top: 22px;
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
@@ -1022,7 +1022,7 @@ body {
   height: 12px;
   background: #ef4444;
   box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
-  top: 28px;
+  top: 20px;
 }
 
 .rmAchGrid {
