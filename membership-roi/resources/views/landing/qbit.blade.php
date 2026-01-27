@@ -1001,7 +1001,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: calc(var(--rm-line-y) - 12px - 8px);
+  top: calc(var(--rm-line-y) - 12px - 4px);
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
@@ -1013,9 +1013,10 @@ body {
   content: attr(data-n);
   position: absolute;
   left: 50%;
-  top: calc(var(--rm-line-y) - 12px - 8px - 12px - 12px);
+  top: calc(var(--rm-line-y) - 40px);
   transform: translateX(-50%);
   font-size: 12px;
+  line-height: 12px;
   color: #94a3b8;
   font-weight: 650;
 }
@@ -1031,7 +1032,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--rm-line-y) + 12px + 10px + 12px);
+  top: calc(var(--rm-line-y) + 29px);
 }
 
 .rmAchCell {
