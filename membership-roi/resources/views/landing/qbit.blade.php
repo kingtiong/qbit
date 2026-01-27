@@ -1010,7 +1010,7 @@ body {
   content: attr(data-n);
   position: absolute;
   left: 50%;
-  top: -6px;
+  top: -18px;
   transform: translateX(-50%);
   font-size: 12px;
   color: #94a3b8;
@@ -1045,7 +1045,7 @@ body {
   position: absolute;
   left: 50%;
   top: -14px;
-  transform: translateX(-50%);
+  transform: translate(-50%, -66px);
   width: 10px;
   height: 10px;
   border-radius: 999px;
