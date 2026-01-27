@@ -1430,7 +1430,6 @@ body {
                 </div>
                 <div class="donut-row">
                   <div class="donut" aria-hidden="true">
-                    <div class="donut__label">QBT Governance &amp; Equity</div>
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>PoDRC Hardware Mining — 76%</li>
@@ -1451,7 +1450,6 @@ body {
                 </div>
                 <div class="donut-row">
                   <div class="donut" style="background: conic-gradient(#2D6BFF 0 62%, #8B5CF6 62% 82%, #22C55E 82% 92%, #F59E0B 92% 100%);" aria-hidden="true">
-                    <div class="donut__label">QBTX Universal Utility</div>
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>{{ $t('Settlement Unit', '结算单位') }}</li>
