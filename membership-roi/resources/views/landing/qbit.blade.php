@@ -1432,10 +1432,9 @@ body {
                   <div class="donut" aria-hidden="true">
                   </div>
                   <ul class="legend">
-                    <li><span class="swatch swatch--a"></span>PoDRC Hardware Mining — 76%</li>
-                    <li><span class="swatch swatch--b"></span>Early Community DAO — 10%</li>
-                    <li><span class="swatch swatch--c"></span>Ecosystem Fund — 9%</li>
-                    <li><span class="swatch swatch--d"></span>Development Team — 5%</li>
+                    <li><span class="swatch swatch--a"></span>Nature: Non-transferable Equity Proof. Holding QBT = Holding Pre-IPO Shares.</li>
+                    <li><span class="swatch swatch--b"></span>Privilege: Exclusive voting rights and access to Phase 2 ecosystem yields.</li>
+                    <li><span class="swatch swatch--c"></span>Vesting: Convertible 1:1 to QBTX via vesting mechanisms.</li>
                   </ul>
                 </div>
               </div>
