@@ -1490,7 +1490,7 @@ body {
               </div>
               <div class="mini-card">
                 <div class="mini-card__title">{{ $t('Staking Utility', '质押用途') }}</div>
-                <div class="mini-card__text">{{ $t('DEAI-T required for nodes and settlement; usage grows with network.', 'DEAI-T 用于节点与结算；随网络增长而增长。') }}</div>
+                <div class="mini-card__text">{{ $t('QBTX Universal Utility required for nodes and settlement; usage grows with network.', 'QBTX Universal Utility 用于节点与结算；随网络增长而增长。') }}</div>
               </div>
               <div class="mini-card">
                 <div class="mini-card__title">{{ $t('Deflation Design', '通缩设计') }}</div>
