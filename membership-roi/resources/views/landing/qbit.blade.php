@@ -1262,7 +1262,7 @@ body {
         $fiveLayer = $getChild('tech_features', 'five_layer_architecture');
         $layers = $extractLayerBlocks(($fiveLayer['content'][$contentLocale] ?? null));
 
-        $appsWanted = ['parrot_v1', 'one_click_deployment', 'ai_audit', 'nexus_finance'];
+        $appsWanted = ['parrot_v1', 'one_click_deployment'];
         $apps = [];
         foreach ($appsWanted as $aid) {
             $c = $getChild('project_applications', $aid);
