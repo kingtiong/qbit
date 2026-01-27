@@ -703,6 +703,23 @@ body {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
 }
 
+.donut--img {
+  background: none;
+  overflow: hidden;
+}
+
+.donut--img::after {
+  display: none;
+}
+
+.donut__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .donut::after {
   content: "";
   position: absolute;
@@ -1429,7 +1446,8 @@ body {
                   <div class="card__tag">{{ $t('esToken', 'esToken') }}</div>
                 </div>
                 <div class="donut-row">
-                  <div class="donut" aria-hidden="true">
+                  <div class="donut donut--img" aria-hidden="true">
+                    <img class="donut__img" src="{{ asset('images/QBT.png') }}" alt="" />
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>Nature: Non-transferable Equity Proof. Holding QBT = Holding Pre-IPO Shares.</li>
@@ -1446,7 +1464,8 @@ body {
                 </div>
                 <div class="card__text"></div>
                 <div class="donut-row">
-                  <div class="donut" style="background: conic-gradient(#2D6BFF 0 62%, #8B5CF6 62% 82%, #22C55E 82% 92%, #F59E0B 92% 100%);" aria-hidden="true">
+                  <div class="donut donut--img" aria-hidden="true">
+                    <img class="donut__img" src="{{ asset('images/QBTX.png') }}" alt="" />
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>Nature: Fully liquid asset traded on CEX/DEX.</li>
