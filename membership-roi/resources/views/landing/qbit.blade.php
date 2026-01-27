@@ -1532,51 +1532,6 @@ body {
           <div class="section__head">
             <div class="section__badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
-                <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="#2D6BFF" stroke-width="1.6"/>
-                <path d="M12 8v6" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M12 17h.01" stroke="#2D6BFF" stroke-width="2.6" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h2 class="section__title">{{ $t('Audit &amp; Security', '审计与安全') }}</h2>
-            <p class="section__sub">{{ $t('Audit conclusions and operational security primitives—built for transparency.', '审计结论与运行级安全机制——面向透明度构建。') }}</p>
-          </div>
-
-          <div class="panel">
-            <div class="grid-2">
-              <div class="card">
-                <div class="card__top">
-                  <div class="card__title">{{ $t('Audit Overview', '审计概览') }}</div>
-                  <div class="card__tag">{{ $t('24 Checks', '24 项检测') }}</div>
-                </div>
-                <div class="card__text">{{ $t('Key conclusions from the security audit report.', '安全审计报告的关键结论。') }}</div>
-                <div class="acc__body" style="padding: 0; margin-top: 10px;">
-                  <ul style="margin: 0; padding-left: 18px;">
-                    @foreach ($auditChecks as $c)
-                      <li>{{ $c }}</li>
-                    @endforeach
-                  </ul>
-                </div>
-              </div>
-
-              <div class="card">
-                <div class="card__top">
-                  <div class="card__title">{{ $t('Non-Custodial Safety', '非托管安全') }}</div>
-                  <div class="card__tag">{{ $t('Self-Custody', '自托管') }}</div>
-                </div>
-                <div class="card__text">
-                  {{ $excerpt(((($getChild('code_audit', 'asset_security_guide') ?? [])['content'][$contentLocale] ?? '')), 220) }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section__head">
-            <div class="section__badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
                 <path d="M6 12h12" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
                 <path d="M12 6v12" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
                 <path d="M5 19h14" stroke="#2D6BFF" stroke-width="1.6" opacity="0.25" stroke-linecap="round"/>
