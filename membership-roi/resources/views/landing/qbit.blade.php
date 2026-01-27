@@ -974,6 +974,7 @@ body {
   position: relative;
   padding-top: 22px;
   --rm-line-y: 34px;
+  --rm-pad-top: 22px;
 }
 
 .rmLine {
@@ -1001,7 +1002,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: calc(var(--rm-line-y) - 12px - 8px);
+  top: calc(var(--rm-line-y) - var(--rm-pad-top) - 12px - 8px);
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
