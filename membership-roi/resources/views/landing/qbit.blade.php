@@ -1445,9 +1445,7 @@ body {
                   <div class="card__title">QBTX Universal Utility</div>
                   <div class="card__tag">{{ $t('Universal Fuel', 'Universal Fuel') }}</div>
                 </div>
-                <div class="card__text">
-                  {{ $excerpt($economics['content'][$contentLocale] ?? '', 180) }}
-                </div>
+                <div class="card__text"></div>
                 <div class="donut-row">
                   <div class="donut" style="background: conic-gradient(#2D6BFF 0 62%, #8B5CF6 62% 82%, #22C55E 82% 92%, #F59E0B 92% 100%);" aria-hidden="true">
                   </div>
