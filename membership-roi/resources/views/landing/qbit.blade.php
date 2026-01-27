@@ -1449,10 +1449,10 @@ body {
                   <div class="donut" style="background: conic-gradient(#2D6BFF 0 62%, #8B5CF6 62% 82%, #22C55E 82% 92%, #F59E0B 92% 100%);" aria-hidden="true">
                   </div>
                   <ul class="legend">
-                    <li><span class="swatch swatch--a"></span>{{ $t('Settlement Unit', '结算单位') }}</li>
-                    <li><span class="swatch swatch--b"></span>{{ $t('Staking Utility', '质押用途') }}</li>
-                    <li><span class="swatch swatch--c"></span>{{ $t('Deflation Design', '通缩设计') }}</li>
-                    <li><span class="swatch swatch--d"></span>{{ $t('Governable Supply', '可治理供应') }}</li>
+                    <li><span class="swatch swatch--a"></span>Nature: Fully liquid asset traded on CEX/DEX.</li>
+                    <li><span class="swatch swatch--b"></span>Utility: Used for Gas fees, enterprise payments, and deflationary burns.</li>
+                    <li><span class="swatch swatch--c"></span>Evolution: Launches on BSC (H1 2026) → Migrates to QBIT Native Chain (2027).</li>
+                    <li><span class="swatch swatch--d"></span>Value Anchor: BNB Price Floor Support.</li>
                   </ul>
                 </div>
               </div>
