@@ -1013,10 +1013,9 @@ body {
   content: attr(data-n);
   position: absolute;
   left: 50%;
-  top: calc(var(--rm-line-y) - 40px);
+  top: calc(var(--rm-line-y) - 36px);
   transform: translateX(-50%);
   font-size: 12px;
-  line-height: 12px;
   color: #94a3b8;
   font-weight: 650;
 }
