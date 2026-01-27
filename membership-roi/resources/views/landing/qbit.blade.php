@@ -1763,11 +1763,11 @@ body {
                   <div class="rmRow">
                     <div class="rmLine" aria-hidden="true"></div>
                     <div class="rmMonths" aria-hidden="true">
-                      <div class="rmM rmM--label rmM--active" data-n="1"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="1"></div>
+                      <div class="rmM rmM--active"></div>
                       <div class="rmM rmM--label" data-n="3"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--active"></div>
+                      <div class="rmM rmM--active"></div>
                       <div class="rmM rmM--label" data-n="6"></div>
                       <div class="rmM"></div>
                       <div class="rmM"></div>
@@ -1778,10 +1778,9 @@ body {
                     </div>
                   </div>
                   <div class="rmAchGrid">
-                    <div class="rmAchCell" style="grid-column: 3 / span 1;">Global AI<br>Summit</div>
-                    <div class="rmAchCell" style="grid-column: 6 / span 1;">Testnet 1<br>Launch</div>
-                    <div class="rmAchCell" style="grid-column: 9 / span 1;">Epoch III<br>(Deflation<br>Phase)</div>
-                    <div class="rmAchCell" style="grid-column: 12 / span 1;">Mainnet<br>Launch</div>
+                    <div class="rmAchCell" style="grid-column: 2 / span 1;">QBP Program<br>Launch</div>
+                    <div class="rmAchCell" style="grid-column: 3 / span 1;">Liquidity<br>Pool</div>
+                    <div class="rmAchCell" style="grid-column: 5 / span 1;">QPU<br>Whitelist</div>
                   </div>
                 </div>
               </div>
@@ -1794,19 +1793,23 @@ body {
                     <div class="rmMonths" aria-hidden="true">
                       <div class="rmM rmM--label" data-n="1"></div>
                       <div class="rmM"></div>
-                      <div class="rmM rmM--label" data-n="3"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="3"></div>
                       <div class="rmM"></div>
                       <div class="rmM"></div>
                       <div class="rmM rmM--label" data-n="6"></div>
                       <div class="rmM"></div>
                       <div class="rmM"></div>
-                      <div class="rmM rmM--label" data-n="9"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="9"></div>
                       <div class="rmM"></div>
                       <div class="rmM"></div>
-                      <div class="rmM rmM--label" data-n="12"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="12"></div>
                     </div>
                   </div>
-                  <div class="rmAchGrid"></div>
+                  <div class="rmAchGrid">
+                    <div class="rmAchCell" style="grid-column: 3 / span 1;">Growth 1<br>Million Users</div>
+                    <div class="rmAchCell" style="grid-column: 9 / span 1;">Mainnet<br>Launch</div>
+                    <div class="rmAchCell" style="grid-column: 12 / span 1;">Enterprise<br>Solutions</div>
+                  </div>
                 </div>
               </div>
             </div>
