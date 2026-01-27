@@ -1014,7 +1014,7 @@ body {
   content: attr(data-n);
   position: absolute;
   left: 50%;
-  top: calc(var(--rm-line-y) - 48px);
+  top: calc(var(--rm-line-y) - var(--rm-pad-top) - 44px);
   transform: translateX(-50%);
   font-size: 12px;
   color: #94a3b8;
