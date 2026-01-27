@@ -1380,6 +1380,8 @@ body {
                     <div class="card__title">
                       @if (($app['id'] ?? null) === 'parrot_v1')
                         FinTech - Portfolio Optimization
+                      @elseif (($app['id'] ?? null) === 'one_click_deployment')
+                        PoDV Node: Auto-Data Execution
                       @else
                         {{ $app['title'][$contentLocale] ?? $app['title']['en-US'] ?? '' }}
                       @endif
@@ -1388,6 +1390,8 @@ body {
                   <div class="card__text">
                     @if (($app['id'] ?? null) === 'parrot_v1')
                       Grounded in Markowitz Portfolio Theory, our hybrid quantum-classical model is powered by QAOA. We map complex optimization challenges to quantum ground state searches, using quantum parallelism to crack NP-hard problems. This allows us to navigate exponentially vast configuration spaces and instantly locate the optimal risk-return portfolio, revolutionizing the efficiency of large-scale asset allocation.
+                    @elseif (($app['id'] ?? null) === 'one_click_deployment')
+                      Turn your node into an AI-driven data oracle. Utilizing the Proof of Data Value (PoDV) protocol, nodes automatically execute complex data scraping and cleaning tasks. This continuous stream of financial data fuels QBIT's quantum algorithms, converting raw data value directly into node yield.
                     @else
                       {{ $excerpt($app['content'][$contentLocale] ?? '') }}
                     @endif
