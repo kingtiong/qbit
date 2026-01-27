@@ -961,18 +961,23 @@ body {
 }
 
 .rmYear {
-  font-weight: 650;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 750;
   color: #0f172a;
-  font-size: 16px;
+  font-size: 18px;
 }
 
-.rmRail {
+.rmTrack {
   position: relative;
-  margin-top: 10px;
-  padding-top: 26px;
+  margin-top: 14px;
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
 }
 
-.rmRail::before {
+.rmTrack::before {
   content: "";
   position: absolute;
   left: 0;
@@ -980,83 +985,53 @@ body {
   top: 26px;
   height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), rgba(99, 102, 241, 0.85), rgba(139, 92, 246, 0.55));
+  background: rgba(148, 163, 184, 0.55);
 }
 
-.rmMonths {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 26px;
-}
-
-.rmMonth {
+.rmSlot {
   position: relative;
-  height: 26px;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 18px 26px auto;
+  min-height: 120px;
 }
 
-.rmMonth::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 18px;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #e2e8f0;
-}
-
-.rmMonth--label::before {
-  content: attr(data-label);
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
+.rmMonthLabel {
   font-size: 12px;
   color: #94a3b8;
   font-weight: 650;
-}
-
-.rmEvents {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0;
-  margin-top: 18px;
-}
-
-.rmEvent {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: flex-start;
+  line-height: 18px;
 }
 
 .rmDot {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
+  background: #e2e8f0;
+  position: relative;
+  top: 20px;
+}
+
+.rmDot--active {
   background: #4f46e5;
   box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.12);
 }
 
-.rmDot--now {
-  background: #ef4444;
-  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.15);
+.rmAch {
+  margin-top: 16px;
+  text-align: center;
+  max-width: 160px;
 }
 
-.rmTitle {
+.rmAchTitle {
   font-weight: 700;
   color: #0f172a;
   font-size: 14px;
   line-height: 1.15;
 }
 
-.rmSub {
+.rmAchSub {
+  margin-top: 6px;
   font-size: 12.5px;
   line-height: 1.2;
   color: #64748b;
@@ -1783,48 +1758,74 @@ body {
             <div class="roadmap-grid">
               <div class="rmYearCard">
                 <div class="rmInner">
-                  <div class="rmYear">2025</div>
-                  <div class="rmRail">
-                    <div class="rmMonths" aria-hidden="true">
-                      <div class="rmMonth rmMonth--label" data-label="1"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="3"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="6"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="9"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="12"></div>
+                  <div class="rmYear">2026</div>
+                  <div class="rmTrack">
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Jan</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
                     </div>
-                    <div class="rmEvents">
-                      <div class="rmEvent" style="grid-column: 1 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Singapore<br>Roadshow</div>
-                        <div class="rmSub">Lab /<br>Technology<br>vision</div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Feb</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Mar</div>
+                      <div class="rmDot rmDot--active"></div>
+                      <div class="rmAch">
+                        <div class="rmAchTitle">Global AI<br>Summit</div>
                       </div>
-                      <div class="rmEvent" style="grid-column: 2 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Bangkok<br>Roadshow</div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Apr</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">May</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Jun</div>
+                      <div class="rmDot rmDot--active"></div>
+                      <div class="rmAch">
+                        <div class="rmAchTitle">Testnet 1<br>Launch</div>
                       </div>
-                      <div class="rmEvent" style="grid-column: 3 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Plan<br>Announcement</div>
-                        <div class="rmSub">Project roadmap</div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Jul</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Aug</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Sep</div>
+                      <div class="rmDot rmDot--active"></div>
+                      <div class="rmAch">
+                        <div class="rmAchTitle">Epoch III<br>(Deflation<br>Phase)</div>
                       </div>
-                      <div class="rmEvent" style="grid-column: 4 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Epoch I<br>Launch</div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 9 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Epoch II<br>Launch</div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 12 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">THBW 2025<br>(Platinum<br>Sponsor) +<br>Roadshow</div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Oct</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Nov</div>
+                      <div class="rmDot"></div>
+                      <div class="rmAch"></div>
+                    </div>
+                    <div class="rmSlot">
+                      <div class="rmMonthLabel">Dec</div>
+                      <div class="rmDot rmDot--active"></div>
+                      <div class="rmAch">
+                        <div class="rmAchTitle">Mainnet<br>Launch</div>
                       </div>
                     </div>
                   </div>
@@ -1833,43 +1834,20 @@ body {
 
               <div class="rmYearCard">
                 <div class="rmInner">
-                  <div class="rmYear">2026</div>
-                  <div class="rmRail">
-                    <div class="rmMonths" aria-hidden="true">
-                      <div class="rmMonth rmMonth--label" data-label="1"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="3"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="6"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="9"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth"></div>
-                      <div class="rmMonth rmMonth--label" data-label="12"></div>
-                    </div>
-                    <div class="rmEvents">
-                      <div class="rmEvent" style="grid-column: 1 / span 1;">
-                        <div class="rmDot rmDot--now"></div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 3 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Global AI<br>Summit</div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 6 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Testnet 1<br>Launch</div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 9 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Epoch III<br>(Deflation<br>Phase)</div>
-                      </div>
-                      <div class="rmEvent" style="grid-column: 12 / span 1;">
-                        <div class="rmDot"></div>
-                        <div class="rmTitle">Mainnet<br>Launch</div>
-                      </div>
-                    </div>
+                  <div class="rmYear">2027</div>
+                  <div class="rmTrack">
+                    <div class="rmSlot"><div class="rmMonthLabel">Jan</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Feb</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Mar</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Apr</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">May</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Jun</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Jul</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Aug</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Sep</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Oct</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Nov</div><div class="rmDot"></div><div class="rmAch"></div></div>
+                    <div class="rmSlot"><div class="rmMonthLabel">Dec</div><div class="rmDot"></div><div class="rmAch"></div></div>
                   </div>
                 </div>
               </div>
