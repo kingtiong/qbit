@@ -971,13 +971,14 @@ body {
   margin-top: 10px;
   position: relative;
   padding-top: 22px;
+  --rm-line-y: 34px;
 }
 
 .rmLine {
   position: absolute;
   left: 0;
   right: 0;
-  top: 34px;
+  top: var(--rm-line-y);
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.65) 55%, rgba(99, 102, 241, 0.85) 100%);
@@ -998,7 +999,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: 6px;
+  top: calc(var(--rm-line-y) - 12px - 8px);
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
@@ -1010,7 +1011,7 @@ body {
   content: attr(data-n);
   position: absolute;
   left: 50%;
-  top: -18px;
+  top: calc(var(--rm-line-y) - 12px - 8px - 12px - 12px);
   transform: translateX(-50%);
   font-size: 12px;
   color: #94a3b8;
@@ -1018,17 +1019,13 @@ body {
 }
 
 .rmM--active::after {
-  width: 12px;
-  height: 12px;
-  background: #ef4444;
-  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
-  top: 4px;
+  background: rgba(99, 102, 241, 0.95);
 }
 
 .rmAchGrid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  margin-top: 6px;
+  margin-top: 20px;
 }
 
 .rmAchCell {
@@ -1044,13 +1041,13 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: -14px;
-  transform: translate(-50%, -66px);
+  top: calc(-20px - 10px);
+  transform: translateX(-50%);
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(99, 102, 241, 0.95);
-  box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.10);
+  background: #ef4444;
+  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
 }
 .cta {
   padding: 34px 18px;
