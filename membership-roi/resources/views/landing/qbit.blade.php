@@ -1591,7 +1591,7 @@ body {
                 <circle cx="12" cy="12" r="3.2" stroke="#2D6BFF" stroke-width="1.6" opacity="0.9"/>
               </svg>
             </div>
-            <h2 class="section__title">{{ $t('Five Value-Capture Mechanisms', '五大价值捕获机制') }}</h2>
+            <h2 class="section__title">{{ $t('Six Value-Capture Mechanisms', '六大价值捕获机制') }}</h2>
             <p class="section__sub">{{ $t('Designed to align infrastructure growth with sustainable ecosystem value.', '用于将基础设施增长与可持续生态价值对齐。') }}</p>
           </div>
 
