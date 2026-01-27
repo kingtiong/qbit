@@ -962,11 +962,16 @@ body {
 }
 
 .rmYear {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
   font-weight: 750;
   color: var(--qb-text);
   font-size: 18px;
+}
+
+.rmYear > span {
+  grid-column: 1 / span 1;
+  justify-self: center;
 }
 
 .rmRow {
@@ -1777,7 +1782,7 @@ body {
             <div class="roadmap-grid">
               <div class="rmYearCard">
                 <div class="rmInner">
-                  <div class="rmYear">2026</div>
+                  <div class="rmYear"><span>2026</span></div>
                   <div class="rmRow">
                     <div class="rmLine" aria-hidden="true"></div>
                     <div class="rmMonths" aria-hidden="true">
@@ -1805,7 +1810,7 @@ body {
 
               <div class="rmYearCard">
                 <div class="rmInner">
-                  <div class="rmYear">2027</div>
+                  <div class="rmYear"><span>2027</span></div>
                   <div class="rmRow">
                     <div class="rmLine" aria-hidden="true"></div>
                     <div class="rmMonths" aria-hidden="true">
