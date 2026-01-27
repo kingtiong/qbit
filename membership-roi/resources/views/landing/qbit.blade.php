@@ -769,7 +769,7 @@ body {
 
 .value-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   padding: 18px;
 }
@@ -1499,24 +1499,28 @@ body {
           <div class="panel">
             <div class="value-grid">
               <div class="mini-card">
-                <div class="mini-card__title">{{ $t('Compute Demand', '算力需求') }}</div>
-                <div class="mini-card__text">{{ $t('Real AI computing usage drives on-chain fees and throughput.', '真实 AI 算力使用推动链上费用与吞吐。') }}</div>
+                <div class="mini-card__title">BNB-Anchored Treasury</div>
+                <div class="mini-card__text">Protocol revenue (Node sales, Gas, Fees) automatically buys back BNB. As the reserve grows, it mathematically raises the Floor Price of QBTX, eliminating the risk of the token going to zero.</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">{{ $t('Staking Utility', '质押用途') }}</div>
-                <div class="mini-card__text">{{ $t('QBTX Universal Utility required for nodes and settlement; usage grows with network.', 'QBTX Universal Utility 用于节点与结算；随网络增长而增长。') }}</div>
+                <div class="mini-card__title">"Gold Shovel" Yield</div>
+                <div class="mini-card__text">Holding QBT grants you network "taxing rights." Stakers directly share QaaS commercial profits and receive exclusive airdrops from every DeFi or GameFi project launching on the QBIT chain.</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">{{ $t('Deflation Design', '通缩设计') }}</div>
-                <div class="mini-card__text">{{ $t('Burn + loss + buyback-style levers reduce long-term sell pressure.', '销毁 + 折损 + 回购等机制降低长期抛压。') }}</div>
+                <div class="mini-card__title">Deflationary Scissors</div>
+                <div class="mini-card__text">A dual-burn engine driven by usage. High-frequency Gas consumption combined with Elastic Vesting friction continuously reduces supply. Higher activity = Scarcity = Price Surge.</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">{{ $t('Ecosystem Fund', '生态基金') }}</div>
-                <div class="mini-card__text">{{ $t('Community-governed funding supports builders, tools, and adoption.', '社区治理资金支持建设者、工具与采用。') }}</div>
+                <div class="mini-card__title">Quantum Narrative</div>
+                <div class="mini-card__text">Positioned at the intersection of AI, Quantum, and RWA. We solve high-frequency settlement bottlenecks, capturing the valuation premium of a trillion-dollar "commercial speed revolution."</div>
               </div>
               <div class="mini-card">
-                <div class="mini-card__title">{{ $t('Governance Premium', '治理溢价') }}</div>
-                <div class="mini-card__text">{{ $t('Voting, proposals, and upgrades connect ownership to network evolution.', '投票、提案与升级将所有权连接到网络演进。') }}</div>
+                <div class="mini-card__title">Institutional Moat</div>
+                <div class="mini-card__text">Deep liquidity pools anchored by BNB/USDT and managed by top-tier Market Makers. We provide an institutional-grade entry channel with minimal slippage, resistant to extreme market volatility.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-card__title">Proof of Elite (PoE)</div>
+                <div class="mini-card__text">QBT is your ticket to the inner circle—granting access to Alpha Data, core governance, and the DAO. We filter out speculators to unite a community of true builders and believers.</div>
               </div>
             </div>
           </div>
