@@ -1413,48 +1413,6 @@ body {
           <div class="section__head">
             <div class="section__badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
-                <path d="M4 17h16" stroke="#2D6BFF" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M6 17V11" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M12 17V7" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M18 17V13" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h2 class="section__title">{{ $t('Key Capability Comparison', '关键能力对比') }}</h2>
-            <p class="section__sub">{{ $t('A snapshot of core performance data and technical comparison.', '核心性能数据与技术对比概览。') }}</p>
-          </div>
-
-          <div class="panel">
-            <div class="table-wrap">
-              <table class="tbl">
-                <thead>
-                  <tr>
-                    <th>Performance Metric</th>
-                    <th>Data</th>
-                    <th>Comparative Advantage</th>
-                    <th>Technical Implementation</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach (array_slice($perfRows, 1, 8) as $r)
-                    <tr>
-                      <td>{{ $stripMd($r[0] ?? '') }}</td>
-                      <td>{{ $stripMd($r[1] ?? '') }}</td>
-                      <td>{{ $stripMd($r[2] ?? '') }}</td>
-                      <td>{{ $stripMd($r[3] ?? '') }}</td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section__head">
-            <div class="section__badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
                 <path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z" stroke="#2D6BFF" stroke-width="1.6"/>
                 <path d="M9 12l2 2 4-4" stroke="#2D6BFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
