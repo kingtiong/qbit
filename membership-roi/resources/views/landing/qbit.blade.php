@@ -1418,7 +1418,7 @@ body {
               </svg>
             </div>
             <h2 class="section__title">{{ $t('Tokenomics', '代币经济') }}</h2>
-            <p class="section__sub">{{ $t('A symbiotic ecosystem separating (QBT) and (QBTX). Featuring an elastic supply of 150M and a $9M FDV, protected by our industry-first Break-even Shield.', '一种将（QBT）与（QBTX）分离的共生生态系统。具备 1.5 亿弹性供应与 900 万美元 FDV，并由行业首创的盈亏平衡护盾保护。') }}</p>
+            <p class="section__sub">{!! $t('A symbiotic ecosystem separating <strong>(QBT)</strong> and <strong>(QBTX)</strong>. Featuring an elastic supply of 150M and a $9M FDV, protected by our industry-first Break-even Shield.', '一种将<strong>（QBT）</strong>与<strong>（QBTX）</strong>分离的共生生态系统。具备 1.5 亿弹性供应与 900 万美元 FDV，并由行业首创的盈亏平衡护盾保护。') !!}</p>
           </div>
 
           <div class="panel">
