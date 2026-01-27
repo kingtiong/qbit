@@ -952,11 +952,11 @@ body {
   border: none;
   box-shadow: none;
   padding: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 
 .rmInner {
-  min-width: 980px;
+  min-width: 0;
 }
 
 .rmYear {
@@ -1027,7 +1027,7 @@ body {
 .rmAchGrid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  margin-top: 14px;
+  margin-top: 6px;
 }
 
 .rmAchCell {
