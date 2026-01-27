@@ -937,30 +937,129 @@ body {
 
 .roadmap-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  padding: 18px;
+  gap: 22px;
 }
 
-.timeline-card {
-  border-radius: 18px;
-  background: rgba(18, 18, 22, 0.82);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
-  padding: 18px 18px 16px;
+.roadmapPanel {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-.timeline-card__title {
+.rmYearCard {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.10);
+  padding: 22px 20px;
+  overflow-x: auto;
+}
+
+.rmInner {
+  min-width: 980px;
+}
+
+.rmYear {
   font-weight: 650;
-  color: var(--qb-text);
+  color: #0f172a;
+  font-size: 16px;
 }
 
-.timeline {
+.rmRail {
+  position: relative;
   margin-top: 10px;
-  padding-left: 16px;
-  color: var(--qb-muted);
-  font-size: 13.5px;
-  line-height: 1.6;
+  padding-top: 26px;
+}
+
+.rmRail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 26px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), rgba(99, 102, 241, 0.85), rgba(139, 92, 246, 0.55));
+}
+
+.rmMonths {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 26px;
+}
+
+.rmMonth {
+  position: relative;
+  height: 26px;
+}
+
+.rmMonth::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.rmMonth--label::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 650;
+}
+
+.rmEvents {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  margin-top: 18px;
+}
+
+.rmEvent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.rmDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #4f46e5;
+  box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.12);
+}
+
+.rmDot--now {
+  background: #ef4444;
+  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.15);
+}
+
+.rmTitle {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 14px;
+  line-height: 1.15;
+}
+
+.rmSub {
+  font-size: 12.5px;
+  line-height: 1.2;
+  color: #64748b;
 }
 
 .cta {
@@ -1677,29 +1776,102 @@ body {
               </svg>
             </div>
             <h2 class="section__title">{{ $t('Roadmap', '路线图') }}</h2>
-            <p class="section__sub">{{ $t('A view into milestones and the multi-epoch path forward.', '里程碑与多纪元推进路径概览。') }}</p>
+            <p class="section__sub">{{ $t('A month-based timeline showing momentum from the earliest milestones to what’s next.', '按月份展示从最早里程碑到下一阶段的推进轨迹。') }}</p>
           </div>
 
-          <div class="panel">
+          <div class="panel roadmapPanel">
             <div class="roadmap-grid">
-              @foreach (['2024', '2025', '2026'] as $yr)
-                <div class="timeline-card">
-                  <div class="timeline-card__title">{{ $yr }}</div>
-                  <ul class="timeline">
-                    @foreach (array_slice($roadmapYears[$yr] ?? [], 0, 8) as $it)
-                      <li>{{ $it }}</li>
-                    @endforeach
-                  </ul>
+              <div class="rmYearCard">
+                <div class="rmInner">
+                  <div class="rmYear">2025</div>
+                  <div class="rmRail">
+                    <div class="rmMonths" aria-hidden="true">
+                      <div class="rmMonth rmMonth--label" data-label="1"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="3"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="6"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="9"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="12"></div>
+                    </div>
+                    <div class="rmEvents">
+                      <div class="rmEvent" style="grid-column: 1 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Singapore<br>Roadshow</div>
+                        <div class="rmSub">Lab /<br>Technology<br>vision</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 2 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Bangkok<br>Roadshow</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 3 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Plan<br>Announcement</div>
+                        <div class="rmSub">Project roadmap</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 4 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Epoch I<br>Launch</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 9 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Epoch II<br>Launch</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 12 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">THBW 2025<br>(Platinum<br>Sponsor) +<br>Roadshow</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              @endforeach
-              <div class="timeline-card">
-                <div class="timeline-card__title">{{ $t('Key Milestones', '重要里程碑') }}</div>
-                <ul class="timeline">
-                  <li>{{ $t('Epoch 1 Launch (2025-03-29)', '一纪元启动（2025-03-29）') }}</li>
-                  <li>{{ $t('Epoch 2 Launch (2025-09-21)', '二纪元启动（2025-09-21）') }}</li>
-                  <li>{{ $t('Epoch 3 Storm Deflation (2026-Q3)', '三纪元暴风通缩（2026-Q3）') }}</li>
-                  <li>{{ $t('Mainnet Launch (2026-Q4)', '主网上线（2026-Q4）') }}</li>
-                </ul>
+              </div>
+
+              <div class="rmYearCard">
+                <div class="rmInner">
+                  <div class="rmYear">2026</div>
+                  <div class="rmRail">
+                    <div class="rmMonths" aria-hidden="true">
+                      <div class="rmMonth rmMonth--label" data-label="1"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="3"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="6"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="9"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth"></div>
+                      <div class="rmMonth rmMonth--label" data-label="12"></div>
+                    </div>
+                    <div class="rmEvents">
+                      <div class="rmEvent" style="grid-column: 1 / span 1;">
+                        <div class="rmDot rmDot--now"></div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 3 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Global AI<br>Summit</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 6 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Testnet 1<br>Launch</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 9 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Epoch III<br>(Deflation<br>Phase)</div>
+                      </div>
+                      <div class="rmEvent" style="grid-column: 12 / span 1;">
+                        <div class="rmDot"></div>
+                        <div class="rmTitle">Mainnet<br>Launch</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
