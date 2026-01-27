@@ -1425,12 +1425,12 @@ body {
             <div class="donut-grid">
               <div class="donut-card">
                 <div class="card__top">
-                  <div class="card__title">DEAI</div>
-                  <div class="card__tag">{{ $t('Allocation', '分配') }}</div>
+                  <div class="card__title">QBT Governance &amp; Equity</div>
+                  <div class="card__tag">{{ $t('esToken', 'esToken') }}</div>
                 </div>
                 <div class="donut-row">
                   <div class="donut" aria-hidden="true">
-                    <div class="donut__label">DEAI</div>
+                    <div class="donut__label">QBT Governance &amp; Equity</div>
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>PoDRC Hardware Mining — 76%</li>
@@ -1443,15 +1443,15 @@ body {
 
               <div class="donut-card">
                 <div class="card__top">
-                  <div class="card__title">DEAI-T</div>
-                  <div class="card__tag">{{ $t('Staking', '质押') }}</div>
+                  <div class="card__title">QBTX Universal Utility</div>
+                  <div class="card__tag">{{ $t('Universal Fuel', 'Universal Fuel') }}</div>
                 </div>
                 <div class="card__text">
                   {{ $excerpt($economics['content'][$contentLocale] ?? '', 180) }}
                 </div>
                 <div class="donut-row">
                   <div class="donut" style="background: conic-gradient(#2D6BFF 0 62%, #8B5CF6 62% 82%, #22C55E 82% 92%, #F59E0B 92% 100%);" aria-hidden="true">
-                    <div class="donut__label">DEAI-T</div>
+                    <div class="donut__label">QBTX Universal Utility</div>
                   </div>
                   <ul class="legend">
                     <li><span class="swatch swatch--a"></span>{{ $t('Settlement Unit', '结算单位') }}</li>
