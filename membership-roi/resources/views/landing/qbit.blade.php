@@ -977,7 +977,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 40px;
+  top: 34px;
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(226, 232, 240, 0.95) 0%, rgba(203, 213, 225, 0.65) 55%, rgba(99, 102, 241, 0.85) 100%);
@@ -998,7 +998,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  top: 26px;
+  top: 30px;
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
@@ -1022,6 +1022,7 @@ body {
   height: 12px;
   background: #ef4444;
   box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
+  top: 28px;
 }
 
 .rmAchGrid {
@@ -1031,6 +1032,7 @@ body {
 }
 
 .rmAchCell {
+  position: relative;
   text-align: center;
   color: var(--qb-text);
   font-weight: 650;
@@ -1038,6 +1040,18 @@ body {
   line-height: 1.15;
 }
 
+.rmAchCell::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.95);
+  box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.10);
+}
 .cta {
   padding: 34px 18px;
 }
@@ -1765,8 +1779,8 @@ body {
                     <div class="rmMonths" aria-hidden="true">
                       <div class="rmM rmM--label" data-n="1"></div>
                       <div class="rmM rmM--active"></div>
-                      <div class="rmM rmM--label" data-n="3"></div>
-                      <div class="rmM rmM--active"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="3"></div>
+                      <div class="rmM"></div>
                       <div class="rmM rmM--active"></div>
                       <div class="rmM rmM--label" data-n="6"></div>
                       <div class="rmM"></div>
