@@ -1706,9 +1706,9 @@ body {
 
           <div class="cta">
             <div class="cta__panel">
-              <h3 class="cta__title">{{ $t('Start Your AI Model Journey', '开启你的 AI 模型之旅') }}</h3>
+              <h3 class="cta__title">{{ $t('Start Your Quantum Journey', '开启你的量子之旅') }}</h3>
               <p class="cta__sub">
-                {{ $t('Build, deploy, and verify AI on-chain with a modular stack designed for composability, governance, and security.', '使用为可组合性、治理与安全而设计的模块化技术栈，在链上构建、部署并验证 AI。') }}
+                {{ $t('Deploy nodes, validate data via PoDV, and capture institutional-grade yields. Join the revolution where quantum speed meets algorithmic safety.', '部署节点，通过 PoDV 验证数据并捕获机构级收益。加入量子速度与算法安全交汇的革命。') }}
               </p>
               <div class="cta__actions">
                 <button class="primary" type="button" onclick="window.location.href='{{ route('login') }}'">
