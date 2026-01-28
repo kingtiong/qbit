@@ -1536,7 +1536,7 @@ body {
                   </div>
                   @if (($app['id'] ?? null) === 'parrot_v1')
                     <div style="margin-top: 12px;">
-                      <button class="ghost" type="button" onclick="window.location.href='{{ route('login') }}'">Try Now</button>
+                      <button class="ghost" type="button" onclick="window.location.href='{{ route('fintech.portfolio') }}'">Try Now</button>
                     </div>
                   @endif
                 </div>
