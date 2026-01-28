@@ -361,11 +361,13 @@
         let timers = [];
         let running = false;
         let metricsTimer = null;
+        let rafId = null;
 
         function clearAll() {
           for (const t of timers) clearTimeout(t);
           timers = [];
           if (metricsTimer) { clearInterval(metricsTimer); metricsTimer = null; }
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
         }
 
         function setLocked(on) {
@@ -447,7 +449,7 @@
           ctx.restore();
         }
 
-        function drawAlloc(alloc) {
+        function drawAlloc(alloc, phase) {
           const ctx = cAlloc.getContext('2d');
           const w = cAlloc.width, h = cAlloc.height;
           drawGrid(ctx,w,h);
@@ -455,7 +457,7 @@
           const colors = ['#2D6BFF','#8B5CF6','#22C55E','#F59E0B','#d4af37','#38bdf8','#a3e635','#fb7185'];
           let start = -Math.PI/2;
           for (let i=0;i<alloc.length;i++){
-            const ang = alloc[i].w * Math.PI*2;
+            const ang = alloc[i].w * Math.PI*2 * phase;
             ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+ang); ctx.closePath();
             ctx.fillStyle = colors[i%colors.length];
             ctx.globalAlpha = 0.88;
@@ -481,7 +483,7 @@
           }
         }
 
-        function drawRiskReturn() {
+        function drawRiskReturn(phase, tMs) {
           const ctx = cRR.getContext('2d');
           const w = cRR.width, h = cRR.height;
           drawGrid(ctx,w,h);
@@ -491,7 +493,8 @@
           ctx.beginPath(); ctx.moveTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.lineTo(w-pad,pad); ctx.stroke();
 
           ctx.beginPath();
-          for (let i=0;i<=80;i++){
+          const maxI = Math.max(1, Math.floor(80 * Math.max(0, Math.min(1, phase))));
+          for (let i=0;i<=maxI;i++){
             const x = i/80;
             const rx = pad + x*(w-2*pad);
             const ry = h-pad - (Math.pow(x,0.7)*(h-2*pad));
@@ -504,8 +507,9 @@
           ctx.stroke();
           ctx.shadowBlur = 0;
 
-          const x = Math.max(0, Math.min(1, baseRisk/100));
-          const y = 0.25 + (1 - x) * 0.38;
+          const wob = Math.sin(tMs / 220) * 0.06 * (1 - phase);
+          const x = Math.max(0, Math.min(1, (baseRisk/100) + wob));
+          const y = 0.25 + (1 - x) * 0.38 + Math.cos(tMs / 260) * 0.02 * (1 - phase);
           const px = pad + x*(w-2*pad);
           const py = h-pad - y*(h-2*pad);
           ctx.beginPath(); ctx.arc(px,py,8,0,Math.PI*2);
@@ -516,7 +520,7 @@
           ctx.shadowBlur = 0;
         }
 
-        function drawTrend(alloc) {
+        function drawTrend(alloc, tMs) {
           const ctx = cTrend.getContext('2d');
           const w = cTrend.width, h = cTrend.height;
           drawGrid(ctx,w,h);
@@ -527,7 +531,7 @@
 
           const colors = ['rgba(45,107,255,.85)','rgba(139,92,246,.75)','rgba(34,197,94,.75)','rgba(245,158,11,.75)','rgba(212,175,55,.75)'];
           const series = alloc.slice(0, Math.min(4, alloc.length));
-          const t0 = (seed % 1000) / 100;
+          const t0 = (seed % 1000) / 100 + (tMs / 900);
           for (let s=0;s<series.length;s++){
             const amp = 0.12 + series[s].w*0.22;
             ctx.beginPath();
@@ -611,25 +615,41 @@
           }, 80);
           timers.push(tick);
 
+          function animateFor(durationMs, onFrame, onDone) {
+            const st = performance.now();
+            const loop = (now) => {
+              const p = Math.max(0, Math.min(1, (now - st) / durationMs));
+              onFrame(p, now - st);
+              if (p < 1) {
+                rafId = requestAnimationFrame(loop);
+              } else {
+                rafId = null;
+                if (onDone) onDone();
+              }
+            };
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            rafId = requestAnimationFrame(loop);
+          }
+
           timers.push(setTimeout(() => {
             clearInterval(tick);
             setPills(1);
             showPhase('pie');
-            drawAlloc(alloc);
+            animateFor(stageDur.pie, (p) => drawAlloc(alloc, p), () => drawAlloc(alloc, 1));
             prog.style.width = ((stageDur.stream)/total*100).toFixed(1) + '%';
           }, stageDur.stream));
 
           timers.push(setTimeout(() => {
             setPills(2);
             showPhase('ret');
-            drawRiskReturn();
+            animateFor(stageDur.ret, (p, t) => drawRiskReturn(p, t), () => drawRiskReturn(1, stageDur.ret));
             prog.style.width = ((stageDur.stream + stageDur.pie)/total*100).toFixed(1) + '%';
           }, stageDur.stream + stageDur.pie));
 
           timers.push(setTimeout(() => {
             setPills(3);
             showPhase('trend');
-            drawTrend(alloc);
+            animateFor(stageDur.trend, (_, t) => drawTrend(alloc, t), () => drawTrend(alloc, stageDur.trend));
             prog.style.width = ((stageDur.stream + stageDur.pie + stageDur.ret)/total*100).toFixed(1) + '%';
           }, stageDur.stream + stageDur.pie + stageDur.ret));
 
