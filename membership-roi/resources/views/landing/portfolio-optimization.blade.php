@@ -91,12 +91,16 @@
       }
       .btn:hover{background:rgba(255,255,255,.08);}
       .btn:disabled{opacity:.45;cursor:not-allowed;}
+      .btn--primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;border:0;}
+      .btn--primary:hover{filter:brightness(1.03);}
       .btnRow{display:flex;gap:8px;align-items:center;}
 
       .portfolioBox{display:grid;gap:12px;}
       .portHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
       .cap{font-size:12px;color:var(--muted);}
       .chips{display:flex;flex-wrap:wrap;gap:10px;}
+      .portAction{margin-top:2px;}
+      .portAction .btn{width:100%;padding:11px 12px;border-radius:14px;}
       .chip{
         display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;
         border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);
@@ -181,6 +185,10 @@
 
               <div class="chips" id="chips"></div>
 
+              <div class="portAction">
+                <button id="startOptBtn" class="btn btn--primary" type="button">Start Portfolio Optimization</button>
+              </div>
+
               <div class="riskBox">
                 <div class="riskTop">
                   <div class="riskLbl">Please choose risk preference</div>
@@ -213,6 +221,7 @@
           risk: document.getElementById('risk'),
           riskVal: document.getElementById('riskVal'),
           clearBtn: document.getElementById('clearBtn'),
+          startOptBtn: document.getElementById('startOptBtn'),
         };
 
         let all = [];
@@ -418,6 +427,13 @@
           els.industry.addEventListener('change', render);
           els.clearBtn.addEventListener('click', () => { selected = []; setWarn(''); render(); });
           els.risk.addEventListener('input', () => { els.riskVal.textContent = els.risk.value; });
+          els.startOptBtn.addEventListener('click', () => {
+            if (selected.length < 2) {
+              setWarn('Select at least 2 stocks to start optimization.');
+              return;
+            }
+            setWarn(`Optimization started (demo) • risk ${els.risk.value}/100 • ${selected.length} stocks selected.`);
+          });
         }
 
         fetch('{{ asset('data/sp500.csv') }}', { cache: 'no-store' })
