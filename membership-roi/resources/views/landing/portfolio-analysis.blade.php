@@ -355,6 +355,8 @@
         const symbols = (stored.symbols || []).slice(0, 8);
         const baseRisk = Math.max(0, Math.min(100, Number(stored.risk || 0)));
 
+        let ohlcBySym = new Map(); // symbol -> [{date,close}]
+
         function hash32(str) {
           let h = 2166136261 >>> 0;
           for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
@@ -373,6 +375,116 @@
         let running = false;
         let metricsTimer = null;
         let rafId = null;
+
+        function parseOhlcCsv(text) {
+          const map = new Map();
+          const lines = (text || '').split(/\r?\n/).filter(Boolean);
+          lines.shift(); // header
+          for (const ln of lines) {
+            const cols = ln.split(',');
+            if (cols.length < 7) continue;
+            const [date, sym, open, high, low, close] = cols;
+            if (!sym) continue;
+            if (!map.has(sym)) map.set(sym, []);
+            map.get(sym).push({ date, close: Number(close) });
+          }
+          // ensure date ascending already; keep last ~300
+          for (const [k, v] of map) {
+            v.sort((a, b) => a.date.localeCompare(b.date));
+          }
+          return map;
+        }
+
+        function logReturns(closes) {
+          const out = [];
+          for (let i = 1; i < closes.length; i++) {
+            const a = closes[i - 1], b = closes[i];
+            if (!Number.isFinite(a) || !Number.isFinite(b) || a <= 0 || b <= 0) continue;
+            out.push(Math.log(b / a));
+          }
+          return out;
+        }
+
+        function mean(arr) {
+          if (!arr.length) return 0;
+          return arr.reduce((a, b) => a + b, 0) / arr.length;
+        }
+
+        function covMatrix(series) {
+          // series: Array<Array<number>> aligned by index (same length)
+          const n = series.length;
+          const m = series[0]?.length || 0;
+          const mu = series.map(x => mean(x));
+          const cov = Array.from({ length: n }, () => Array.from({ length: n }, () => 0));
+          for (let i = 0; i < n; i++) {
+            for (let j = i; j < n; j++) {
+              let s = 0;
+              for (let t = 0; t < m; t++) s += (series[i][t] - mu[i]) * (series[j][t] - mu[j]);
+              const v = m > 1 ? s / (m - 1) : 0;
+              cov[i][j] = v;
+              cov[j][i] = v;
+            }
+          }
+          return { mu, cov };
+        }
+
+        function portfolioStats(mu, cov, w) {
+          let r = 0;
+          for (let i = 0; i < w.length; i++) r += w[i] * mu[i];
+          let v = 0;
+          for (let i = 0; i < w.length; i++) {
+            for (let j = 0; j < w.length; j++) v += w[i] * w[j] * cov[i][j];
+          }
+          return { r, v, vol: Math.sqrt(Math.max(0, v)) };
+        }
+
+        function dirichlet(n) {
+          const g = [];
+          for (let i = 0; i < n; i++) g.push(-Math.log(Math.max(1e-6, rnd())));
+          const s = g.reduce((a, b) => a + b, 0);
+          return g.map(x => x / s);
+        }
+
+        function optimizeWeights(symList) {
+          // Try to use real data if available for all symbols
+          const series = [];
+          const used = [];
+          for (const s of symList) {
+            const rows = ohlcBySym.get(s);
+            if (!rows || rows.length < 80) continue;
+            const closes = rows.slice(-160).map(r => r.close);
+            const rets = logReturns(closes);
+            if (rets.length < 60) continue;
+            series.push(rets.slice(-60));
+            used.push(s);
+          }
+          if (used.length < 2) return null;
+
+          // align lengths
+          const L = Math.min(...series.map(x => x.length));
+          const aligned = series.map(x => x.slice(-L));
+          const { mu, cov } = covMatrix(aligned);
+          // annualize mean/var
+          const muA = mu.map(x => x * 252);
+          const covA = cov.map(row => row.map(v => v * 252));
+
+          const risk = baseRisk / 100;
+          const penalty = 6.0 - (risk * 6.0); // low risk => more variance penalty
+
+          let best = null;
+          let bestW = null;
+          const trials = 3200;
+          for (let t = 0; t < trials; t++) {
+            const w = dirichlet(used.length);
+            const st = portfolioStats(muA, covA, w);
+            const utility = st.r - penalty * st.v;
+            if (!best || utility > best.utility) {
+              best = { ...st, utility };
+              bestW = w;
+            }
+          }
+          return { used, w: bestW, stats: best };
+        }
 
         function clearAll() {
           for (const t of timers) clearTimeout(t);
@@ -607,8 +719,8 @@
         }
 
         function finalize(alloc) {
-          const expReturn = 0.12 + (1 - baseRisk/100) * 0.10 + rnd()*0.03;
-          const estRisk = 0.18 + (baseRisk/100) * 0.35 + rnd()*0.03;
+          const expReturn = alloc.__stats?.r ?? (0.12 + (1 - baseRisk/100) * 0.10 + rnd()*0.03);
+          const estRisk = alloc.__stats?.vol ?? (0.18 + (baseRisk/100) * 0.35 + rnd()*0.03);
           const div = 0.62 + (1 - alloc.reduce((m,x)=>Math.max(m,x.w),0))*0.38;
           const band = estRisk < 0.28 ? 'Low' : estRisk < 0.40 ? 'Medium' : 'High';
 
@@ -664,7 +776,11 @@
           setPills(0);
           showPhase('stream');
 
-          const alloc = weights();
+          const opt = optimizeWeights(symbols);
+          const alloc = opt
+            ? opt.used.map((s, i) => ({ s, w: opt.w[i] }))
+            : weights();
+          if (opt && opt.stats) alloc.__stats = opt.stats;
           const stageDur = { stream: 3000, pie: 2000, ret: 2000, trend: 2000 };
           const start = Date.now();
 
@@ -736,7 +852,11 @@
         });
 
         // Auto-run once per trigger
-        runSequence();
+        fetch('{{ asset('data/sp500_ohlc_sample.csv') }}', { cache: 'no-store' })
+          .then(r => r.ok ? r.text() : '')
+          .then(txt => { if (txt) ohlcBySym = parseOhlcCsv(txt); })
+          .catch(() => {})
+          .finally(() => runSequence());
       })();
     </script>
   </body>

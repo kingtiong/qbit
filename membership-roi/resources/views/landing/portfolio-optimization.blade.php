@@ -226,6 +226,7 @@
 
         let all = [];
         let selected = []; // array of symbols
+        let ohlcBySym = new Map(); // symbol -> [{date,open,high,low,close,volume}]
 
         function hash32(str) {
           let h = 2166136261 >>> 0;
@@ -245,6 +246,19 @@
         }
 
         function priceModel(sym) {
+          const rows = ohlcBySym.get(sym);
+          if (rows && rows.length) {
+            const last = rows[rows.length - 1];
+            const cp = Number(last.close) || 0;
+            const limitPct = 0.10;
+            const limLow = cp * (1 - limitPct);
+            const limHigh = cp * (1 + limitPct);
+            const window = rows.slice(-252);
+            const lowest = window.reduce((m, r) => Math.min(m, Number(r.low) || Infinity), Infinity);
+            const highest = window.reduce((m, r) => Math.max(m, Number(r.high) || 0), 0);
+            return { cp, limLow, limHigh, low: lowest, high: highest };
+          }
+          // fallback demo model (deterministic)
           const r = seeded(hash32(sym));
           const base = 8 + r() * 520; // 8..528
           const cp = Math.max(1, base);
@@ -443,10 +457,23 @@
           });
         }
 
-        fetch('{{ asset('data/sp500.csv') }}', { cache: 'no-store' })
-          .then(r => r.text())
-          .then(txt => {
-            all = parseCsv(txt);
+        Promise.all([
+          fetch('{{ asset('data/sp500.csv') }}', { cache: 'no-store' }).then(r => r.text()),
+          fetch('{{ asset('data/sp500_ohlc_sample.csv') }}', { cache: 'no-store' }).then(r => r.ok ? r.text() : ''),
+        ])
+          .then(([spTxt, ohlcTxt]) => {
+            all = parseCsv(spTxt);
+            // parse OHLC sample
+            const lines = (ohlcTxt || '').split(/\r?\n/).filter(Boolean);
+            lines.shift(); // header
+            for (const ln of lines) {
+              const cols = ln.split(',');
+              if (cols.length < 7) continue;
+              const [date, sym, open, high, low, close, volume] = cols;
+              if (!sym) continue;
+              if (!ohlcBySym.has(sym)) ohlcBySym.set(sym, []);
+              ohlcBySym.get(sym).push({ date, open: Number(open), high: Number(high), low: Number(low), close: Number(close), volume: Number(volume) });
+            }
             initIndustrySelect();
             initEvents();
             render();
