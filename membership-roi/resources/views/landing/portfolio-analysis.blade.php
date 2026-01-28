@@ -601,7 +601,6 @@
 
           const alloc = weights();
           const stageDur = { stream: 3000, pie: 2000, ret: 2000, trend: 2000 };
-          const total = stageDur.stream + stageDur.pie + stageDur.ret + stageDur.trend;
           const start = Date.now();
 
           // stream animation (only stream visible)
@@ -609,7 +608,7 @@
             const t = Date.now() - start;
             const remain = Math.max(0, stageDur.stream - t);
             timeLeft.textContent = (remain/1000).toFixed(1);
-            prog.style.width = Math.min(100, (t/total)*100).toFixed(1) + '%';
+            prog.style.width = Math.min(100, (t/stageDur.stream)*100).toFixed(1) + '%';
             codeA.textContent = makeCodeBlock('STREAM');
             codeB.textContent = makeCodeBlock('STREAM');
           }, 80);
@@ -634,29 +633,29 @@
           timers.push(setTimeout(() => {
             clearInterval(tick);
             setPills(1);
-            showPhase('pie');
-            animateFor(stageDur.pie, (p) => drawAlloc(alloc, p), () => drawAlloc(alloc, 1));
-            prog.style.width = ((stageDur.stream)/total*100).toFixed(1) + '%';
+            prog.style.width = '100%';
+            // ensure progress bar visibly completes before switching phase
+            setTimeout(() => {
+              showPhase('pie');
+              animateFor(stageDur.pie, (p) => drawAlloc(alloc, p), () => drawAlloc(alloc, 1));
+            }, 120);
           }, stageDur.stream));
 
           timers.push(setTimeout(() => {
             setPills(2);
             showPhase('ret');
             animateFor(stageDur.ret, (p, t) => drawRiskReturn(p, t), () => drawRiskReturn(1, stageDur.ret));
-            prog.style.width = ((stageDur.stream + stageDur.pie)/total*100).toFixed(1) + '%';
           }, stageDur.stream + stageDur.pie));
 
           timers.push(setTimeout(() => {
             setPills(3);
             showPhase('trend');
             animateFor(stageDur.trend, (_, t) => drawTrend(alloc, t), () => drawTrend(alloc, stageDur.trend));
-            prog.style.width = ((stageDur.stream + stageDur.pie + stageDur.ret)/total*100).toFixed(1) + '%';
           }, stageDur.stream + stageDur.pie + stageDur.ret));
 
           timers.push(setTimeout(() => {
             setPills(4);
             showPhase('final');
-            prog.style.width = '100%';
             finalize(alloc);
             setLocked(false);
             backBtn.setAttribute('aria-disabled', 'false');
