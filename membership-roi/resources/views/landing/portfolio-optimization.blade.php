@@ -99,8 +99,8 @@
       .portHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
       .cap{font-size:12px;color:var(--muted);}
       .chips{display:flex;flex-wrap:wrap;gap:10px;}
-      .portAction{margin-top:2px;}
-      .portAction .btn{width:100%;padding:11px 12px;border-radius:14px;}
+      .portAction{margin-top:12px;display:flex;justify-content:flex-start;}
+      .portAction .btn{width:auto;padding:8px 10px;border-radius:12px;font-size:12px;}
       .chip{
         display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;
         border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);
@@ -185,10 +185,6 @@
 
               <div class="chips" id="chips"></div>
 
-              <div class="portAction">
-                <button id="startOptBtn" class="btn btn--primary" type="button">Start Portfolio Optimization</button>
-              </div>
-
               <div class="riskBox">
                 <div class="riskTop">
                   <div class="riskLbl">Please choose risk preference</div>
@@ -200,6 +196,10 @@
                   <div class="riskEnd">High Risk</div>
                 </div>
                 <div class="foot">Higher risk may allow wider price ranges in this demo view.</div>
+              </div>
+
+              <div class="portAction">
+                <button id="startOptBtn" class="btn btn--primary" type="button">Start Portfolio Optimization</button>
               </div>
             </div>
           </div>
