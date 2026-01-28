@@ -4,142 +4,196 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>FinTech - Portfolio Optimization</title>
+    <title>S&amp;P 500 Stock Selector</title>
     <link rel="icon" type="image/png" href="{{ asset('images/Logo01.png') }}">
     @if (!app()->environment('testing'))
       @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
     <style>
       :root{
-        --bg:#07070a; --surface:#0f1015; --border:rgba(212,175,55,.18);
-        --text:#f8fafc; --muted:rgba(148,163,184,.92);
+        --bg:#07070a; --surface:rgba(18,18,22,.82); --surface2:rgba(7,7,10,.55);
+        --border:rgba(212,175,55,.18); --text:#f8fafc; --muted:rgba(148,163,184,.92);
         --gold:#d4af37; --gold2:#f2d06b;
       }
-      body{background:radial-gradient(900px 500px at 20% 0%, rgba(212,175,55,.10), transparent 60%),
-                 radial-gradient(900px 500px at 80% 20%, rgba(45,107,255,.10), transparent 55%),
-                 var(--bg); color:var(--text);}
-      .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px;}
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        background:
+          radial-gradient(900px 500px at 20% 0%, rgba(212,175,55,.10), transparent 60%),
+          radial-gradient(900px 500px at 80% 20%, rgba(45,107,255,.10), transparent 55%),
+          var(--bg);
+        color:var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+      .wrap{max-width:1280px;margin:0 auto;padding:26px 18px 60px;}
       .top{display:flex;align-items:center;gap:14px;}
-      .top__logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;}
-      .top__logo img{height:46px;width:auto;display:block;}
-      .top__title{font-weight:800;letter-spacing:-.02em;}
-      .top__spacer{margin-left:auto;}
-      .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid var(--border);
-            background:rgba(18,18,22,.72);color:var(--text);text-decoration:none;font-size:13px;}
+      .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;}
+      .brand img{height:46px;width:auto;display:block;}
+      .brand__title{font-weight:850;letter-spacing:-.02em;}
+      .brand__sub{margin-top:2px;font-size:12.5px;color:var(--muted);line-height:1.2;}
+      .spacer{margin-left:auto;}
+      .pill{
+        display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
+        border:1px solid var(--border);background:rgba(18,18,22,.72);
+        color:var(--text);text-decoration:none;font-size:13px;
+      }
       .pill:hover{background:rgba(18,18,22,.88);}
-      .card{margin-top:18px;border-radius:22px;background:rgba(18,18,22,.82);border:1px solid var(--border);box-shadow:0 22px 65px rgba(0,0,0,.60);padding:18px;}
-      .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+
+      .grid{margin-top:16px;display:grid;grid-template-columns:1.65fr 1fr;gap:18px;align-items:start;}
       @media (max-width: 980px){.grid{grid-template-columns:1fr;}}
-      .h1{margin:0;font-size:28px;letter-spacing:-.03em;}
-      .sub{margin-top:8px;color:var(--muted);line-height:1.6;font-size:14px;}
-      .controls{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-      @media (max-width: 980px){.controls{grid-template-columns:1fr;}}
-      .field{display:grid;gap:6px;}
-      .label{font-size:12px;color:rgba(226,232,240,.9);font-weight:650;}
-      .input, .select{width:100%;border-radius:14px;border:1px solid rgba(212,175,55,.18);background:rgba(7,7,10,.65);
-        color:var(--text);padding:10px 12px;outline:none;}
+      .card{
+        border-radius:22px;background:var(--surface);border:1px solid var(--border);
+        box-shadow:0 22px 65px rgba(0,0,0,.60);
+      }
+      .card__pad{padding:16px;}
+      .h1{margin:0;font-size:22px;letter-spacing:-.02em;}
+      .sub{margin-top:6px;color:var(--muted);font-size:13.5px;line-height:1.55;}
+      .toolbar{margin-top:12px;display:grid;grid-template-columns:1fr 220px;gap:12px;}
+      @media (max-width: 980px){.toolbar{grid-template-columns:1fr;}}
+      .input,.select{
+        width:100%;border-radius:14px;border:1px solid rgba(212,175,55,.18);
+        background:rgba(7,7,10,.65);color:var(--text);padding:10px 12px;outline:none;
+      }
       .input:focus,.select:focus{box-shadow:0 0 0 3px rgba(212,175,55,.12);}
-      .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-      .btn{border:0;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;}
-      .btn--primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;}
-      .btn--ghost{background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.18);color:var(--text);}
-      .btn--ghost:hover{background:rgba(255,255,255,.08);}
-      .muted{color:var(--muted);font-size:13px;}
-      .assets{margin-top:12px;display:grid;gap:8px;}
-      .asset{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:16px;border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);}
-      .asset__l{display:flex;align-items:center;gap:10px;}
-      .tag{font-size:12px;color:rgba(226,232,240,.85);}
-      .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
-      @media (max-width: 980px){.kpi{grid-template-columns:1fr;}}
-      .k{border-radius:18px;border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);padding:12px;}
-      .k__t{font-size:12px;color:rgba(226,232,240,.85);font-weight:650;}
-      .k__v{margin-top:6px;font-size:18px;font-weight:800;letter-spacing:-.02em;}
-      .out{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:center;margin-top:12px;}
-      @media (max-width: 980px){.out{grid-template-columns:1fr;justify-items:center;text-align:center;}}
-      .pie{width:120px;height:120px;border-radius:999px;background:conic-gradient(#2D6BFF 0 25%, #8B5CF6 25% 50%, #22C55E 50% 75%, #F59E0B 75% 100%);
-        box-shadow:0 18px 45px rgba(0,0,0,.55);position:relative;overflow:hidden;}
-      .pie::after{content:"";position:absolute;inset:18px;border-radius:999px;background:rgba(18,18,22,.9);border:1px solid rgba(212,175,55,.12);}
-      .tbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px;}
-      .tbl th,.tbl td{padding:10px 10px;border-bottom:1px solid rgba(148,163,184,.18);text-align:left;}
-      .tbl th{color:rgba(226,232,240,.9);font-weight:700;}
-      .log{margin-top:10px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);padding:12px;font-size:12.5px;color:rgba(226,232,240,.82);line-height:1.45;max-height:180px;overflow:auto;white-space:pre-wrap;}
+      .metaRow{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+      .badge{
+        display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;
+        background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.14);color:rgba(226,232,240,.92);
+        font-size:12px;
+      }
+      .warn{color:rgba(251,191,36,.95);font-size:12.5px;}
+
+      .tableWrap{margin-top:14px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:var(--surface2);overflow:auto;max-height:560px;}
+      table{width:100%;border-collapse:separate;border-spacing:0;min-width:980px;}
+      thead th{
+        position:sticky;top:0;z-index:2;
+        background:rgba(18,18,22,.92);color:rgba(226,232,240,.92);
+        font-weight:750;font-size:12px;text-align:left;padding:12px 12px;border-bottom:1px solid rgba(148,163,184,.18);
+        white-space:nowrap;
+      }
+      tbody td{
+        padding:12px 12px;border-bottom:1px solid rgba(148,163,184,.14);font-size:13px;color:rgba(226,232,240,.92);
+        vertical-align:middle;
+      }
+      tbody tr:hover td{background:rgba(255,255,255,.03);}
+      .sect td{
+        background:rgba(212,175,55,.08);
+        color:rgba(226,232,240,.95);
+        font-weight:800;
+        letter-spacing:.02em;
+      }
+      .code{font-weight:850;letter-spacing:.02em;}
+      .name{color:rgba(226,232,240,.9);}
+      .muted{color:var(--muted);}
+      .btn{
+        border:0;border-radius:12px;padding:7px 10px;font-weight:850;cursor:pointer;
+        background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.18);color:var(--text);
+      }
+      .btn:hover{background:rgba(255,255,255,.08);}
+      .btn:disabled{opacity:.45;cursor:not-allowed;}
+      .btnRow{display:flex;gap:8px;align-items:center;}
+
+      .portfolioBox{display:grid;gap:12px;}
+      .portHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
+      .cap{font-size:12px;color:var(--muted);}
+      .chips{display:flex;flex-wrap:wrap;gap:10px;}
+      .chip{
+        display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;
+        border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);
+      }
+      .chip__l{display:grid;gap:2px;}
+      .chip__t{font-weight:850;letter-spacing:.02em;}
+      .chip__s{font-size:12px;color:var(--muted);}
+      .chip__x{margin-left:6px;}
+
+      .riskBox{margin-top:14px;border-radius:18px;border:1px solid rgba(212,175,55,.14);background:rgba(7,7,10,.55);padding:12px;}
+      .riskTop{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+      .riskLbl{font-weight:800;font-size:13px;}
+      .riskVal{font-size:12.5px;color:var(--muted);}
+      .riskLine{margin-top:10px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;}
+      .riskEnd{font-size:12px;color:rgba(226,232,240,.82);white-space:nowrap;}
+      input[type="range"]{width:100%;}
+      input[type="range"]{accent-color: var(--gold);}
+      .foot{margin-top:10px;font-size:12px;color:rgba(148,163,184,.85);line-height:1.4;}
     </style>
   </head>
   <body>
     <div class="wrap">
       <div class="top">
-        <a class="top__logo" href="{{ url('/') }}">
+        <a class="brand" href="{{ url('/') }}">
           <img src="{{ asset('images/Logo01.png') }}" alt="">
           <div>
-            <div class="top__title">FinTech - Portfolio Optimization</div>
-            <div class="muted">Quantum-inspired allocation demo (simulated)</div>
+            <div class="brand__title">S&amp;P 500 Stocks</div>
+            <div class="brand__sub">Search, filter by industry, and build a portfolio (max 8)</div>
           </div>
         </a>
-        <div class="top__spacer"></div>
+        <div class="spacer"></div>
         <a class="pill" href="{{ url('/') }}">Back to Home</a>
-        <a class="pill" href="{{ route('login') }}">Login</a>
       </div>
 
-      <div class="card">
-        <div class="grid">
-          <div>
-            <h1 class="h1">Optimize risk-return in seconds</h1>
-            <div class="sub">
-              Select assets, set your risk appetite, and run a Markowitz-style optimizer with a quantum-inspired random-search sampler.
+      <div class="grid">
+        <div class="card">
+          <div class="card__pad">
+            <h1 class="h1">Stock List</h1>
+            <div class="sub">Data source: S&amp;P 500 constituents list. Prices are simulated (demo logic).</div>
+
+            <div class="toolbar">
+              <input id="search" class="input" placeholder="Search by stock code or stock name (e.g., AAPL, Apple)" autocomplete="off">
+              <select id="industry" class="select"></select>
             </div>
 
-            <div class="controls">
-              <div class="field">
-                <div class="label">Investment Amount (USDT)</div>
-                <input id="amount" class="input" type="number" min="100" step="50" value="10000">
-              </div>
-              <div class="field">
-                <div class="label">Risk Appetite (low → high)</div>
-                <input id="risk" class="input" type="range" min="0" max="100" value="55">
-                <div class="muted">Risk level: <span id="riskLabel">55</span>/100</div>
-              </div>
+            <div class="metaRow">
+              <div class="badge">Selected: <strong id="selCount">0</strong>/8</div>
+              <div class="badge">Showing: <strong id="showCount">0</strong></div>
+              <div class="warn" id="warn"></div>
             </div>
-
-            <div class="row" style="margin-top: 12px;">
-              <button id="optBtn" class="btn btn--primary" type="button">Try Optimize</button>
-              <button id="povBtn" class="btn btn--ghost" type="button">Validate Data (PoDV)</button>
-              <div class="muted" id="status"></div>
-            </div>
-
-            <div class="assets" id="assets"></div>
           </div>
 
-          <div>
-            <div class="kpi">
-              <div class="k">
-                <div class="k__t">Expected Return (annual)</div>
-                <div class="k__v" id="kRet">—</div>
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stock Code</th>
+                  <th>Stock Name</th>
+                  <th>Industry</th>
+                  <th>Current Price</th>
+                  <th>Price Limit</th>
+                  <th>Lowest Price</th>
+                  <th>Highest Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card__pad portfolioBox">
+              <div class="portHead">
+                <div>
+                  <div class="h1" style="font-size:18px;margin:0;">Investment Portfolio</div>
+                  <div class="cap">Click [+] Add to include stocks (max 8).</div>
+                </div>
+                <button id="clearBtn" class="btn" type="button">Clear</button>
               </div>
-              <div class="k">
-                <div class="k__t">Volatility (annual)</div>
-                <div class="k__v" id="kVol">—</div>
-              </div>
-              <div class="k">
-                <div class="k__t">Sharpe (rf=2%)</div>
-                <div class="k__v" id="kSharpe">—</div>
+
+              <div class="chips" id="chips"></div>
+
+              <div class="riskBox">
+                <div class="riskTop">
+                  <div class="riskLbl">Please choose risk preference</div>
+                  <div class="riskVal">Risk level: <strong id="riskVal">55</strong>/100</div>
+                </div>
+                <div class="riskLine">
+                  <div class="riskEnd">Low Risk</div>
+                  <input id="risk" type="range" min="0" max="100" value="55">
+                  <div class="riskEnd">High Risk</div>
+                </div>
+                <div class="foot">Higher risk may allow wider price ranges in this demo view.</div>
               </div>
             </div>
-
-            <div class="out">
-              <div class="pie" id="pie" aria-hidden="true"></div>
-              <div>
-                <div class="label">Optimized Weights</div>
-                <table class="tbl" id="weightsTbl">
-                  <thead>
-                    <tr><th>Asset</th><th>Weight</th><th>Allocation</th></tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="label" style="margin-top: 14px;">Optimization Trace</div>
-            <div class="log" id="log">Select assets and click “Try Optimize”.</div>
           </div>
         </div>
       </div>
@@ -147,189 +201,240 @@
 
     <script>
       (function () {
-        const rf = 0.02;
-        const assets = [
-          { id: 'BTC', name: 'BTC', mu: 0.28, sigma: 0.55, color: '#2D6BFF' },
-          { id: 'ETH', name: 'ETH', mu: 0.24, sigma: 0.62, color: '#8B5CF6' },
-          { id: 'BNB', name: 'BNB', mu: 0.18, sigma: 0.45, color: '#22C55E' },
-          { id: 'SOL', name: 'SOL', mu: 0.32, sigma: 0.85, color: '#F59E0B' },
-        ];
-
-        // Simple correlation matrix (symmetric), used to derive covariance.
-        const corr = {
-          BTC: { BTC: 1.00, ETH: 0.78, BNB: 0.55, SOL: 0.62 },
-          ETH: { BTC: 0.78, ETH: 1.00, BNB: 0.60, SOL: 0.70 },
-          BNB: { BTC: 0.55, ETH: 0.60, BNB: 1.00, SOL: 0.50 },
-          SOL: { BTC: 0.62, ETH: 0.70, BNB: 0.50, SOL: 1.00 },
-        };
-
+        const MAX = 8;
         const els = {
-          assets: document.getElementById('assets'),
-          amount: document.getElementById('amount'),
+          search: document.getElementById('search'),
+          industry: document.getElementById('industry'),
+          tbody: document.getElementById('tbody'),
+          chips: document.getElementById('chips'),
+          selCount: document.getElementById('selCount'),
+          showCount: document.getElementById('showCount'),
+          warn: document.getElementById('warn'),
           risk: document.getElementById('risk'),
-          riskLabel: document.getElementById('riskLabel'),
-          optBtn: document.getElementById('optBtn'),
-          povBtn: document.getElementById('povBtn'),
-          status: document.getElementById('status'),
-          pie: document.getElementById('pie'),
-          weightsTbl: document.getElementById('weightsTbl').querySelector('tbody'),
-          kRet: document.getElementById('kRet'),
-          kVol: document.getElementById('kVol'),
-          kSharpe: document.getElementById('kSharpe'),
-          log: document.getElementById('log'),
+          riskVal: document.getElementById('riskVal'),
+          clearBtn: document.getElementById('clearBtn'),
         };
 
-        function fmtPct(x) { return (x * 100).toFixed(2) + '%'; }
-        function fmtUsd(x) { return 'USDT ' + x.toLocaleString(undefined, { maximumFractionDigits: 0 }); }
+        let all = [];
+        let selected = []; // array of symbols
 
-        function seededRng(seed) {
-          let s = seed >>> 0;
-          return function () {
-            s = (s * 1664525 + 1013904223) >>> 0;
+        function hash32(str) {
+          let h = 2166136261 >>> 0;
+          for (let i = 0; i < str.length; i++) {
+            h ^= str.charCodeAt(i);
+            h = Math.imul(h, 16777619) >>> 0;
+          }
+          return h >>> 0;
+        }
+
+        function seeded(h) {
+          let s = h >>> 0;
+          return () => {
+            s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
             return (s & 0xffffffff) / 0x100000000;
           };
         }
 
-        function dirichlet(n, rnd) {
-          // Gamma(1,1) samples via -ln(U)
-          const g = new Array(n).fill(0).map(() => -Math.log(Math.max(1e-12, rnd())));
-          const sum = g.reduce((a, b) => a + b, 0);
-          return g.map(v => v / sum);
+        function priceModel(sym) {
+          const r = seeded(hash32(sym));
+          const base = 8 + r() * 520; // 8..528
+          const cp = Math.max(1, base);
+          const limitPct = 0.10;
+          const low = cp * (1 - (0.02 + r() * 0.06));
+          const high = cp * (1 + (0.02 + r() * 0.06));
+          const limLow = cp * (1 - limitPct);
+          const limHigh = cp * (1 + limitPct);
+          return { cp, limLow, limHigh, low, high };
         }
 
-        function cov(a, b) {
-          return (a.sigma * b.sigma) * (corr[a.id][b.id] ?? 0);
+        function money(x) {
+          return '$' + x.toFixed(2);
         }
 
-        function portfolioStats(sel, w) {
-          let ret = 0;
-          for (let i = 0; i < sel.length; i++) ret += w[i] * sel[i].mu;
+        function parseCsv(text) {
+          const lines = text.split(/\r?\n/).filter(Boolean);
+          const out = [];
+          const header = lines.shift();
+          if (!header) return out;
 
-          // variance = w^T Σ w
-          let v = 0;
-          for (let i = 0; i < sel.length; i++) {
-            for (let j = 0; j < sel.length; j++) {
-              v += w[i] * w[j] * cov(sel[i], sel[j]);
+          function parseLine(line) {
+            const res = [];
+            let cur = '';
+            let inQ = false;
+            for (let i = 0; i < line.length; i++) {
+              const ch = line[i];
+              if (ch === '"') {
+                if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
+                else inQ = !inQ;
+              } else if (ch === ',' && !inQ) {
+                res.push(cur);
+                cur = '';
+              } else {
+                cur += ch;
+              }
             }
+            res.push(cur);
+            return res;
           }
-          const vol = Math.sqrt(Math.max(0, v));
-          const sharpe = (ret - rf) / Math.max(1e-9, vol);
-          return { ret, vol, sharpe, var: v };
+
+          for (const ln of lines) {
+            const cols = parseLine(ln);
+            const sym = (cols[0] || '').trim();
+            const name = (cols[1] || '').trim();
+            const sector = (cols[2] || '').trim();
+            if (!sym || !name) continue;
+            out.push({ sym, name, sector });
+          }
+          return out;
         }
 
-        function setStatus(msg) { els.status.textContent = msg || ''; }
-        function logLine(s) { els.log.textContent = (els.log.textContent ? els.log.textContent + '\n' : '') + s; els.log.scrollTop = els.log.scrollHeight; }
+        function setWarn(msg) { els.warn.textContent = msg || ''; }
 
-        function renderAssets() {
-          els.assets.innerHTML = '';
-          for (const a of assets) {
-            const row = document.createElement('div');
-            row.className = 'asset';
-            row.innerHTML = `
-              <div class="asset__l">
-                <input type="checkbox" data-asset="${a.id}" checked />
-                <div>
-                  <div style="font-weight:800">${a.name}</div>
-                  <div class="tag">μ ${(a.mu*100).toFixed(1)}% • σ ${(a.sigma*100).toFixed(0)}%</div>
-                </div>
-              </div>
-              <div class="tag">corr-driven covariance</div>
-            `;
-            els.assets.appendChild(row);
-          }
+        function isSelected(sym) {
+          return selected.includes(sym);
         }
 
-        function selectedAssets() {
-          const ids = Array.from(els.assets.querySelectorAll('input[type="checkbox"]'))
-            .filter(x => x.checked)
-            .map(x => x.getAttribute('data-asset'));
-          return assets.filter(a => ids.includes(a.id));
-        }
-
-        function renderResult(sel, w, stats) {
-          const amount = Math.max(0, Number(els.amount.value || 0));
-          els.kRet.textContent = fmtPct(stats.ret);
-          els.kVol.textContent = fmtPct(stats.vol);
-          els.kSharpe.textContent = stats.sharpe.toFixed(2);
-
-          // pie gradient
-          let start = 0;
-          const stops = [];
-          for (let i = 0; i < sel.length; i++) {
-            const pct = w[i] * 100;
-            const end = start + pct;
-            stops.push(`${sel[i].color} ${start.toFixed(3)}% ${end.toFixed(3)}%`);
-            start = end;
-          }
-          els.pie.style.background = `conic-gradient(${stops.join(',')})`;
-
-          // weights table
-          els.weightsTbl.innerHTML = '';
-          for (let i = 0; i < sel.length; i++) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${sel[i].name}</td><td>${fmtPct(w[i])}</td><td>${fmtUsd(amount * w[i])}</td>`;
-            els.weightsTbl.appendChild(tr);
-          }
-        }
-
-        function optimize() {
-          const sel = selectedAssets();
-          if (sel.length < 2) {
-            setStatus('Select at least 2 assets.');
+        function add(sym) {
+          if (isSelected(sym)) return;
+          if (selected.length >= MAX) {
+            setWarn('Maximum 8 stocks selected.');
             return;
           }
+          selected = [...selected, sym];
+          setWarn('');
+          render();
+        }
 
-          els.log.textContent = '';
-          setStatus('Running optimization…');
+        function remove(sym) {
+          selected = selected.filter(s => s !== sym);
+          setWarn('');
+          render();
+        }
 
-          const risk = Number(els.risk.value || 0);
-          const lambda = (risk / 100) * 6.0; // higher risk appetite => lower penalty? invert a bit
-          const penalty = 6.0 - lambda; // 6 (low risk) -> 0 (high risk)
+        function industries() {
+          const set = new Set(all.map(x => x.sector).filter(Boolean));
+          return ['All Industries', ...Array.from(set).sort()];
+        }
 
-          const seed = Math.floor((Number(els.amount.value || 0) * 17) + risk * 101 + sel.length * 1009);
-          const rnd = seededRng(seed);
+        function filtered() {
+          const q = (els.search.value || '').trim().toLowerCase();
+          const ind = els.industry.value || 'All Industries';
+          let list = all;
+          if (ind !== 'All Industries') list = list.filter(x => x.sector === ind);
+          if (q) list = list.filter(x => x.sym.toLowerCase().includes(q) || x.name.toLowerCase().includes(q));
+          return list;
+        }
 
-          let best = null;
-          let bestW = null;
-
-          const trials = 2500;
-          logLine(`Sampler: ${trials} candidate portfolios`);
-          logLine(`Risk level: ${risk}/100 (variance penalty ${penalty.toFixed(2)})`);
-
-          for (let t = 0; t < trials; t++) {
-            const w = dirichlet(sel.length, rnd);
-            const st = portfolioStats(sel, w);
-            const utility = st.ret - penalty * st.var;
-            if (!best || utility > best.utility) {
-              best = { ...st, utility };
-              bestW = w;
-            }
-            if (t % 600 === 0) logLine(`Probe ${t}: best Sharpe ${best ? best.sharpe.toFixed(2) : '—'}`);
+        function groupByIndustry(list) {
+          const groups = new Map();
+          for (const it of list) {
+            const key = it.sector || 'Unknown';
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(it);
           }
-
-          renderResult(sel, bestW, best);
-          logLine(`Done: best Sharpe ${best.sharpe.toFixed(2)} • utility ${(best.utility).toFixed(4)}`);
-          setStatus('Complete.');
+          for (const [k, v] of groups) v.sort((a,b) => a.sym.localeCompare(b.sym));
+          return Array.from(groups.entries()).sort((a,b) => a[0].localeCompare(b[0]));
         }
 
-        function validatePoDV() {
-          setStatus('Validating…');
-          const sel = selectedAssets();
-          const seed = Math.floor((Number(els.amount.value || 0) * 3) + Number(els.risk.value || 0) * 7 + sel.length * 11);
-          const rnd = seededRng(seed);
-          const score = Math.floor(rnd() * 9000) + 1000;
-          setTimeout(() => {
-            setStatus(`PoDV Verified: data-score ${score} • integrity OK`);
-            logLine(`PoDV: validated price feeds and covariance integrity (score ${score}).`);
-          }, 450);
+        function renderTable() {
+          const list = filtered();
+          els.showCount.textContent = String(list.length);
+
+          const groups = groupByIndustry(list);
+          const rows = [];
+          for (const [sector, items] of groups) {
+            rows.push(`<tr class="sect"><td colspan="8">${sector}</td></tr>`);
+            for (const it of items) {
+              const p = priceModel(it.sym);
+              const sel = isSelected(it.sym);
+              const canAdd = !sel && selected.length < MAX;
+              rows.push(
+                `<tr>
+                  <td class="code">${it.sym}</td>
+                  <td class="name">${it.name}</td>
+                  <td class="muted">${it.sector}</td>
+                  <td>${money(p.cp)}</td>
+                  <td class="muted">${money(p.limLow)} – ${money(p.limHigh)}</td>
+                  <td>${money(Math.min(p.low, p.cp))}</td>
+                  <td>${money(Math.max(p.high, p.cp))}</td>
+                  <td>
+                    <div class="btnRow">
+                      <button class="btn" type="button" data-add="${it.sym}" ${canAdd ? '' : 'disabled'}>[+] Add</button>
+                      <button class="btn" type="button" data-rem="${it.sym}" ${sel ? '' : 'disabled'}>[-] Remove</button>
+                    </div>
+                  </td>
+                </tr>`
+              );
+            }
+          }
+          els.tbody.innerHTML = rows.join('');
+
+          els.tbody.querySelectorAll('button[data-add]').forEach(btn => {
+            btn.addEventListener('click', () => add(btn.getAttribute('data-add')));
+          });
+          els.tbody.querySelectorAll('button[data-rem]').forEach(btn => {
+            btn.addEventListener('click', () => remove(btn.getAttribute('data-rem')));
+          });
         }
 
-        els.risk.addEventListener('input', () => els.riskLabel.textContent = els.risk.value);
-        els.optBtn.addEventListener('click', optimize);
-        els.povBtn.addEventListener('click', validatePoDV);
+        function renderPortfolio() {
+          els.selCount.textContent = String(selected.length);
+          if (!selected.length) {
+            els.chips.innerHTML = `<div class="muted">No stocks selected yet.</div>`;
+            return;
+          }
+          const bySym = new Map(all.map(x => [x.sym, x]));
+          els.chips.innerHTML = selected.map(sym => {
+            const it = bySym.get(sym);
+            const p = priceModel(sym);
+            return `
+              <div class="chip">
+                <div class="chip__l">
+                  <div class="chip__t">${sym}</div>
+                  <div class="chip__s">${it ? it.name : ''} • ${money(p.cp)}</div>
+                </div>
+                <button class="btn chip__x" type="button" data-x="${sym}">Remove</button>
+              </div>
+            `;
+          }).join('');
+          els.chips.querySelectorAll('button[data-x]').forEach(b => {
+            b.addEventListener('click', () => remove(b.getAttribute('data-x')));
+          });
+        }
 
-        renderAssets();
-        els.riskLabel.textContent = els.risk.value;
+        function render() {
+          renderTable();
+          renderPortfolio();
+          if (selected.length >= MAX) setWarn('Maximum 8 stocks selected.');
+        }
+
+        function initIndustrySelect() {
+          const opts = industries();
+          els.industry.innerHTML = opts.map(x => `<option value="${x}">${x}</option>`).join('');
+        }
+
+        function initEvents() {
+          els.search.addEventListener('input', render);
+          els.industry.addEventListener('change', render);
+          els.clearBtn.addEventListener('click', () => { selected = []; setWarn(''); render(); });
+          els.risk.addEventListener('input', () => { els.riskVal.textContent = els.risk.value; });
+        }
+
+        fetch('{{ asset('data/sp500.csv') }}', { cache: 'no-store' })
+          .then(r => r.text())
+          .then(txt => {
+            all = parseCsv(txt);
+            initIndustrySelect();
+            initEvents();
+            render();
+          })
+          .catch(() => {
+            all = [];
+            initIndustrySelect();
+            initEvents();
+            setWarn('Failed to load S&P 500 list.');
+            render();
+          });
       })();
     </script>
   </body>
