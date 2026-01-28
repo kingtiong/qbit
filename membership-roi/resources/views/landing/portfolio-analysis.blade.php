@@ -45,7 +45,9 @@
           linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
         background-size: 34px 34px;
         mask-image: radial-gradient(50% 40% at 50% 30%, black 30%, transparent 70%);
+        animation: gridDrift 6.5s linear infinite;
       }
+      @keyframes gridDrift { 0% { background-position: 0 0, 0 0; } 100% { background-position: 34px 18px, 18px 34px; } }
       .scan{
         position:fixed;inset:-40% 0 0 0;pointer-events:none;
         background: linear-gradient(180deg, transparent, rgba(45,107,255,.06), transparent);
@@ -60,6 +62,15 @@
         display:none;
       }
       .lock.show{display:block;}
+
+      body.is-final .gridbg{
+        animation-play-state: paused;
+        opacity: .16;
+      }
+
+      body.is-final .scan{
+        display:none;
+      }
 
       .phase{
         position:fixed;inset:0;z-index:50;
@@ -384,6 +395,7 @@
             phases[k].classList.toggle('active', k === key);
             phases[k].setAttribute('aria-hidden', k === key ? 'false' : 'true');
           }
+          document.body.classList.toggle('is-final', key === 'final');
         }
 
         function setPills(activeIdx) {
@@ -438,29 +450,53 @@
           return symbols.slice(0, n).map((s, i) => ({ s, w: w[i] }));
         }
 
-        function drawGrid(ctx, w, h) {
+        function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
+        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+        function drawGrid(ctx, w, h, tMs, intensity) {
           ctx.clearRect(0,0,w,h);
           ctx.save();
           ctx.globalAlpha = 0.9;
           ctx.strokeStyle = 'rgba(148,163,184,0.18)';
           ctx.lineWidth = 1;
-          for (let x = 0; x <= w; x += 70) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
-          for (let y = 0; y <= h; y += 70) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+          const step = 70;
+          const ox = ((tMs || 0) * 0.018 * (intensity || 0)) % step;
+          const oy = ((tMs || 0) * 0.013 * (intensity || 0)) % step;
+          for (let x = -step; x <= w + step; x += step) {
+            ctx.beginPath(); ctx.moveTo(x + ox,0); ctx.lineTo(x + ox,h); ctx.stroke();
+          }
+          for (let y = -step; y <= h + step; y += step) {
+            ctx.beginPath(); ctx.moveTo(0,y + oy); ctx.lineTo(w,y + oy); ctx.stroke();
+          }
           ctx.restore();
         }
 
-        function drawAlloc(alloc, phase) {
+        function drawAlloc(alloc, phase, tMs) {
           const ctx = cAlloc.getContext('2d');
           const w = cAlloc.width, h = cAlloc.height;
-          drawGrid(ctx,w,h);
+          const p = easeOut(phase);
+          drawGrid(ctx,w,h, tMs, 0.35 * (1 - p));
           const cx = w*0.30, cy = h*0.52, r = Math.min(w,h)*0.27;
           const colors = ['#2D6BFF','#8B5CF6','#22C55E','#F59E0B','#d4af37','#38bdf8','#a3e635','#fb7185'];
-          let start = -Math.PI/2;
+          const wob = (1 - p) * Math.sin((tMs || 0)/260) * 0.42;
+
+          // faint counter-sweep for "multi-direction" feel
+          let startGhost = -Math.PI/2 + Math.PI + wob;
+          ctx.globalAlpha = 0.12;
           for (let i=0;i<alloc.length;i++){
-            const ang = alloc[i].w * Math.PI*2 * phase;
+            const ang = alloc[i].w * Math.PI*2 * Math.pow(p, 0.78);
+            ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,startGhost,startGhost+ang); ctx.closePath();
+            ctx.fillStyle = colors[i%colors.length];
+            ctx.fill();
+            startGhost += ang;
+          }
+
+          ctx.globalAlpha = 0.88;
+          let start = -Math.PI/2 + wob;
+          for (let i=0;i<alloc.length;i++){
+            const ang = alloc[i].w * Math.PI*2 * p;
             ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+ang); ctx.closePath();
             ctx.fillStyle = colors[i%colors.length];
-            ctx.globalAlpha = 0.88;
             ctx.fill();
             start += ang;
           }
@@ -486,18 +522,20 @@
         function drawRiskReturn(phase, tMs) {
           const ctx = cRR.getContext('2d');
           const w = cRR.width, h = cRR.height;
-          drawGrid(ctx,w,h);
+          const p = easeInOut(phase);
+          drawGrid(ctx,w,h, tMs, 0.28 * (1 - p));
           const pad = 62;
           ctx.strokeStyle = 'rgba(226,232,240,.28)';
           ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(pad,h-pad); ctx.lineTo(w-pad,h-pad); ctx.lineTo(w-pad,pad); ctx.stroke();
 
           ctx.beginPath();
-          const maxI = Math.max(1, Math.floor(80 * Math.max(0, Math.min(1, phase))));
+          const maxI = Math.max(1, Math.floor(80 * p));
           for (let i=0;i<=maxI;i++){
             const x = i/80;
             const rx = pad + x*(w-2*pad);
-            const ry = h-pad - (Math.pow(x,0.7)*(h-2*pad));
+            const ripple = (1 - p) * Math.sin((i/9) + (tMs/240)) * 3.0;
+            const ry = h-pad - (Math.pow(x,0.7)*(h-2*pad)) + ripple;
             if (i===0) ctx.moveTo(rx,ry); else ctx.lineTo(rx,ry);
           }
           ctx.strokeStyle = 'rgba(45,107,255,.75)';
@@ -507,11 +545,24 @@
           ctx.stroke();
           ctx.shadowBlur = 0;
 
-          const wob = Math.sin(tMs / 220) * 0.06 * (1 - phase);
+          const wob = Math.sin(tMs / 220) * 0.06 * (1 - p);
           const x = Math.max(0, Math.min(1, (baseRisk/100) + wob));
-          const y = 0.25 + (1 - x) * 0.38 + Math.cos(tMs / 260) * 0.02 * (1 - phase);
+          const y = 0.25 + (1 - x) * 0.38 + Math.cos(tMs / 260) * 0.02 * (1 - p);
           const px = pad + x*(w-2*pad);
           const py = h-pad - y*(h-2*pad);
+
+          // orbiting data point that stabilizes
+          const orbitR = 14 * (1 - p);
+          const ang = tMs / 180;
+          const ox = px + Math.cos(ang) * orbitR;
+          const oy = py + Math.sin(ang) * orbitR;
+          ctx.beginPath(); ctx.arc(ox,oy,4.5,0,Math.PI*2);
+          ctx.fillStyle = 'rgba(45,107,255,.92)';
+          ctx.shadowColor = 'rgba(45,107,255,.35)';
+          ctx.shadowBlur = 16 * (1 - p);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
           ctx.beginPath(); ctx.arc(px,py,8,0,Math.PI*2);
           ctx.fillStyle = 'rgba(212,175,55,.92)';
           ctx.shadowColor = 'rgba(212,175,55,.35)';
@@ -520,10 +571,11 @@
           ctx.shadowBlur = 0;
         }
 
-        function drawTrend(alloc, tMs) {
+        function drawTrend(alloc, tMs, phase) {
           const ctx = cTrend.getContext('2d');
           const w = cTrend.width, h = cTrend.height;
-          drawGrid(ctx,w,h);
+          const p = easeInOut(phase);
+          drawGrid(ctx,w,h, tMs, 0.22 * (1 - p));
           const pad = 44;
           ctx.strokeStyle = 'rgba(226,232,240,.18)';
           ctx.lineWidth = 1;
@@ -531,7 +583,7 @@
 
           const colors = ['rgba(45,107,255,.85)','rgba(139,92,246,.75)','rgba(34,197,94,.75)','rgba(245,158,11,.75)','rgba(212,175,55,.75)'];
           const series = alloc.slice(0, Math.min(4, alloc.length));
-          const t0 = (seed % 1000) / 100 + (tMs / 900);
+          const t0 = (seed % 1000) / 100 + (tMs / 720);
           for (let s=0;s<series.length;s++){
             const amp = 0.12 + series[s].w*0.22;
             ctx.beginPath();
@@ -539,7 +591,8 @@
               const x = i/89;
               const px = pad + x*(w-2*pad);
               const base = 0.55 + (s*0.08);
-              const wob = Math.sin(t0 + x*5 + s)*0.03;
+              const wave = (1 - p) * Math.sin((tMs/240) + s*0.9 + x*6.2) * 0.020;
+              const wob = Math.sin(t0 + x*5 + s)*0.03 + wave;
               const val = base + wob + (x-0.5)*amp;
               const py = h-pad - (val*(h-2*pad))*0.55;
               if (i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
@@ -547,7 +600,7 @@
             ctx.strokeStyle = colors[s%colors.length];
             ctx.lineWidth = 2;
             ctx.shadowColor = colors[s%colors.length];
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 10 + (1 - p) * 8;
             ctx.stroke();
             ctx.shadowBlur = 0;
           }
@@ -577,17 +630,29 @@
           ];
           insights.innerHTML = ins.map(x => `<li>${x}</li>`).join('');
 
-          // slower, stable metric shimmer
+          // numbers converge: fast jitter first, then slow stable shimmer
           const base = { expReturn, estRisk, div };
-          metricsTimer = setInterval(() => {
+          let fast = setInterval(() => {
             const j = () => (rnd()*2-1);
-            const er = Math.max(0, base.expReturn + j()*0.0012);
-            const rk = Math.max(0, base.estRisk + j()*0.0012);
-            const dv = Math.max(0, Math.min(1, base.div + j()*0.003));
+            const er = Math.max(0, base.expReturn + j()*0.0045);
+            const rk = Math.max(0, base.estRisk + j()*0.0045);
+            const dv = Math.max(0, Math.min(1, base.div + j()*0.010));
             mRet.textContent = fmtPct(er);
             mRiskFinal.textContent = fmtPct(rk);
             mDivFinal.textContent = (dv*100).toFixed(1) + '/100';
-          }, 420);
+          }, 80);
+          timers.push(setTimeout(() => {
+            clearInterval(fast);
+            metricsTimer = setInterval(() => {
+              const j = () => (rnd()*2-1);
+              const er = Math.max(0, base.expReturn + j()*0.0012);
+              const rk = Math.max(0, base.estRisk + j()*0.0012);
+              const dv = Math.max(0, Math.min(1, base.div + j()*0.003));
+              mRet.textContent = fmtPct(er);
+              mRiskFinal.textContent = fmtPct(rk);
+              mDivFinal.textContent = (dv*100).toFixed(1) + '/100';
+            }, 420);
+          }, 1100));
         }
 
         function runSequence() {
@@ -637,7 +702,7 @@
             // ensure progress bar visibly completes before switching phase
             setTimeout(() => {
               showPhase('pie');
-              animateFor(stageDur.pie, (p) => drawAlloc(alloc, p), () => drawAlloc(alloc, 1));
+              animateFor(stageDur.pie, (p, t) => drawAlloc(alloc, p, t), () => drawAlloc(alloc, 1, stageDur.pie));
             }, 120);
           }, stageDur.stream));
 
@@ -650,7 +715,7 @@
           timers.push(setTimeout(() => {
             setPills(3);
             showPhase('trend');
-            animateFor(stageDur.trend, (_, t) => drawTrend(alloc, t), () => drawTrend(alloc, stageDur.trend));
+            animateFor(stageDur.trend, (p, t) => drawTrend(alloc, t, p), () => drawTrend(alloc, stageDur.trend, 1));
           }, stageDur.stream + stageDur.pie + stageDur.ret));
 
           timers.push(setTimeout(() => {
