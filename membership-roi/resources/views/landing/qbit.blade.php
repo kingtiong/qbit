@@ -742,9 +742,10 @@ body {
 
 .tokenPie {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 120px auto;
   gap: 16px;
   align-items: center;
+  justify-content: center;
   padding: 18px 18px 0;
 }
 
@@ -758,6 +759,7 @@ body {
 
 .tokenPie__legend {
   margin: 0;
+  justify-self: center;
 }
 
 .legend {
