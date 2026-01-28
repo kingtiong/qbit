@@ -740,6 +740,26 @@ body {
   font-size: 13px;
 }
 
+.tokenPie {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 18px 0;
+}
+
+.tokenPie__chart {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: conic-gradient(#2D6BFF 0 33.333%, #8B5CF6 33.333% 66.666%, #22C55E 66.666% 100%);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+}
+
+.tokenPie__legend {
+  margin: 0;
+}
+
 .legend {
   margin: 0;
   padding: 0;
@@ -1110,6 +1130,7 @@ body {
   .grid-2 { grid-template-columns: 1fr; }
   .donut-grid { grid-template-columns: 1fr; }
   .donut-row { grid-template-columns: 1fr; }
+  .tokenPie { grid-template-columns: 1fr; justify-items: center; padding: 18px; }
   .value-grid { grid-template-columns: 1fr; }
   .tools-grid { grid-template-columns: 1fr; }
   .liquidity-grid { grid-template-columns: 1fr; }
@@ -1537,6 +1558,14 @@ body {
           </div>
 
           <div class="panel">
+            <div class="tokenPie">
+              <div class="tokenPie__chart" aria-hidden="true"></div>
+              <ul class="legend tokenPie__legend">
+                <li><span class="swatch swatch--a"></span>QBT (Equity): (50M)</li>
+                <li><span class="swatch swatch--b"></span>QBTX (Liquidity): (50M)</li>
+                <li><span class="swatch swatch--c"></span>DAO Reserve (Shield Pool): (50M)</li>
+              </ul>
+            </div>
             <div class="donut-grid">
               <div class="donut-card">
                 <div class="card__top">
