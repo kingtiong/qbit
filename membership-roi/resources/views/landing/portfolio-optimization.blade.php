@@ -432,7 +432,14 @@
               setWarn('Select at least 2 stocks to start optimization.');
               return;
             }
-            setWarn(`Optimization started (demo) • risk ${els.risk.value}/100 • ${selected.length} stocks selected.`);
+            try {
+              localStorage.setItem('qbit_portfolio', JSON.stringify({
+                symbols: selected.slice(0, MAX),
+                risk: Number(els.risk.value || 0),
+                ts: Date.now(),
+              }));
+            } catch (e) {}
+            window.location.href = '{{ route('fintech.portfolio.analysis') }}';
           });
         }
 
