@@ -141,7 +141,6 @@
           <img src="{{ asset('images/Logo01.png') }}" alt="">
           <div>
             <div class="brand__title">S&amp;P 500 Stocks</div>
-            <div class="brand__sub">Search, filter by industry, and build a portfolio (max 8)</div>
           </div>
         </a>
         <div class="spacer"></div>
