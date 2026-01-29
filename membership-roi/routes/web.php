@@ -28,6 +28,14 @@ Route::get('/', function () {
     return view('landing.qbit');
 });
 
+Route::get('/fintech/portfolio-optimization', function () {
+    return view('landing.portfolio-optimization');
+})->name('fintech.portfolio');
+
+Route::get('/fintech/portfolio-analysis', function () {
+    return view('landing.portfolio-analysis');
+})->name('fintech.portfolio.analysis');
+
 Route::get('/invite/{code}', function (string $code) {
     session(['invite_code' => strtoupper($code)]);
     return redirect()->route('register', ['invite' => strtoupper($code)]);
