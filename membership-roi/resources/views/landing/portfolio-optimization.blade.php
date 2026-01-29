@@ -50,6 +50,23 @@
       .sub{margin-top:6px;color:var(--muted);font-size:13.5px;line-height:1.55;}
       .toolbar{margin-top:12px;display:grid;grid-template-columns:1fr 220px;gap:12px;}
       @media (max-width: 980px){.toolbar{grid-template-columns:1fr;}}
+      .tabs{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+      .tab{
+        border:1px solid rgba(212,175,55,.14);
+        background:rgba(7,7,10,.55);
+        color:rgba(226,232,240,.9);
+        border-radius:999px;
+        padding:8px 12px;
+        font-size:12.5px;
+        font-weight:800;
+        cursor:pointer;
+      }
+      .tab:hover{background:rgba(255,255,255,.06);}
+      .tab.active{
+        background:rgba(212,175,55,.14);
+        border-color:rgba(212,175,55,.26);
+        color:rgba(248,250,252,.98);
+      }
       .input,.select{
         width:100%;border-radius:14px;border:1px solid rgba(212,175,55,.18);
         background:rgba(7,7,10,.65);color:var(--text);padding:10px 12px;outline:none;
@@ -151,7 +168,14 @@
         <div class="card">
           <div class="card__pad">
             <h1 class="h1">Stock List</h1>
-            <div class="sub">Data source: S&amp;P 500 constituents list. Prices are simulated (demo logic).</div>
+            <div class="sub">Data source: S&amp;P 500 constituents list + offline OHLC snapshot. Prices update live (demo feed).</div>
+
+            <div class="tabs" role="tablist" aria-label="Market">
+              <button class="tab active" type="button" data-market="sp" role="tab" aria-selected="true">S&amp;P 500</button>
+              <button class="tab" type="button" data-market="fx" role="tab" aria-selected="false">Currency Pairs</button>
+              <button class="tab" type="button" data-market="crypto" role="tab" aria-selected="false">Crypto</button>
+              <button class="tab" type="button" data-market="cmd" role="tab" aria-selected="false">Commodity</button>
+            </div>
 
             <div class="toolbar">
               <input id="search" class="input" placeholder="Search by stock code or stock name (e.g., AAPL, Apple)" autocomplete="off">
@@ -233,11 +257,45 @@
           riskVal: document.getElementById('riskVal'),
           clearBtn: document.getElementById('clearBtn'),
           startOptBtn: document.getElementById('startOptBtn'),
+          tabs: Array.from(document.querySelectorAll('button[data-market]')),
         };
 
         let all = [];
         let selected = []; // array of symbols
         let ohlcBySym = new Map(); // symbol -> [{date,open,high,low,close,volume}]
+
+        let market = 'sp';
+        const liveBySym = new Map(); // sym -> {cp, low, high, limitPct, vol}
+
+        const fxList = [
+          { sym: 'EURUSD', name: 'EUR/USD' },
+          { sym: 'GBPUSD', name: 'GBP/USD' },
+          { sym: 'USDJPY', name: 'USD/JPY' },
+          { sym: 'AUDUSD', name: 'AUD/USD' },
+          { sym: 'USDCAD', name: 'USD/CAD' },
+          { sym: 'USDCHF', name: 'USD/CHF' },
+          { sym: 'NZDUSD', name: 'NZD/USD' },
+          { sym: 'EURJPY', name: 'EUR/JPY' },
+        ];
+        const cryptoList = [
+          { sym: 'BTCUSD', name: 'Bitcoin' },
+          { sym: 'ETHUSD', name: 'Ethereum' },
+          { sym: 'BNBUSD', name: 'BNB' },
+          { sym: 'SOLUSD', name: 'Solana' },
+          { sym: 'XRPUSD', name: 'XRP' },
+          { sym: 'ADAUSD', name: 'Cardano' },
+          { sym: 'DOGEUSD', name: 'Dogecoin' },
+          { sym: 'AVAXUSD', name: 'Avalanche' },
+          { sym: 'LINKUSD', name: 'Chainlink' },
+        ];
+        const cmdList = [
+          { sym: 'XAUUSD', name: 'Gold' },
+          { sym: 'XAGUSD', name: 'Silver' },
+          { sym: 'WTI', name: 'Crude Oil (WTI)' },
+          { sym: 'BRENT', name: 'Crude Oil (Brent)' },
+          { sym: 'NATGAS', name: 'Natural Gas' },
+          { sym: 'COPPER', name: 'Copper' },
+        ];
 
         function hash32(str) {
           let h = 2166136261 >>> 0;
@@ -260,14 +318,12 @@
           const rows = ohlcBySym.get(sym);
           if (rows && rows.length) {
             const last = rows[rows.length - 1];
-            const cp = Number(last.close) || 0;
+            const cp0 = Number(last.close) || 0;
             const limitPct = 0.10;
-            const limLow = cp * (1 - limitPct);
-            const limHigh = cp * (1 + limitPct);
             const window = rows.slice(-252);
             const lowest = window.reduce((m, r) => Math.min(m, Number(r.low) || Infinity), Infinity);
             const highest = window.reduce((m, r) => Math.max(m, Number(r.high) || 0), 0);
-            return { cp, limLow, limHigh, low: lowest, high: highest };
+            return ensureLive(sym, cp0, lowest, highest, limitPct, 0.003);
           }
           // fallback demo model (deterministic)
           const r = seeded(hash32(sym));
@@ -276,9 +332,30 @@
           const limitPct = 0.10;
           const low = cp * (1 - (0.02 + r() * 0.06));
           const high = cp * (1 + (0.02 + r() * 0.06));
-          const limLow = cp * (1 - limitPct);
-          const limHigh = cp * (1 + limitPct);
-          return { cp, limLow, limHigh, low, high };
+          return ensureLive(sym, cp, low, high, limitPct, 0.003);
+        }
+
+        function ensureLive(sym, cp, low, high, limitPct, vol) {
+          if (!liveBySym.has(sym)) {
+            liveBySym.set(sym, {
+              cp: Number(cp) || 0,
+              low: Number.isFinite(low) ? Number(low) : Number(cp) || 0,
+              high: Number.isFinite(high) ? Number(high) : Number(cp) || 0,
+              limitPct: Number(limitPct) || 0.10,
+              vol: Number(vol) || 0.003,
+            });
+          }
+          const st = liveBySym.get(sym);
+          const limLow = st.cp * (1 - st.limitPct);
+          const limHigh = st.cp * (1 + st.limitPct);
+          return { cp: st.cp, limLow, limHigh, low: st.low, high: st.high };
+        }
+
+        function marketMeta(sym) {
+          if (market === 'fx') return fxList.find(x => x.sym === sym) || null;
+          if (market === 'crypto') return cryptoList.find(x => x.sym === sym) || null;
+          if (market === 'cmd') return cmdList.find(x => x.sym === sym) || null;
+          return null;
         }
 
         function money(x) {
@@ -352,9 +429,15 @@
 
         function filtered() {
           const q = (els.search.value || '').trim().toLowerCase();
-          const ind = els.industry.value || 'All Industries';
-          let list = all;
-          if (ind !== 'All Industries') list = list.filter(x => x.sector === ind);
+          if (market === 'sp') {
+            const ind = els.industry.value || 'All Industries';
+            let list = all;
+            if (ind !== 'All Industries') list = list.filter(x => x.sector === ind);
+            if (q) list = list.filter(x => x.sym.toLowerCase().includes(q) || x.name.toLowerCase().includes(q));
+            return list;
+          }
+          const src = market === 'fx' ? fxList : (market === 'crypto' ? cryptoList : cmdList);
+          let list = src.map(x => ({ sym: x.sym, name: x.name, sector: '' }));
           if (q) list = list.filter(x => x.sym.toLowerCase().includes(q) || x.name.toLowerCase().includes(q));
           return list;
         }
@@ -376,6 +459,17 @@
           const rows = [];
           const items = [...list].sort((a, b) => a.sym.localeCompare(b.sym));
           for (const it of items) {
+            // market-specific live seed for non-SP
+            if (market !== 'sp') {
+              const r = seeded(hash32(it.sym));
+              let base = 0;
+              let vol = 0.002;
+              let limitPct = 0.02;
+              if (market === 'fx') { base = 0.8 + r() * 2.2; vol = 0.0008; limitPct = 0.01; }
+              if (market === 'crypto') { base = 50 + r() * 60000; vol = 0.008; limitPct = 0.05; }
+              if (market === 'cmd') { base = 8 + r() * 2200; vol = 0.0035; limitPct = 0.02; }
+              ensureLive(it.sym, base, base, base, limitPct, vol);
+            }
             const p = priceModel(it.sym);
             const sel = isSelected(it.sym);
             const canAdd = !sel && selected.length < MAX;
@@ -388,13 +482,13 @@
               ? `Remove ${it.sym}`
               : (isDisabled ? `Add ${it.sym} (disabled: max 8 selected)` : `Add ${it.sym}`);
             rows.push(
-              `<tr>
+              `<tr data-sym="${it.sym}">
                 <td class="code">${it.sym}</td>
                 <td class="name">${it.name}</td>
-                <td>${money(p.cp)}</td>
-                <td class="muted">${money(p.limLow)} – ${money(p.limHigh)}</td>
-                <td>${money(Math.min(p.low, p.cp))}</td>
-                <td>${money(Math.max(p.high, p.cp))}</td>
+                <td><span class="p_cp">${money(p.cp)}</span></td>
+                <td class="muted"><span class="p_lim">${money(p.limLow)} – ${money(p.limHigh)}</span></td>
+                <td><span class="p_low">${money(Math.min(p.low, p.cp))}</span></td>
+                <td><span class="p_high">${money(Math.max(p.high, p.cp))}</span></td>
                 <td>
                   <button
                     class="btn tbtn"
@@ -430,11 +524,12 @@
           els.chips.innerHTML = selected.map(sym => {
             const it = bySym.get(sym);
             const p = priceModel(sym);
+            const alt = (!it ? (fxList.concat(cryptoList, cmdList).find(x => x.sym === sym) || null) : null);
             return `
               <div class="chip">
                 <div class="chip__l">
                   <div class="chip__t">${sym}</div>
-                  <div class="chip__s">${it ? it.name : ''} • ${money(p.cp)}</div>
+                  <div class="chip__s">${it ? it.name : (alt ? alt.name : '')} • <span data-chipprice="${sym}">${money(p.cp)}</span></div>
                 </div>
                 <button class="btn chip__x" type="button" data-x="${sym}">Remove</button>
               </div>
@@ -446,6 +541,8 @@
         }
 
         function render() {
+          // Industry filter is only for S&P500
+          els.industry.style.display = (market === 'sp') ? '' : 'none';
           renderTable();
           renderPortfolio();
           if (selected.length >= MAX) setWarn('Maximum 8 stocks selected.');
@@ -475,6 +572,51 @@
             } catch (e) {}
             window.location.href = '{{ route('fintech.portfolio.analysis') }}';
           });
+
+          els.tabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+              market = btn.getAttribute('data-market') || 'sp';
+              els.tabs.forEach(b => b.classList.toggle('active', b === btn));
+              els.tabs.forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+              setWarn('');
+              render();
+            });
+          });
+        }
+
+        function tickLive() {
+          // update live states (small random-walk), then patch DOM
+          liveBySym.forEach((st, sym) => {
+            const u = (Math.random() * 2 - 1);
+            const step = st.vol * u;
+            const cp = Math.max(0.0001, st.cp * (1 + step));
+            st.cp = cp;
+            st.low = Math.min(st.low, cp);
+            st.high = Math.max(st.high, cp);
+          });
+
+          // update visible rows
+          els.tbody.querySelectorAll('tr[data-sym]').forEach(tr => {
+            const sym = tr.getAttribute('data-sym');
+            if (!sym) return;
+            const p = priceModel(sym);
+            const cpEl = tr.querySelector('.p_cp');
+            const limEl = tr.querySelector('.p_lim');
+            const lowEl = tr.querySelector('.p_low');
+            const highEl = tr.querySelector('.p_high');
+            if (cpEl) cpEl.textContent = money(p.cp);
+            if (limEl) limEl.textContent = `${money(p.limLow)} – ${money(p.limHigh)}`;
+            if (lowEl) lowEl.textContent = money(Math.min(p.low, p.cp));
+            if (highEl) highEl.textContent = money(Math.max(p.high, p.cp));
+          });
+
+          // update selected chips
+          selected.forEach(sym => {
+            const el = document.querySelector(`[data-chipprice="${sym}"]`);
+            if (!el) return;
+            const p = priceModel(sym);
+            el.textContent = money(p.cp);
+          });
         }
 
         Promise.all([
@@ -497,6 +639,7 @@
             initIndustrySelect();
             initEvents();
             render();
+            setInterval(tickLive, 1000);
           })
           .catch(() => {
             all = [];
