@@ -1818,16 +1818,16 @@ body {
                     <div class="rmLine" aria-hidden="true"></div>
                     <div class="rmMonths" aria-hidden="true">
                       <div class="rmM rmM--label" data-n="1"></div>
-                      <div class="rmM rmM--active"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="2"></div>
                       <div class="rmM rmM--label rmM--active" data-n="3"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM rmM--active"></div>
+                      <div class="rmM rmM--label" data-n="4"></div>
+                      <div class="rmM rmM--label rmM--active" data-n="5"></div>
                       <div class="rmM rmM--label" data-n="6"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="7"></div>
+                      <div class="rmM rmM--label" data-n="8"></div>
                       <div class="rmM rmM--label" data-n="9"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="10"></div>
+                      <div class="rmM rmM--label" data-n="11"></div>
                       <div class="rmM rmM--label" data-n="12"></div>
                     </div>
                   </div>
@@ -1846,16 +1846,16 @@ body {
                     <div class="rmLine" aria-hidden="true"></div>
                     <div class="rmMonths" aria-hidden="true">
                       <div class="rmM rmM--label" data-n="1"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="2"></div>
                       <div class="rmM rmM--label rmM--active" data-n="3"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="4"></div>
+                      <div class="rmM rmM--label" data-n="5"></div>
                       <div class="rmM rmM--label" data-n="6"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="7"></div>
+                      <div class="rmM rmM--label" data-n="8"></div>
                       <div class="rmM rmM--label rmM--active" data-n="9"></div>
-                      <div class="rmM"></div>
-                      <div class="rmM"></div>
+                      <div class="rmM rmM--label" data-n="10"></div>
+                      <div class="rmM rmM--label" data-n="11"></div>
                       <div class="rmM rmM--label rmM--active" data-n="12"></div>
                     </div>
                   </div>
