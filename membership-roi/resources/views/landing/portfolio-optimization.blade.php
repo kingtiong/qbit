@@ -170,7 +170,6 @@
                 <tr>
                   <th>Stock Code</th>
                   <th>Stock Name</th>
-                  <th>Industry</th>
                   <th>Current Price</th>
                   <th>Price Limit</th>
                   <th>Lowest Price</th>
@@ -374,44 +373,40 @@
           const list = filtered();
           els.showCount.textContent = String(list.length);
 
-          const groups = groupByIndustry(list);
           const rows = [];
-          for (const [sector, items] of groups) {
-            rows.push(`<tr class="sect"><td colspan="8">${sector}</td></tr>`);
-            for (const it of items) {
-              const p = priceModel(it.sym);
-              const sel = isSelected(it.sym);
-              const canAdd = !sel && selected.length < MAX;
-              const isDisabled = !sel && !canAdd;
-              const icon = sel ? '&minus;' : '+';
-              const title = sel
-                ? 'Remove'
-                : (isDisabled ? 'Max 8 stocks selected' : 'Add');
-              const aria = sel
-                ? `Remove ${it.sym}`
-                : (isDisabled ? `Add ${it.sym} (disabled: max 8 selected)` : `Add ${it.sym}`);
-              rows.push(
-                `<tr>
-                  <td class="code">${it.sym}</td>
-                  <td class="name">${it.name}</td>
-                  <td class="muted">${it.sector}</td>
-                  <td>${money(p.cp)}</td>
-                  <td class="muted">${money(p.limLow)} – ${money(p.limHigh)}</td>
-                  <td>${money(Math.min(p.low, p.cp))}</td>
-                  <td>${money(Math.max(p.high, p.cp))}</td>
-                  <td>
-                    <button
-                      class="btn tbtn"
-                      type="button"
-                      data-toggle="${it.sym}"
-                      ${isDisabled ? 'disabled' : ''}
-                      title="${title}"
-                      aria-label="${aria}"
-                    >${icon}</button>
-                  </td>
-                </tr>`
-              );
-            }
+          const items = [...list].sort((a, b) => a.sym.localeCompare(b.sym));
+          for (const it of items) {
+            const p = priceModel(it.sym);
+            const sel = isSelected(it.sym);
+            const canAdd = !sel && selected.length < MAX;
+            const isDisabled = !sel && !canAdd;
+            const icon = sel ? '&minus;' : '+';
+            const title = sel
+              ? 'Remove'
+              : (isDisabled ? 'Max 8 stocks selected' : 'Add');
+            const aria = sel
+              ? `Remove ${it.sym}`
+              : (isDisabled ? `Add ${it.sym} (disabled: max 8 selected)` : `Add ${it.sym}`);
+            rows.push(
+              `<tr>
+                <td class="code">${it.sym}</td>
+                <td class="name">${it.name}</td>
+                <td>${money(p.cp)}</td>
+                <td class="muted">${money(p.limLow)} – ${money(p.limHigh)}</td>
+                <td>${money(Math.min(p.low, p.cp))}</td>
+                <td>${money(Math.max(p.high, p.cp))}</td>
+                <td>
+                  <button
+                    class="btn tbtn"
+                    type="button"
+                    data-toggle="${it.sym}"
+                    ${isDisabled ? 'disabled' : ''}
+                    title="${title}"
+                    aria-label="${aria}"
+                  >${icon}</button>
+                </td>
+              </tr>`
+            );
           }
           els.tbody.innerHTML = rows.join('');
 
