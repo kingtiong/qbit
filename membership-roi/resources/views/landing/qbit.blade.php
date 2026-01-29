@@ -1034,7 +1034,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: rgba(242, 208, 107, 0.55);
+  background: #e2e8f0;
 }
 
 .rmM--label::before {
