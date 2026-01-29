@@ -93,7 +93,18 @@
       .btn:disabled{opacity:.45;cursor:not-allowed;}
       .btn--primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;border:0;}
       .btn--primary:hover{filter:brightness(1.03);}
-      .btnRow{display:flex;gap:8px;align-items:center;}
+      .tbtn{
+        width:36px;
+        height:36px;
+        padding:0;
+        display:inline-grid;
+        place-items:center;
+        border-radius:12px;
+        font-size:18px;
+        line-height:1;
+        user-select:none;
+      }
+      .tbtn:active{transform:translateY(1px);}
 
       .portfolioBox{display:grid;gap:12px;}
       .portHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
@@ -371,6 +382,14 @@
               const p = priceModel(it.sym);
               const sel = isSelected(it.sym);
               const canAdd = !sel && selected.length < MAX;
+              const isDisabled = !sel && !canAdd;
+              const icon = sel ? '&minus;' : '+';
+              const title = sel
+                ? 'Remove'
+                : (isDisabled ? 'Max 8 stocks selected' : 'Add');
+              const aria = sel
+                ? `Remove ${it.sym}`
+                : (isDisabled ? `Add ${it.sym} (disabled: max 8 selected)` : `Add ${it.sym}`);
               rows.push(
                 `<tr>
                   <td class="code">${it.sym}</td>
@@ -381,10 +400,14 @@
                   <td>${money(Math.min(p.low, p.cp))}</td>
                   <td>${money(Math.max(p.high, p.cp))}</td>
                   <td>
-                    <div class="btnRow">
-                      <button class="btn" type="button" data-add="${it.sym}" ${canAdd ? '' : 'disabled'}>[+] Add</button>
-                      <button class="btn" type="button" data-rem="${it.sym}" ${sel ? '' : 'disabled'}>[-] Remove</button>
-                    </div>
+                    <button
+                      class="btn tbtn"
+                      type="button"
+                      data-toggle="${it.sym}"
+                      ${isDisabled ? 'disabled' : ''}
+                      title="${title}"
+                      aria-label="${aria}"
+                    >${icon}</button>
                   </td>
                 </tr>`
               );
@@ -392,11 +415,13 @@
           }
           els.tbody.innerHTML = rows.join('');
 
-          els.tbody.querySelectorAll('button[data-add]').forEach(btn => {
-            btn.addEventListener('click', () => add(btn.getAttribute('data-add')));
-          });
-          els.tbody.querySelectorAll('button[data-rem]').forEach(btn => {
-            btn.addEventListener('click', () => remove(btn.getAttribute('data-rem')));
+          els.tbody.querySelectorAll('button[data-toggle]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const sym = btn.getAttribute('data-toggle');
+              if (!sym) return;
+              if (isSelected(sym)) remove(sym);
+              else add(sym);
+            });
           });
         }
 
