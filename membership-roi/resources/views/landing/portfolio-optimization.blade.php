@@ -39,8 +39,45 @@
       }
       .pill:hover{background:rgba(18,18,22,.88);}
 
-      .grid{margin-top:16px;display:grid;grid-template-columns:1.65fr 1fr;gap:18px;align-items:start;}
-      @media (max-width: 980px){.grid{grid-template-columns:1fr;}}
+      .grid{margin-top:16px;display:flex;gap:18px;align-items:start;--listW: 760px;}
+      @media (max-width: 980px){.grid{flex-direction:column;}}
+      .grid__left{flex:0 0 var(--listW); min-width:520px;}
+      .grid__right{flex:1 1 0; min-width:320px;}
+      @media (max-width: 980px){.grid__left{flex:1 1 auto; min-width:0;}}
+
+      .splitHandle{
+        width:12px;
+        height:100%;
+        position:relative;
+        align-self:stretch;
+        cursor:col-resize;
+        border-radius:999px;
+        user-select:none;
+        touch-action:none;
+      }
+      .splitHandle::before{
+        content:"";
+        position:absolute;
+        left:50%;
+        top:10px;
+        bottom:10px;
+        width:2px;
+        transform:translateX(-50%);
+        background:rgba(226,232,240,.22);
+        border-radius:999px;
+        transition:opacity .18s ease, box-shadow .18s ease, background-color .18s ease;
+        opacity:.75;
+      }
+      .splitHandle:hover::before{
+        opacity:1;
+        background:rgba(226,232,240,.30);
+        box-shadow:0 0 14px rgba(212,175,55,.12);
+      }
+      .splitHandle:active::before{
+        background:rgba(226,232,240,.34);
+        box-shadow:0 0 18px rgba(45,107,255,.14);
+      }
+      @media (max-width: 980px){.splitHandle{display:none;}}
       .card{
         border-radius:22px;background:var(--surface);border:1px solid var(--border);
         box-shadow:0 22px 65px rgba(0,0,0,.60);
@@ -147,8 +184,8 @@
         <a class="pill" href="{{ url('/') }}">Back to Home</a>
       </div>
 
-      <div class="grid">
-        <div class="card">
+      <div class="grid" id="splitRoot">
+        <div class="grid__left card" id="splitLeft">
           <div class="card__pad">
             <h1 class="h1">Stock List</h1>
             <div class="sub">Data source: S&amp;P 500 constituents list. Prices are simulated (demo logic).</div>
@@ -181,7 +218,9 @@
           </div>
         </div>
 
-        <div>
+        <div class="splitHandle" id="splitHandle" role="separator" aria-orientation="vertical" aria-label="Resize panels" tabindex="0"></div>
+
+        <div class="grid__right">
           <div class="card">
             <div class="card__pad portfolioBox">
               <div class="portHead">
@@ -238,6 +277,11 @@
         let all = [];
         let selected = []; // array of symbols
         let ohlcBySym = new Map(); // symbol -> [{date,open,high,low,close,volume}]
+        const split = {
+          root: document.getElementById('splitRoot'),
+          left: document.getElementById('splitLeft'),
+          handle: document.getElementById('splitHandle'),
+        };
 
         function hash32(str) {
           let h = 2166136261 >>> 0;
@@ -475,6 +519,83 @@
             } catch (e) {}
             window.location.href = '{{ route('fintech.portfolio.analysis') }}';
           });
+
+          // Split resize (desktop)
+          const MIN_LEFT = 520;
+          const MIN_RIGHT = 320;
+          const HANDLE_W = 12;
+          const GAP = 18;
+
+          function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+          function applyWidth(px) {
+            if (!split.root) return;
+            split.root.style.setProperty('--listW', px + 'px');
+            try { localStorage.setItem('qbit_split_w', String(px)); } catch (e) {}
+          }
+
+          // Restore
+          try {
+            const saved = Number(localStorage.getItem('qbit_split_w') || '');
+            if (Number.isFinite(saved) && saved > 0) applyWidth(saved);
+          } catch (e) {}
+
+          if (split.handle && split.root) {
+            let dragging = false;
+            let startX = 0;
+            let startW = 0;
+
+            const onMove = (ev) => {
+              if (!dragging) return;
+              const dx = ev.clientX - startX;
+              const rootW = split.root.getBoundingClientRect().width;
+              const maxLeft = Math.max(MIN_LEFT, rootW - MIN_RIGHT - HANDLE_W - GAP);
+              applyWidth(clamp(startW + dx, MIN_LEFT, maxLeft));
+            };
+            const stop = () => {
+              if (!dragging) return;
+              dragging = false;
+              document.body.style.cursor = '';
+              document.body.style.userSelect = '';
+              window.removeEventListener('pointermove', onMove);
+              window.removeEventListener('pointerup', stop);
+              window.removeEventListener('pointercancel', stop);
+            };
+
+            split.handle.addEventListener('pointerdown', (ev) => {
+              if (window.matchMedia('(max-width: 980px)').matches) return;
+              dragging = true;
+              startX = ev.clientX;
+              startW = split.left.getBoundingClientRect().width;
+              split.handle.setPointerCapture(ev.pointerId);
+              document.body.style.cursor = 'col-resize';
+              document.body.style.userSelect = 'none';
+              window.addEventListener('pointermove', onMove);
+              window.addEventListener('pointerup', stop);
+              window.addEventListener('pointercancel', stop);
+            });
+
+            // Keyboard resizing for accessibility
+            split.handle.addEventListener('keydown', (ev) => {
+              if (window.matchMedia('(max-width: 980px)').matches) return;
+              const step = ev.shiftKey ? 30 : 10;
+              if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+              ev.preventDefault();
+              const cur = split.left.getBoundingClientRect().width;
+              const rootW = split.root.getBoundingClientRect().width;
+              const maxLeft = Math.max(MIN_LEFT, rootW - MIN_RIGHT - HANDLE_W - GAP);
+              const next = ev.key === 'ArrowLeft' ? cur - step : cur + step;
+              applyWidth(clamp(next, MIN_LEFT, maxLeft));
+            });
+
+            // Keep within bounds on resize
+            window.addEventListener('resize', () => {
+              if (window.matchMedia('(max-width: 980px)').matches) return;
+              const cur = split.left.getBoundingClientRect().width;
+              const rootW = split.root.getBoundingClientRect().width;
+              const maxLeft = Math.max(MIN_LEFT, rootW - MIN_RIGHT - HANDLE_W - GAP);
+              applyWidth(clamp(cur, MIN_LEFT, maxLeft));
+            });
+          }
         }
 
         Promise.all([
