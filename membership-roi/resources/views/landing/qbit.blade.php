@@ -1034,7 +1034,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: #e2e8f0;
+  background: rgba(242, 208, 107, 0.55);
 }
 
 .rmM--label::before {
@@ -1049,7 +1049,7 @@ body {
 }
 
 .rmM--active::after {
-  background: rgba(99, 102, 241, 0.95);
+  background: rgba(242, 208, 107, 0.95);
 }
 
 .rmAchGrid {
@@ -1080,8 +1080,8 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: #ef4444;
-  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
+  background: rgba(212, 175, 55, 0.95);
+  box-shadow: 0 0 0 10px rgba(212, 175, 55, 0.18);
 }
 .cta {
   padding: 34px 18px;
