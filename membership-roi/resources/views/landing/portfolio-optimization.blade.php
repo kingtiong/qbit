@@ -109,6 +109,8 @@
       .portfolioBox{display:grid;gap:12px;}
       .portHead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
       .cap{font-size:12px;color:var(--muted);}
+      .portCount{font-size:12px;color:var(--muted);}
+      .portCount strong{color:rgba(226,232,240,.95);font-weight:900;}
       .chips{display:flex;flex-wrap:wrap;gap:10px;}
       .portAction{margin-top:12px;display:flex;justify-content:flex-start;}
       .portAction .btn{width:auto;padding:8px 10px;border-radius:12px;font-size:12px;}
@@ -158,8 +160,6 @@
             </div>
 
             <div class="metaRow">
-              <div class="badge">Selected: <strong id="selCount">0</strong>/8</div>
-              <div class="badge">Showing: <strong id="showCount">0</strong></div>
               <div class="warn" id="warn"></div>
             </div>
           </div>
@@ -190,7 +190,10 @@
                   <div class="h1" style="font-size:18px;margin:0;">Investment Portfolio</div>
                   <div class="cap">Click [+] Add to include stocks (max 8).</div>
                 </div>
-                <button id="clearBtn" class="btn" type="button">Clear</button>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div class="portCount">Selected: <strong id="selCount">0</strong> / 8</div>
+                  <button id="clearBtn" class="btn" type="button">Clear</button>
+                </div>
               </div>
 
               <div class="chips" id="chips"></div>
@@ -226,7 +229,6 @@
           tbody: document.getElementById('tbody'),
           chips: document.getElementById('chips'),
           selCount: document.getElementById('selCount'),
-          showCount: document.getElementById('showCount'),
           warn: document.getElementById('warn'),
           risk: document.getElementById('risk'),
           riskVal: document.getElementById('riskVal'),
@@ -371,7 +373,6 @@
 
         function renderTable() {
           const list = filtered();
-          els.showCount.textContent = String(list.length);
 
           const rows = [];
           const items = [...list].sort((a, b) => a.sym.localeCompare(b.sym));
